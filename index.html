@@ -1,12 +1,55 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Naxos</title>
-    <link rel="stylesheet" href="/static/css/style.css" />
+    <title>Xanten</title>
+	<script src="static/js/lib/jquery-1.11.1.min.js"></script>
+	<script src="static/js/index/index.js"></script>
+	<script src="static/js/game/map.js"></script>
+    <link rel="stylesheet" href="static/css/style.css" />
   </head>
   <body>
 	<div id="top">
-		<h1>Naxos Game</h1>
+		<h1>Xanten</h1>
+	</div>
+	<div id="bottom">
+		<input type="button" value="Create game" id="create_button" class="bt big" />
+		<input type="button" value="Join game" id="join_button" class="bt big" />
+	</div>
+	<div id="join_game">
+		<div id="private_game">
+			<input type="text" id="private_token" placeholder="Type token of private game" /> <input class="bt small" type="button" id="connect_private_game" value="Connect" />
+		</div>
+		<div id="available_games" ></div>
+	</div>
+	<div id="create_game">
+		<table width="100%">
+			<tr>				
+				<td width="50%" style="text-align:center">
+					<div id="create_game_form">
+						<form name="game_create_form">
+							<input type="text" placeholder="Your name" id="game_user" name="game_user" /> <br />
+							<input type="text" placeholder="Name of the game" name="game_name" /> <br />
+							<input type="text" placeholder="Public (or) Private" name="game_type" /> <br />
+							<input type="hidden" id="game_map" name="game_map" class="bt small" value="" />
+							<input type="button" id="game_create" class="bt small" value="Create game!" />						
+						</form>
+					</div>
+					<div id="available_users">
+							<center><img src="static/img/load.GIF" /><input type="button" class="bt small" id="game_start" value="Start game!" /><br /></center>
+							<div id="password">
+								Token: <input type="text" style="width:400px;"  placeholder="Token of the game" id="game_token" /> 
+							</div>
+							<div id="joined_users"></div>
+					</div>
+				</td>
+				<td width="50%">
+					<div id="map_div">
+						<h2>Map of the game <input type="button" id="generate_map" class="bt" value="Change map" /></h2>
+						<div id="map_image"></div>
+					</div>
+				</td>
+			</tr>
+		</table>		
 	</div>
   </body>
 </html>

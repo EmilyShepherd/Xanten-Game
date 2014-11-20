@@ -1,16 +1,126 @@
 /** Styles **/
 
 body{
-	background-image:url("img/background.jpg");
+	background-image:url("../img/background.jpg");
+	top: -46px;
+	bottom: -46px;
+	left: 0;
+	width: 100%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center top;
+	background-color:rgb(14, 18, 28);
+	max-width: 100%;
+    overflow-x: hidden;
 }
-
-h1{
-	font-family: "Open Sans", sans-serif;
-	font-size: 3.5em;
-	padding-top: 160px;
+input {
+	margin: 10px 10px;
+	line-height: normal;
+	white-space: nowrap;
+	color: black;
+	vertical-align: baseline;
+	text-align: center;
+	cursor: pointer;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	height:50px;
+	font-size:20px;
+	padding: .5em 1em;
+	border: 1px solid #999;
+	border: 0 rgba(0,0,0,0);
+	text-decoration: none;
+	border-radius: 2px;
 }
-
+input:disabled{
+	background-color: #dfdfdf;
+}
+h1 {
+	font-size:48px
+}
+html{
+	font-family: 'Segoe UI', sans-serif;
+	color:white;
+}
 #top{
 	margin-top: 100px;
 	margin-left: 200px;
+	margin-left:100px;
+}
+#bottom {
+	margin: 10px auto;
+	text-align:center;
+}
+.bt{
+	line-height: normal;
+	white-space: nowrap;
+	background-color: #E79500;
+	color: #fff;
+	vertical-align: baseline;
+	text-align: center;
+	cursor: pointer;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	height:50px;
+	font-size:20px;
+	padding: .5em 1em;
+	border: 1px solid #999;
+	border: 0 rgba(0,0,0,0);
+	text-decoration: none;
+	border-radius: 6px;
+}
+.small{
+	font-size:16px;
+	width:auto;
+	background-color:#E79500;
+}
+
+.big{
+	width:30%;
+}
+
+#join_game,#create_game{
+	display:none;
+	width:100%;
+	margin-bottom:200px;
+}
+#available_users{
+	display:none;
+}
+#private_game{
+	text-align: right;
+}
+#start_game, #available_users,.table{
+	text-align:center;
+}
+.table{
+	background-color:white;
+	min-width: 500px;
+	margin: 0px auto;
+	border: 1px solid #999;
+	width:50%;
+	color:black;
+}
+.table td{
+	border-top: black;
+}
+.header{
+	font-weight: bold;
+}
+#map_div {
+	color:white;
+	width: 710px;
+	height: 772px;
+	padding: 5px;
+	text-align:center;	
+}
+.map {
+	border: 1px solid #000;
+	margin: auto;
+}
+.map td {
+	padding: 0px;
+	margin: 0px;
+	border: none;
+	border-collapse: collapse;
+	line-height: 0px;
 }

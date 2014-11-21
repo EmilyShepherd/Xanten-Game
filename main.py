@@ -9,17 +9,17 @@ from google.appengine.ext import ndb
 import uuid
 
 class User(ndb.Model):
-    id = ndb.IntegerProperty()
+    uid = ndb.StringProperty()
     name = ndb.StringProperty()
+    gid = ndb.StringProperty()
 
 class Game(ndb.Model):
-    gid = ndb.IntegerProperty()
+    gid = ndb.StringProperty()
     name = ndb.StringProperty()
-    members = ndb.IntegerProperty(repeated=True)
-    user = ndb.StringProperty()
+    members = ndb.StringProperty(repeated=True)
+    owner = ndb.StringProperty()
     private = ndb.BooleanProperty(default=True)
     gmap = ndb.StringProperty()
-    token = ndb.StringProperty()
 
 # Handles all requests
 #
@@ -38,6 +38,10 @@ class DefaultHandler(webapp2.RequestHandler):
     # Serialises the json property to a JSON string and sends it
     def __del__(self):
         self.response.write(json.dumps(self.json))
+
+    def stderr(self, msg):
+        self.json['status']  = 'ERROR'
+        self.json['message'] = msg
 
 class UserHandler(DefaultHandler):
 
@@ -63,12 +67,34 @@ class GameHandler(DefaultHandler):
         self.json['status'] = 'started'
         self.json['req']    = self.request.headers['User-Agent']
 
-    # GET /game/join/<id>
+    # POST /game/join/<id>
     #
     # Joins a game
-    def join(self, id):
-        self.json['id']     = id
-        self.json['status'] = 'joined'
+    def join(self, gid):
+        query = Game.query(Game.gid==gid)
+        name  = self.request.POST['user']
+
+        if query.count() != 1:
+            self.stderr('Unknown Game')
+        else:
+            if User.query(User.name==name, User.gid==gid).count() != 0:
+                self.stderr('Username already exists')
+            else:
+                game = query.fetch(1)[0]
+                self.join_game(game, name)
+                game.put()
+                self.json = self.gameToDict(game)
+
+    def join_game(self, game, name):
+        sess      = User(uid = uuid.uuid4().hex)
+        sess.gid  = game.gid;
+        sess.name = name
+        game.members.append(sess.uid)
+        sess.put()
+
+        self.response.set_cookie('Session', sess.uid)
+
+        return sess.uid
 
     # GET /game/before/<id>
     #
@@ -81,12 +107,11 @@ class GameHandler(DefaultHandler):
     #
     # Creates a game
     def create(self):
-        game         = Game(gid = Game.query().count())
+        game         = Game(gid = uuid.uuid4().hex)
         game.name    = self.request.POST['game_name']
-        game.user    = self.request.POST['game_user']
         game.gmap    = self.request.POST['game_map']
         game.private = False if self.request.POST['game_type'] == 'public' else True
-        game.token   = uuid.uuid4().hex
+        game.owner   = self.join_game(game, self.request.POST['game_user'])
         game.put()
 
         self.json    = self.gameToDict(game)
@@ -96,19 +121,18 @@ class GameHandler(DefaultHandler):
     # added
     def gameToDict(self, oGame):
         game = { }
-        game['token']   = oGame.token
+        game['token']   = oGame.gid
         game['name']    = oGame.name
         game['type']    = 'Private' if oGame.private == True else 'Public'
-        game['session'] = 1
 
         return game
 
 # Setup routes
 app = webapp2.WSGIApplication([
-    webapp2.Route(r'/user',             handler=UserHandler),
-    webapp2.Route(r'/game/',            handler=GameHandler,                          methods=['GET']),
-    webapp2.Route(r'/game/start/<id>',  handler=GameHandler, handler_method='start'),
-    webapp2.Route(r'/game/join/<id>',   handler=GameHandler, handler_method='join'),
-    webapp2.Route(r'/game/before/<id>', handler=GameHandler, handler_method='start'),
-    webapp2.Route(r'/game/',            handler=GameHandler, handler_method='create', methods=['PUT'])
+    webapp2.Route(r'/user',              handler=UserHandler),
+    webapp2.Route(r'/game/',             handler=GameHandler,                          methods=['GET']),
+    webapp2.Route(r'/game/start/<gid>',  handler=GameHandler, handler_method='start'),
+    webapp2.Route(r'/game/join/<gid>',   handler=GameHandler, handler_method='join'),
+    webapp2.Route(r'/game/before/<gid>', handler=GameHandler, handler_method='start'),
+    webapp2.Route(r'/game/',             handler=GameHandler, handler_method='create', methods=['PUT'])
 ], debug=True)

@@ -92,10 +92,13 @@ class GameHandler(DefaultHandler):
         if query.count() != 1:
             self.stderr('Unknown Game')
         else:
-            if User.query(User.name==name, User.gid==gid).count() != 0:
+            game = query.fetch(1)[0]
+
+            if game.running:
+                self.stderr('Game has started')
+            elif User.query(User.name==name, User.gid==gid).count() != 0:
                 self.stderr('Username already exists')
             else:
-                game = query.fetch(1)[0]
                 self.join_game(game, name)
                 game.put()
                 self.json = self.gameToDict(game)

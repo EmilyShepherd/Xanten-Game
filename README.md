@@ -1,22 +1,86 @@
-CAD-TeaM
-========
+Xanten Game
+===========
 
 Cloud Application Development - Team M
 
-URL Structure
+API Structure
 -------------
 
-[index.html](./index.html) and anything in [static/](./static/) will be served as is, everything else maps to the Python file
-[main.py](./main.py), so we can do what we want with it.
+### POST /game/
+*Creates a new game with the given params*
 
-As such, it makes sense to keep the JavaScript / css files that we may
-need in [static/](./static/).
+Example:
+```
+PUT /game/
 
+game_name=Lala&game_type=Public&game_user=Emily
+```
+{
+    "token" : "6e1977af04f54c50842c8db621f5f020",
+    "type"  : "Public",
+    "name"  : "Lala"
+}
+```
 
-Google App Engine
------------------
+### GET /game/
+*Lists all games which are waiting and public*
 
-URL: http://cad-team-m.appspot.com/
+Example: `GET /game/`
 
-Get the SDK from: https://cloud.google.com/sdk/#download
-*(requires Python 2.7, NOT 2.8)*
+Response:
+```json
+{
+    "games":
+    [
+        {
+            "token" : "6e1977af04f54c50842c8db621f5f020",
+            "type"  : "Public",
+            "name"  : "Lala"
+        }
+    ]
+}
+```
+
+### GET /game/<gid>
+*Lists the status and members of a game*
+
+Example: `GET /game/6e1977af04f54c50842c8db621f5f020`
+
+Response:
+```json
+{
+    "status" : "waiting",
+    "users"  :
+    [
+        "Emily",
+        "Tim",
+        "Joe"
+    ]
+}
+```
+
+### POST /game/<gid>/join
+*Allows a user to join a game and returns basic info about that game*
+
+Example:
+```
+POST /game/6e1977af04f54c50842c8db621f5f020/join
+
+user=Brian
+```
+
+Response:
+```
+{
+    "token" : "6e1977af04f54c50842c8db621f5f020",
+    "type"  : "Public",
+    "name"  : "Lala"
+}
+```
+
+### GET /game/<gid>/start
+*Starts a game. Can only be performed by the creator of a game*
+
+Example: `GET /game/6e1977af04f54c50842c8db621f5f020/start`
+
+Response: `{"status" : "started"}`

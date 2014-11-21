@@ -1,12 +1,12 @@
 
 /**
  *  It generates and returns a random map for the world
- *  
+ *
  * @returns (string) The map for the world
  * @author Joe
  *
  */
-  
+
 function generateGeneralMap(){
 	// Variables which control properties of the world being generated:
 	// How often do oceans appear?
@@ -15,6 +15,12 @@ function generateGeneralMap(){
 	var OCEAN_EXPAND = Math.floor((Math.random() * 9) + 3)/100; // 0.03 --> 0.09
 	// How often do rocks appear?
 	var ROCK_SEED = 0.01;
+  // How often do trees appear?
+  var TREE_SEED = 0.1;
+  // Calculating probabilities:
+  var p_ocean = 1 - OCEAN_SEED;
+  var p_rock = p_ocean - ROCK_SEED;
+  var p_tree = p_rock - TREE_SEED;
 
 	var x = 0;
 	var y = 0;
@@ -29,21 +35,26 @@ function generateGeneralMap(){
 		[]
 	];
 
-	while (y < 7) {
-		while (x < 7) {
-			r = Math.random();
-			if (r > (1 - OCEAN_SEED)) {
-				imgArray[y][x] = "o";
-			} else if (r > (1 - OCEAN_SEED - ROCK_SEED)) {
-				imgArray[y][x] = "m";
-			} else {
-				imgArray[y][x] = "g";
-			}
-			x++;
-		}
-		x = 0;
-		y++;
-	}
+	// First sweep, populating the world with trees, rocks and single-block oceans.
+  while (y < 7) {
+    while (x < 7) {
+      r = Math.random();
+      if (r > p_ocean) {
+        imgArray[y][x] = "o";
+      } else if (r > p_rock) {
+        imgArray[y][x] = "m".concat(Math.round(10*(r - p_rock)));
+      } else if (r > p_tree) {
+        imgArray[y][x] = "t".concat(Math.round(10*(r - p_tree)));
+      } else {
+        imgArray[y][x] = "g";
+      }
+      x++;
+    }
+    x = 0;
+    y++;
+  }
+
+  // Second sweep, finding single-block oceans and expanding them.
 	x = 0;
 	y = 0;
 	while (y < 7) {
@@ -75,6 +86,8 @@ function generateGeneralMap(){
 		x = 0;
 		y++;
 	}
+
+  // Third sweep, adding nice smooth coastline to the oceans.
 	x = 0;
 	y = 0;
 	while (y < 7) {
@@ -150,7 +163,7 @@ function generateGeneralMap(){
 		}
 		x = 0;
 		y++;
-	}	
+	}
 	return imgArray;
 }
 
@@ -158,7 +171,7 @@ function generateGeneralMap(){
  *  It returns the html representation of the map
  *	@param imbArray (array) An array with the map
  *  @returns (string) A string representing the HTML map
- */ 
+ */
 function generateHTMLMap(imgArray){
 	var x = 0,
 		y = 0,
@@ -171,7 +184,7 @@ function generateHTMLMap(imgArray){
 		map += "</tr><tr>";
 		x = 0;
 		y++;
-	}	
+	}
 	map += "</tr></table>"
 	return map;
-}	
+}

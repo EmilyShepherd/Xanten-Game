@@ -103,6 +103,18 @@ class GameHandler(DefaultHandler):
         self.json['id']     = id
         self.json['status'] = 'ok'
 
+    def users(self, gid):
+        query = Game.query(Game.gid == gid)
+
+        if query.count() != 1:
+            self.stderr('Unknown Game')
+        else:
+            self.json['users'] = [ ]
+
+            for uid in query.fetch(1)[0].members:
+                user = User.query(User.uid == uid).fetch(1)[0]
+                self.json['users'].append(user.name)
+
     # PUT /game/
     #
     # Creates a game
@@ -129,7 +141,7 @@ class GameHandler(DefaultHandler):
 
 # Setup routes
 app = webapp2.WSGIApplication([
-    webapp2.Route(r'/user',              handler=UserHandler),
+    webapp2.Route(r'/game/<gid>/users',  handler=GameHandler, handler_method='users'),
     webapp2.Route(r'/game/',             handler=GameHandler,                          methods=['GET']),
     webapp2.Route(r'/game/start/<gid>',  handler=GameHandler, handler_method='start'),
     webapp2.Route(r'/game/join/<gid>',   handler=GameHandler, handler_method='join'),

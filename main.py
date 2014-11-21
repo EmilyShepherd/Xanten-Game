@@ -88,8 +88,7 @@ class GameHandler(DefaultHandler):
         game.private = False if self.request.POST['game_type'] == 'public' else True
         game.token = uuid.uuid4().hex
         game.put()
-        self.json['status'] = 'created'
-        self.json['game'] = self.gameToDict(game)
+        self.json = self.gameToDict(game)
 
     def gameToDict(self, oGame):
         game = { }

@@ -51,7 +51,9 @@ class GameHandler(DefaultHandler):
     #
     # Returns a list of games
     def get(self):
-        self.json['games'] = { }
+        self.json['games'] = [ ]
+        for game in Game.query(Game.private==False).fetch():
+            self.json['games'].append(self.gameToDict(game))
 
     # GET /game/start/<id>
     #
@@ -87,11 +89,16 @@ class GameHandler(DefaultHandler):
         game.token = uuid.uuid4().hex
         game.put()
         self.json['status'] = 'created'
-        self.json['game'] = { }
-        self.json['game']['token'] = game.token
-        self.json['game']['name'] = game.name
-        self.json['game']['type'] = 'Private' if game.private == True else 'Public'
-        self.json['game']['session'] = 1
+        self.json['game'] = self.gameToDict(game)
+
+    def gameToDict(self, oGame):
+        game = { }
+        game['token'] = oGame.token
+        game['name'] = oGame.name
+        game['type'] = 'Private' if oGame.private == True else 'Public'
+        game['session'] = 1
+
+        return game
 
 # Setup routes
 app = webapp2.WSGIApplication([

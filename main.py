@@ -59,42 +59,46 @@ class GameHandler(DefaultHandler):
     #
     # Starts a game
     def start(self, id):
-        self.json['id'] = id
+        self.json['id']     = id
         self.json['status'] = 'started'
-        self.json['req'] = self.request.headers['User-Agent']
+        self.json['req']    = self.request.headers['User-Agent']
 
     # GET /game/join/<id>
     #
     # Joins a game
     def join(self, id):
-        self.json['id'] = id
+        self.json['id']     = id
         self.json['status'] = 'joined'
 
     # GET /game/before/<id>
     #
     # 
     def before(self, id):
-        self.json['id'] = id
+        self.json['id']     = id
         self.json['status'] = 'ok'
 
     # PUT /game/
     #
     # Creates a game
     def create(self):
-        game = Game(gid = Game.query().count())
-        game.name = self.request.POST['game_name']
-        game.user = self.request.POST['game_user']
-        game.gmap  = self.request.POST['game_map']
+        game         = Game(gid = Game.query().count())
+        game.name    = self.request.POST['game_name']
+        game.user    = self.request.POST['game_user']
+        game.gmap    = self.request.POST['game_map']
         game.private = False if self.request.POST['game_type'] == 'public' else True
-        game.token = uuid.uuid4().hex
+        game.token   = uuid.uuid4().hex
         game.put()
-        self.json = self.gameToDict(game)
 
+        self.json    = self.gameToDict(game)
+
+    # Takes a game object as created / returned from the database, and
+    # converts it into a dict, with only public facing properties being
+    # added
     def gameToDict(self, oGame):
         game = { }
-        game['token'] = oGame.token
-        game['name'] = oGame.name
-        game['type'] = 'Private' if oGame.private == True else 'Public'
+        game['token']   = oGame.token
+        game['name']    = oGame.name
+        game['type']    = 'Private' if oGame.private == True else 'Public'
         game['session'] = 1
 
         return game

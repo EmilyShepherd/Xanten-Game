@@ -12,20 +12,23 @@ class User(ndb.Model):
     name = ndb.StringProperty()
 
 class Game(ndb.Model):
-    id = ndb.IntegerProperty()
+    gid = ndb.IntegerProperty()
     name = ndb.StringProperty()
     members = ndb.IntegerProperty(repeated=True)
+    user = ndb.StringProperty()
+    private = ndb.BooleanProperty(default=True)
+    gmap = ndb.StringProperty()
 
-# Handles JSON requests
+# Handles all requests
 #
 # Extending classes should add their return values to self.json which
 # will be automatically sent at the end
-class JSONHandler(webapp2.RequestHandler):
+class DefaultHandler(webapp2.RequestHandler):
 
     # Sets the content type to application/json and creates a blank
     # json property
     def __init__(self, request, response):
-        super(JSONHandler, self).__init__(request, response)
+        super(DefaultHandler, self).__init__(request, response)
 
         self.response.content_type = 'application/json'
         self.json = { };
@@ -34,13 +37,13 @@ class JSONHandler(webapp2.RequestHandler):
     def __del__(self):
         self.response.write(json.dumps(self.json))
 
-class UserHandler(JSONHandler):
+class UserHandler(DefaultHandler):
 
     # /user/
     def get(self):
         self.json['test'] = 'foo'
 
-class GameHandler(JSONHandler):
+class GameHandler(DefaultHandler):
 
     # GET /game/
     #
@@ -54,6 +57,7 @@ class GameHandler(JSONHandler):
     def start(self, id):
         self.json['id'] = id
         self.json['status'] = 'started'
+        self.json['req'] = self.request.headers['User-Agent']
 
     # GET /game/join/<id>
     #
@@ -73,8 +77,14 @@ class GameHandler(JSONHandler):
     #
     # Creates a game
     def create(self):
+        game = Game(gid = Game.query().count())
+        game.name = self.request.POST['game_name']
+        game.user = self.request.POST['game_user']
+        game.gmap  = self.request.POST['game_map']
+        game.private = False if self.request.POST['game_type'] == 'public' else True
+        game.put()
         self.json['status'] = 'created'
-        self.json['id'] = 13
+        
 
 # Setup routes
 app = webapp2.WSGIApplication([

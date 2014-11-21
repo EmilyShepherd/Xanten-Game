@@ -118,9 +118,9 @@ $(document).ready(function() {
 	$('#game_create').click(function(){
 		$("#create_game_form").show();
 		request = $.ajax({
-			url: "python/create_game.py",
-			type: "POST",
-			data: $('#game_create_form').serialize(),
+			url: "/game/",
+			type: "PUT",
+			data: $('[name=game_create_form]').serialize(),
 			success: function (response){
 				waiting_players(response);
 			}

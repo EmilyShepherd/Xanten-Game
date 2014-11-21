@@ -15,6 +15,9 @@ PUT /game/
 
 game_name=Lala&game_type=Public&game_user=Emily
 ```
+
+Response:
+```json
 {
     "token" : "6e1977af04f54c50842c8db621f5f020",
     "type"  : "Public",
@@ -70,7 +73,7 @@ user=Brian
 ```
 
 Response:
-```
+```json
 {
     "token" : "6e1977af04f54c50842c8db621f5f020",
     "type"  : "Public",
@@ -83,4 +86,9 @@ Response:
 
 Example: `GET /game/6e1977af04f54c50842c8db621f5f020/start`
 
-Response: `{"status" : "started"}`
+Response:
+```json
+{
+    "status" : "started"
+}
+```

@@ -63,10 +63,24 @@ class GameHandler(DefaultHandler):
     # GET /game/start/<id>
     #
     # Starts a game
-    def start(self, id):
-        self.json['id']     = id
-        self.json['status'] = 'started'
-        self.json['req']    = self.request.headers['User-Agent']
+    def start(self, gid):
+        if not self.checkLogin():
+            return
+
+        query = Game.query(Game.gid==gid)
+
+        if query.count() != 1:
+            self.stderr('Unknown Game')
+        else:
+            game = query.fetch(1)[0]
+
+            if game.owner != self.user.uid:
+                self.stderr('You are not authorised to start this game')
+            else:
+                game.running = True
+                game.put()
+
+                self.json['status'] = 'started'
 
     # POST /game/join/<id>
     #
@@ -111,7 +125,7 @@ class GameHandler(DefaultHandler):
             self.stderr('Unknown Game')
         else:
             game = query.fetch(1)[0]
-            
+
             self.json['status'] = 'running' if game.running else 'waiting'
             self.json['users']  = [ ]
 
@@ -142,6 +156,20 @@ class GameHandler(DefaultHandler):
         game['type']    = 'Private' if oGame.private == True else 'Public'
 
         return game
+
+    def checkLogin(self):
+        sid = self.request.cookies.get('Session')
+        if not sid:
+            self.stderr('You are not logged in')
+            return False
+        else:
+            query = User.query(User.uid == sid)
+            if query.count() != 1:
+                self.stderr('You are not logged in')
+                return False
+            else:
+                self.user = query.fetch(1)[0]
+                return True
 
 # Setup routes
 app = webapp2.WSGIApplication([

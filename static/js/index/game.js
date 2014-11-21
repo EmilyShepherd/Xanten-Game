@@ -1,13 +1,27 @@
 /**
- * Functions for game
+ * JS functions for game
+ *
  * @author Cristian Sima & ...
+ * @version 21.11.2014
  */
  
-
+var settings = { 
+				"displayCover": true
+			};
+/**
+ * The function executes after the page loaded
+ */
 function init(){
-	// code to execute when the page was loaded
+
+	// TODO to check if there exists cookies. if a player is in a game (else send to index.html).
+	// TODO to start 
 }
 
 $(document).ready(function() {
-	$("#cover").fadeOut(2000, init);  //  show the cont of the game after 2 seconds
+	if(settings.displayCover){
+		$("#cover").fadeOut(2000, init);
+	} else {
+		$("#cover").hide();
+		init();
+	}
 });

@@ -6,6 +6,7 @@ from default_handler import DefaultHandler
 # Models
 from model.game import Game
 from model.user import User
+from model.map  import Map
 
 # Handles /game/* requests
 #
@@ -15,11 +16,12 @@ class GameHandler(DefaultHandler):
     #
     # Creates a game
     def create(self):
-        game         = Game(gid = uuid.uuid4().hex)
-        game.name    = self.request.POST['game_name']
-        game.gmap    = self.request.POST['game_map']
-        game.private = False if self.request.POST['game_type'] == 'public' else True
-        game.owner   = self.join_game(game, self.request.POST['game_user'])
+        game            = Game(gid = uuid.uuid4().hex)
+        game.name       = self.request.POST['game_name']
+        game.gmap       = self.request.POST['game_map']
+        game.maxPlayers = Map.countInhabitalSpace(game.gmap);
+        game.private    = False if self.request.POST['game_type'] == 'public' else True
+        game.owner      = self.join_game(game, self.request.POST['game_user'])
         game.put()
 
         self.json    = game.toDict()

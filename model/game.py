@@ -16,6 +16,9 @@ class Game(ndb.Model):
     # Is this a private game?
     private = ndb.BooleanProperty(default=True)
 
+    # The maximum number of players entitled to sign up to this game
+    maxPlayers = ndb.IntegerProperty()
+
     # String representation of the map
     #
     # This isn't indexed because it's large(ish) and is never searched

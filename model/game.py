@@ -1,6 +1,9 @@
 from google.appengine.ext import ndb
 
 class Game(ndb.Model):
+    DEFAULT_FIRST_NAMES  = ['Spontaneous', 'Terrifying', 'Dark', 'Pessimistic', 'Whacky', 'Incredible']
+    DEFAULT_SECOND_NAMES = ['Escapade', 'Events', 'Happenings', 'Procrastination']
+
     # The ID of the game (refered to as "token" by the js side)
     gid     = ndb.StringProperty()
 

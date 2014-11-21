@@ -1,5 +1,6 @@
 import webapp2
 import json
+import random
 
 from model.user import User
 
@@ -47,3 +48,16 @@ class DefaultHandler(webapp2.RequestHandler):
             else:
                 self.user = query.fetch(1)[0]
                 return True
+
+    def getPOSTorRandom(self, key, className):
+        value = self.request.POST.get(key, None)
+
+        if value:
+            return value
+        else:
+            first  = self.getRand(className.DEFAULT_FIRST_NAMES)
+            second = self.getRand(className.DEFAULT_SECOND_NAMES)
+            return first + ' ' + second
+
+    def getRand(self, arr):
+        return arr[random.randrange(0, len(arr))]

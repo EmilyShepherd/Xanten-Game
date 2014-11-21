@@ -6,6 +6,9 @@ from google.appengine.ext import ndb
 # during a game
 class User(ndb.Model):
 
+    DEFAULT_FIRST_NAMES  = ['Red', 'Blue', 'Computer Science', 'Dark', 'Pessimistic', 'Lazy', 'Yellow', 'Incredible']
+    DEFAULT_SECOND_NAMES = ['Otter', 'Bolt', 'Student', 'Wizard']
+
     # The user ID
     uid  = ndb.StringProperty()
 

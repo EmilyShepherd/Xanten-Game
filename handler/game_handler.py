@@ -6,7 +6,7 @@ from default_handler import DefaultHandler
 # Models
 from model.game import Game
 from model.user import User
-from model.map  import Map
+from model.map import Map
 
 # Handles /game/* requests
 #
@@ -17,11 +17,11 @@ class GameHandler(DefaultHandler):
     # Creates a game
     def create(self):
         game            = Game(gid = uuid.uuid4().hex)
-        game.name       = self.request.POST['game_name']
+        game.name       = self.getPOSTorRandom('game_name', Game)
         game.gmap       = self.request.POST['game_map']
         game.maxPlayers = Map.countInhabitalSpace(game.gmap);
         game.private    = False if self.request.POST['game_type'] == 'public' else True
-        game.owner      = self.join_game(game, self.request.POST['game_user'])
+        game.owner      = self.join_game(game, self.getPOSTorRandom('game_user', User))
         game.put()
 
         self.json    = game.toDict()
@@ -57,7 +57,7 @@ class GameHandler(DefaultHandler):
     # Joins a game
     def join(self, gid):
         query = Game.query(Game.gid==gid)
-        name  = self.request.POST['user']
+        name  = self.getPOSTorRandom('name', User)
 
         if query.count() != 1:
             self.stderr('Unknown Game')

@@ -30,8 +30,9 @@ class Game(ndb.Model):
     # added
     def toDict(self):
         game = { }
-        game['token'] = self.gid
-        game['name']  = self.name
-        game['type']  = 'Private' if self.private == True else 'Public'
+        game['token']       = self.gid
+        game['name']        = self.name
+        game['type']        = 'Private' if self.private == True else 'Public'
+        game['nrOfPlayers'] = len(self.members)
 
         return game

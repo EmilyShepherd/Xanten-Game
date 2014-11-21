@@ -32,7 +32,8 @@ class GameHandler(DefaultHandler):
     def get(self):
         self.json['games'] = [ ]
         for game in Game.query(Game.private==False, Game.running==False).fetch():
-            self.json['games'].append(game.toDict())
+            if len(game.members) < game.maxPlayers:
+                self.json['games'].append(game.toDict())
 
     # GET /game/<gid>
     #
@@ -46,6 +47,7 @@ class GameHandler(DefaultHandler):
             game = query.fetch(1)[0]
 
             self.json['status'] = 'running' if game.running else 'waiting'
+            self.json['full']   = (len(game.members) >= game.maxPlayers)
             self.json['users']  = [ ]
 
             for uid in game.members:
@@ -66,12 +68,14 @@ class GameHandler(DefaultHandler):
 
             if game.running:
                 self.stderr('Game has started')
+            elif len(game.members) >= game.maxPlayers:
+                self.stderr('The maximum number of players has been reached')
             elif User.query(User.name==name, User.gid==gid).count() != 0:
                 self.stderr('Username already exists')
             else:
                 self.join_game(game, name)
                 game.put()
-                self.json = game.toDict()
+                self.json['status'] = 'joined'
 
     # GET /game/<gid>/start
     #

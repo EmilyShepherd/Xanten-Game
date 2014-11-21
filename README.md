@@ -19,9 +19,9 @@ game_name=Lala&game_type=Public&game_user=Emily
 #### Response:
 ```json
 {
-    "token" : "6e1977af04f54c50842c8db621f5f020",
-    "type"  : "Public",
-    "name"  : "Lala"
+    "token"       : "6e1977af04f54c50842c8db621f5f020",
+    "nrOfPlayers" : 3,
+    "name"        : "Lala"
 }
 ```
 
@@ -37,9 +37,9 @@ game_name=Lala&game_type=Public&game_user=Emily
     "games":
     [
         {
-            "token" : "6e1977af04f54c50842c8db621f5f020",
-            "type"  : "Public",
-            "name"  : "Lala"
+            "token"       : "6e1977af04f54c50842c8db621f5f020",
+            "name"        : "Lala",
+            "nrOfPlayers" : 3
         }
     ]
 }
@@ -55,6 +55,7 @@ game_name=Lala&game_type=Public&game_user=Emily
 ```json
 {
     "status" : "waiting",
+    "full"   : false,
     "users"  :
     [
         "Emily",
@@ -77,9 +78,7 @@ user=Brian
 #### Response:
 ```json
 {
-    "token" : "6e1977af04f54c50842c8db621f5f020",
-    "type"  : "Public",
-    "name"  : "Lala"
+    "status" : "joined"
 }
 ```
 
@@ -102,6 +101,13 @@ user=Brian
 {
     "status"  : "ERROR",
     "message" : "Username already exists"
+}
+```
+
+```json
+{
+    "status"  : "ERROR",
+    "message" : "The maximum number of players has been reached"
 }
 ```
 

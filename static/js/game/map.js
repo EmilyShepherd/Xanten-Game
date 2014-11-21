@@ -9,6 +9,14 @@
  */
 
 function generateGeneralMap(size){
+
+
+	/*
+	 * for joe. the size is "small, medium or large"
+	 *
+	 */
+
+
 	// Variables which control properties of the world being generated:
 	// How often do things appear?
 	var OCEAN_SEED = Math.floor((Math.random() * 9) + 1)/100; // 0.01 ---> 0.09

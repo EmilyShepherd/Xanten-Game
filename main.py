@@ -11,6 +11,7 @@ from handler.game_handler import GameHandler
 # Setup routes
 app = webapp2.WSGIApplication([
     webapp2.Route(r'/game/<gid>',        handler=GameHandler, handler_method='get_game'),
+    webapp2.Route(r'/game/<gid>/',       handler=GameHandler, handler_method='get_game'),
     webapp2.Route(r'/game/',             handler=GameHandler,                          methods=['GET']),
     webapp2.Route(r'/game/<gid>/start',  handler=GameHandler, handler_method='start'),
     webapp2.Route(r'/game/<gid>/join',   handler=GameHandler, handler_method='join'),

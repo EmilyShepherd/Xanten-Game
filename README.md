@@ -139,3 +139,19 @@ user=Brian
     "message" : "You are not authorised to start this game"
 }
 ```
+
+Debug API
+---------
+*These endpoints should not be used by the application itself. They are
+purely convenience functions to aid with debug and development*
+
+### GET /debug/purge/{table}
+*Purges everything in the given table*
+
+#### Possible Tables
+
+**Game** - Contains all the games / information about which members have
+joined
+
+**User** - Contains details about users / their money / gold / miltary
+etc

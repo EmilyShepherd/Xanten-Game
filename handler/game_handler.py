@@ -31,7 +31,7 @@ class GameHandler(DefaultHandler):
     # Returns a list of games
     def get(self):
         self.json['games'] = [ ]
-        for game in Game.query(Game.private==False).fetch():
+        for game in Game.query(Game.private==False, Game.running==False).fetch():
             self.json['games'].append(game.toDict())
 
     # GET /game/<gid>

@@ -6,6 +6,7 @@
 import webapp2
 import json
 from google.appengine.ext import ndb
+import uuid
 
 class User(ndb.Model):
     id = ndb.IntegerProperty()
@@ -18,6 +19,7 @@ class Game(ndb.Model):
     user = ndb.StringProperty()
     private = ndb.BooleanProperty(default=True)
     gmap = ndb.StringProperty()
+    token = ndb.StringProperty()
 
 # Handles all requests
 #
@@ -82,9 +84,14 @@ class GameHandler(DefaultHandler):
         game.user = self.request.POST['game_user']
         game.gmap  = self.request.POST['game_map']
         game.private = False if self.request.POST['game_type'] == 'public' else True
+        game.token = uuid.uuid4().hex
         game.put()
         self.json['status'] = 'created'
-        
+        self.json['game'] = { }
+        self.json['game']['token'] = game.token
+        self.json['game']['name'] = game.name
+        self.json['game']['type'] = 'Private' if game.private == True else 'Public'
+        self.json['game']['session'] = 1
 
 # Setup routes
 app = webapp2.WSGIApplication([

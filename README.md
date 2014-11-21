@@ -19,9 +19,9 @@ game_name=Lala&game_type=Public&game_user=Emily
 #### Response:
 ```json
 {
-    "token" : "6e1977af04f54c50842c8db621f5f020",
-    "type"  : "Public",
-    "name"  : "Lala"
+    "token"       : "6e1977af04f54c50842c8db621f5f020",
+    "nrOfPlayers" : 3,
+    "name"        : "Lala"
 }
 ```
 
@@ -37,9 +37,9 @@ game_name=Lala&game_type=Public&game_user=Emily
     "games":
     [
         {
-            "token" : "6e1977af04f54c50842c8db621f5f020",
-            "type"  : "Public",
-            "name"  : "Lala"
+            "token"       : "6e1977af04f54c50842c8db621f5f020",
+            "name"        : "Lala",
+            "nrOfPlayers" : 3
         }
     ]
 }
@@ -55,6 +55,7 @@ game_name=Lala&game_type=Public&game_user=Emily
 ```json
 {
     "status" : "waiting",
+    "full"   : false,
     "users"  :
     [
         "Emily",
@@ -77,9 +78,7 @@ user=Brian
 #### Response:
 ```json
 {
-    "token" : "6e1977af04f54c50842c8db621f5f020",
-    "type"  : "Public",
-    "name"  : "Lala"
+    "status" : "joined"
 }
 ```
 
@@ -102,6 +101,13 @@ user=Brian
 {
     "status"  : "ERROR",
     "message" : "Username already exists"
+}
+```
+
+```json
+{
+    "status"  : "ERROR",
+    "message" : "The maximum number of players has been reached"
 }
 ```
 
@@ -133,3 +139,22 @@ user=Brian
     "message" : "You are not authorised to start this game"
 }
 ```
+
+Debug API
+---------
+*These endpoints should not be used by the application itself. They are
+purely convenience functions to aid with debug and development*
+
+### GET /debug/purge/{table}
+*Purges everything in the given table*
+
+#### Possible Tables
+
+**Game** - Contains all the games / information about which members have
+joined
+
+**User** - Contains details about users / their money / gold / miltary
+etc
+
+### GET /debug/purge
+*Purges everything from all tables*

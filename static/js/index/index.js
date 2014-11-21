@@ -10,23 +10,29 @@ $(document).ready(function() {
 
 	function get_update_game() {
 		request = $.ajax({
-			url: "/game/"+$("#game_token").val()+"/",
+			url: "/game/"+$("#game_token").val()+"",
 			type: "GET"
 		}).done(function (response) {		
+			console.log(response);
 			if(response["status"] === 'running'){
-				$("#create_game").fadeOut('slow', function() {
-					$("#html").fadeOut('slow',function() {
-						document.location= '/game.html';
-					});
-				});
-				var text = "<tr><td>Name of the users who have joined your game. Total (" + response.users.length + ")</td></tr>";			
-				for (var i = 0; i < response.users.length; i++) {
-					var user = response.users[i];
-					text += "<tr><td>"+user.name+"</td></tr>";
-				}		
-				
-				$("#joined_users").html("<table class='table'>"+text+"</table>");				
-			}			
+				clearTimeout(thread_users);
+				$("#cover").fadeIn(1000,function() {
+					document.location= '/game';
+				});								
+			} else {		
+				var text = "";
+				if(response.users){
+					text = "<tr><td>Name of the users who have joined your game. Total (" + response.users.length + ")</td></tr>";			
+					for (var i = 0; i < response.users.length; i++) {
+						var user = response.users[i];
+						text += "<tr><td>"+user+"</td></tr>";
+					}							
+					text = "<table class='table' id='table_users'>"+text+"</table>";
+				}				
+				$("#joined_users").hide();
+				$("#joined_users").html(text);
+				$("#joined_users").fadeIn();
+			}
 		});
 	}
 	
@@ -67,8 +73,8 @@ $(document).ready(function() {
 	}
 	
 	function waiting_players(response){
-		document.cookie="game_session="+response['session']+"; expires=Thu, 18 Dec 2017 12:00:00 UTC";
-		document.cookie="game_token="+response['token']+"; expires=Thu, 18 Dec 2017 12:00:00 UTC";
+		$.cookie('session', response['session']);
+		$.cookie('token', response['token']);
 		$("#game_token").val(response['token']);
 		$("#start_game").show();	   		
 		$("#available_users").slideDown(500);
@@ -80,17 +86,21 @@ $(document).ready(function() {
 	}
 	
 	function join_game_now(token){	
+		console.log('token: '+token);
+		if(!token){
+			return;
+		}
 		var name = prompt("Please enter your name to continue...", "")
 		if (name !== null) {			
 		clearInterval(thread_games);
 		request = $.ajax({
-				url: "/game/"+token+"/join/",
+				url: "/game/"+token+"/join",
 				type: "PUT",
 				data: {"user":name},
 				success: function (response){
-					if(response === "false"){
-						alert('There was a problem with the connection. Impossible to do this.');
-						document.location='./';
+					if(response['status'] === "ERROR"){
+						alert(response['message']);
+						thread_games = setInterval(get_games, 2000);
 					}
 					else {
 						$("#game_start").hide();
@@ -113,15 +123,16 @@ $(document).ready(function() {
 				url: "/game/",
 				type: "GET"
 			}).done(function (response){	
-				var text = "<tr><td>Name of the game</td><td>Number of players</td><td>Join</td></tr>";			
-				for (var i = 0; i < response.games.length; i++) {
-					var game = response.games[i];
-					text += "<tr><td>"+game.name+"</td><td>"+game.nrOfPlayers+"</td><td><input type='button' class='join_game_now bt' value='Join' token='"+game.token+"'  /> </td></tr>";
-				}			
-				
-				$("#available_games").html("<table class='table'>"+text+"</table>");	
-			
-				// process them
+				var text = "";
+				if(response.games){
+					text = "<tr><td>Name of the game</td><td>Number of players</td><td>Join</td></tr>";			
+					for (var i = 0; i < response.games.length; i++) {
+						var game = response.games[i];
+						text += "<tr><td>"+game.name+"</td><td>"+game.nrOfPlayers+"</td><td><input type='button' class='join_game_now bt' value='Join' token='"+game.token+"'  /> </td></tr>";
+					}			
+					text = "<table class='table'>"+text+"</table>";
+				}
+				$("#available_games").html(text);	
 				$(".join_game_now").click(function(){
 					join_game_now($(this).attr("token"));
 				});
@@ -129,7 +140,8 @@ $(document).ready(function() {
 	}
 	
 	$('#game_create').click(function(){
-		$("#create_game_form").show();
+		$("#game_create").attr("disabled", "disabled");
+		$("#game_create").val("Your world is almost ready...");
 		request = $.ajax({
 			url: "/game/",
 			type: "PUT",
@@ -164,7 +176,7 @@ $(document).ready(function() {
 		$(this).val("The game is loading...");
 		$(this).attr("disabled", "disabled");
 		request = $.ajax({
-			url: "/game/"+$.cookie("token")+"/start/",
+			url: "/game/"+$.cookie("token")+"/start",
 			type: "PUT"
 		});
 	});

@@ -11,6 +11,8 @@ body{
 	background-color:rgb(14, 18, 28);
 	max-width: 100%;
     overflow-x: hidden;
+	width:100%;
+	height:100%;
 }
 input ,select{
 	font-family: 'Segoe UI', sans-serif;
@@ -63,6 +65,8 @@ h1 {
 html{
 	font-family: 'Segoe UI', sans-serif;
 	color:white;
+	width:100%;
+	height:100%;
 }
 #top{
 	margin-top: 50px;
@@ -104,9 +108,14 @@ html{
 	border: 1px solid #999;
 	width:50%;
 	color:black;
+	font-size:18px;
 }
-.table td{
-	border-top: black;
+.table tr td{
+	color: orange;
+}
+.table tr:first-child td{
+	color:black;
+	font-weight:bold;
 }
 .header{
 	font-weight: bold;

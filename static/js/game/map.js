@@ -2,25 +2,25 @@
 /**
  *  It generates and returns a random map for the world
  *
+ * @param (string) The size of the map (small, medium, large)
  * @returns (string) The map for the world
  * @author Joe
  *
  */
 
-function generateGeneralMap(){
+function generateGeneralMap(size){
 	// Variables which control properties of the world being generated:
-	// How often do oceans appear?
+	// How often do things appear?
 	var OCEAN_SEED = Math.floor((Math.random() * 9) + 1)/100; // 0.01 ---> 0.09
-	// How big are they?
-	var OCEAN_EXPAND = Math.floor((Math.random() * 9) + 3)/100; // 0.03 --> 0.09
-	// How often do rocks appear?
 	var ROCK_SEED = 0.01;
-  // How often do trees appear?
-  var TREE_SEED = 0.1;
+	var FOREST_SEED = 0.1;
+	// What's the likelihood that they'll spread?
+	var OCEAN_EXPAND = Math.floor((Math.random() * 9) + 3)/100; // 0.03 --> 0.09
+	var FOREST_EXPAND = Math.floor((Math.random() * 9) + 5)/100; // 0.05 --> 0.09
   // Calculating probabilities:
   var p_ocean = 1 - OCEAN_SEED;
   var p_rock = p_ocean - ROCK_SEED;
-  var p_tree = p_rock - TREE_SEED;
+  var p_forest = p_rock - FOREST_SEED;
 
 	var x = 0;
 	var y = 0;
@@ -43,8 +43,8 @@ function generateGeneralMap(){
         imgArray[y][x] = "o";
       } else if (r > p_rock) {
         imgArray[y][x] = "m".concat(Math.round(10*(r - p_rock)));
-      } else if (r > p_tree) {
-        imgArray[y][x] = "t".concat(Math.round(10*(r - p_tree)));
+      } else if (r > p_forest) {
+        imgArray[y][x] = "t".concat(Math.round(10*(r - p_forest)));
       } else {
         imgArray[y][x] = "g";
       }
@@ -60,24 +60,45 @@ function generateGeneralMap(){
 	while (y < 7) {
 		while (x < 7) {
 			if (imgArray[y][x] === "o") {
-				if (Math.random() < OCEAN_EXPAND) {
-					if (x > 0) {
+				if (x > 0) {
+					if (Math.random() < OCEAN_EXPAND) {
 						imgArray[y][x - 1] = "o";
 					}
 				}
-				if (Math.random() < OCEAN_EXPAND) {
-					if (x < 6) {
+				if (x < 6) {
+						if (Math.random() < OCEAN_EXPAND) {
 						imgArray[y][x + 1] = "o";
 					}
 				}
-				if (Math.random() < OCEAN_EXPAND) {
-					if (y > 0) {
+				if (y > 0) {
+					if (Math.random() < OCEAN_EXPAND) {
 						imgArray[y - 1][x] = "o";
 					}
 				}
-				if (Math.random() < OCEAN_EXPAND) {
-					if (y < 6) {
+				if (y < 6) {
+					if (Math.random() < OCEAN_EXPAND) {
 						imgArray[y + 1][x] = "o";
+					}
+				}
+			} else if (imgArray[y][x] === "t0") {
+				if (x > 0) {
+					if (Math.random() < FOREST_EXPAND) {
+						imgArray[y][x - 1] = "t1";
+					}
+				}
+				if (x < 6) {
+					if (Math.random() < FOREST_EXPAND) {
+						imgArray[y][x + 1] = "t1";
+					}
+				}
+				if (y > 0) {
+						if (Math.random() < FOREST_EXPAND) {
+						imgArray[y - 1][x] = "t1";
+					}
+				}
+				if (y < 6) {
+					if (Math.random() < FOREST_EXPAND) {
+						imgArray[y + 1][x] = "t1";
 					}
 				}
 			}
@@ -129,13 +150,13 @@ function generateGeneralMap(){
 					imgArray[y][x] = "o";
 					x = 0;
 					y = 0;
-				} else if (n && (w || sw) || (w && ne)) {
+				} else if ((n && (w || sw)) || (w && ne)) {
 					imgArray[y][x] = "ob-nw";
-				} else if (n && (e || se) || (e && nw)) {
+				} else if ((n && (e || se)) || (e && nw)) {
 					imgArray[y][x] = "ob-ne";
-				} else if (s && (w || nw) || (w && se)) {
+				} else if ((s && (w || nw)) || (w && se)) {
 					imgArray[y][x] = "ob-sw";
-				} else if (s && (e || ne) || (e && sw)) {
+				} else if ((s && (e || ne)) || (e && sw)) {
 					imgArray[y][x] = "ob-se";
 				} else if (n) {
 					imgArray[y][x] = "o-n";

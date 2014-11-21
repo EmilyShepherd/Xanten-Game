@@ -5,7 +5,6 @@ body{
 	top: -46px;
 	bottom: -46px;
 	left: 0;
-	width: 100%;
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center top;
@@ -13,25 +12,49 @@ body{
 	max-width: 100%;
     overflow-x: hidden;
 }
-input {
+input ,select{
+	font-family: 'Segoe UI', sans-serif;
+	font-size:20px;
 	margin: 10px 10px;
-	line-height: normal;
+	box-shadow: -1px -1px 28px rgb(169, 169, 169);
 	white-space: nowrap;
 	color: black;
 	vertical-align: baseline;
-	text-align: center;
-	cursor: pointer;
 	-webkit-user-drag: none;
 	-webkit-user-select: none;
 	height:50px;
-	font-size:20px;
 	padding: .5em 1em;
 	border: 1px solid #999;
 	border: 0 rgba(0,0,0,0);
-	text-decoration: none;
-	border-radius: 2px;
+	border-radius: 2px; 
+	outline:none;
 }
-input:disabled{
+input[type="button"]{
+	text-align: center;
+	white-space: nowrap;
+	background-color: #E79500;
+	color: #fff;
+	vertical-align: baseline;
+	cursor: pointer;
+	height: 50px;
+	padding: .5em 1em;
+	border: 1px solid #999;
+	border: 0 rgba(0,0,0,0);
+	border-radius: 6px;
+}
+input:focus,select:focus{	
+	box-shadow: 0px 0px 14pt 2pt orange;
+}
+input[type="button"]:hover{	
+	-webkit-transition-duration: 0.5s; /* Safari */
+    transition-duration: 0.5s;
+	background-color:rgb(255, 199, 77);
+}
+input[type="button"]:active{
+	background-color:rgb(255, 237, 199);
+	color:black;
+}
+input[type="button"]:disabled{
 	background-color: #dfdfdf;
 }
 h1 {
@@ -42,31 +65,13 @@ html{
 	color:white;
 }
 #top{
-	margin-top: 100px;
+	margin-top: 50px;
 	margin-left: 200px;
 	margin-left:100px;
 }
 #bottom {
 	margin: 10px auto;
 	text-align:center;
-}
-.bt{
-	line-height: normal;
-	white-space: nowrap;
-	background-color: #E79500;
-	color: #fff;
-	vertical-align: baseline;
-	text-align: center;
-	cursor: pointer;
-	-webkit-user-drag: none;
-	-webkit-user-select: none;
-	height:50px;
-	font-size:20px;
-	padding: .5em 1em;
-	border: 1px solid #999;
-	border: 0 rgba(0,0,0,0);
-	text-decoration: none;
-	border-radius: 6px;
 }
 .small{
 	font-size:16px;

@@ -1,6 +1,6 @@
 /**
  * Functions for starting or joining a game
- * @author Cristian Sima & George Salver
+ * @author Cristian Sima & George Salter
  */
  
 var thread_games,
@@ -8,22 +8,35 @@ var thread_games,
  
 $(document).ready(function() {
 
-	function get_users(){
+	function get_update_game() {
 		request = $.ajax({
-			url: "python/get_users.py",
+			url: "/game/status",
 			type: "post",
 			data: {"token": $("#game_token").val()}
-		}).done(function (response){		
-			$("#joined_users").html(""+ response);	
+		}).done(function (response) {		
+			if(response.gameStatus === 'started'){
+				$("#create_game").fadeOut('slow', function() {
+					$("#html").fadeOut('slow',function() {
+						document.location= '/game.html';
+					});
+				});
+				var text = "<tr><td>Name of the users who have joined your game. Total (" + response.users.length + ")</td></tr>";			
+				for (var i = 0; i < response.users.length; i++) {
+					var user = response.users[i];
+					text += "<tr><td>"+user.name+"</td></tr>";
+				}		
+				
+				$("#joined_users").html("<table class='table'>"+text+"</table>");				
+			}			
 		});
 	}
 	
-	function generate_general_map(){	
-		$("#map_image").fadeOut(300, function(){		
-			var map_values = generateGeneralMap();
+	function generate_general_map(size) {	
+		$("#map_image").fadeOut(300, function() {		
+			var map_values = generateGeneralMap(size);
 			$("#game_map").val(map_values); 
 			$("#map_image").html(generateHTMLMap(map_values));			
-			$("#map_image").fadeIn(300, function(){	
+			$("#map_image").fadeIn(300, function() {	
 				$("#game_user").focus();
 			});		
 		});
@@ -50,23 +63,23 @@ $(document).ready(function() {
 		$("#start_game").hide();
 		$("#create_game").show(500, function(){
 			$("#game_user").focus();
-		window.scrollTo(0,220);		
+		window.scrollTo(0,170);		
 		generate_general_map();
 		});
 
 	}
 	
 	function waiting_players(response){
-		 eval("var response ="+response);
 		document.cookie="game_session="+response['session']+"; expires=Thu, 18 Dec 2017 12:00:00 UTC";
 		document.cookie="game_token="+response['token']+"; expires=Thu, 18 Dec 2017 12:00:00 UTC";
-		$("#game_token").val(response['token']);	   		
-		$("#available_users").show();
+		$("#game_token").val(response['token']);
+		$("#start_game").show();	   		
+		$("#available_users").slideDown(500);
 		$("#create_game_form").hide();
-		$("#start_game").show();
 		$("#generate_map").hide();
-		thread_users = setInterval(get_users, 2000);	
-		get_users();
+		$("#map_size").hide();
+		thread_users = setInterval(get_update_game, 2000);	
+		get_update_game();
 	}
 	
 	function join_game_now(token){	
@@ -74,8 +87,8 @@ $(document).ready(function() {
 		if (name !== null) {			
 		clearInterval(thread_games);
 		request = $.ajax({
-			url: "python/join_game.py",
-				type: "POST",
+			url: "/game/join",
+				type: "PUT",
 				data: {"token":token, "user":name},
 				success: function (response){
 					if(response === "false"){
@@ -83,15 +96,13 @@ $(document).ready(function() {
 						document.location='./';
 					}
 					else {
-						// set cookie
 						$("#game_start").hide();
 						$("#map_div").hide();
 						$("#join_game").hide();
 						$("#start_game").hide();
 						$("#create_game").show(500, function(){
-						waiting_players(response);
-					
-					})
+							waiting_players(response);					
+						})
 					}
 				}
 			})
@@ -102,11 +113,17 @@ $(document).ready(function() {
    function get_games(){
 		// get the available games
 		request = $.ajax({
-			url: "python/get_games.py",
+			url: "/game/",
 			type: "GET"
-		}).done(function (response){		
-			$("#available_games").html(""+ response);	
+		}).done(function (response){	
+			var text = "<tr><td>Name of the game</td><td>Number of players</td><td>Join</td></tr>";			
+			for (var i = 0; i < response.games.length; i++) {
+				var game = response.games[i];
+				text += "<tr><td>"+game.name+"</td><td>"+game.nrOfPlayers+"</td><td><input type='button' class='join_game_now bt' value='Join' token='"+game.token+"'  /> </td></tr>";
+			}			
 			
+			$("#available_games").html("<table class='table'>"+text+"</table>");	
+		
 			// process them
 			$(".join_game_now").click(function(){
 				join_game_now($(this).attr("token"));
@@ -124,9 +141,8 @@ $(document).ready(function() {
 			success: function (response){
 				waiting_players(response);
 			}
-			});
+		});
 	});
-
 	
 	$("#join_button").click(function(){
 		join_game();
@@ -137,7 +153,11 @@ $(document).ready(function() {
 	});
 	
 	$("#generate_map").click(function(){
-		generate_general_map();
+		generate_general_map($("#map_size").val());
+	});
+	
+	$("#map_size").change(function(){
+		generate_general_map($(this).val());
 	});
 	
 	$("#connect_private_game").click(function(){
@@ -148,8 +168,8 @@ $(document).ready(function() {
 		$(this).val("The game is loading...");
 		$(this).attr("disabled", "disabled");
 		request = $.ajax({
-			url: "python/start_game.py",
-			type: "POST"
+			url: "/game/start/",
+			type: "PUT"
 		});
 	});
 });

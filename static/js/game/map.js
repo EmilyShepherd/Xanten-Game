@@ -1,13 +1,20 @@
 
 /**
  *  It generates and returns a random map for the world
- *
+ * @param (string) The size of the map (small, medium, large)
  * @returns (string) The map for the world
  * @author Joe
  *
  */
 
-function generateGeneralMap(){
+function generateGeneralMap(size){
+	
+	/*
+	 * for joe. the size is "small, medium or large"
+	 *
+	 */
+	
+	
 	// Variables which control properties of the world being generated:
 	// How often do oceans appear?
 	var OCEAN_SEED = Math.floor((Math.random() * 9) + 1)/100; // 0.01 ---> 0.09

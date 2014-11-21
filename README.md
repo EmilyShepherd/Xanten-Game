@@ -155,3 +155,6 @@ joined
 
 **User** - Contains details about users / their money / gold / miltary
 etc
+
+### GET /debug/purge
+*Purges everything from all tables*

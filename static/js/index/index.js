@@ -29,9 +29,7 @@ $(document).ready(function() {
 					}							
 					text = "<table class='table' id='table_users'>"+text+"</table>";
 				}				
-				$("#joined_users").hide();
 				$("#joined_users").html(text);
-				$("#joined_users").fadeIn();
 			}
 		});
 	}

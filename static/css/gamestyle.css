@@ -1,0 +1,8 @@
+body{
+	background-image:
+		url("../img/resourcebar.png"),
+		url("../img/tobbanner.png"),
+		url("../img/sidebar.png"),
+		url("../img/gamebackground.png");
+	background-repeat: no-repeat, repeat-x, repeat-y, repeat;
+}

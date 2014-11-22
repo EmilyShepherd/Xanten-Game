@@ -1,5 +1,7 @@
 from google.appengine.ext import ndb
 
+import datetime
+
 # Represents a user session
 #
 # This stores the user information / resources / stats for a given user
@@ -33,6 +35,9 @@ class User(ndb.Model):
 
     # Map of their city
     homeMap = ndb.StringProperty()
+
+    # The last time their values were updated
+    lastUpdated = ndb.DateTimeProperty(auto_now_add=True)
 
     # What level their city has reached:
     #   0 = Hamlet
@@ -117,3 +122,24 @@ class User(ndb.Model):
 
     # Number of people at the docks
     peopleAtDock = ndb.IntegerProperty(default=0)
+
+    # Sets the lastUpdated property with the current datetime, without
+    # seconds saved. It also calculates the number of minutes since the
+    # last update
+    def markUpdate(self):
+        realDT = datetime.datetime.now()
+
+        # Gets the datetime now, without the seconds
+        dt     = datetime.datetime(
+            realDT.year,
+            realDT.month,
+            realDT.day,
+            realDT.hour,
+            realDT.minute
+        )
+
+        minutes = (dt - self.lastUpdated).total_seconds() / 60
+
+        self.lastUpdated = dt
+
+        return minutes

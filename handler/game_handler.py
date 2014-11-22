@@ -116,6 +116,10 @@ class GameHandler(DefaultHandler):
                 game.running = True
                 game.put()
 
+                for user in User.query(User.gid == game.gid).fetch():
+                    user.markUpdate()
+                    user.put()
+
                 self.json['status'] = 'started'
 
     # Used by join() and create() to create a new User session and sign

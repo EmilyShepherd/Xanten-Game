@@ -55,13 +55,7 @@ class GameHandler(DefaultHandler):
 
             self.json['status'] = 'running' if game.running else 'waiting'
             self.json['full']   = (len(game.members) >= game.maxPlayers)
-            self.json['users']  = [ ]
-
-            # Also send the name of joined users for the waiting users
-            # to see
-            for uid in game.members:
-                user = User.query(User.uid == uid).fetch(1)[0]
-                self.json['users'].append(user.name)
+            self.json['users']  = game.members
 
     # POST /game/<gid>/join
     #
@@ -133,7 +127,7 @@ class GameHandler(DefaultHandler):
         self.response.set_cookie('Session', sess.uid)
 
         # We don't need to save this as create() has more stuff to add
-        game.members.append(sess.uid)
+        game.members.append(sess.name)
 
         # The userid
         return sess.uid

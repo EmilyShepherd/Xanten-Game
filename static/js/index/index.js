@@ -112,7 +112,7 @@ $(document).ready(function() {
 		request = $.ajax({
 				url: "/game/"+token+"/join",
 				type: "PUT",
-				data: {"user":name},
+				data: {"username":name},
 				success: function (response) {
 					if(response['status'] === "error") {
 						alert(response['msg']);

@@ -59,7 +59,7 @@ class GameHandler(DefaultHandler):
     # Joins a game
     def join(self, gid):
         query = Game.query(Game.gid==gid)
-        name  = self.getPOSTorRandom('name', User)
+        name  = self.getPOSTorRandom('username', User)
 
         if query.count() != 1:
             self.stderr('Unknown Game')

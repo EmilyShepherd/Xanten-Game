@@ -106,8 +106,8 @@ $(document).ready(function() {
 		if (!token) {
 			return;
 		}
-		var name = prompt("Please enter your name to continue...", "")
-		if (name) {		
+		var name = prompt("Choose your name in the game...", "");
+		name = (name)?name:"";
 		clearInterval(thread_games);
 		request = $.ajax({
 				url: "/game/"+token+"/join",
@@ -124,12 +124,11 @@ $(document).ready(function() {
 						$("#join_game").hide();
 						$("#start_game").hide();
 						$("#create_game").show(500, function() {
-							waiting_players(response.game);					
+							waiting_players(response);					
 						})
 					}
 				}
 			})
-		}
 	}	
 	
 	/**

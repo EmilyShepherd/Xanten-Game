@@ -9,6 +9,8 @@ class User(ndb.Model):
     DEFAULT_FIRST_NAMES  = ['Red', 'Blue', 'Computer Science', 'Dark', 'Pessimistic', 'Lazy', 'Yellow', 'Incredible']
     DEFAULT_SECOND_NAMES = ['Otter', 'Bolt', 'Student', 'Wizard']
 
+    LEVEL_NAMES = ["Hamlet", "Village", "Town", "City", "Metropolis", "Magapolis"]
+
     # The user ID
     uid  = ndb.StringProperty()
 

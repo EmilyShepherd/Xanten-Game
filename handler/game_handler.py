@@ -59,27 +59,26 @@ class GameHandler(DefaultHandler):
     # Joins a game
     def join(self, gid):
         query = Game.query(Game.gid==gid)
-        name = self.getPOSTorRandom('name', User)
-        msg = ""
-        status = 'error'
+        name  = self.getPOSTorRandom('name', User)
+
         if query.count() != 1:
-            msg = 'Unknown Game'
+            self.stderr('Unknown Game')
         else:
             game = query.fetch(1)[0]
 
             if game.running:
-                msg = 'Game has started'
+                self.stderr('Game has started')
             elif len(game.members) >= game.maxPlayers:
-                msg = 'The maximum number of players has been reached'
+                self.stderr('The maximum number of players has been reached')
             elif User.query(User.name==name, User.gid==gid).count() != 0:
-                msg = 'Username already exists';
+                self.stderr('Username already exists')
             else:
-                self.join_game(game, name)
+                sid = self.join_game(game, name)
                 game.put()
-                status = 'joined'
-                self.json['game'] = game.toDict() #his one should returns the token and session id
-        self.json['status'] = status
-        self.json['msg'] = msg
+                self.json['status']  = 'joined'
+                self.json['token']   = game.gid
+                self.json['session'] = sid
+
 
     # GET /game/<gid>/start
     #

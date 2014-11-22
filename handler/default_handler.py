@@ -25,7 +25,7 @@ class DefaultHandler(webapp2.RequestHandler):
     # Sets the response status to "ERROR" and sets the message to be the
     # given param
     def stderr(self, msg):
-        self.json['status']  = 'ERROR'
+        self.json['status']  = 'error'
         self.json['message'] = msg
 
     # Returns true or false, depending if the user is logged on

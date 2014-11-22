@@ -10,12 +10,22 @@
 
 function generateGeneralMap(size){
 
-
-	/*
-	 * for joe. the size is "small, medium or large"
-	 *
-	 */
-
+	// Controlling amount of space on the map.
+	var minClear = 0;
+	var noClear = 49;
+	switch (size) {
+		// Small: 2-4 players
+		// Medium: 4-6 players
+		// Large: 6-10 players
+		case "small":
+			minClear = 8;
+			break;
+		case "large":
+			minClear = 20;
+			break;
+		default:
+			minClear = 12;
+		}
 
 	// Variables which control properties of the world being generated:
 	// How often do things appear?
@@ -47,12 +57,15 @@ function generateGeneralMap(size){
   while (y < 7) {
     while (x < 7) {
       r = Math.random();
-      if (r > p_ocean) {
+      if ((r > p_ocean) && (noClear > minClear)) {
         imgArray[y][x] = "o";
-      } else if (r > p_rock) {
+				noClear--;
+      } else if ((r > p_rock) && (noClear > minClear)) {
         imgArray[y][x] = "m".concat(Math.round(10*(r - p_rock)));
-      } else if (r > p_forest) {
+				noClear--;
+      } else if ((r > p_forest) && (noClear > minClear)) {
         imgArray[y][x] = "t".concat(Math.round(10*(r - p_forest)));
+				noClear--;
       } else {
         imgArray[y][x] = "g";
       }
@@ -67,46 +80,56 @@ function generateGeneralMap(size){
 	y = 0;
 	while (y < 7) {
 		while (x < 7) {
-			if (imgArray[y][x] === "o") {
-				if (x > 0) {
-					if (Math.random() < OCEAN_EXPAND) {
-						imgArray[y][x - 1] = "o";
-					}
-				}
-				if (x < 6) {
+			if (noClear > minClear) {
+				if (imgArray[y][x] === "o") {
+					if (x > 0) {
 						if (Math.random() < OCEAN_EXPAND) {
-						imgArray[y][x + 1] = "o";
+							imgArray[y][x - 1] = "o";
+							noClear--;
+						}
 					}
-				}
-				if (y > 0) {
-					if (Math.random() < OCEAN_EXPAND) {
-						imgArray[y - 1][x] = "o";
+					if (x < 6) {
+							if (Math.random() < OCEAN_EXPAND) {
+							imgArray[y][x + 1] = "o";
+							noClear--;
+						}
 					}
-				}
-				if (y < 6) {
-					if (Math.random() < OCEAN_EXPAND) {
-						imgArray[y + 1][x] = "o";
+					if (y > 0) {
+						if (Math.random() < OCEAN_EXPAND) {
+							imgArray[y - 1][x] = "o";
+							noClear--;
+						}
 					}
-				}
-			} else if (imgArray[y][x] === "t0") {
-				if (x > 0) {
-					if (Math.random() < FOREST_EXPAND) {
-						imgArray[y][x - 1] = "t1";
+					if (y < 6) {
+						if (Math.random() < OCEAN_EXPAND) {
+							imgArray[y + 1][x] = "o";
+							noClear--;
+						}
 					}
-				}
-				if (x < 6) {
-					if (Math.random() < FOREST_EXPAND) {
-						imgArray[y][x + 1] = "t1";
-					}
-				}
-				if (y > 0) {
+				} else if (imgArray[y][x] === "t0") {
+					if (x > 0) {
 						if (Math.random() < FOREST_EXPAND) {
-						imgArray[y - 1][x] = "t1";
+							imgArray[y][x - 1] = "t1";
+							noClear--;
+						}
 					}
-				}
-				if (y < 6) {
-					if (Math.random() < FOREST_EXPAND) {
-						imgArray[y + 1][x] = "t1";
+					if (x < 6) {
+						if (Math.random() < FOREST_EXPAND) {
+							imgArray[y][x + 1] = "t1";
+							noClear--;
+						}
+					}
+					if (y > 0) {
+							if (Math.random() < FOREST_EXPAND) {
+							imgArray[y - 1][x] = "t1";
+							noClear--;
+						}
+					}
+					if (y < 6) {
+						if (Math.random() < FOREST_EXPAND) {
+							imgArray[y + 1][x] = "t1";
+							noClear--;
+						}
 					}
 				}
 			}
@@ -198,7 +221,7 @@ function generateGeneralMap(size){
 
 /**
  *  It returns the html representation of the map
- *	@param imbArray (array) An array with the map
+ *	@param imgArray (array) An array with the map
  *  @returns (string) A string representing the HTML map
  */
 function generateHTMLMap(imgArray){

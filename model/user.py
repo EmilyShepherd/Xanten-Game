@@ -55,11 +55,11 @@ class User(ndb.Model):
     # How much Stone the user has
     stone = ndb.IntegerProperty(default=200)
 
-    # How much people the user has
-    people = ndb.IntegerProperty(default=50)
-
     # The level of their home
     homeLvl = ndb.IntegerProperty(default=1)
+
+    # The number of people at the home
+    peopleAtHome = ndb.IntegerProperty(default=50)
 
     # How many houses the player has
     houses = ndb.IntegerProperty(default=1)
@@ -67,8 +67,14 @@ class User(ndb.Model):
     # Has this player got a trade centre?
     trade = ndb.BooleanProperty(default=False)
 
+    # The number of people at the trade centre
+    peopleAtTrade = ndb.IntegerProperty(default=0)
+
     # Has this player got a grapevine?
     grapevine = ndb.BooleanProperty(default=False)
+
+    # The number of people at the grapevine
+    peopleAtGrapevine = ndb.IntegerProperty(default=0)
 
     # Has this player got storage?
     storage = ndb.BooleanProperty(default=False)
@@ -82,20 +88,32 @@ class User(ndb.Model):
     # The level of the military
     militaryLvl = ndb.IntegerProperty(default=1)
 
+    # Number of people at the military centre
+    peopleAtMilitary = ndb.IntegerProperty(default=0)
+
     # How many mines has this player got?
     mines = ndb.IntegerProperty(default=0)
 
     # The level of the mines
     mineLvl = ndb.IntegerProperty(default=1)
 
-    # How many mines has this player got?
+    # Number of people at the mines
+    peopleAtMine = ndb.IntegerProperty(default=0)
+
+    # How many lumberjacks has this player got?
     lumberjacks = ndb.IntegerProperty(default=0)
 
-    # The level of the mines
+    # The level of the lumberjacks
     lumberjackLvl = ndb.IntegerProperty(default=1)
 
-    # How many mines has this player got?
+    # Number of people at the lumberjacks
+    peopleAtLumberjack = ndb.IntegerProperty(default=0)
+
+    # How many docks has this player got?
     docks = ndb.IntegerProperty(default=0)
 
-    # The level of the mines
+    # The level of the docks
     dockLvl = ndb.IntegerProperty(default=1)
+
+    # Number of people at the docks
+    peopleAtDock = ndb.IntegerProperty(default=0)

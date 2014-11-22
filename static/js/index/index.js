@@ -108,15 +108,15 @@ $(document).ready(function() {
 			return;
 		}
 		var name = prompt("Please enter your name to continue...", "")
-		if (name !== null) {		
+		if (name) {		
 		clearInterval(thread_games);
 		request = $.ajax({
 				url: "/game/"+token+"/join",
 				type: "PUT",
 				data: {"user":name},
 				success: function (response) {
-					if(response['status'] === "ERROR") {
-						alert(response['message']);
+					if(response['status'] === "error") {
+						alert(response['msg']);
 						thread_games = setInterval(get_games, 2000);
 					}
 					else {
@@ -125,7 +125,7 @@ $(document).ready(function() {
 						$("#join_game").hide();
 						$("#start_game").hide();
 						$("#create_game").show(500, function() {
-							waiting_players(response);					
+							waiting_players(response.game);					
 						})
 					}
 				}

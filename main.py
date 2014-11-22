@@ -6,9 +6,11 @@
 import webapp2
 
 # Handlers
-from handler.game_handler  import GameHandler
+from handler.game_handler import GameHandler
+from handler.me_handler   import MeHandler
+
+# REMOVE IN MAIN RELEASE
 from handler.debug_handler import DebugHandler
-from handler.me_handler import MeHandler
 
 # Setup routes
 app = webapp2.WSGIApplication([
@@ -22,7 +24,8 @@ app = webapp2.WSGIApplication([
     
     webapp2.Route(r'/me',                handler=MeHandler),
 
+    # REMOVE IN MAIN RELEASE 
     webapp2.Route(r'/debug/purge/<table>', handler=DebugHandler, handler_method='purge'),
     webapp2.Route(r'/debug/purge/',        handler=DebugHandler, handler_method='purgeAll'),
     webapp2.Route(r'/debug/purge',         handler=DebugHandler, handler_method='purgeAll')
-], debug=True)
+], debug=True) #REMOVE IN MAIN RELEASE

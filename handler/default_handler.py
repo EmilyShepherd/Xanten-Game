@@ -2,6 +2,7 @@ import webapp2
 import json
 import random
 
+# Model
 from model.user import User
 
 # Handles all requests
@@ -46,9 +47,15 @@ class DefaultHandler(webapp2.RequestHandler):
                 self.stderr('You are not logged in')
                 return False
             else:
+                # Passed all tests. Get the user
                 self.user = query.fetch(1)[0]
                 return True
 
+    # Attempts to get a POST value. If none was set, or it was blank, it
+    # picks random value from the defaults provided
+    #
+    # WARNING: Only use this if you *know* the method is POST / PUT.
+    # This method will throw an exception if the method is GET
     def getPOSTorRandom(self, key, className):
         value = self.request.POST.get(key, None)
 
@@ -59,5 +66,8 @@ class DefaultHandler(webapp2.RequestHandler):
             second = self.getRand(className.DEFAULT_SECOND_NAMES)
             return first + ' ' + second
 
+    # Helper function used by getPOSTorRandom
+    #
+    # This function returns a random value out of the given array
     def getRand(self, arr):
         return arr[random.randrange(0, len(arr))]

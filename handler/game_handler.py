@@ -31,7 +31,13 @@ class GameHandler(DefaultHandler):
     # Returns a list of games
     def get(self):
         self.json['games'] = [ ]
-        for game in Game.query(Game.private==False, Game.running==False).fetch():
+        query              = Game.query(
+            Game.private == False,
+            Game.running == False
+        )
+
+        for game in query.fetch():
+            # Only show games which aren't full
             if len(game.members) < game.maxPlayers:
                 self.json['games'].append(game.toDict())
 
@@ -41,6 +47,7 @@ class GameHandler(DefaultHandler):
     def get_game(self, gid):
         query = Game.query(Game.gid == gid)
 
+        # Look for the game
         if query.count() != 1:
             self.stderr('Unknown Game')
         else:
@@ -50,6 +57,8 @@ class GameHandler(DefaultHandler):
             self.json['full']   = (len(game.members) >= game.maxPlayers)
             self.json['users']  = [ ]
 
+            # Also send the name of joined users for the waiting users
+            # to see
             for uid in game.members:
                 user = User.query(User.uid == uid).fetch(1)[0]
                 self.json['users'].append(user.name)
@@ -58,9 +67,10 @@ class GameHandler(DefaultHandler):
     #
     # Joins a game
     def join(self, gid):
-        query = Game.query(Game.gid==gid)
+        query = Game.query(Game.gid == gid)
         name  = self.getPOSTorRandom('username', User)
 
+        # Look for the game
         if query.count() != 1:
             self.stderr('Unknown Game')
         else:
@@ -75,19 +85,25 @@ class GameHandler(DefaultHandler):
             else:
                 sid = self.join_game(game, name)
                 game.put()
+
                 self.json['status']  = 'joined'
+
+                # Not sure why either of these are needed
                 self.json['token']   = game.gid
                 self.json['session'] = sid
-
 
     # GET /game/<gid>/start
     #
     # Starts a game
+    #
+    # NB: You need to be the owner of a game to start it
     def start(self, gid):
-        if not self.checkLogin():
-            return
 
-        query = Game.query(Game.gid==gid)
+        # You must be the owner of a game to start it, so we should
+        # check if they are loged on
+        if not self.checkLogin(): return
+
+        query = Game.query(Game.gid == gid)
 
         if query.count() != 1:
             self.stderr('Unknown Game')
@@ -102,22 +118,18 @@ class GameHandler(DefaultHandler):
 
                 self.json['status'] = 'started'
 
-    # GET /game/before/<gid>
-    #
-    # 
-    def before(self, id):
-        self.json['id']     = id
-        self.json['status'] = 'ok'
-
-    # Used by join() and create() to create a new User session and
-    # sign them up to the given game
+    # Used by join() and create() to create a new User session and sign
+    # them up to the given game
     def join_game(self, game, name):
         sess      = User(uid = uuid.uuid4().hex)
         sess.gid  = game.gid;
         sess.name = name
-        game.members.append(sess.uid)
         sess.put()
 
         self.response.set_cookie('Session', sess.uid)
 
+        # We don't need to save this as create() has more stuff to add
+        game.members.append(sess.uid)
+
+        # The userid
         return sess.uid

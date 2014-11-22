@@ -154,6 +154,78 @@ function generateGeneralMap(size){
 				var sw = false;
 				var se = false;
 				if (y > 0) {
+					n = (imgArray[y - 1][x] === "o" || imgArray[y - 1][x] === "ob-se" || imgArray[y - 1][x] === "ob-sw" || imgArray[y - 1][x] === "o-s");
+				}
+				if (y < 6) {
+					s = (imgArray[y + 1][x] === "o" || imgArray[y + 1][x] === "ob-ne" || imgArray[y + 1][x] === "ob-nw" || imgArray[y + 1][x] === "o-n");
+				}
+				if (x > 0) {
+					w = (imgArray[y][x - 1] === "o" || imgArray[y][x - 1] === "ob-ne" || imgArray[y][x - 1] === "ob-se" || imgArray[y][x - 1] === "o-e");
+					if (y > 0) {
+						nw = (imgArray[y - 1][x - 1] === "o");
+					}
+					if (y < 6) {
+						sw = (imgArray[y + 1][x - 1] === "o");
+					}
+				}
+				if (x < 6) {
+					e = (imgArray[y][x + 1] === "o" || imgArray[y][x + 1] === "ob-nw" || imgArray[y][x + 1] === "ob-sw" || imgArray[y][x + 1] === "o-w");
+					if (y > 0) {
+						ne = (imgArray[y - 1][x + 1] === "o");
+					}
+					if (y < 6) {
+						se = (imgArray[y + 1][x + 1] === "o");
+					}
+				}
+				if ((n && s) || (w && e)) {
+					imgArray[y][x] = "o";
+					x = 0;
+					y = 0;
+				} else if (n && !w && !e && !s) {
+					imgArray[y][x] = "o-n";
+				} else if (!n && !w && !e && s) {
+					imgArray[y][x] = "o-s";
+				} else if (!n && w && !e && !s) {
+					imgArray[y][x] = "o-w";
+				} else if (!n && !w && e && !s) {
+					imgArray[y][x] = "o-e";
+				} else if (nw && se && !n && !s && !e && !w) {
+					imgArray[y][x] = "oa-nw";
+				} else if (sw && ne && !n && !s && !e && !w) {
+					imgArray[y][x] = "oa-ne";
+				} else if (nw && !n && !w) {
+					imgArray[y][x] = "oc-nw";
+				} else if (ne && !n && !e) {
+					imgArray[y][x] = "oc-ne";
+				} else if (sw && !s && !w) {
+					imgArray[y][x] = "oc-sw";
+				} else if (se && !s && !e) {
+					imgArray[y][x] = "oc-se";
+				}
+			}
+			x++;
+		}
+		x = 0;
+		y++;
+	}
+
+	x = 0;
+	y = 0;
+	while (y < 7) {
+		while (x < 7) {
+			if (x===0 && y===0) {
+				console.log("restart");
+			}
+			if (imgArray[y][x] !== "o") {
+				var n = false;
+				var s = false;
+				var w = false;
+				var e = false;
+				var nw = false;
+				var ne = false;
+				var sw = false;
+				var se = false;
+				if (y > 0) {
 					n = (imgArray[y - 1][x] === "o");
 				}
 				if (y < 6) {
@@ -177,38 +249,81 @@ function generateGeneralMap(size){
 						se = (imgArray[y + 1][x + 1] === "o");
 					}
 				}
-				if ((n && s) || (w && e)) {
-					imgArray[y][x] = "o";
-					x = 0;
-					y = 0;
-				} else if ((n && (w || sw)) || (w && ne)) {
-					imgArray[y][x] = "ob-nw";
-				} else if ((n && (e || se)) || (e && nw)) {
-					imgArray[y][x] = "ob-ne";
-				} else if ((s && (w || nw)) || (w && se)) {
-					imgArray[y][x] = "ob-sw";
-				} else if ((s && (e || ne)) || (e && sw)) {
-					imgArray[y][x] = "ob-se";
-				} else if (n) {
-					imgArray[y][x] = "o-n";
-				} else if (s) {
-					imgArray[y][x] = "o-s";
-				} else if (w) {
-					imgArray[y][x] = "o-w";
-				} else if (e) {
-					imgArray[y][x] = "o-e";
-				} else if (nw && se) {
-					imgArray[y][x] = "oa-nw";
-				} else if (sw && ne) {
-					imgArray[y][x] = "oa-ne";
-				} else if (nw) {
-					imgArray[y][x] = "oc-nw";
-				} else if (ne) {
-					imgArray[y][x] = "oc-ne";
-				} else if (sw) {
-					imgArray[y][x] = "oc-sw";
-				} else if (se) {
-					imgArray[y][x] = "oc-se";
+				if ((n && (w || sw)) || (w && ne)){
+					if (x === 6 && y === 6) {
+						imgArray[y][x] = "ob-nw";
+					} else if (x === 6) {
+						if (imgArray[y+1][x] === "o-w" || imgArray[y+1][x] === "ob-sw" || imgArray[y+1][x] === "oc-nw" || imgArray[y+1][x] === "oa-nw") {
+							imgArray[y][x] = "ob-nw";
+						}
+					} else if (y === 6) {
+						if (imgArray[y][x+1] === "o-n" || imgArray[y][x+1] === "ob-ne" || imgArray[y][x+1] === "oc-nw" || imgArray[y][x+1] === "oa-nw" ) {
+							imgArray[y][x] = "ob-nw";
+						}
+					} else {
+						if (imgArray[y+1][x] === "o-w" || imgArray[y+1][x] === "ob-sw" || imgArray[y+1][x] === "oc-nw" || imgArray[y+1][x] === "oa-nw") {
+							if (imgArray[y][x+1] === "o-n" || imgArray[y][x+1] === "ob-ne" || imgArray[y][x+1] === "oc-nw" || imgArray[y][x+1] === "oa-nw" ) {
+								imgArray[y][x] = "ob-nw";
+							}
+						}
+					}
+				}
+				if ((n && (e || se)) || (e && nw)){
+					if (x === 0 && y === 6) {
+						imgArray[y][x] = "ob-ne";
+					} else if (x === 0) {
+						if (imgArray[y+1][x] === "o-e" || imgArray[y+1][x] === "ob-se" || imgArray[y+1][x] === "oc-ne" || imgArray[y+1][x] === "oa-ne") {
+							imgArray[y][x] = "ob-ne";
+						}
+					} else if (y === 6) {
+						if (imgArray[y][x-1] === "o-n" || imgArray[y][x-1] === "ob-nw" || imgArray[y][x-1] === "oc-ne" || imgArray[y][x-1] === "oa-ne" ) {
+							imgArray[y][x] = "ob-ne";
+						}
+					} else {
+						if (imgArray[y+1][x] === "o-e" || imgArray[y+1][x] === "ob-se" || imgArray[y+1][x] === "oc-ne" || imgArray[y+1][x] === "oa-ne") {
+							if (imgArray[y][x-1] === "o-n" || imgArray[y][x-1] === "ob-nw" || imgArray[y][x-1] === "oc-ne" || imgArray[y][x-1] === "oa-ne" ) {
+								imgArray[y][x] = "ob-ne";
+							}
+						}
+					}
+				}
+				if ((s && (w || nw)) || (w && se)){
+					if (x === 6 && y === 0) {
+						imgArray[y][x] = "ob-sw";
+					} else if (x === 6) {
+						if (imgArray[y-1][x] === "o-w" || imgArray[y-1][x] === "ob-nw" || imgArray[y-1][x] === "oc-sw" || imgArray[y-1][x] === "oa-ne") {
+							imgArray[y][x] = "ob-sw";
+						}
+					} else if (y === 0) {
+						if (imgArray[y][x+1] === "o-s" || imgArray[y][x+1] === "ob-se" || imgArray[y][x+1] === "oc-sw" || imgArray[y][x+1] === "oa-ne" ) {
+							imgArray[y][x] = "ob-sw";
+						}
+					} else {
+						if (imgArray[y-1][x] === "o-w" || imgArray[y-1][x] === "ob-nw" || imgArray[y-1][x] === "oc-sw" || imgArray[y-1][x] === "oa-ne") {
+							if (imgArray[y][x+1] === "o-s" || imgArray[y][x+1] === "ob-se" || imgArray[y][x+1] === "oc-sw" || imgArray[y][x+1] === "oa-ne" ) {
+								imgArray[y][x] = "ob-sw";
+							}
+						}
+					}
+				}
+				if ((s && (e || ne)) || (e && sw)){
+					if (x === 0 && y === 0) {
+						imgArray[y][x] = "ob-se";
+					} else if (x === 0) {
+						if (imgArray[y-1][x] === "o-e" || imgArray[y-1][x] === "ob-ne" || imgArray[y-1][x] === "oc-se" || imgArray[y-1][x] === "oa-nw") {
+							imgArray[y][x] = "ob-se";
+						}
+					} else if (y === 0) {
+						if (imgArray[y][x-1] === "o-s" || imgArray[y][x-1] === "ob-sw" || imgArray[y][x-1] === "oc-se" || imgArray[y][x-1] === "oa-nw" ) {
+							imgArray[y][x] = "ob-se";
+						}
+					} else {
+						if (imgArray[y-1][x] === "o-e" || imgArray[y-1][x] === "ob-ne" || imgArray[y-1][x] === "oc-se" || imgArray[y-1][x] === "oa-nw") {
+							if (imgArray[y][x-1] === "o-s" || imgArray[y][x-1] === "ob-sw" || imgArray[y][x-1] === "oc-se" || imgArray[y][x-1] === "oa-nw" ) {
+								imgArray[y][x] = "ob-se";
+							}
+						}
+					}
 				}
 			}
 			x++;
@@ -237,6 +352,6 @@ function generateHTMLMap(imgArray){
 		x = 0;
 		y++;
 	}
-	map += "</tr></table>"
+	map += "</tr></table>";
 	return map;
 }

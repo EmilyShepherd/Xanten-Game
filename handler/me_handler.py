@@ -1,5 +1,7 @@
 import webapp2
 import uuid
+import random
+import math
 
 from default_handler import DefaultHandler
 
@@ -22,16 +24,15 @@ class MeHandler(DefaultHandler):
         # Have to be loged in
         if not self.checkLogin(): return
 
-        # 
-        self.updateValues()
+        self.updateValues(True)
 
         self.json['level']     = User.LEVEL_NAMES[self.user.level - 1]
 
         self.json['resources'] = {
-            'gold'  : self.user.gold,
-            'food'  : self.user.food,
-            'wood'  : self.user.wood,
-            'stone' : self.user.stone
+            'gold'  : math.floor(self.user.gold),
+            'food'  : math.floor(self.user.food),
+            'wood'  : math.floor(self.user.wood),
+            'stone' : math.floor(self.user.stone)
         }
         
         self.json['buildings'] = {
@@ -79,6 +80,26 @@ class MeHandler(DefaultHandler):
 
     # Updates the user's resources based on the time since the last
     # update
-    def updateValues(self):
+    def updateValues(self, update):
         secs = self.user.markUpdate()
 
+        self.user.food +=                                     \
+              (self.user.peopleAtDock * self.user.level)      \
+            * secs / 60.0
+        self.user.food +=                                     \
+              (self.user.peopleAtGrapevine * self.user.level) \
+            * secs / 60.0
+        self.user.wood +=                                     \
+              (random.randrange(1, 19) / 10.0) * 0.3          \
+            * self.user.lumberjackLvl                         \
+            * self.user.peopleAtLumberjack                    \
+            * self.user.lumberjacks                           \
+            * secs / 60.0
+        self.user.gold +=                                     \
+              (random.randrange(1, 19) / 10.0) * 0.3          \
+            * self.user.mineLvl                               \
+            * self.user.peopleAtMine                          \
+            * self.user.mines                                 \
+            * secs / 60.0
+
+        if (update): self.user.put()

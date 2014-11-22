@@ -49,16 +49,16 @@ class User(ndb.Model):
     level = ndb.IntegerProperty(default=1)
 
     # How much Gold the user has
-    gold = ndb.IntegerProperty(default=50)
+    gold = ndb.FloatProperty(default=50)
 
     # How much Food the user has
-    food = ndb.IntegerProperty(default=200)
+    food = ndb.FloatProperty(default=200)
 
     # How much Wood the user has
-    wood = ndb.IntegerProperty(default=200)
+    wood = ndb.FloatProperty(default=200)
 
     # How much Stone the user has
-    stone = ndb.IntegerProperty(default=200)
+    stone = ndb.FloatProperty(default=200)
 
     # The level of their home
     homeLvl = ndb.IntegerProperty(default=1)
@@ -123,23 +123,11 @@ class User(ndb.Model):
     # Number of people at the docks
     peopleAtDock = ndb.IntegerProperty(default=0)
 
-    # Sets the lastUpdated property with the current datetime, without
-    # seconds saved. It also calculates the number of minutes since the
-    # last update
+    # Sets the lastUpdated property with the current datetime. It also
+    # calculates the number of seconds since the last update
     def markUpdate(self):
-        realDT = datetime.datetime.now()
-
-        # Gets the datetime now, without the seconds
-        dt     = datetime.datetime(
-            realDT.year,
-            realDT.month,
-            realDT.day,
-            realDT.hour,
-            realDT.minute
-        )
-
-        minutes = (dt - self.lastUpdated).total_seconds() / 60
-
+        dt               = datetime.datetime.now()
+        seconds          = (dt - self.lastUpdated).total_seconds()
         self.lastUpdated = dt
 
-        return minutes
+        return seconds

@@ -80,4 +80,5 @@ class MeHandler(DefaultHandler):
     # Updates the user's resources based on the time since the last
     # update
     def updateValues(self):
-        pass
+        secs = self.user.markUpdate()
+

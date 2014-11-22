@@ -87,7 +87,6 @@ $(document).ready(function() {
 	 * @param (object) response The object from database which contain the information to identify the user and the game
 	 */
 	function waiting_players(response) {
-		$.cookie('session', response['session']);
 		$.cookie('token', response['token']);
 		$("#game_token").val(response['token']);
 		$("#start_game").show();	   		

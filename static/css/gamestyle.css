@@ -13,3 +13,25 @@ body{
 	position: relative;
 	top: 130px;
 }
+
+#messages{
+	position: absolute;
+	top: 125px;
+	right: 200px;
+}
+
+#news{
+	position: absolute;
+	top: 260px;
+	right: 200px;
+}
+
+#tasks{
+	position: absolute;
+	top: 460px;
+	right: 200px;
+}
+
+.heading{
+	
+}

@@ -2,7 +2,14 @@ body{
 	background-image:
 		url("../img/resourcebar.png"),
 		url("../img/tobbanner.png"),
-		url("../img/sidebar.png"),
+		url("../img/leftsidebar.png"),
+		url("../img/rightsidebar.png"),
 		url("../img/gamebackground.png");
-	background-repeat: no-repeat, repeat-x, repeat-y, repeat;
+	background-repeat: no-repeat, repeat-x, repeat-y, repeat-y, repeat;
+	background-position: left top, left top, left top, right top, left top; 
+}
+
+#actions{
+	position: relative;
+	top: 130px;
 }

@@ -7,8 +7,58 @@
  
 var thread_games,
 	thread_users;
+
+var player;
  
 $(document).ready(function() {
+
+    function start_game(response)
+    {
+        clearTimeout(thread_users);
+
+        player = response.player;
+
+        // This function keeps track of the loading css and
+        // js files. When *both* are loaded, it opens up the
+        // game
+        var waiting = 2;
+        var executeScript  = (function()
+        {
+            if (--waiting == 0)
+            {
+                $("#cover").fadeOut(1000);
+            }
+        });
+
+        $("#cover").fadeIn(1000, function()
+        {
+            $('#game').show();
+            $("#join_game").hide();
+            $("#start_game").hide();
+            $("#create_game").hide();
+
+            // Include new stylesheet
+            var inc    = document.createElement('link');
+            inc.rel    = 'stylesheet';  
+            inc.href   = '/static/css/gamestyle.css';
+            inc.onload = executeScript;
+            document.head.appendChild(inc);
+
+            // Remove old stylesheet
+            $("#style").remove();
+
+            // Include new script file
+            var inc2    = document.createElement('script');  
+            inc2.src    = '/static/js/index/game.js';
+            inc2.onload = executeScript;
+            document.head.appendChild(inc2);
+
+            $("#gold").html(player.resources.gold);
+            $("#food").html(player.resources.food);
+            $("#wood").html(player.resources.wood);
+            $("#stone").html(player.resources.stone);
+        });
+    }
 
 	/**
 	 * It gets the last updates (users, status) of the game. If the game is started, it sents the user to /game
@@ -18,11 +68,9 @@ $(document).ready(function() {
 			url: "/game/"+$("#game_token").val()+"",
 			type: "GET"
 		}).done(function (response) {	
-			if(response["status"] === 'running') {
-				clearTimeout(thread_users);
-				$("#cover").fadeIn(1000,function() {
-					document.location= '/game';
-				});								
+			if(response["status"] === 'running')
+            {	
+                start_game(response);
 			} else {		
 				var text = "";
 				if(response.users) {
@@ -194,6 +242,12 @@ $(document).ready(function() {
 		request = $.ajax({
 			url: "/game/"+$.cookie("token")+"/start",
 			type: "PUT"
-		});
+		}).done(function(response)
+        {
+            if (response['status'] == 'started')
+            {
+                start_game(response);
+            }
+        })
 	});
 });

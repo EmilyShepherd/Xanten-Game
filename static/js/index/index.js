@@ -23,29 +23,48 @@ $(document).ready(function() {
 			if(response["status"] === 'running') {
 				clearTimeout(thread_users);
 
-				$("#cover").fadeIn(1000,function() {
-					request = $.ajax({
-                        url: "/game"
-                    }).done(function(html) {
-                        $('#game').show();
-                        $("#join_game").hide();
-                        $("#start_game").hide();
-                        $("#create_game").hide();
+                player = response.player;
 
-                        player = response.player;
+                // This function keeps track of the loading css and
+                // js files. When *both* are loaded, it opens up the
+                // game
+                var waiting = 2;
+                var executeScript  = (function()
+                {
+                    if (--waiting == 0)
+                    {
+                        $("#cover").fadeOut(1000);
+                    }
+                });
 
-                        document.getElementById('style').href='/static/css/gamestyle.css';
-                        $('#script').href='/static/js/index/game.css';
+                $("#cover").fadeIn(1000, function()
+                {
+                    $('#game').show();
+                    $("#join_game").hide();
+                    $("#start_game").hide();
+                    $("#create_game").hide();
 
-                        $("#gold").innerText  = player.resources.gold;
-                        $("#food").innerText  = player.resources.food;
-                        $("#wood").innerText  = player.resources.wood;
-                        $("#stone").innerText = player.resources.stone;
+                    // Include new stylesheet
+                    var inc    = document.createElement('link');
+                    inc.rel    = 'stylesheet';  
+                    inc.href   = '/static/css/gamestyle.css';
+                    inc.onload = executeScript;
+                    document.head.appendChild(inc);
 
-                        $("#cover").hide();
-                    });
-				});		
+                    // Remove old stylesheet
+                    $("#style").remove();
 
+                    // Include new script file
+                    var inc2    = document.createElement('script');  
+                    inc2.src    = '/static/js/index/game.js';
+                    inc2.onload = executeScript;
+                    document.head.appendChild(inc2);
+
+                    $("#gold").innerText  = player.resources.gold;
+                    $("#food").innerText  = player.resources.food;
+                    $("#wood").innerText  = player.resources.wood;
+                    $("#stone").innerText = player.resources.stone;
+                });
 
 			} else {		
 				var text = "";

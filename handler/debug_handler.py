@@ -31,3 +31,17 @@ class DebugHandler(DefaultHandler):
     def purgeAll(self):
         self.purge('user')
         self.purge('game')
+
+    # GET /debug/me
+    #
+    # This method simply returns a JSON array of all the user's details.
+    # It includes values such as their resource levels, and what
+    # buildings they have
+    def me(self):
+
+        # Have to be loged in
+        if not self.checkLogin(): return
+
+        self.user.updateValues(False)
+
+        self.json = self.user.toDict()

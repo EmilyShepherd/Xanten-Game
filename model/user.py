@@ -2,6 +2,7 @@ from google.appengine.ext import ndb
 
 import datetime
 import random
+import math
 
 # Represents a user session
 #
@@ -214,3 +215,59 @@ class User(ndb.Model):
     def getBuildFinished(self):
         dt = datetime.datetime.now()
         return (self.buildingFinish - dt).total_seconds()
+
+    # Takes a game object as created / returned from the database, and
+    # converts it into a dict, with only public facing properties being
+    # added
+    def toDict(self):
+        return {
+            "level" : User.LEVEL_NAMES[self.level - 1],
+            "resources" : {
+                "gold"  : math.floor(self.gold),
+                "food"  : math.floor(self.food),
+                "wood"  : math.floor(self.wood),
+                "stone" : math.floor(self.stone)
+            },
+            "buildings" : {
+                "home"        : {
+                    "num"    : 1,
+                    "level"  : self.homeLvl,
+                    "people" : self.peopleAtHome
+                },
+                "house"       : {
+                    "num" : self.houses
+                },
+                "trade"       : {
+                    "num"    : 1 if self.trade else 0,
+                    "people" : self.peopleAtTrade
+                },
+                "grapevine"   : {
+                    "num"    : 1 if self.grapevine else 0,
+                    "people" : self.peopleAtGrapevine
+                },
+                "storage"    : {
+                    "num"   : 1 if self.storage else 0,
+                    "level" : self.storageLvl
+                },
+                "military"    : {
+                    "num"    : 1 if self.military else 0,
+                    "level " : self.militaryLvl,
+                    "people" : self.peopleAtMilitary
+                },
+                "mine"        : {
+                    "num"    : self.mines,
+                    "level"  : self.mineLvl,
+                    "people" : self.peopleAtMine
+                },
+                "lumberjack"  : {
+                    "num"    : self.lumberjacks,
+                    "level"  : self.lumberjackLvl,
+                    "people" : self.peopleAtLumberjack
+                },
+                "dock"        : {
+                    "num"    : self.docks,
+                    "level"  : self.dockLvl,
+                    "people" : self.peopleAtDock
+                }
+            }
+        }

@@ -58,6 +58,9 @@ class GameHandler(DefaultHandler):
             self.json['full']   = (len(game.members) >= game.maxPlayers)
             self.json['users']  = game.members
 
+            if game.running and self.checkLogin(False):
+                self.json['player'] = self.user.toDict()
+
     # POST /game/<gid>/join
     #
     # Joins a game
@@ -116,6 +119,7 @@ class GameHandler(DefaultHandler):
                     user.put()
 
                 self.json['status'] = 'started'
+                self.json['player'] = self.user.toDict()
 
     # Used by join() and create() to create a new User session and sign
     # them up to the given game

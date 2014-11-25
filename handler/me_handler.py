@@ -1,7 +1,6 @@
 import webapp2
 import uuid
 import random
-import math
 import datetime
 
 from default_handler import DefaultHandler
@@ -15,70 +14,6 @@ from model.building import Building
 # Handles /me/* requests
 #
 class MeHandler(DefaultHandler):
-
-    # GET /me
-    #
-    # This method simply returns a JSON array of all the user's details.
-    # It includes values such as their resource levels, and what
-    # buildings they have
-    def get(self):
-
-        # Have to be loged in
-        if not self.checkLogin(): return
-
-        self.user.updateValues(True)
-
-        self.json['level']     = User.LEVEL_NAMES[self.user.level - 1]
-
-        self.json['resources'] = {
-            'gold'  : math.floor(self.user.gold),
-            'food'  : math.floor(self.user.food),
-            'wood'  : math.floor(self.user.wood),
-            'stone' : math.floor(self.user.stone)
-        }
-        
-        self.json['buildings'] = {
-            'home'        : {
-                'num'    : 1,
-                'level'  : self.user.homeLvl,
-                'people' : self.user.peopleAtHome
-            },
-            'house'       : {
-                'num' : self.user.houses
-            },
-            'trade'       : {
-                'num'    : 1 if self.user.trade else 0,
-                'people' : self.user.peopleAtTrade
-            },
-            'grapevine'   : {
-                'num'    : 1 if self.user.grapevine else 0,
-                'people' : self.user.peopleAtGrapevine
-            },
-            'storage'    : {
-                'num'   : 1 if self.user.storage else 0,
-                'level' : self.user.storageLvl
-            },
-            'military'    : {
-                'num'    : 1 if self.user.military else 0,
-                'level ' : self.user.militaryLvl,
-                'people' : self.user.peopleAtMilitary
-            },
-            'mine'        : {
-                'num'    : self.user.mines,
-                'level'  : self.user.mineLvl,
-                'people' : self.user.peopleAtMine
-            },
-            'lumberjack'  : {
-                'num'    : self.user.lumberjacks,
-                'level'  : self.user.lumberjackLvl,
-                'people' : self.user.peopleAtLumberjack
-            },
-            'dock'        : {
-                'num'    : self.user.docks,
-                'level'  : self.user.dockLvl,
-                'people' : self.user.peopleAtDock
-            }
-        }
 
     # Allows the user to create a building (after checking that they
     # aren't currently building & have enough resources first)

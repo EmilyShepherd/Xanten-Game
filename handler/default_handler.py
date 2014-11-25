@@ -33,18 +33,20 @@ class DefaultHandler(webapp2.RequestHandler):
     #
     # If the user is found to be logged in, self.user will be populated
     # with a user object for the session
-    def checkLogin(self):
+    def checkLogin(self, showError=True):
         sid = self.request.cookies.get('Session')
 
         # Check if a "Session" cookie was set
         if not sid:
-            self.stderr('You are not logged in')
+            if showError:
+                self.stderr('You are not logged in')
             return False
         else:
             # Check if this user session exists
             query = User.query(User.uid == sid)
             if query.count() != 1:
-                self.stderr('You are not logged in')
+                if showError:
+                    self.stderr('You are not logged in')
                 return False
             else:
                 # Passed all tests. Get the user

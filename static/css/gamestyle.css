@@ -9,27 +9,56 @@ body{
 	background-position: left top, left top, left top, right top, left top; 
 }
 
+#logo{
+	color: white;
+}
+
+#resources{
+	position: absolute;
+	top: 40px;
+	left: 120px;
+}
+
+#resources ul li{
+	display: inline;
+	list-style-type: none;
+	padding-right: 105px;
+	color: white;
+}
+
 #actions{
-	position: relative;
-	top: 130px;
+	border: 2px solid;
+	height: 600px;
+	width: 280px;
+	position: absolute;
+	top: 155px;
 }
 
 #messages{
+	border: 2px solid;
+	height: 130px;
+	width: 280px;
 	position: absolute;
-	top: 125px;
-	right: 200px;
+	top: 155px;
+	right: 5px;
 }
 
 #news{
+	border: 2px solid;
+	height: 200px;
+	width: 280px;
 	position: absolute;
-	top: 260px;
-	right: 200px;
+	top: 295px;
+	right: 5px;
 }
 
 #tasks{
+	border: 2px solid;
+	height: 200px;
+	width: 280px;
 	position: absolute;
-	top: 460px;
-	right: 200px;
+	top: 505px;
+	right: 5px;
 }
 
 .heading{

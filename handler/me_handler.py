@@ -85,17 +85,16 @@ class MeHandler(DefaultHandler):
     def create(self, bname):
         if not self.checkLogin(): return
 
-        building = Building.buildings[bname]
-
         # The building type has to exist in order to be built, obviously
-        if not building:
+        if not Building.buildings.has_key(bname):
             self.stderr('Unknown Building Type')
         else:
             # Update the user's resouces & clear the building queue if
             # it has finished
             self.user.updateValues(False)
 
-            cost = building['cost']
+            building = Building.buildings[bname]
+            cost     = building['cost']
 
             # You can only build one thing at a time
             if self.user.buildingQueue:

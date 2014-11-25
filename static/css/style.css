@@ -85,7 +85,7 @@ html{
 	width:30%;
 }
 
-#join_game,#create_game{
+#join_game,#create_game,#game{
 	display:none;
 	width:100%;
 	margin-bottom:200px;

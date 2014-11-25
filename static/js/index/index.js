@@ -7,6 +7,8 @@
  
 var thread_games,
 	thread_users;
+
+var player;
  
 $(document).ready(function() {
 
@@ -25,14 +27,20 @@ $(document).ready(function() {
 					request = $.ajax({
                         url: "/game"
                     }).done(function(html) {
-                        document.body.innerHTML = html;
-                        document.getElementById('style').href='/static/css/gamestyle.css';
-                        document.getElementById('script').href='/static/js/index/game.css';
+                        $('#game').show();
+                        $("#join_game").hide();
+                        $("#start_game").hide();
+                        $("#create_game").hide();
 
-                        document.getElementById('gold').innerText = response.player.resources.gold;
-                        document.getElementById('food').innerText = response.player.resources.food;
-                        document.getElementById('wood').innerText = response.player.resources.wood;
-                        document.getElementById('stone').innerText = response.player.resources.stone;
+                        player = response.player;
+
+                        document.getElementById('style').href='/static/css/gamestyle.css';
+                        $('#script').href='/static/js/index/game.css';
+
+                        $("#gold").innerText  = player.resources.gold;
+                        $("#food").innerText  = player.resources.food;
+                        $("#wood").innerText  = player.resources.wood;
+                        $("#stone").innerText = player.resources.stone;
 
                         $("#cover").hide();
                     });

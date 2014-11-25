@@ -6,6 +6,77 @@ Cloud Application Development - Team M
 API Structure
 -------------
 
+### GET /me
+*Returns the current list of all buildings owned by the user and their
+levels, and the amount of resources they have*
+
+**DO NOT PING THIS ENDPOINT EVERY x SECONDS**
+
+#### Example:
+`GET /me`
+
+#### Response:
+```json
+{
+    "level"     : "Hamlet",
+    "resources" :
+    {
+        "gold"  : 50,
+        "wood"  : 200,
+        "food"  : 200,
+        "stone" : 200
+    },
+    "buildings" :
+    {
+        "dock" :
+        {
+            "level"  : 1,
+            "num"    : 0,
+            "people" : 0
+        },
+        "storage" :
+        {
+            "level" : 1,
+            "num"   : 1
+        },
+        ...
+    }
+}
+```
+
+### GET /me/build/{bname}
+*Adds the given building to the build queue, assuming there isn't
+anything else being built / you have enough monies*
+
+#### Example:
+`GET /me/build/dock`
+
+#### Response:
+```json
+{
+    "status"      : "Build Started",
+    "building"    : "dock",
+    "secondsLeft" : 600
+}
+```
+
+#### Possible Error Responses:
+```json
+{
+    "status"      : "error",
+    "message"     : "You are already building",
+    "building"    : "dock",
+    "secondsLeft" : 600
+}
+```
+
+```json
+{
+    "status"      : "error",
+    "message"     : "Not enough resources!"
+}
+```
+
 ### POST /game/
 *Creates a new game with the given params*
 

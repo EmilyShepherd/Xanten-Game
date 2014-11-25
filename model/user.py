@@ -1,6 +1,7 @@
 from google.appengine.ext import ndb
 
 import datetime
+import random
 
 # Represents a user session
 #
@@ -129,17 +130,77 @@ class User(ndb.Model):
 
     # Sets the lastUpdated property with the current datetime. It also
     # calculates the number of seconds since the last update
-    def markUpdate(self):
-        dt               = datetime.datetime.now()
-        seconds          = (dt - self.lastUpdated).total_seconds()
+    def updateValues(self, update):
+        
+        # There's a building that has finished in the time we're talking
+        # about to consider
+        if self.buildingQueue and self.getBuildFinished() <= 0:
+            self.addBuilding()
+        
+        # Calculate the change of resources since now and the time we
+        # were last updated
+        dt = datetime.datetime.now()
+        self.runUpdate((dt - self.lastUpdated).total_seconds())
+
         self.lastUpdated = dt
 
-        return seconds
+        if update: self.put()
 
+    # Calculates the change in recources since now and the time a
+    # building was completed then adds the building
+    def addBuilding(self):
+
+        # Calculate the resouces changes
+        delta = self.buildingFinish - self.lastUpdated
+        self.runUpdate(seconds.total_seconds())
+
+        # Update the building queue, saving the building name
+        building            = self.buildingQueue
+        self.lastUpdated    = self.buildingFinish
+        self.buildingQueue  = None
+        self.buildingFinish = None
+
+        # Trade, military and storage are limited to one, so are stored
+        # as booleans
+        if building in ['trade', 'storage', 'military']:
+            setattr(self, building, True)
+        # Everything else has variable numbers, so get the current
+        # number and add one to it
+        else:
+            building = building + 's'
+            setattr(self, building, getattr(self, building) + 1)
+
+    # Calculates the resource gains in the given amount of time and adds
+    # these to the user's account
+    def runUpdate(self, secs):
+        self.food +=                                     \
+              (self.peopleAtDock * self.level)      \
+            * secs / 60.0
+        self.food +=                                     \
+              (self.peopleAtGrapevine * self.level) \
+            * secs / 60.0
+        self.wood +=                                     \
+              (random.randrange(1, 19) / 10.0) * 0.3          \
+            * self.lumberjackLvl                         \
+            * self.peopleAtLumberjack                    \
+            * self.lumberjacks                           \
+            * secs / 60.0
+        self.gold +=                                     \
+              (random.randrange(1, 19) / 10.0) * 0.3          \
+            * self.mineLvl                               \
+            * self.peopleAtMine                          \
+            * self.mines                                 \
+            * secs / 60.0
+
+    # The Building Finished time is stored in the database as a
+    # timestamp. This takes a value in seconds and creates a timestamp
+    # from it it, x seconds away from now
     def setBuildFinished(self, secs):
         self.buildingFinish = \
             self.lastUpdated + datetime.timedelta(seconds = secs)
 
+    # Returns the number of seconds until the building in the build
+    # queue is complete
     def getBuildFinished(self):
         dt = datetime.datetime.now()
         return (self.buildingFinish - dt).total_seconds()

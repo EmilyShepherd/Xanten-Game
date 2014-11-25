@@ -26,7 +26,7 @@ class MeHandler(DefaultHandler):
         # Have to be loged in
         if not self.checkLogin(): return
 
-        self.updateValues(True)
+        self.user.updateValues(True)
 
         self.json['level']     = User.LEVEL_NAMES[self.user.level - 1]
 
@@ -80,22 +80,32 @@ class MeHandler(DefaultHandler):
             }
         }
 
+    # Allows the user to create a building (after checking that they
+    # aren't currently building & have enough resources first)
     def create(self, bname):
         if not self.checkLogin(): return
 
         building = Building.buildings[bname]
 
+        # The building type has to exist in order to be built, obviously
         if not building:
             self.stderr('Unknown Building Type')
         else:
-            self.updateValues(False)
+            # Update the user's resouces & clear the building queue if
+            # it has finished
+            self.user.updateValues(False)
+
             cost = building['cost']
 
+            # You can only build one thing at a time
             if self.user.buildingQueue:
                 self.stderr('You are already building')
                 self.showBuildStatus()
+            # You need to pay for what you build!
             elif self.user.gold < cost['gold'] or self.user.wood < cost['wood'] or self.user.stone < cost['stone']:
                 self.stderr('Not enough resources!')
+            # All checks successful, take the resources from the user
+            # and put this into the building queue
             else:
                 self.user.gold  -= cost['gold']
                 self.user.wood  -= cost['wood']
@@ -108,35 +118,8 @@ class MeHandler(DefaultHandler):
                 self.json['status'] = 'Building Started'
                 self.showBuildStatus()
 
+    # Returns the name of the current building in the queue, and how
+    # many seconds until it is completed
     def showBuildStatus(self):
         self.json['building']    = self.user.buildingQueue
         self.json['secondsLeft'] = self.user.getBuildFinished()
-
-    # Updates the user's resources based on the time since the last
-    # update
-    def updateValues(self, update):
-        secs = self.user.markUpdate()
-
-        self.user.food +=                                     \
-              (self.user.peopleAtDock * self.user.level)      \
-            * secs / 60.0
-        self.user.food +=                                     \
-              (self.user.peopleAtGrapevine * self.user.level) \
-            * secs / 60.0
-        self.user.wood +=                                     \
-              (random.randrange(1, 19) / 10.0) * 0.3          \
-            * self.user.lumberjackLvl                         \
-            * self.user.peopleAtLumberjack                    \
-            * self.user.lumberjacks                           \
-            * secs / 60.0
-        self.user.gold +=                                     \
-              (random.randrange(1, 19) / 10.0) * 0.3          \
-            * self.user.mineLvl                               \
-            * self.user.peopleAtMine                          \
-            * self.user.mines                                 \
-            * secs / 60.0
-
-        if (update): self.user.put()
-
-    def updateResources(self, secs):
-        pass

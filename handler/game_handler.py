@@ -1,5 +1,6 @@
 import webapp2
 import uuid
+import datetime
 
 from default_handler import DefaultHandler
 
@@ -111,7 +112,7 @@ class GameHandler(DefaultHandler):
                 game.put()
 
                 for user in User.query(User.gid == game.gid).fetch():
-                    user.markUpdate()
+                    user.lastUpdated = datetime.datetime.now()
                     user.put()
 
                 self.json['status'] = 'started'

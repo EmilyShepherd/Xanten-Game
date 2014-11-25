@@ -152,7 +152,7 @@ class User(ndb.Model):
 
         # Calculate the resouces changes
         delta = self.buildingFinish - self.lastUpdated
-        self.runUpdate(seconds.total_seconds())
+        self.runUpdate(delta.total_seconds())
 
         # Update the building queue, saving the building name
         building            = self.buildingQueue

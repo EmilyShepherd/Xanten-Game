@@ -174,19 +174,19 @@ class User(ndb.Model):
     # these to the user's account
     def runUpdate(self, secs):
         self.food +=                                     \
-              (self.peopleAtDock * self.level)      \
+              (self.peopleAtDock * self.level)           \
             * secs / 60.0
         self.food +=                                     \
-              (self.peopleAtGrapevine * self.level) \
+              (self.peopleAtGrapevine * self.level)      \
             * secs / 60.0
         self.wood +=                                     \
-              (random.randrange(1, 19) / 10.0) * 0.3          \
+              (random.randrange(1, 19) / 10.0) * 0.3     \
             * self.lumberjackLvl                         \
             * self.peopleAtLumberjack                    \
             * self.lumberjacks                           \
             * secs / 60.0
         self.gold +=                                     \
-              (random.randrange(1, 19) / 10.0) * 0.3          \
+              (random.randrange(1, 19) / 10.0) * 0.3     \
             * self.mineLvl                               \
             * self.peopleAtMine                          \
             * self.mines                                 \

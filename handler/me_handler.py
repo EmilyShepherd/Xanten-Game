@@ -102,7 +102,9 @@ class MeHandler(DefaultHandler):
                 self.stderr('You are already building')
                 self.showBuildStatus()
             # You need to pay for what you build!
-            elif self.user.gold < cost['gold'] or self.user.wood < cost['wood'] or self.user.stone < cost['stone']:
+            elif       self.user.gold  < cost['gold']    \
+                    or self.user.wood  < cost['wood']    \
+                    or self.user.stone < cost['stone']:
                 self.stderr('Not enough resources!')
             # All checks successful, take the resources from the user
             # and put this into the building queue

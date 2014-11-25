@@ -60,10 +60,10 @@ $(document).ready(function() {
                     inc2.onload = executeScript;
                     document.head.appendChild(inc2);
 
-                    $("#gold").innerText  = player.resources.gold;
-                    $("#food").innerText  = player.resources.food;
-                    $("#wood").innerText  = player.resources.wood;
-                    $("#stone").innerText = player.resources.stone;
+                    $("#gold").html(player.resources.gold);
+                    $("#food").html(player.resources.food);
+                    $("#wood").html(player.resources.wood);
+                    $("#stone").html(player.resources.stone);
                 });
 
 			} else {		

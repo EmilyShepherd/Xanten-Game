@@ -1,0 +1,78 @@
+CAD-TEAM-M
+==========
+
+Xanten Game
+
+File Structure                    | Location in source.zip
+-----------------------------------------------------------
+- /
+  |- app.yaml                       sourceA/misc/
+  |- index.yaml                     sourceA/misc/
+  |- index.html                     sourceA/misc/html/
+  |- game.html                      sourceA/misc/html/
+  |- favicon.ico                    sourceC/misc/
+  |- handler/
+  |  |- __init__.py                 sourceA/python/handler/
+  |  |- default_handler.py          sourceA/python/handler/
+  |  |- game_handler.py             sourceA/python/handler/
+  |  |- me_handler.py               sourceA/python/handler/
+  |- model/
+  |  |- __init__.py                 sourceA/python/model/
+  |  |- building.py                 sourceA/python/model/
+  |  |- game.py                     sourceA/python/model/
+  |  |- map.py                      sourceA/python/model/
+  |  |- user.py                     sourceA/python/model/
+  |- static/
+     |- css/
+     |  |- gamestyle.css            sourceA/misc/css/
+     |  |- style.css                sourceA/misc/css/
+     |- img/
+     |  |- background.jpg           sourceA/misc/img/
+     |  |- gamebackground.jpg       sourceB/misc/
+     |  |- leftsidebar.png          sourceA/misc/img/
+     |  |- load.GIF                 sourceA/misc/img/
+     |  |- map.PNG                  sourceA/misc/img/
+     |  |- resourcebar.png          sourceA/misc/img/
+     |  |- rightsidebar.png         sourceA/misc/img/
+     |  |- tobbanner.png            sourceA/misc/img/
+     |  |- general/
+     |     |- normal/
+     |        |- g.png              sourceA/misc/img/map/
+     |        |- m0.png             sourceA/misc/img/map/
+     |        |- m1.png             sourceA/misc/img/map/
+     |        |- o-e.png            sourceA/misc/img/map/
+     |        |- o-n.png            sourceA/misc/img/map/
+     |        |- o-s.png            sourceA/misc/img/map/
+     |        |- o-w.png            sourceA/misc/img/map/
+     |        |- o.png              sourceA/misc/img/map/
+     |        |- oa-ne.png          sourceA/misc/img/map/
+     |        |- ob-ne.png          sourceA/misc/img/map/
+     |        |- ob-nw.png          sourceA/misc/img/map/
+     |        |- ob-se.png          sourceA/misc/img/map/
+     |        |- ob-sw.png          sourceA/misc/img/map/
+     |        |- oa-ne.png          sourceA/misc/img/map/
+     |        |- oc-ne.png          sourceA/misc/img/map/
+     |        |- oc-nw.png          sourceA/misc/img/map/
+     |        |- oc-se.png          sourceA/misc/img/map/
+     |        |- oc-sw.png          sourceA/misc/img/map/
+     |        |- t0.png             sourceA/misc/img/map/
+     |        |- t1.png             sourceA/misc/img/map/
+     |- js/
+        |- game/
+        |  |- map.js                sourceA/javascript/
+        |- index/
+        |  |- game.js               sourceA/javascript/
+        |  |- index.js              sourceA/javascript/
+        |- lib/
+           |- jquery-1.11.1.min.js  sourceC/javascript/
+           |- jquery.cookie.js      sourceC/javascript/
+
+Notes
+-----
+
+The following folders in source.zip are intentionally empty:
+  sourceB/javascript/
+  sourceB/python/
+  sourceC/python/
+
+

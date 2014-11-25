@@ -2,13 +2,15 @@ import webapp2
 import uuid
 import random
 import math
+import datetime
 
 from default_handler import DefaultHandler
 
 # Models
-from model.game import Game
-from model.user import User
-from model.map import Map
+from model.game     import Game
+from model.user     import User
+from model.map      import Map
+from model.building import Building
 
 # Handles /me/* requests
 #
@@ -78,6 +80,38 @@ class MeHandler(DefaultHandler):
             }
         }
 
+    def create(self, bname):
+        if not self.checkLogin(): return
+
+        building = Building.buildings[bname]
+
+        if not building:
+            self.stderr('Unknown Building Type')
+        else:
+            self.updateValues(False)
+            cost = building['cost']
+
+            if self.user.buildingQueue:
+                self.stderr('You are already building')
+                self.showBuildStatus()
+            elif self.user.gold < cost['gold'] or self.user.wood < cost['wood'] or self.user.stone < cost['stone']:
+                self.stderr('Not enough resources!')
+            else:
+                self.user.gold  -= cost['gold']
+                self.user.wood  -= cost['wood']
+                self.user.stone -= cost['stone']
+
+                self.user.buildingQueue  = bname
+                self.user.setBuildFinished(building['time'])
+                self.user.put()
+
+                self.json['status'] = 'Building Started'
+                self.showBuildStatus()
+
+    def showBuildStatus(self):
+        self.json['building']    = self.user.buildingQueue
+        self.json['secondsLeft'] = self.user.getBuildFinished()
+
     # Updates the user's resources based on the time since the last
     # update
     def updateValues(self, update):
@@ -103,3 +137,6 @@ class MeHandler(DefaultHandler):
             * secs / 60.0
 
         if (update): self.user.put()
+
+    def updateResources(self, secs):
+        pass

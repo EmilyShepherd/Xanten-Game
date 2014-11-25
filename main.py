@@ -23,6 +23,7 @@ app = webapp2.WSGIApplication([
     webapp2.Route(r'/game/',             handler=GameHandler, handler_method='create', methods=['PUT']),
     
     webapp2.Route(r'/me',                handler=MeHandler),
+    webapp2.Route(r'/me/build/<bname>',  handler=MeHandler, handler_method='create', methods=['GET']),
 
     # REMOVE IN MAIN RELEASE 
     webapp2.Route(r'/debug/purge/<table>', handler=DebugHandler, handler_method='purge'),

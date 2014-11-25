@@ -39,6 +39,10 @@ class User(ndb.Model):
     # The last time their values were updated
     lastUpdated = ndb.DateTimeProperty(auto_now_add=True)
 
+    buildingQueue = ndb.StringProperty()
+
+    buildingFinish = ndb.DateTimeProperty()
+
     # What level their city has reached:
     #   0 = Hamlet
     #   1 = Village
@@ -131,3 +135,11 @@ class User(ndb.Model):
         self.lastUpdated = dt
 
         return seconds
+
+    def setBuildFinished(self, secs):
+        self.buildingFinish = \
+            self.lastUpdated + datetime.timedelta(seconds = secs)
+
+    def getBuildFinished(self):
+        dt = datetime.datetime.now()
+        return (self.buildingFinish - dt).total_seconds()

@@ -20,9 +20,25 @@ $(document).ready(function() {
 		}).done(function (response) {	
 			if(response["status"] === 'running') {
 				clearTimeout(thread_users);
+
 				$("#cover").fadeIn(1000,function() {
-					document.location= '/game';
-				});								
+					request = $.ajax({
+                        url: "/game"
+                    }).done(function(html) {
+                        document.body.innerHTML = html;
+                        document.getElementById('style').href='/static/css/gamestyle.css';
+                        document.getElementById('script').href='/static/js/index/game.css';
+
+                        document.getElementById('gold').innerText = response.player.resources.gold;
+                        document.getElementById('food').innerText = response.player.resources.food;
+                        document.getElementById('wood').innerText = response.player.resources.wood;
+                        document.getElementById('stone').innerText = response.player.resources.stone;
+
+                        $("#cover").hide();
+                    });
+				});		
+
+
 			} else {		
 				var text = "";
 				if(response.users) {

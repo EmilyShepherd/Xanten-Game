@@ -104,6 +104,10 @@ class User(ndb.Model):
     # How many mines has this player got?
     mines = ndb.IntegerProperty(default=0)
 
+    # There is a chance that a mine will yield gold. How many gold mines
+    # has the user got?
+    goldMines = ndb.IntegerProperty(default=0)
+
     # The level of the mines
     mineLvl = ndb.IntegerProperty(default=1)
 
@@ -185,11 +189,17 @@ class User(ndb.Model):
             * self.peopleAtLumberjack                    \
             * self.lumberjacks                           \
             * secs / 60.0
-        self.gold +=                                     \
+        self.stone +=                                    \
               (random.randrange(1, 19) / 10.0) * 0.3     \
             * self.mineLvl                               \
             * self.peopleAtMine                          \
             * self.mines                                 \
+            * secs / 60.0
+        self.gold +=                                     \
+              (random.randrange(1, 19) / 10.0) * 0.3     \
+            * self.mineLvl                               \
+            * self.peopleAtMine                          \
+            * self.goldMines                             \
             * secs / 60.0
 
     # The Building Finished time is stored in the database as a

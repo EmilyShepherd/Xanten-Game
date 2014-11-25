@@ -112,6 +112,12 @@ class MeHandler(DefaultHandler):
                 self.user.wood  -= cost['wood']
                 self.user.stone -= cost['stone']
 
+                # There's a chance mines will infact be Gold Mines :)
+                if bname == 'mine':
+                    chance = building['goldMineChance']
+                    if random.randrange(0, 99) < chance:
+                        bname = 'goldMine'
+
                 self.user.buildingQueue  = bname
                 self.user.setBuildFinished(building['time'])
                 self.user.put()

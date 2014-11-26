@@ -167,7 +167,7 @@ class User(ndb.Model):
 
         # Trade, military and storage are limited to one, so are stored
         # as booleans
-        if building in ['trade', 'storage', 'military']:
+        if building in ['trade', 'storage', 'military', 'grapevine']:
             setattr(self, building, True)
         # Everything else has variable numbers, so get the current
         # number and add one to it

@@ -28,7 +28,7 @@ class MeHandler(DefaultHandler):
             # it has finished
             self.user.updateValues(False)
 
-            building = Building.buildings[bname]
+            building = Building.buildings[bname]['build']
             cost     = building['cost']
 
             # You can only build one thing at a time

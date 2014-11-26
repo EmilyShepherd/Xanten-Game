@@ -114,8 +114,13 @@ class GameHandler(DefaultHandler):
                 game.running = True
                 game.put()
 
+                # Pick places for each of the players and set their
+                # lastUpdated value to the start of the game so they can
+                # load resources
+                mapObj = Map(game.gmap)
                 for user in User.query(User.gid == game.gid).fetch():
-                    user.lastUpdated = datetime.datetime.now()
+                    user.positionOnMap = mapObj.pickRandomTile()
+                    user.lastUpdated   = datetime.datetime.now()
                     user.put()
 
                 self.json['status'] = 'started'

@@ -38,11 +38,16 @@ class User(ndb.Model):
     # Map of their city
     homeMap = ndb.StringProperty()
 
+    # Which tile their settlement is on
+    positionOnMap = ndb.IntegerProperty()
+
     # The last time their values were updated
     lastUpdated = ndb.DateTimeProperty(auto_now_add=True)
 
+    # If a building is being built at the moment, its name will be here
     buildingQueue = ndb.StringProperty()
 
+    # The time that the building will have completed
     buildingFinish = ndb.DateTimeProperty()
 
     # What level their city has reached:
@@ -222,6 +227,7 @@ class User(ndb.Model):
     def toDict(self):
         return {
             "level" : User.LEVEL_NAMES[self.level - 1],
+            "position" : self.positionOnMap,
             "resources" : {
                 "gold"  : math.floor(self.gold),
                 "food"  : math.floor(self.food),

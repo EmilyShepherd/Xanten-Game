@@ -3,31 +3,45 @@
 # CAD Team M Group Project
 #
 
-import webapp2
+import webapp2 as w
 
 # Handlers
 from handler.game_handler import GameHandler
 from handler.me_handler   import MeHandler
 
+# The name for the classes are quite long, so put them into a variable
+# so the list of routes doesn't go over the desired line length
+gameClass = 'handler.game_handler.GameHandler'
+meClass   = 'handler.me_handler.MeHandler'
+
 # REMOVE IN MAIN RELEASE
 from handler.debug_handler import DebugHandler
 
 # Setup routes
-app = webapp2.WSGIApplication([
-    webapp2.Route(r'/game/<gid>',         handler=GameHandler, handler_method='get_game'),
-    webapp2.Route(r'/game/<gid>/',        handler=GameHandler, handler_method='get_game'),
-    webapp2.Route(r'/game/',              handler=GameHandler,                          methods=['GET']),
-    webapp2.Route(r'/game/<gid>/start',   handler=GameHandler, handler_method='start'),
-    webapp2.Route(r'/game/<gid>/join',    handler=GameHandler, handler_method='join'),
-    webapp2.Route(r'/game/<gid>/before',  handler=GameHandler, handler_method='start'),
-    webapp2.Route(r'/game/',              handler=GameHandler, handler_method='create', methods=['PUT']),
+app = w.WSGIApplication([
+    # End points relating to creating / joining / starting games
+    w.Route('/game/',            gameClass,            methods=['GET']),
+    w.Route('/game/',            gameClass + 'create', methods=['PUT']),
+    w.Route('/game/<gid>',       gameClass + ':get_game'),
+    w.Route('/game/<gid>/',      gameClass + ':get_game'),
+    w.Route('/game/<gid>/start', gameClass + 'start'),
+    w.Route('/game/<gid>/join',  gameClass + 'join'),
 
-    webapp2.Route(r'/me/people/move',        handler=MeHandler, handler_method='movePeople', methods=['POST']),    
-    webapp2.Route(r'/me/building/<bname>/<queue>', handler=MeHandler, handler_method='addBuildingToQueue', methods=['GET']),
+    # End points relating to player actions on their city during a game
+    w.Route(
+        '/me/people/move',
+        meClass + ':movePeople',
+        methods=['POST']
+    ),    
+    w.Route(
+        '/me/building/<bname>/<queue>',
+        meClass + ':addBuildingToQueue',
+        methods=['GET']
+    ),
 
     # REMOVE IN MAIN RELEASE 
-    webapp2.Route(r'/debug/me',            handler=DebugHandler, handler_method='me'),
-    webapp2.Route(r'/debug/purge/<table>', handler=DebugHandler, handler_method='purge'),
-    webapp2.Route(r'/debug/purge/',        handler=DebugHandler, handler_method='purgeAll'),
-    webapp2.Route(r'/debug/purge',         handler=DebugHandler, handler_method='purgeAll')
+    w.Route('/debug/me',            handler=DebugHandler, handler_method='me'),
+    w.Route('/debug/purge/<table>', handler=DebugHandler, handler_method='purge'),
+    w.Route('/debug/purge/',        handler=DebugHandler, handler_method='purgeAll'),
+    w.Route('/debug/purge',         handler=DebugHandler, handler_method='purgeAll')
 ], debug=True) #REMOVE IN MAIN RELEASE

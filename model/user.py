@@ -140,7 +140,7 @@ class User(ndb.Model):
 
     # Sets the lastUpdated property with the current datetime. It also
     # calculates the number of seconds since the last update
-    def updateValues(self, update):
+    def updateValues(self):
         
         # There's a building that has finished in the time we're talking
         # about to consider
@@ -153,8 +153,6 @@ class User(ndb.Model):
         self.runUpdate((dt - self.lastUpdated).total_seconds())
 
         self.lastUpdated = dt
-
-        if update: self.put()
 
     # Calculates the change in recources since now and the time a
     # building was completed then adds the building

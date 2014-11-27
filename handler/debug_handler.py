@@ -42,6 +42,6 @@ class DebugHandler(DefaultHandler):
         # Have to be loged in
         if not self.checkLogin(): return
 
-        self.user.updateValues(False)
+        self.user.updateValues()
 
         self.json = self.user.toDict()

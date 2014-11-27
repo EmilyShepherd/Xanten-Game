@@ -26,7 +26,7 @@ class MeHandler(DefaultHandler):
         else:
             # Update the user's resouces & clear the building queue if
             # it has finished
-            self.user.updateValues(False)
+            self.user.updateValues()
 
             building = Building.buildings[bname]['build']
             cost     = building['cost']

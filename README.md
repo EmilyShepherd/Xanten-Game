@@ -6,50 +6,64 @@ Cloud Application Development - Team M
 API Structure
 -------------
 
-### GET /me
-*Returns the current list of all buildings owned by the user and their
-levels, and the amount of resources they have*
-
-**DO NOT PING THIS ENDPOINT EVERY x SECONDS**
+### POST /me/people/move
+*Moves people from the given buildings*
 
 #### Example:
-`GET /me`
+```
+POST /me/people/move
+
+from=mine&to=lumberjack&number=5
+```
 
 #### Response:
 ```json
 {
-    "level"     : "Hamlet",
-    "resources" :
-    {
-        "gold"  : 50,
-        "wood"  : 200,
-        "food"  : 200,
-        "stone" : 200
-    },
-    "buildings" :
-    {
-        "dock" :
-        {
-            "level"  : 1,
-            "num"    : 0,
-            "people" : 0
-        },
-        "storage" :
-        {
-            "level" : 1,
-            "num"   : 1
-        },
-        ...
-    }
+    "status" : "moved"
+}
+```
+#### Possible Error Responses:
+```json
+{
+    "status"      : "error",
+    "message"     : "Number should be a positive integer" 
 }
 ```
 
-### GET /me/build/{bname}
-*Adds the given building to the build queue, assuming there isn't
-anything else being built / you have enough monies*
+```json
+{
+    "status"      : "error",
+    "message"     : "Unknown From Building"
+}
+```
+
+```json
+{
+    "status"      : "error",
+    "message"     : "Unknown To Building"
+}
+```
+
+```json
+{
+    "status"      : "error",
+    "message"     : "You don't have that kind of building"
+}
+```
+
+```json
+{
+    "status"      : "error",
+    "message"     : "You don't have that many people"
+}
+```
+
+### GET /me/building/{bname}/{queue}
+*Adds the given building to the given queue (build / level), assuming
+there isn't anything else in it & you have enough monies*
 
 #### Example:
-`GET /me/build/dock`
+`GET /me/building/dock/build`
 
 #### Response:
 ```json
@@ -74,6 +88,20 @@ anything else being built / you have enough monies*
 {
     "status"      : "error",
     "message"     : "Not enough resources!"
+}
+```
+
+```json
+{
+    "status"      : "error",
+    "message"     : "Unknown Building Type"
+}
+```
+
+```json
+{
+    "status"      : "error",
+    "message"     : "Unknown action: whateverQueueYouPassed"
 }
 ```
 
@@ -229,3 +257,41 @@ etc
 
 ### GET /debug/purge
 *Purges everything from all tables*
+
+### GET /debug/me
+*Returns the current list of all buildings owned by the user and their
+levels, and the amount of resources they have*
+
+**DO NOT PING THIS ENDPOINT EVERY x SECONDS**
+
+#### Example:
+`GET /debug/me`
+
+#### Response:
+```json
+{
+    "level"     : "Hamlet",
+    "resources" :
+    {
+        "gold"  : 50,
+        "wood"  : 200,
+        "food"  : 200,
+        "stone" : 200
+    },
+    "buildings" :
+    {
+        "dock" :
+        {
+            "level"  : 1,
+            "num"    : 0,
+            "people" : 0
+        },
+        "storage" :
+        {
+            "level" : 1,
+            "num"   : 1
+        },
+        ...
+    }
+}
+```

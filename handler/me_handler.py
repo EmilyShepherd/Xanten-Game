@@ -84,6 +84,9 @@ class MeHandler(DefaultHandler):
             self.stderr('Unknown From Building')
         elif not Building.buildings.has_key(moveTo):
             self.stderr('Unknown To Building')
+        # Check if they actually have that kind of building
+        elif not self.user.hasBuilding(moveTo):
+            self.stderr('You don\'t have that kind of building')
         # Make sure you're not trying to move more people than we have
         elif number > getattr(self.user, fromAttr):
             self.stderr('You don\'t have that many people')

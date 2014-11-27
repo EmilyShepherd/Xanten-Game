@@ -283,6 +283,16 @@ class User(ndb.Model):
         dt = datetime.datetime.now()
         return (getattr(self, queue + 'ingFinish') - dt).total_seconds()
 
+    # Returns true / false depending on whether the user has the given
+    # type of building
+    def hasBuilding(self, building):
+        if building == 'home':
+            return True
+        elif building in ['trade', 'storage', 'military', 'grapevine']:
+            return getattr(self, building)
+        else:
+            return bool(getattr(self, building + 's'))
+
     # Takes a game object as created / returned from the database, and
     # converts it into a dict, with only public facing properties being
     # added

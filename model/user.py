@@ -144,8 +144,8 @@ class User(ndb.Model):
         
         # There's a building that has finished in the time we're talking
         # about to consider
-        if self.buildingQueue and self.getBuildFinished() <= 0:
-            self.addBuilding()
+        if self.buildingQueue and self.getQueueFinished('build') <= 0:
+            self.finishQueue('build')
         
         # Calculate the change of resources since now and the time we
         # were last updated
@@ -156,27 +156,34 @@ class User(ndb.Model):
 
     # Calculates the change in recources since now and the time a
     # building was completed then adds the building
-    def addBuilding(self):
+    def finishQueue(self, queue):
 
         # Calculate the resouces changes
-        delta = self.buildingFinish - self.lastUpdated
+        timeAttrName = queue + 'ingFinish'
+        nameAttrName = queue + 'ingQueue'
+        delta        = getattr(self, timeAttrName) - self.lastUpdated
         self.runUpdate(delta.total_seconds())
 
         # Update the building queue, saving the building name
-        building            = self.buildingQueue
-        self.lastUpdated    = self.buildingFinish
-        self.buildingQueue  = None
-        self.buildingFinish = None
+        building            = getattr(self, nameAttrName)
+        self.lastUpdated    = getattr(self, timeAttrName)
+        setattr(self, nameAttrName, None)
+        setattr(self, timeAttrName, None)
 
         # Trade, military and storage are limited to one, so are stored
         # as booleans
-        if building in ['trade', 'storage', 'military', 'grapevine']:
-            setattr(self, building, True)
-        # Everything else has variable numbers, so get the current
-        # number and add one to it
-        else:
-            building = building + 's'
-            setattr(self, building, getattr(self, building) + 1)
+        if queue == 'build':
+            if building in ['trade', 'storage', 'military', 'grapevine']:
+                setattr(self, building, True)
+            # Everything else has variable numbers, so get the current
+            # number and add one to it
+            else:
+                building = building + 's'
+        elif queue == 'level':
+            building = building + 'Lvl'
+
+        # Save the increased value
+        setattr(self, building, getattr(self, building) + 1)
 
     # Calculates the resource gains in the given amount of time and adds
     # these to the user's account
@@ -209,15 +216,16 @@ class User(ndb.Model):
     # The Building Finished time is stored in the database as a
     # timestamp. This takes a value in seconds and creates a timestamp
     # from it it, x seconds away from now
-    def setBuildFinished(self, secs):
-        self.buildingFinish = \
+    def setQueueFinished(self, queue, secs):
+        setattr(self, queue + 'ingFinish',
             self.lastUpdated + datetime.timedelta(seconds = secs)
+        )
 
     # Returns the number of seconds until the building in the build
     # queue is complete
-    def getBuildFinished(self):
+    def getQueueFinished(self, queue):
         dt = datetime.datetime.now()
-        return (self.buildingFinish - dt).total_seconds()
+        return (getattr(self, queue + 'ingFinish') - dt).total_seconds()
 
     # Takes a game object as created / returned from the database, and
     # converts it into a dict, with only public facing properties being

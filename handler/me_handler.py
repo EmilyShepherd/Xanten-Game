@@ -65,6 +65,49 @@ class MeHandler(DefaultHandler):
                 self.json['status'] = 'Started'
                 self.showQueueStatus(queue)
 
+    # Moves the specified number of people from one location to another
+    def movePeople(self):
+        self.checkLogin()
+
+        moveFrom = self.request.POST['from']
+        moveTo   = self.request.POST['to']
+        number   = int(self.request.POST['number'])
+        fromAttr = 'peopleAt' + moveFrom.capitalize()
+        toAttr   = 'peopleAt' + moveTo.capitalize()
+
+        # Check they haven't given a stupid number of people (like
+        # "cheese" or -88)
+        if number <= 0:
+            self.stderr('Number should be a positive integer')
+        # Check that the from and to locations actually exist
+        elif not Building.buildings.has_key(moveFrom):
+            self.stderr('Unknown From Building')
+        elif not Building.buildings.has_key(moveTo):
+            self.stderr('Unknown To Building')
+        # Make sure you're not trying to move more people than we have
+        elif number > getattr(self.user, fromAttr):
+            self.stderr('You don\'t have that many people')
+        # Checks passed, actually do it
+        else:
+            # The number of people has an impact on resource
+            # calcuations, so update this value now before moving the
+            # people
+            self.user.updateValues()
+
+            # Take away people from user.peopleAtBuidling
+            setattr(
+                self.user, fromAttr,
+                getattr(self.user, fromAttr) - number
+            )
+            # Add people to user.peopleAtOtherBuilding
+            setattr(
+                self.user, toAttr,
+                getattr(self.user, toAttr) + number
+            )
+
+            self.user.put()
+            self.json['status'] = 'moved'
+
     # Returns the name of the current building in the queue, and how
     # many seconds until it is completed
     def showQueueStatus(self, queue):

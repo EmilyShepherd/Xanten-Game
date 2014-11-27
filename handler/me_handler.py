@@ -15,14 +15,13 @@ from model.building import Building
 #
 class MeHandler(DefaultHandler):
 
-    # Allows the user to create a building (after checking that they
-    # aren't currently building & have enough resources first)
-    def create(self, bname):
-        self.addBuildingToQueue('build', bname)
-
+    # Adds the given building to the given queue (build / level) and
+    # deducts the resources (it checks there are enough first)
     def addBuildingToQueue(self, queue, bname):
         if not self.checkLogin(): return
 
+        if queue not in ['build', 'level']:
+            self.stderr('Unknown action: ' + queue)
         # The building type has to exist in order to be built, obviously
         if not Building.buildings.has_key(bname):
             self.stderr('Unknown Building Type')
@@ -38,7 +37,7 @@ class MeHandler(DefaultHandler):
             # You can only build one thing at a time
             if getattr(self.user, attrName):
                 self.stderr('You are already ' + queue + 'ing')
-                self.user.getQueueFinished(queue)
+                self.showQueueStatus(queue)
             # You need to pay for what you build!
             elif       self.user.gold  < cost['gold']    \
                     or self.user.wood  < cost['wood']    \
@@ -58,6 +57,7 @@ class MeHandler(DefaultHandler):
                     if random.randrange(0, 99) < chance:
                         bname = 'goldMine'
 
+                # Actually save the values
                 setattr(self.user, attrName, bname)
                 self.user.setQueueFinished(queue, building['time'])
                 self.user.put()

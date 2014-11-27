@@ -50,6 +50,12 @@ class User(ndb.Model):
     # The time that the building will have completed
     buildingFinish = ndb.DateTimeProperty()
 
+    # If a building is being built at the moment, its name will be here
+    levelingQueue = ndb.StringProperty()
+
+    # The time that the building will have completed
+    levelingFinish = ndb.DateTimeProperty()
+
     # What level their city has reached:
     #   0 = Hamlet
     #   1 = Village
@@ -138,14 +144,55 @@ class User(ndb.Model):
     # Number of people at the docks
     peopleAtDock = ndb.IntegerProperty(default=0)
 
-    # Sets the lastUpdated property with the current datetime. It also
-    # calculates the number of seconds since the last update
+    # Recalculates all the resouces since the last update, and sets
+    # the last update timestamp to now()
+    #
+    # If any building / leveling up occured during this time, it will
+    # also take that into account. For example, say the user has 1 mine,
+    # and was last updated 3 minutes ago, however they were also
+    # building a mine, which finished 2 minutes ago. This method will
+    # give the user:
+    #     (1 minute  of stone as produced by 1 mine)
+    #   + (2 minutes of stone as produced by 2 mines)
+    #
+    # In a more complex example: the user has 1 mine of level 1, and was
+    # updated 10 minutes ago. They were leveling up to mines level 2,
+    # which finished 7 minutes ago, and buidling a new mine, which
+    # finished 1 minute ago. They will get:
+    #     (3 minutes of stone as produced by 1 mine,  level 1)
+    #   + (6 minutes of stone as produced by 1 mine,  level 2)
+    #   + (1 minute  of stone as produced by 2 mines, level 2) 
     def updateValues(self):
         
-        # There's a building that has finished in the time we're talking
-        # about to consider
-        if self.buildingQueue and self.getQueueFinished('build') <= 0:
+        # Check if there's stuff in the build / level queues that need
+        # considering (if they finished since the last update, half
+        # the resources need to be calculated without it, and the other
+        # half with it)
+        #
+        # The first case we check for is if BOTH the build and level
+        # queues have a completed item in them, in which case we need
+        # to process both, and in the correct order
+        if self.queueFinished('build') and self.queueFinished('level'):
+            # If the build finished first, calculate the resources up
+            # to that, then from that up to the time the level up
+            # finished
+            if self.buildingFinish < self.levelingFinish:
+                self.finishQueue('build')
+                self.finishQueue('level')
+            # Conversly, if the level finished first, calculate the
+            # resources up to that, then again up to the time the
+            # building completed
+            else:
+                self.finishQueue('level')
+                self.finishQueue('build')
+        # Check if there's just a building finished - if there is,
+        # run up to its finish time
+        elif self.queueFinished('build'):
             self.finishQueue('build')
+        # Check if there's just a leving up finished - if there is,
+        # run up to its finish time
+        elif self.queueFinished('level'):
+            self.finishQueue('level')
         
         # Calculate the change of resources since now and the time we
         # were last updated
@@ -153,6 +200,11 @@ class User(ndb.Model):
         self.runUpdate((dt - self.lastUpdated).total_seconds())
 
         self.lastUpdated = dt
+
+    # Checks if a queue exists and has finished
+    def queueFinished(self, queue):
+        return getattr(self, queue + 'ingQueue') \
+            and self.getQueueFinished(queue) <= 0
 
     # Calculates the change in recources since now and the time a
     # building was completed then adds the building
@@ -170,15 +222,19 @@ class User(ndb.Model):
         setattr(self, nameAttrName, None)
         setattr(self, timeAttrName, None)
 
-        # Trade, military and storage are limited to one, so are stored
-        # as booleans
+        # If it's a build queue, this needs to update the number of
+        # the buildings
         if queue == 'build':
+            # Trade, military and storage are limited to one, so are
+            # stored as booleans
             if building in ['trade', 'storage', 'military', 'grapevine']:
                 setattr(self, building, True)
             # Everything else has variable numbers, so get the current
             # number and add one to it
             else:
                 building = building + 's'
+        # Whereas if this is a level queue, this needs to update the
+        # relavent level
         elif queue == 'level':
             building = building + 'Lvl'
 
@@ -213,15 +269,15 @@ class User(ndb.Model):
             * self.goldMines                             \
             * secs / 60.0
 
-    # The Building Finished time is stored in the database as a
-    # timestamp. This takes a value in seconds and creates a timestamp
-    # from it it, x seconds away from now
+    # The Queue Finished time is stored in the database as a timestamp.
+    # This takes a value in seconds and creates a timestamp from it,
+    # x seconds away from now
     def setQueueFinished(self, queue, secs):
         setattr(self, queue + 'ingFinish',
             self.lastUpdated + datetime.timedelta(seconds = secs)
         )
 
-    # Returns the number of seconds until the building in the build
+    # Returns the number of seconds until the building in the given
     # queue is complete
     def getQueueFinished(self, queue):
         dt = datetime.datetime.now()

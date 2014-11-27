@@ -20,12 +20,12 @@ from handler.debug_handler import DebugHandler
 # Setup routes
 app = w.WSGIApplication([
     # End points relating to creating / joining / starting games
-    w.Route('/game/',            gameClass,            methods=['GET']),
-    w.Route('/game/',            gameClass + 'create', methods=['PUT']),
+    w.Route('/game/',            gameClass,             methods=['GET']),
+    w.Route('/game/',            gameClass + ':create', methods=['PUT']),
     w.Route('/game/<gid>',       gameClass + ':get_game'),
     w.Route('/game/<gid>/',      gameClass + ':get_game'),
-    w.Route('/game/<gid>/start', gameClass + 'start'),
-    w.Route('/game/<gid>/join',  gameClass + 'join'),
+    w.Route('/game/<gid>/start', gameClass + ':start'),
+    w.Route('/game/<gid>/join',  gameClass + ':join'),
 
     # End points relating to player actions on their city during a game
     w.Route(

@@ -350,7 +350,7 @@
 
 		while (y < size) {
 			while (x < size) {
-				map += "<td style=\"background-image: url('static/img/map/general/normal/"+ imgArray[y][x]+ ".png');\"></td>";
+				map += "<td style=\"background-image: url('static/img/map/general/"+ imgArray[y][x]+ ".png');\"></td>";
 				x++;
 			}
 			if (y < size-1) {

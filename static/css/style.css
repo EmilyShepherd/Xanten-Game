@@ -1,5 +1,5 @@
 body{
-	background-image:url("../img/background.jpg");
+	background-image:url("../img/game/background.jpg");
 	top: -46px;
 	bottom: -46px;
 	left: 0;
@@ -118,23 +118,4 @@ html{
 .header{
 	font-weight: bold;
 }
-#map_div {
-	color:white;
-	width: 710px;
-	height: 772px;
-	padding: 5px;
-	text-align:center;
-}
-.map {
-	border: 1px solid #000;
-	margin: auto;
-}
-.map td {
-	padding: 0px;
-	margin: 0px;
-	border: none;
-	border-collapse: collapse;
-	line-height: 0px;
-	height: 100px;
-	width: 100px;
-}
+

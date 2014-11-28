@@ -1,16 +1,101 @@
 body{
+	min-width:1000px;
+	font-family: 'Segoe UI', sans-serif;
 	background-image:
-		url("../img/resourcebar.png"),
-		url("../img/tobbanner.png"),
-		url("../img/leftsidebar.png"),
-		url("../img/rightsidebar.png"),
-		url("../img/gamebackground.png");
+		url("../img/game/resourcebar.png"),
+		url("../img/game/tobbanner.png"),
+		url("../img/game/leftsidebar.png"),
+		url("../img/game/rightsidebar.png"),
+		url("../img/game/gamebackground.png");
 	background-repeat: no-repeat, repeat-x, repeat-y, repeat-y, repeat;
 	background-position: left top, left top, left top, right top, left top; 
 }
 
-#top{
+
+.before_window{		
 	color: white;
+	padding: 33px 0px 0px 31px;
+	font-size: 27px;
+	background: url('../img/game/top_window_bg.png') no-repeat left top;
+	font-weight: bold;
+	height: 67px;
+	width: 270px;
+	margin-left:3px;
+	display: block;
+	margin-top: -10px;
+	content: "";
+}
+
+.after_window{
+	background:url('../img/game/bottom_window_bg.png') no-repeat left top;
+	height:60px;
+	width:320px;
+    display: block; 
+	content: " ";
+}
+
+
+
+.board {
+	background:url('../img/game/back_background.png') repeat left top;
+	min-height: 150px;
+	width: 210px;
+	padding-left: 44px;
+	padding-right: 39px;
+	color:#542c0f;
+	max-height:300px;
+	overflow: auto;
+	font-size: 13px;
+}
+
+.clear {
+	font-size: 14px;
+	color:gray;	
+}
+
+#map-options{
+	width: 705px;
+	background-color: #FFF9DD;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	height: 40px;
+	border: 3px solid rgb(199, 135, 51);
+	border-bottom: none;
+	padding-top:2px;
+		
+}
+
+#map-window {
+	width: 705px;
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+	min-height: 700px;
+	background-color: #F6EBBA;
+	border: 3px solid rgb(199, 135, 51);
+	
+}
+
+#game-content {
+	margin-top: 120px;
+	border: 0px;	
+	width:100%;
+}
+
+#central-side {
+	text-align:center;
+}
+
+#game-content td{
+	vertical-align: top;
+}
+
+#left-side {	
+	width: 305px;	
+}
+
+
+#right-side {
+	width: 305px;		
 }
 
 #resources{
@@ -24,43 +109,4 @@ body{
 	list-style-type: none;
 	padding-right: 105px;
 	color: white;
-}
-
-#actions{
-	border: 2px solid;
-	height: 600px;
-	width: 280px;
-	position: absolute;
-	top: 155px;
-}
-
-#messages{
-	border: 2px solid;
-	height: 130px;
-	width: 280px;
-	position: absolute;
-	top: 155px;
-	right: 5px;
-}
-
-#news{
-	border: 2px solid;
-	height: 200px;
-	width: 280px;
-	position: absolute;
-	top: 295px;
-	right: 5px;
-}
-
-#tasks{
-	border: 2px solid;
-	height: 200px;
-	width: 280px;
-	position: absolute;
-	top: 505px;
-	right: 5px;
-}
-
-.heading{
-	
 }

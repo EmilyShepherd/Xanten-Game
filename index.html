@@ -1,96 +1,207 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Xanten</title>
-    <script src="static/js/lib/jquery-1.11.1.min.js"></script>
-    <script src="static/js/lib/jquery.cookie.js"></script>
-    <script src="static/js/index/index.js" id="script"></script>
-    <script src="static/js/game/map.js"></script>
-    <link rel="stylesheet" href="static/css/style.css" id="style" />
-  </head>
-  <body>
-    <div id="cover" style="width:100%;height:100%;position:fixed;top:0px;left:0px;background:rgb(14, 18, 28);z-index:20;display:none"></div>
-    <div id="bottom">
-      <input type="button" value="Create game" id="create_button" class="bt big" />
-      <input type="button" value="Join game" id="join_button" class="bt big" />
-    </div>    
-    <div id="top">
-      <h1>Xanten</h1>        
-    </div>
-    <div id="join_game">
-      <div id="private_game">
-        <input type="text" id="private_token" placeholder="Type token of private game" /> <input class="bt small" type="button" id="connect_private_game" value="Connect" />
-      </div>
-      <div id="available_games"></div>
-    </div>
-    <div id="create_game">
-      <table width="100%">
-        <tr>                
-          <td width="50%" style="text-align:center;vertical-align:top;padding-top:200px;">
-            <div id="create_game_form">
-              <h2>Firstly you create the story...</h2>
-              <form name="game_create_form">
-                <input type="text" placeholder="Your name" id="game_user" name="game_user" /> <br />
-                <input type="text" placeholder="Name of the game" name="game_name" /> <br />
-                <select name="game_type" >
-                  <option value="private">Make the game private</option>
-                  <option value="public">Make the game public</option>
-                </select>
-                <br />
-                <input type="hidden" id="game_map" name="game_map" class="bt small" value="" />
-                <input type="button" id="game_create" class="bt small" value="Create this game !" />                        
-              </form>
-          </div>
-          <div id="available_users">
-            <center>
-              <img src="static/img/load.GIF" /><input type="button" class="bt small" id="game_start" value="Start game!" /><br />
-            </center>
-            <div id="password">
-                Token: <input type="text" style="width:400px;"  placeholder="Token of the game" id="game_token" /> 
-            </div>
-            <div id="joined_users"></div>
-          </div>
-          </td>
-          <td width="50%">
-            <div id="map_div">
-              <h2>Your world</h2>
-                <select id="map_size">
-                  <option value="small">Small</option>
-                  <option value="medium">Medium</option>
-                  <option value="large">Large</option>
-                </select> 
-                <input type="button" id="generate_map" class="bt" value="Change map" />
-              <div id="map_image"></div>
-            </div>
-          </td>
-        </tr>
-      </table>        
-    </div>
-
-    <!-- GAME -->
-
-    <div id="game">
-      <div id="resources">
-        <ul>
-          <li id="gold">0000</li>
-          <li id="food">0000</li>
-          <li id="wood">0000</li>
-          <li id="stone">0000</li>
-          <li id="houses">0000</li>
-        </ul>
-      </div>
-      <div id="actions">
-        <h1 class="heading">Actions</h1>
-      </div>
-      <div id="messages">
-        <h2 class="heading">Messages<h2>
-      </div>
-      <div id="news">
-        <h2 class="heading">News<h2>
-      </div>
-      <div id="tasks">
-        <h2 class="heading">Tasks<h2>
-      </div>
-    </div>
-  </body>
-</html>
+	
+	<!DOCTYPE html>
+	<html>
+	<head>
+	<title>Xanten</title>
+	<script src="static/js/lib/jquery-1.11.1.min.js"></script>
+	<script src="static/js/lib/jquery.cookie.js"></script>
+	<script src="static/js/lib/jquery-ui.min.js"></script>
+	<script src="static/js/index/index.js" id="script"></script>
+	<script src="static/js/index/XantenMap.js" id="script"></script>
+	<script src="static/js/index/Game.js" id="script"></script>
+	<script src="static/js/index/Board.js" id="script"></script>
+	<script src="static/js/game/map.js"></script>
+	<link rel="stylesheet" href="static/css/style.css" id="style" />
+	<link rel="stylesheet" href="static/css/lib/jquery-ui.min.css"  />
+	<link rel="stylesheet" href="static/css/map.css"  />
+	</head>
+	<body>
+	<div id="cover"
+		style="width: 100%; height: 100%; position: fixed; top: 0px; left: 0px; background: rgb(14, 18, 28); z-index: 20; display: none"></div>
+	<div id="before_game">
+	<div id="bottom"><input type="button" value="Create game"
+		id="create_button" class="bt big" /> <input type="button"
+		value="Join game" id="join_button" class="bt big" /></div>
+	<div id="top">
+	<h1>Xanten</h1>
+	</div>
+	<div id="join_game">
+	<div id="private_game"><input type="text" id="private_token"
+		placeholder="Type token of private game" /> <input class="bt small"
+		type="button" id="connect_private_game" value="Connect" /></div>
+	<div id="available_games"></div>
+	</div>
+	<div id="create_game">
+	<table width="100%">
+		<tr>
+			<td width="50%"
+				style="text-align: center; vertical-align: top; padding-top: 200px;">
+			<div id="create_game_form">
+			<h2>Firstly you create the story...</h2>
+			<form name="game_create_form"><input type="text"
+				placeholder="Your name" id="game_user" name="game_user" /> <br />
+			<input type="text" placeholder="Name of the game" name="game_name" />
+			<br />
+			<select name="game_type">
+				<option value="private">Make the game private</option>
+				<option value="public">Make the game public</option>
+			</select> <br />
+			<input type="hidden" id="game_map" name="game_map" class="bt small"
+				value="" /> <input type="button" id="game_create" class="bt small"
+				value="Create this game !" /></form>
+			</div>
+			<div id="available_users">
+			<center><img src="static/img/load.GIF" /><input
+				type="button" class="bt small" id="game_start" value="Start game!" /><br />
+			</center>
+			<div id="password">Token: <input type="text"
+				style="width: 400px;" placeholder="Token of the game" id="game_token" />
+			</div>
+			<div id="joined_users"></div>
+			</div>
+			</td>
+			<td width="50%">
+			<div id="map_div">
+			<h2>Your world</h2>
+			<select id="map_size">
+				<option value="small">Small</option>
+				<option value="medium">Medium</option>
+				<option value="large">Large</option>
+			</select> <input type="button" id="generate_map" class="bt" value="Change map" />
+			<div id="map_image"></div>
+			</div>
+			</td>
+		</tr>
+	</table>
+	</div>
+	</div>
+	<!-- GAME -->
+	
+	<div id="game">
+	<div id="resources">
+	<ul>
+		<li id="gold">0000</li>
+		<li id="food">0000</li>
+		<li id="wood">0000</li>
+		<li id="stone">0000</li>
+		<li id="houses">0000</li>
+	</ul>
+	</div>
+	
+	<table id="game-content">
+		<tr>
+			<td id="left-side">
+				<div id="action_window" class="window">
+				<div class="before_window">Actions</div>
+				<div id="actions_board" class="board"></div>
+				<div class="after_window"></div>
+				</div>
+			</td>
+			<td id="central-side">
+				<div id="map-options">
+					  <span id="map-view">
+					    <input type="radio" value="world" id="world-view" name="map-view" ><label for="world-view">Examine the entire world</label>
+					    <input type="radio" value="city" id="city-view" name="map-view" checked="checked"><label for="city-view">View your city</label>
+					  </span>
+				</div>
+				<div id="map-window">
+				
+					 <table class="map"  id="map-board" border="0" cellspacing="0">
+				      <tbody>
+				         <tr>				           
+				            <td id="cel_1_1" style="background-image: url('static/img/map/general/g.png');"><img src="http://clipart.nicubunu.ro/png/rpg_map/fort.svg.png" width="100px" height="100px"/></td>
+				            <td id="cel_1_2" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_1_3" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_1_4" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_1_5" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_1_6" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_1_7" style="background-image: url('static/img/map/general/g.png');"></td>
+				         </tr>
+				         <tr>				           
+				            <td id="cel_2_1" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_2_2" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_2_3" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_2_4" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_2_5" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_2_6" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_2_7" style="background-image: url('static/img/map/general/g.png');"></td>
+				         </tr>
+				          <tr>				           
+				            <td id="cel_3_1" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_3_2" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_3_3" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_3_4" style="background-image: url('static/img/map/general/g.png');"><img src="http://clipart.nicubunu.ro/png/rpg_map/tavern.svg.png" width="100px" height="100px"/></td>
+				            <td id="cel_3_5" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_3_6" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_3_7" style="background-image: url('static/img/map/general/g.png');"></td>
+				         </tr>
+				          <tr>				           
+				            <td id="cel_4_1" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_4_2" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_4_3" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_4_4" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_4_5" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_4_6" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_4_7" style="background-image: url('static/img/map/general/g.png');"></td>
+				         </tr>
+				          <tr>				           
+				            <td id="cel_5_1" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_5_2" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_5_3" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_5_4" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_5_5" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_5_6" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_5_7" style="background-image: url('static/img/map/general/g.png');"></td>
+				         </tr>
+				          <tr>				           
+				            <td id="cel_6_1" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_6_2" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_6_3" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_6_4" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_6_5" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_6_6" style="background-image: url('static/img/map/general/g.png');"><img src="http://clipart.nicubunu.ro/png/rpg_map/wishing_well.svg.png" width="100px" height="100px"/></td>
+				            <td id="cel_6_7" style="background-image: url('static/img/map/general/g.png');"></td>
+				         </tr>
+				          <tr>				           
+				            <td id="cel_7_1" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_7_2" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_7_3" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_7_4" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_7_5" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_7_6" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_7_7" style="background-image: url('static/img/map/general/g.png');"></td>
+				         </tr>
+				      </tbody>
+				   </table>
+			
+			
+			
+				</div>
+			</td>
+			<td id="right-side">
+				<!-- <div id="messages_window" class="window">
+				<div class="before_window">Messages</div>
+				<div id="messages_board" class="board"></div>
+				<div class="after_window"></div>
+				</div>-->
+				
+				<div id="news_window" class="window">
+				<div class="before_window">News <a id="news_clear" class="clear" href="#" >Clear board</a></div>
+				<div id="news_board" class="board"></div>
+				<div class="after_window"></div>
+				</div>
+				
+				<div id="tasks_window" class="window">
+				<div class="before_window">Current Tasks </div>
+				<div id="tasks_window" class="board"></div>
+				<div class="after_window"></div>
+				</div>
+			</td>
+		</tr>
+	</table>
+	
+	
+	
+	</div>
+	</body>
+	</html>

@@ -5,59 +5,84 @@
  * @version 21.11.2014
  */
  
+
+var game = null;
+
 var thread_games,
 	thread_users;
 
-var player;
+/*
+ * 
+ * This starts a default game and enters the game without the create/join promt
+ */
+var settings = { 
+		"developerMode": false			// avoid the connection and effects
+	};
  
 $(document).ready(function() {
 
+
+	if(settings.developerMode === true){
+		start_game({"status": "started", "token":"the token", "city_map": "o-s,o-s,o-s,oc-sw,g,g,g,o,o,o,o-w,g,g,g,o-n,ob-ne,o,o-w,t0,g,t1,g,oc-ne,o-n,oc-nw,oc-se,o-s,oc-sw,t1,g,g,g,o-e,o,o-w,g,g,g,g,oc-ne,o-n,oc-nw,g,m0,g,g,g,g,t1", "world_map": "o-s,o-s,o-s,oc-sw,g,g,g,o,o,o,o-w,g,g,g,o-n,ob-ne,o,o-w,t0,g,t1,g,oc-ne,o-n,oc-nw,oc-se,o-s,oc-sw,t1,g,g,g,o-e,o,o-w,g,g,g,g,oc-ne,o-n,oc-nw,g,m0,g,g,g,g,t1", "player": {"resources": {"gold": 50.0, "stone": 200.0, "wood": 200.0, "food": 200.0}, "level": "Hamlet", "buildings": {"storage": {"level": 1, "num": 0}, "mine": {"level": 1, "num": 0, "people": 0}, "dock": {"level": 1, "num": 0, "people": 0}, "house": {"num": 1}, "trade": {"people": 0, "num": 0}, "military": {"people": 0, "num": 0, "level ": 1}, "lumberjack": {"level": 1, "num": 0, "people": 0}, "grapevine": {"people": 0, "num": 0}, "home": {"level": 1, "num": 1, "people": 50}}, "position": 13}});
+		$("#before_game").hide();
+		$("#cover").hide();
+		$("#game").show();
+	}
+	
+	/**
+	 * It starts the game
+	 * 
+	 */
     function start_game(response)
     {
         clearTimeout(thread_users);
 
-        player = response.player;
+        //var scripts = ['index/Game.js', 'index/XantenMap.js', 'index/Board.js'];
+        
+      
+        var after_file_loaded = function(){
+        	
+    		var cityMap  = new XantenMap(response.city_map, 'city');
+    		var worldMap = new XantenMap(response.general_map, 'world');
+    		
+    		game = new Game(response.token, response.player, cityMap, worldMap);
+    		
+    		game.init();
+    		
+            var value = ((settings.developerMode)?10:1000)
+    		$("#cover").fadeOut(value, function()
+    		{
+    			// game is ready
+    		});
+        	
+        }
 
-        // This function keeps track of the loading css and
-        // js files. When *both* are loaded, it opens up the
-        // game
-        var waiting = 2;
-        var executeScript  = (function()
-        {
-            if (--waiting == 0)
-            {
-                $("#cover").fadeOut(1000);
-            }
-        });
+        
+        $("#before_game").hide();
+        $('#game').show();
 
-        $("#cover").fadeIn(1000, function()
-        {
-            $('#game').show();
-            $("#join_game").hide();
-            $("#start_game").hide();
-            $("#create_game").hide();
+        // Remove old stylesheet
+        $("#style").remove();
+        
+        // Include new stylesheet
+        var inc    = document.createElement('link');
+        inc.rel    = 'stylesheet';  
+        inc.href   = '/static/css/gamestyle.css';
+        inc.onload = after_file_loaded;
+        
+        document.head.appendChild(inc);
 
-            // Include new stylesheet
-            var inc    = document.createElement('link');
-            inc.rel    = 'stylesheet';  
-            inc.href   = '/static/css/gamestyle.css';
-            inc.onload = executeScript;
-            document.head.appendChild(inc);
 
-            // Remove old stylesheet
-            $("#style").remove();
 
-            // Include new script file
-            var inc2    = document.createElement('script');  
-            inc2.src    = '/static/js/index/game.js';
-            inc2.onload = executeScript;
-            document.head.appendChild(inc2);
-
-            $("#gold").html(player.resources.gold);
-            $("#food").html(player.resources.food);
-            $("#wood").html(player.resources.wood);
-            $("#stone").html(player.resources.stone);
-        });
+            
+         
+            
+//
+//            $("#gold").html(player.resources.gold);
+//            $("#food").html(player.resources.food);
+//            $("#wood").html(player.resources.wood);
+//            $("#stone").html(player.resources.stone);
+        
     }
 
 	/**
@@ -70,7 +95,9 @@ $(document).ready(function() {
 		}).done(function (response) {	
 			if(response["status"] === 'running')
             {	
-                start_game(response);
+				$("#cover").fadeIn(1000, function(){
+					start_game(response);
+				});
 			} else {		
 				var text = "";
 				if(response.users) {
@@ -246,7 +273,9 @@ $(document).ready(function() {
         {
             if (response['status'] == 'started')
             {
-                start_game(response);
+            	$("#cover").fadeIn(1000, function(){
+            		start_game(response);
+            	});
             }
         })
 	});

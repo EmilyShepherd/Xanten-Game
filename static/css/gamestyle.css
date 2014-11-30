@@ -1,18 +1,43 @@
-body{
-	min-width:1000px;
+body {
+	min-width: 1000px;
+	margin: 0px;
 	font-family: 'Segoe UI', sans-serif;
-	background-image:
-		url("../img/game/resourcebar.png"),
+	background-image: url("../img/game/resourcebar.png"),
 		url("../img/game/tobbanner.png"),
 		url("../img/game/leftsidebar.png"),
 		url("../img/game/rightsidebar.png"),
 		url("../img/game/gamebackground.png");
 	background-repeat: no-repeat, repeat-x, repeat-y, repeat-y, repeat;
-	background-position: left top, left top, left top, right top, left top; 
+	background-position: left top, left top, left top, right top, left top;
 }
 
+/* About the game */
 
-.before_window{		
+#game-content {
+	margin: 0px;
+	border: 0px;
+	width: 100%;
+}
+
+#central-side {
+	text-align: center;
+}
+
+#game-content td {
+	vertical-align: top;
+}
+
+#left-side {
+	width: 305px;
+}
+
+#right-side {
+	width: 305px;
+}
+
+/* About boards and windows */
+
+.before_window {
 	color: white;
 	padding: 33px 0px 0px 31px;
 	font-size: 27px;
@@ -20,93 +45,241 @@ body{
 	font-weight: bold;
 	height: 67px;
 	width: 270px;
-	margin-left:3px;
+	margin-left: 3px;
 	display: block;
 	margin-top: -10px;
 	content: "";
 }
 
-.after_window{
-	background:url('../img/game/bottom_window_bg.png') no-repeat left top;
-	height:60px;
-	width:320px;
-    display: block; 
+.after_window {
+	background: url('../img/game/bottom_window_bg.png') no-repeat left top;
+	height: 60px;
+	width: 320px;
+	display: block;
 	content: " ";
 }
 
-
-
 .board {
-	background:url('../img/game/back_background.png') repeat left top;
+	background: url('../img/game/back_background.png') repeat left top;
 	min-height: 150px;
 	width: 210px;
 	padding-left: 44px;
 	padding-right: 39px;
-	color:#542c0f;
-	max-height:300px;
+	color: #542c0f;
+	max-height: 300px;
 	overflow: auto;
 	font-size: 13px;
 }
 
-.clear {
-	font-size: 14px;
-	color:gray;	
+.board .board_list {
+	background: rgb(246, 235, 186);
+	border: 1px solid	rgb(246, 235, 186);
+	padding: 5px;
 }
 
-#map-options{
-	width: 705px;
+.board .board_list:hover {
+	background: rgb(255, 246, 205);
+	border: 1px solid rgb(249, 232, 159);
+}
+
+.clear {
+	font-size: 14px;
+	color: gray;
+}
+
+#actions_board {
+	height: 96%;
+	max-height: 96%;
+}
+
+#map-options {
 	background-color: #FFF9DD;
 	border-top-left-radius: 6px;
 	border-top-right-radius: 6px;
 	height: 40px;
 	border: 3px solid rgb(199, 135, 51);
 	border-bottom: none;
-	padding-top:2px;
-		
+	padding-top: 2px;
 }
 
 #map-window {
-	width: 705px;
+	min-width: 705px;
 	border-bottom-left-radius: 6px;
 	border-bottom-right-radius: 6px;
-	min-height: 700px;
 	background-color: #F6EBBA;
 	border: 3px solid rgb(199, 135, 51);
-	
-}
-
-#game-content {
-	margin-top: 120px;
-	border: 0px;	
-	width:100%;
-}
-
-#central-side {
-	text-align:center;
-}
-
-#game-content td{
-	vertical-align: top;
-}
-
-#left-side {	
-	width: 305px;	
+	position: relative;
 }
 
 
-#right-side {
-	width: 305px;		
+/* general design */
+
+.tab {
+	padding-left: 10px;	
 }
 
-#resources{
+.link {
+	color: blue;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.center {
+	text-align: center;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.hover, .hasAction {
+	cursor: pointer;
+}
+
+
+/* resources  and information about city */
+
+#top_board {
+	height: 110px;
+	margin: 0px;
+	width: 100%;
+}
+
+#resources, #city_details {
+	position: relative;
+}
+
+#resources div {
 	position: absolute;
-	top: 40px;
-	left: 120px;
+	width: 82px;
+	border-radius: 2px;
+	top: 51px;
+	text-align: right;
+	height: 28px;
+	color: white;
+	padding-top: 5px;
+	padding-right: 4px;
+	overflow: hidden;
 }
 
-#resources ul li{
-	display: inline;
-	list-style-type: none;
-	padding-right: 105px;
+#resources #gold {
+	left: 150px;
+}
+
+#resources #food {
+	left: 290px;
+}
+
+#resources #wood {
+	left: 430px;
+}
+
+#resources #stone {
+	left: 570px;
+}
+
+#resources #people {
+	left: 701px;
+}
+
+#city_details div {
+	border-radius: 2px;
+	text-align: right;
+	height: 20px;
 	color: white;
+	padding-top: 5px;
+	padding-right: 4px;
+	overflow: hidden;
+	right: 20px;
+	position: absolute;
+	font-weight: bold;
+}
+
+#city_details #name {
+	top: 0px;
+}
+
+#city_details #level {
+	top: 30px;
+}
+
+#city_details #type {
+	top: 60px;
+}
+
+/* Maps */
+
+.map {
+	display: none;
+	border: 0px;
+	cellspacing: 0px;	
+}
+
+.map td.selected,.map td.selected:hover {
+	border: 1px solid white;
+	-webkit-filter: opacity(0.7);
+}
+
+.map td.selected {
+	transition-duration: 0.5s;
+	border: 1px solid white;
+}
+
+.map .allow_construction:hover {
+	cursor: url("../img/cursor/build_cursor_1.png"), auto;
+	-webkit-filter: opacity(0.9);
+	border: 1px solid rgb(181, 181, 181);
+}
+
+.map .allow_construction:active {
+	cursor: url("../img/cursor/build_cursor_2.png"), auto;
+}
+
+.map img.small {
+	width: 60px;
+	height: 60px;
+}
+
+.map tr td {
+	text-align: center;
+	vertical-align: middle;
+	position: relative;
+}
+
+.map img {
+	height: 100px;
+	width: 100px;
+	transition-duration: 0.5s;
+	transition-timing-function: linear;
+}
+
+.map td .hasAction:hover {
+	z-index: 555555 !important;
+	cursor: url("../img/cursor/hand_cursor.png"), auto;
+	-webkit-filter: sepia(1) drop-shadow(-12px 0px 17px rgba(255,255,5,0.7));
+	filter: url("data:image/svg+xml;utf8,<svg height='0' xmlns='http://www.w3.org/2000/svg'><filter id='drop-shadow'><feGaussianBlur in='SourceAlpha' stdDeviation='4'/><feOffset dx='12' dy='12' result='offsetblur'/><feFlood flood-color='rgba(0,0,0,0.5)'/><feComposite in2='offsetblur' operator='in'/><feMerge><feMergeNode/><feMergeNode in='SourceGraphic'/></feMerge></filter></svg>#drop-shadow");
+	-ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
+	filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
+}
+
+.map td img.selected, .map td img.selected:hover {
+	-webkit-filter: sepia(1) grayscale(1) opacity(0.7);
+}
+
+.map .level {
+	position: absolute;
+	top: 3px;
+	left: 60px;
+	margin: 0px;
+	width: 17px;
+	height: 17px;
+	font-size: 13px;
+	color: rgb(161, 104, 0);
+	border: 1px solid rgb(255, 210, 34);
+	z-index: 1;
+	background: rgb(255, 210, 34);
+	padding: 2px;
+	box-shadow: 0px 0px 3px 1px rgb(53, 53, 53);
+	padding: 1px;
+	border-radius: 20px;
 }

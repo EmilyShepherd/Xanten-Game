@@ -7,9 +7,16 @@
 	<script src="static/js/lib/jquery.cookie.js"></script>
 	<script src="static/js/lib/jquery-ui.min.js"></script>
 	<script src="static/js/index/index.js" id="script"></script>
-	<script src="static/js/index/XantenMap.js" id="script"></script>
+	
 	<script src="static/js/index/Game.js" id="script"></script>
 	<script src="static/js/index/Board.js" id="script"></script>
+	<script src="static/js/index/Resources.js" id="script"></script>
+	<script src="static/js/index/Action.js" id="script"></script>
+	<script src="static/js/index/XantenMap.js" id="script"></script>
+	<script src="static/js/index/CityMap.js" id="script"></script>
+	<script src="static/js/index/WorldMap.js" id="script"></script>
+	<script src="static/js/index/HTML_Engine.js" id="script"></script>
+	
 	<script src="static/js/game/map.js"></script>
 	<link rel="stylesheet" href="static/css/style.css" id="style" />
 	<link rel="stylesheet" href="static/css/lib/jquery-ui.min.css"  />
@@ -78,22 +85,27 @@
 	<!-- GAME -->
 	
 	<div id="game">
-	<div id="resources">
-	<ul>
-		<li id="gold">0000</li>
-		<li id="food">0000</li>
-		<li id="wood">0000</li>
-		<li id="stone">0000</li>
-		<li id="houses">0000</li>
-	</ul>
-	</div>
+		<div id="top_board">
+			<div id='resources'>
+				<div id='gold'>472000</div>
+				<div id='food'>12121211</div>
+				<div id='wood'>454365346</div>
+				<div id='stone'>213123</div>
+				<div id='people'>1244</div>
+			</div>
+			<div id='city_details'>
+				<div id='name'>Cristian's city</div>
+				<div id='level'>Level: 4</div>
+				<div id='type'>Hamlet</div>
+			</div>
+		</div>
 	
 	<table id="game-content">
 		<tr>
 			<td id="left-side">
 				<div id="action_window" class="window">
 				<div class="before_window">Actions</div>
-				<div id="actions_board" class="board"></div>
+				<div id="actions_board" class="board"><div class='inside'></div></div>
 				<div class="after_window"></div>
 				</div>
 			</td>
@@ -105,85 +117,149 @@
 					  </span>
 				</div>
 				<div id="map-window">
-				
-					 <table class="map"  id="map-board" border="0" cellspacing="0">
+					<div id="map-window-city" class='map-window'>			
+					<!--  // The tables be generated at the map.init(). I am waiting for python team-->	
+					 <table class="map"  id="map-board-city" border="0" cellspacing="0">
 				      <tbody>
 				         <tr>				           
-				            <td id="cel_1_1" style="background-image: url('static/img/map/general/g.png');"><img src="http://clipart.nicubunu.ro/png/rpg_map/fort.svg.png" width="100px" height="100px"/></td>
-				            <td id="cel_1_2" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_1_3" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_1_4" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_1_5" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_1_6" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_1_7" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_1_1" style="background-image: url('static/img/map/general/g.png');"><div class='level'>2</div><img src="http://clipart.nicubunu.ro/png/rpg_map/fort.svg.png" title="Military" class="hasAction" width="100px" height="100px"/></td>
+				            <td id="cel_1_2" class='allow_construction' style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_1_3" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_1_4" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_1_5" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_1_6" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_1_7" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
 				         </tr>
 				         <tr>				           
-				            <td id="cel_2_1" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_2_2" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_2_3" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_2_4" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_2_5" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_2_6" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_2_7" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_2_1" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_2_2" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_2_3" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_2_4" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_2_5" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_2_6" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_2_7" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
 				         </tr>
 				          <tr>				           
-				            <td id="cel_3_1" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_3_2" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_3_3" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_3_4" style="background-image: url('static/img/map/general/g.png');"><img src="http://clipart.nicubunu.ro/png/rpg_map/tavern.svg.png" width="100px" height="100px"/></td>
-				            <td id="cel_3_5" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_3_6" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_3_7" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_3_1" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_3_2" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_3_3" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_3_4" style="background-image: url('static/img/map/general/g.png');"><div class='level'>1</div><img src="http://clipart.nicubunu.ro/png/rpg_map/tavern.svg.png" title="Foyer" class="hasAction" width="100px" height="100px"/></td>
+				            <td id="cel_3_5" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_3_6" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_3_7" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
 				         </tr>
 				          <tr>				           
-				            <td id="cel_4_1" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_4_2" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_4_3" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_4_4" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_4_5" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_4_6" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_4_7" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_4_1" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_4_2" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_4_3" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_4_4" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_4_5" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_4_6" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_4_7" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
 				         </tr>
 				          <tr>				           
-				            <td id="cel_5_1" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_5_2" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_5_3" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_5_4" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_5_5" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_5_6" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_5_7" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_5_1" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_5_2" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_5_3" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_5_4" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_5_5" style="background-image: url('static/img/map/general/g.png');"><img src="http://clipart.nicubunu.ro/png/rpg_map/ruins.svg.png" width="100px" height="100px"/></td>
+				            <td id="cel_5_6" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_5_7" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
 				         </tr>
 				          <tr>				           
-				            <td id="cel_6_1" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_6_2" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_6_3" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_6_4" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_6_5" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_6_6" style="background-image: url('static/img/map/general/g.png');"><img src="http://clipart.nicubunu.ro/png/rpg_map/wishing_well.svg.png" width="100px" height="100px"/></td>
-				            <td id="cel_6_7" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_6_1" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_6_2" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_6_3" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_6_4" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_6_5" style="background-image: url('static/img/map/general/g.png');"><img src="http://clipart.nicubunu.ro/png/rpg_map/wishing_well.svg.png" class='small' /></td>
+				            <td id="cel_6_6" style="background-image: url('static/img/map/general/g.png');"><div class='level'>2</div><img src="http://clipart.nicubunu.ro/png/rpg_map/stables.svg.png" class="hasAction" title="Storage" width="100px" height="100px"/></td>
+				            <td id="cel_6_7" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
 				         </tr>
 				          <tr>				           
-				            <td id="cel_7_1" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_7_2" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_7_3" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_7_4" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_7_5" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_7_6" style="background-image: url('static/img/map/general/g.png');"></td>
-				            <td id="cel_7_7" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_7_1" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_7_2" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_7_3" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_7_4" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_7_5" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_7_6" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_7_7" class='allow_construction'  style="background-image: url('static/img/map/general/g.png');"></td>
 				         </tr>
 				      </tbody>
-				   </table>
+				   </table>		
+				</div>
 			
-			
-			
+				<div id="map-window-world" class='map-window'>
+				   	 <table class="map"  id="map-board-world" border="0" cellspacing="0" >
+				      <tbody>
+				         <tr>				           
+				            <td id="cel_1_1" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_1_2" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_1_3"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_1_4"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_1_5"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_1_6"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_1_7"  style="background-image: url('static/img/map/general/g.png');"></td>
+				         </tr>
+				         <tr>				           
+				            <td id="cel_2_1"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_2_2"  style="background-image: url('static/img/map/general/t1.png');"></td>
+				            <td id="cel_2_3"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_2_4"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_2_5"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_2_6"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_2_7"  style="background-image: url('static/img/map/general/g.png');"></td>
+				         </tr>
+				          <tr>				           
+				            <td id="cel_3_1"  style="background-image: url('static/img/map/general/t1.png');"></td>
+				            <td id="cel_3_2"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_3_3"  style="background-image: url('static/img/map/general/t1.png');"></td>
+				            <td id="cel_3_4" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_3_5"  style="background-image: url('static/img/map/general/t1.png');"></td>
+				            <td id="cel_3_6"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_3_7"  style="background-image: url('static/img/map/general/g.png');"></td>
+				         </tr>
+				          <tr>				           
+				            <td id="cel_4_1"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_4_2"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_4_3"  style="background-image: url('static/img/map/general/t1.png');"></td>
+				            <td id="cel_4_4"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_4_5"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_4_6"  style="background-image: url('static/img/map/general/t1.png');"></td>
+				            <td id="cel_4_7"  style="background-image: url('static/img/map/general/g.png');"></td>
+				         </tr>
+				          <tr>				           
+				            <td id="cel_5_1"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_5_2"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_5_3"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_5_4"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_5_5" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_5_6"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_5_7"  style="background-image: url('static/img/map/general/g.png');"></td>
+				         </tr>
+				          <tr>				           
+				            <td id="cel_6_1"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_6_2"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_6_3"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_6_4"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_6_5" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_6_6" style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_6_7"  style="background-image: url('static/img/map/general/g.png');"></td>
+				         </tr>
+				          <tr>				           
+				            <td id="cel_7_1"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_7_2"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_7_3"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_7_4"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_7_5"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_7_6"  style="background-image: url('static/img/map/general/g.png');"></td>
+				            <td id="cel_7_7"  style="background-image: url('static/img/map/general/g.png');"></td>
+				         </tr>
+				      </tbody>
+				   </table>		
+				</div>
 				</div>
 			</td>
 			<td id="right-side">
-				<!-- <div id="messages_window" class="window">
-				<div class="before_window">Messages</div>
-				<div id="messages_board" class="board"></div>
-				<div class="after_window"></div>
-				</div>-->
 				
 				<div id="news_window" class="window">
 				<div class="before_window">News <a id="news_clear" class="clear" href="#" >Clear board</a></div>
@@ -193,15 +269,12 @@
 				
 				<div id="tasks_window" class="window">
 				<div class="before_window">Current Tasks </div>
-				<div id="tasks_window" class="board"></div>
+				<div id="tasks_board" class="board"></div>
 				<div class="after_window"></div>
 				</div>
 			</td>
 		</tr>
-	</table>
-	
-	
-	
+	</table>	
 	</div>
 	</body>
 	</html>

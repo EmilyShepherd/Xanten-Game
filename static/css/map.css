@@ -10,11 +10,7 @@
 	margin: auto;
 }
 .map td {
-	padding: 0px;
-	margin: 0px;
-	border: none;
-	border-collapse: collapse;
-	line-height: 0px;
+	border: 1px solid transparent;
 	height: 100px;
 	width: 100px;
 }

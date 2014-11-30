@@ -229,6 +229,7 @@ class User(ndb.Model):
             # stored as booleans
             if building in ['trade', 'storage', 'military', 'grapevine']:
                 setattr(self, building, True)
+                return
             # Everything else has variable numbers, so get the current
             # number and add one to it
             else:

@@ -16,7 +16,7 @@ var thread_games,
  * This starts a default game and enters the game without the create/join promt
  */
 var settings = { 
-		"developerMode": false			// avoid the connection and effects
+		"developerMode": true			// avoid the connection and effects
 	};
  
 $(document).ready(function() {
@@ -42,11 +42,12 @@ $(document).ready(function() {
       
         var after_file_loaded = function(){
         	
-    		var cityMap  = new XantenMap(response.city_map, 'city');
-    		var worldMap = new XantenMap(response.general_map, 'world');
+    		var cityMap  = new CityMap(response.city_map);
+    		var worldMap = new WorldMap(response.general_map);
     		
     		game = new Game(response.token, response.player, cityMap, worldMap);
     		
+    		// loads the game
     		game.init();
     		
             var value = ((settings.developerMode)?10:1000)
@@ -73,16 +74,6 @@ $(document).ready(function() {
         document.head.appendChild(inc);
 
 
-
-            
-         
-            
-//
-//            $("#gold").html(player.resources.gold);
-//            $("#food").html(player.resources.food);
-//            $("#wood").html(player.resources.wood);
-//            $("#stone").html(player.resources.stone);
-        
     }
 
 	/**

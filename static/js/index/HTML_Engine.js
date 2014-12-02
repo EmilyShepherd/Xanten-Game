@@ -291,12 +291,12 @@ HTML_Engine.shortResourceRepresentation = function (input){
 		text = input;
 	} else 	
 	if(len >= 4 && len <= 6) {
-		text = (Math.round(input/1000*100)/100).toString()+"k";
+		text = ((input/1000*100)/100).toFixed(2)+"k";
 	} else 			
     if(len >= 7 && len <= 9) {
-    	text =  (Math.round(input/1000000 * 100)/100).toString()+'m';
+    	text =  ((input/1000000 * 100)/100).toFixed(2)+'m';
     } else     
-    text = (Math.round(input/1000000000 * 100)/100).toString()+'b';
+    text = ((input/1000000000 * 100)/100).toFixed(2)+'b';
 	
 	return "<span title='"+ input +"'>"+text+"</span>";
 }

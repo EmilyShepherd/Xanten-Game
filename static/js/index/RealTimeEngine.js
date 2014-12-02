@@ -20,6 +20,17 @@ function RealTimeEngine(){
 	this.init();
 }
 
+
+/**
+ * It loads the WebSocket framework and assign the listeners for events (receive/send message, disasters and statistics) 
+ */
+RealTimeEngine.prototype.init = function(){	
+    // this.channel   = new goog.appengine.Channel('{{ channel_id }}');
+};
+
+/**
+ * It stats the thread for resources, starts the channel for websocket and assigns the listeners
+ */
 RealTimeEngine.prototype.run = function(){
 	
 	var instance = this;
@@ -51,14 +62,6 @@ RealTimeEngine.prototype.run = function(){
 	
 	*/
 };
-
-/**
- * It loads the WebSocket framework and assign the listeners for events (receive/send message, disasters and statistics) 
- */
-RealTimeEngine.prototype.init = function(){	
-    // this.channel   = new goog.appengine.Channel('{{ channel_id }}');
-};
-
 
 /**
  * It stops the calculation of resources. It stops the connection with the websocket and removes the listeners

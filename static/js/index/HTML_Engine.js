@@ -52,7 +52,7 @@ HTML_Engine.getAvailableBuildings = {
 				
 			text += "</div><br />";
 		}
-		return "" + text;
+		return text;
 	},
 	
 	/**
@@ -111,19 +111,32 @@ HTML_Engine.getAvailableBuildings = {
 };
 
 /**
- * It displays the resources in HTML format
+ * It displays the resources (gold, wood, stone, food, people and the time)  in HTML format
  */
 HTML_Engine.displayResources = {
 	/**
 	 * It displays the resources
+	 * @param object The resources specified by Resources.getNecessaryForBuilding
+	 * @see Resources.getNecessaryForBuilding
 	 */
 	content: function(resources){
-		var text = "It needs: <div class='tab'> ";
+	
+		var text = "It requires: <div class='tab'> ",
+			things = [];
 		
-		for(resource in resources){
-			text +=  resources[resource]+" <span class='bold'>" + resource + "</span><br />";
+		for(resource in resources.resources){
+			things.push(HTML_Engine.shortResourceRepresentation(parseInt(resources.resources[resource]))+" <span class='bold'>" + resource + "</span>");
 		}
-		text += "</div>";
+		
+		if(resources.time){
+			things.push("Time: "+HTML_Engine.shortTimeRepresentation(resources.time));
+		}
+		
+		if(resources.people){
+			things.push("Number of people: <span class='bold'>"+HTML_Engine.shortResourceRepresentation(resources.people) + "</span>");
+		}
+		
+		text += things.join("<br />") + "</div>";
 		
 		return text;
 	}
@@ -234,3 +247,62 @@ HTML_Engine.failTask = {
 		game.newsBoard.add(task_title + " was no possible because " + reason);	
 	}
 };
+
+
+/**
+ * It returns a short representation of the resource. 
+ * 
+ * <1000 => the value
+ * 1k
+ * 1m
+ * 1b
+ * 
+ * @param Number input The amount of resource
+ * @returns string The amount in a short representation
+ */
+HTML_Engine.shortResourceRepresentation = function (input){
+	
+	var len  = input.toString().length,
+		text = "";
+	
+	if(len <= 3){
+		text = input;
+	} else 	
+	if(len >= 4 && len <= 6) {
+		text = (Math.round(input/1000*100)/100).toString()+"k";
+	} else 			
+    if(len >= 7 && len <= 9) {
+    	text =  (Math.round(input/1000000 * 100)/100).toString()+'m';
+    } else     
+    text = (Math.round(input/1000000000 * 100)/100).toString()+'b';
+	
+	return "<span title='"+ input +"'>"+text+"</span>";
+}
+
+
+/**
+ * It returns a short representation of time in this format: {hours} h, {minutes} h, {seconds} sec OR "Instant" (if time is 0)
+ * 
+ * 
+ * @param Number sec_num The time expressed in number of seconds
+ * @return string The time in this format: {hours} h, {minutes} h, {seconds} sec OR "Instant" (if time is 0)
+ */
+HTML_Engine.shortTimeRepresentation = function (sec_num){
+	
+	sec_num = parseInt(sec_num);
+	
+	if(sec_num === 0){
+		return "<span class='bold'>Instant</span>";
+	}
+
+	var	elements = [],
+	 	hours   = Math.floor(sec_num / 3600),
+	 	minutes = Math.floor((sec_num - (hours * 3600)) / 60),
+	 	seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+	if (hours   !== 0) {elements.push("<span class='bold'>" + hours   + " h</span>");}
+	if (minutes !== 0) {elements.push("<span class='bold'>" + minutes + " min</span>");}
+	if (seconds !== 0) {elements.push("<span class='bold'>" + seconds + " sec</span>");}
+	
+	return elements.join(", ");		
+}

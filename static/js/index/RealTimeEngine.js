@@ -1,5 +1,5 @@
 /**
- * Represents performing task. It is a view object (MCV)
+ * It does the magic of the game. It maintain the connection with the server, it progress any websockets and it progress the resources
  *
  * @author Cristian Sima and ...
  * @version 2.12.2014
@@ -58,9 +58,13 @@ RealTimeEngine.prototype.run = function(){
     	instance.receiveGameStatus(status);
     }
 	
-	this.threads.resources = setInterval(_progress, 1000);	
+	
 	
 	*/
+	
+	
+	instance._progress();
+	this.threads.resources = setInterval(instance._progress, 1000);	
 };
 
 /**
@@ -84,8 +88,11 @@ RealTimeEngine.prototype.stop = function(){
  */
 RealTimeEngine.prototype._progress = function(){
 	// TODO @Cristian
+	game.player.resources.stone -= 276;
+	game.player.resources.food 	+= 132;
+	game.player.resources.wood 	+= 2;
 	
-	// game.resources.update();
+	game.resources.updateResources();
 };
 
 
@@ -105,6 +112,24 @@ RealTimeEngine.prototype.sendMessage = function(message, player_id){
  */
 RealTimeEngine.prototype.receiveMessage = function(message){
 	// TODO @Joe 
+};
+
+
+/**
+ * It is called when a message is received for this user
+ * @param string message An object which contain all the information regarding the message ("sent_from", "content", "id", "date")
+ */
+RealTimeEngine.prototype.receiveAttack = function(message){
+	// TODO @Joe 
+};
+
+
+/**
+ * Perform an attack
+ * @param string id_city The id of the city which is attacked
+ */
+RealTimeEngine.prototype.performAttack = function(id_city){
+	// TODO @Cristian 
 };
 
 /**

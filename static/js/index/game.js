@@ -161,7 +161,7 @@ Game.prototype.createProgressBar = function(task_object){
 /**
  * It stops and removes a progress.
  */
-Game.prototype.createProgressBar = function(task_object){
+Game.prototype.removeProgressBar = function(task_object){
 	this.currentProgressTasks[task_object].remove();
 	delete this.currentProgressTasks[task_object];
 };

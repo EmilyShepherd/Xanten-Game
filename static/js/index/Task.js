@@ -9,7 +9,7 @@
 
 /**
  * Represents a performing task
- * @param object informationTask An object with the necessary information regarding the task
+ * @param object information An object with the necessary information regarding the task
  * @param string title The title which will be seen in the current tasks
  * @param object serverDetails An object with the information regarding the url, type, data to be sent to the server for confirmation
  * @param function afterConfirmation A function which is executed after the task is confirmed by server. It use the information from server by using this.confirmationDetails
@@ -17,13 +17,13 @@
  * @param function duringPerforming A function to be executed during the execution of task
  * @param function afterEnds A function to be executed after the task is completed
  */
-function Task(informationTask, title, serverDetails, afterConfirmation, beforeStarting, duringPerforming, afterEnds){
+function Task(information, title, serverDetails, afterConfirmation, beforeStarting, duringPerforming, afterEnds){
 	
 	// we need for the lambda functions
 	var instance = this;
 	
-	this.title        	= title;
-	this.information 	= information;
+	this.title        		= title;
+	this.information 		= information;
 	this.response		= null;
 	this.serverDetails	= serverDetails;
 	
@@ -31,10 +31,10 @@ function Task(informationTask, title, serverDetails, afterConfirmation, beforeSt
 	 * If there is exists an override of the method, call it after it calls the default
 	 * If not call the default
 	 */
-	this.afterEnds         = ((afterEnds)?function(){instance._afterEnds();instance.afterEnds(instance);}:this._afterEnds());
-	this.beforeStarting    = ((beforeStarting)?function(){instance._beforeStarting();instance.beforeStarting(instance);}:this._beforeStarting());
-	this.duringPerforming  = ((duringPerforming)?function(){instance._duringPerforming();instance.duringPerforming(instance);}:this.duringPerforming());
-	this.afterConfirmation = ((afterConfirmation)?function(){instance._afterConfirmation();instance.afterConfirmation(instance);}:this._afterConfirmation());
+	this.afterEnds         		= ((afterEnds)?function(){instance._afterEnds();instance.afterEnds(instance);}:this._afterEnds());
+	this.beforeStarting    		= ((beforeStarting)?function(){instance._beforeStarting();instance.beforeStarting(instance);}:this._beforeStarting());
+	this.duringPerforming  	= ((duringPerforming)?function(){instance._duringPerforming();instance.duringPerforming(instance);}:this._duringPerforming());
+	this.afterConfirmation 	= ((afterConfirmation)?function(){instance._afterConfirmation();instance.afterConfirmation(instance);}:this._afterConfirmation());
 
 	this.done = done;
 	

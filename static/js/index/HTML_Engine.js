@@ -61,13 +61,13 @@ HTML_Engine.getAvailableBuildings = {
 	enable: function(){
 		$("#actions_board .board_list").click(function(){
 			
-			 game.performAction("no_action");
+			 //game.performAction("no_action");
 			
 			 // comment the above
 			 
 			 // uncomment the next
 			 
-			/*
+			
 			// Example of task
 			// It is not working because the ProgressBar is not done
 			// It is correct
@@ -75,7 +75,7 @@ HTML_Engine.getAvailableBuildings = {
 			game.removeCurrentAction();
 			
 			var data			= $(this).serialize();
-			var building_name 	= game.city_map_buildings[data.building_id];
+			var building_name 	= "mine";//game.city_map_buildings[data.building_id];
 			
 			
 			new Task(data, 
@@ -98,7 +98,6 @@ HTML_Engine.getAvailableBuildings = {
 						game.player.buildings.bulding_id.level = 1;
 						game.player.buildings.bulding_id.status = 'Done';
 					});
-			*/
 			})
 	},
 	

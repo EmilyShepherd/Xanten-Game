@@ -17,18 +17,18 @@ function Resources(){
 Resources.prototype.updateResources = function(){
 	
 	// TODO a roll like in casios of the resources
-	
-	$("#resource #gold").html(game.player.resources.gold);
-	$("#resources #stone").html(game.player.resources.stone);
-	$("#resources #wood").html(game.player.resources.wood);
-	$("#resources #food").html(game.player.resources.food);	
+
+	$("#resources #stone").html(HTML_Engine.shortResourceRepresentation(game.player.resources.stone));
+	$("#resources #wood").html(HTML_Engine.shortResourceRepresentation(game.player.resources.wood));
+	$("#resources #food").html(HTML_Engine.shortResourceRepresentation(game.player.resources.food));	
 };
 
 /**
  * It updates the number of people
  */
 Resources.prototype.updatePeople = function() {
-	$("#resources #people").html(game.resources.food);	
+	$("#resources #people").html(Resources.shortResourceRepresentation(game.player.resources.people));	
+	$("#resources #gold").html(Resources.shortResourceRepresentation(game.player.resources.gold));	
 };
 
 /**
@@ -42,16 +42,25 @@ Resources.prototype.updateDetailsCity = function() {
 
 /**
  * It returns the necesary resources for a building
- * @param building_id The name of the building
- * @param state It is 'create' or 'upgrade'
- * @return object an object with the necessary resources
+ * @param string building_id The name of the building
+ * @param string state It is 'create' or 'upgrade'
+ * @return Object an object with the necessary resources
  */
 Resources.prototype.getNecessaryForBuilding = function(building_name, state){
 	
-	 // TODO to be done
-	return {'wood': randomnumber=Math.floor(Math.random()*201)+1, 
-			'stone': randomnumber=Math.floor(Math.random()*201)+1,
-			'people': randomnumber=Math.floor(Math.random()*21)+1,
-			'seconds': randomnumber=Math.round(Math.random()*1, 2)+2
-			};
+	 // TODO @Joe 
+	
+	
+	
+	// this is just to test. it does not return the right values
+	return {
+		resources: {
+						'wood': randomnumber=Math.floor(Math.random()*20000001)+1, 
+						'stone': randomnumber=Math.floor(Math.random()*20001)+1,
+						'food': randomnumber=Math.floor(Math.random()*20001)+1,
+						'gold': randomnumber=Math.floor(Math.random()*20001)+1
+					},
+		people: randomnumber=Math.floor(Math.random()*20001)+1,
+		time: randomnumber=Math.round(Math.random()*4000)
+	}
 };

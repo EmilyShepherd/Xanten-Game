@@ -17,16 +17,17 @@
 function Game(token, player, cityMap, worldMap){
 	
 	this.token             = token;
-	this.started		   = false;
+	this.started           = false;
 	this.player            = player;
-	
+
 	this.currentMap        = null;			// nothing
 	this.cityMap           = cityMap;
 	this.worldMap          = worldMap;
-	this.resources		   = new Resources();
-	
+	this.resources         = new Resources();
+	this.RTE               = new RealTimeEngine();
+
 	this.currentAction     = null;
-	
+
 	this.actionsBoard      = new Board("actions");
 	this.newsBoard         = new Board("news");
 	this.currentTasksBoard = new Board("tasks");
@@ -116,13 +117,31 @@ Game.prototype.init = function() {
 		// demonstrates the use of an action with arguments
 		game.performAction("seeMessage", {id:3,content:"How are you"});
 	});
+	
+	this.start();
+};
+
+/**
+ * It loads the current tasks. It starts the RealTimeEngine.
+ */
+Game.prototype.start = function(){
+
+	this.loadCurrentTasks();
+	this.RTE.run();
+};
+
+/**
+ * It loads and creates the current tasks
+ */
+Game.prototype.loadCurrentTasks = function(){
+	// TODO @George - to load and create the current tasks
 };
 
 /**
  * It renders the game according to the size of the browser
  */
 Game.prototype.render = function() {
-	// resets the boards
+	
 	$("#actions_board").css({"height":1+"px", "min-height": 1+"px"});
 	$("#news_board").css({"height":1+"px", "min-height": 1+"px"});
 	$("#tasks_board").css({"height":1+"px", "min-height": 1+"px"});

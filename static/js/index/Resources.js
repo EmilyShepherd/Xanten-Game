@@ -56,7 +56,9 @@ Resources.prototype.getNecessaryForBuilding = function(building_name, state){
 	return {
 		resources: {
 						'wood': randomnumber=Math.floor(Math.random()*20000001)+1, 
-						'stone': randomnumber=Math.floor(Math.random()*20001)+1
+						'stone': randomnumber=Math.floor(Math.random()*20001)+1,
+						'food': randomnumber=Math.floor(Math.random()*20001)+1,
+						'gold': randomnumber=Math.floor(Math.random()*20001)+1
 					},
 		people: randomnumber=Math.floor(Math.random()*20001)+1,
 		time: randomnumber=Math.round(Math.random()*4000)

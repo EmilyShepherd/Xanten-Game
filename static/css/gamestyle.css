@@ -68,7 +68,7 @@ body {
 	color: #542c0f;
 	max-height: 300px;
 	overflow: auto;
-	font-size: 13px;
+	font-size: 14px;
 }
 
 .board .board_list {
@@ -138,6 +138,23 @@ body {
 
 
 /* resources  and information about city */
+
+.resource_format_wood{
+	color: rgb(174, 81, 50);	
+}
+
+.resource_format_stone{
+	color: rgb(89, 86, 84);	
+}
+
+.resource_format_food {
+	color: rgb(221, 90, 54);	
+}
+
+.resource_format_gold {
+	color: rgb(219, 176, 52)
+}
+
 
 #top_board {
 	height: 110px;

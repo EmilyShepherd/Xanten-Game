@@ -8,9 +8,16 @@
 /**
  * The HTML_Engine generates the HTML for the game. represents the View object (MCV). It  It generates the code, it adds the necessary listeners. Then it can disable the listeners
  */
-function HTML_Engine(){
-	// nothing
-};
+var  HTML_Engine = {
+	path: {
+				img_city_bulding:		'/static/img/game/city/building/',
+				img_city_element:		'/static/img/game/city/element/',
+				img_city_background:	'/static/img/game/city/building/',
+				img_world_background:	'/static/img/game/world/building/',
+				img_resource:			'/static/img/game/resource/'
+		}
+}
+
 
 /* // Example:
 	HTML_Engine. = {
@@ -23,6 +30,22 @@ function HTML_Engine(){
 	};
 */
 
+
+/**
+ * It returns a image from the game
+ */
+HTML_Engine.getImage = {
+	
+		/**
+		 * It constructs an image. For example: HTML_Engine.content.getImage('img_resource', 'gold', 'Gold') returns ===> <img title="Gold" src="/static/img/game/resource/gold.png" align="absmiddle">
+		 * @param string path A HTML_Engine.path string
+		 * @param string image The name of the image (for example: gold or mine
+		 * @param string title It is optional. It sets the title for the image
+		 */
+	content:function(path, image, title){	
+			return "<img "+(title?("title='" + image.capitalize()+"'"):"")+" src='" + HTML_Engine.path[path] + image + ".png' align='absmiddle' />";
+	}
+}
 
 /**
  * Returns the list of all the building which can be created and the resources for them
@@ -125,7 +148,7 @@ HTML_Engine.displayResources = {
 			things = [];
 		
 		for(resource in resources.resources){
-			things.push(HTML_Engine.shortResourceRepresentation(parseInt(resources.resources[resource]))+" <span class='bold'>" + resource + "</span>");
+			things.push(HTML_Engine.getImage.content("img_resource", resource, resource) + " <span class='bold resource_format_" +resource+ "'>" + HTML_Engine.shortResourceRepresentation(resources.resources[resource])+" </span>");
 		}
 		
 		if(resources.time){

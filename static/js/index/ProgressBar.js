@@ -25,16 +25,20 @@ function ProgressBar(task){
 	this.value = 0;
 	
 	// TODO something like this. search on google progress bar jquery or find something nice
-	game.currentTasksBoard.append("<div id='progress_bar_"+this.id+"'></div>");
-	this.HTML_element = $("#progress_bar_"+this.id);
+	game.currentTasksBoard.add("<div class='progress_bar' id='progress_bar_"+this.task.id+"'><div id='label'>"+task.title+"</div></div>");
+	this.HTML_element = $("#progress_bar_"+this.task.id);	
 	
 	this.HTML_element.progressbar({
-	      value: false,
-	      change: this.task.duringPerforming,
-	      complete: this.task.afterEnds
-	    }	
+			value: false,
+	      change: task.progress,
+	      complete: task.afterEnds
+	    });	
 	
-	this.thread = setInterval(this.prototype, 100);
+
+	this.HTML_element.html();
+	
+	
+	// this.thread = setInterval(this.prototype, 100);
 }
 
 /**
@@ -51,7 +55,7 @@ ProgressBar.prototype.finish = function() {
 	
 	
 	// delete itself from game logics	
-	delete game.currentProgressTasks[this]);
+	delete game.currentProgressTasks[this];
 };
 
 /**

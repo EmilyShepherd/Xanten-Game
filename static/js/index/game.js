@@ -29,7 +29,7 @@ function Game(token, player, cityMap, worldMap){
 	
 	this.actionsBoard      = new Board("actions");
 	this.newsBoard         = new Board("news");
-	this.currentTasksBoard = new Board("currentTasks");
+	this.currentTasksBoard = new Board("tasks");
 	
 	
 	this.currentProgressTasks		= {};

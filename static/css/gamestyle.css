@@ -283,3 +283,23 @@ body {
 	padding: 1px;
 	border-radius: 20px;
 }
+
+/* Progress Bar */
+
+.progressbar {
+    width: 80%;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    vertical-align: middle;
+}
+
+.progress_bar #label {
+    float: left;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    vertical-align: middle;
+    color: white;
+    font-weight: bold;
+}

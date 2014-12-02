@@ -56,7 +56,7 @@ RealTimeEngine.prototype.run = function(){
  * It loads the WebSocket framework and assign the listeners for events (receive/send message, disasters and statistics) 
  */
 RealTimeEngine.prototype.init = function(){	
-    this.channel   = new goog.appengine.Channel('{{ channel_id }}');
+    // this.channel   = new goog.appengine.Channel('{{ channel_id }}');
 };
 
 

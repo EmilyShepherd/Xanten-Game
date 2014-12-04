@@ -3,12 +3,12 @@ body {
 	margin: 0px;
 	font-family: 'Segoe UI', sans-serif;
 	background-image: url("../img/game/resourcebar.png"),
-		url("../img/game/tobbanner.png"),
+		url("../img/game/righttopbar.png"),
 		url("../img/game/leftsidebar.png"),
 		url("../img/game/rightsidebar.png"),
 		url("../img/game/gamebackground.png");
-	background-repeat: no-repeat, repeat-x, repeat-y, repeat-y, repeat;
-	background-position: left top, left top, left top, right top, left top;
+	background-repeat: no-repeat, no-repeat, repeat-y, repeat-y, repeat;
+	background-position: left top, right top, left top, right top, left top;
 }
 
 /* About the game */

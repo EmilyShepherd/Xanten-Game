@@ -69,6 +69,7 @@ Game.prototype.init = function() {
 	this.started = true;
 
 	this.loadActions();
+	this.loadTasks();
 	
 	// maps
 	this.cityMap.init();
@@ -101,7 +102,35 @@ Game.prototype.init = function() {
 	 */
 	String.prototype.capitalize = function() {
 	    return this.charAt(0).toUpperCase() + this.slice(1);
-	}	    
+	}	  
+	
+	Number.prototype.formatNumber = function(decPlaces) {
+	    decPlaces = isNaN(decPlaces = Math.abs(decPlaces)) ? 2 : decPlaces;
+	    decSeparator = ".";
+	    thouSeparator = " ";
+
+	    var n = this.toFixed(decPlaces);
+	    if (decPlaces) {
+	        var i = n.substr(0, n.length - (decPlaces + 1));
+	        var j = decSeparator + n.substr(-decPlaces);
+	    } else {
+	        i = n;
+	        j = '';
+	    }
+
+	    function reverse(str) {
+	        var sr = '';
+	        for (var l = str.length - 1; l >= 0; l--) {
+	            sr += str.charAt(l);
+	        }
+	        return sr;
+	    }
+
+	    if (parseInt(i)) {
+	        i = reverse(reverse(i).replace(/(\d{3})(?=\d)/g, "$1" + thouSeparator));
+	    }
+	    return i+j;
+	};
 	    
 	
 	/*
@@ -171,21 +200,24 @@ Game.prototype.update = function() {
 
 /**
  * It creates a progress bar task
+ * @deprecated see game.performTask
  */
 Game.prototype.createProgressBar = function(task_object){
+	// TODO @George - please see game.performTask
 	this.currentProgressTasks[task_object] = new ProgressBar(task_object);
 };
 
 
 /**
  * It stops and removes a progress.
+ * @deprecated see game.performTask
  */
 Game.prototype.removeProgressBar = function(task_object){
 	this.currentProgressTasks[task_object].remove();
 	delete this.currentProgressTasks[task_object];
 };
 
-
+// TODO @Joe need comments
 Game.prototype.consumeResources = function(resourcesToConsume){
 	for(resource in resourcesToConsume){
 		if(resource !== 'seconds' && resource !== 'people' ){
@@ -237,6 +269,30 @@ Game.prototype.loadActions = function() {
 																				}),
 			"inside_building"			: new Action("", HTML_Engine.insideBuilding, function(){game.currentMap.deselect();}  ),
 			"no_action" 				: new Action("", HTML_Engine.noAction, undefined  ),
-			"inside_building_military"	: new Action("Military", HTML_Engine.insideMilitary, function(){game.currentMap.deselect();}  )
+			"inside_building_military"	: new Action("Military", HTML_Engine.insideMilitary, function(){game.currentMap.deselect();}  ),
+			"start_task"				: new Action("Actions", HTML_Engine.loadAction, undefined)
+	};	
+};
+
+
+Game.prototype.performTask= function(name, args){
+	
+	// TODO - @George register the task with progressbars 
+	
+	
+	game.performAction("start_task");
+	game.tasks[name](args);
+};
+
+/**
+ * It loads the list of the actions for the game
+ * @see Action
+ */
+Game.prototype.loadTasks = function() {
+	game.tasks = {
+			"move_people" 		: function(args){
+													//  TODO @George to create the task
+													alert("You want to move from "+args.from+" to "+args.to+" a number of "+args.number);
+												}
 	};	
 };

@@ -144,7 +144,7 @@ HTML_Engine.displayResources = {
 	 */
 	content: function(resources){
 	
-		var text = "It requires: <div class='tab'> ",
+		var text = "<div class='tab'> ",
 			things = [];
 		
 		for(resource in resources.resources){
@@ -299,7 +299,7 @@ HTML_Engine.shortResourceRepresentation = function (input){
     } else     
     text = ((input/1000000000 * 100)/100).toFixed(2)+'b';
 	
-	return "<span title='"+ input +"'>"+text+"</span>";
+	return "<span title='"+ input.formatNumber(0) +"'>"+text+"</span>";
 }
 
 
@@ -356,9 +356,10 @@ HTML_Engine.chooser = {
 							var value = args.values[i];
 							html+= "<div class='element' id='element_"+value.id+"'>"+
 									"<div class='bold'>"+value.title+":</div>"+
+									"<div id='extra'></div>"+
 									"<div><div id='slider' class='element_slider'></div></div>"+
 									"<div>" +
-									"<input type='number' size='3' value='1'  id='input_value' />" +
+									"<input type='number' size='3' value=''  id='input_value' />" +
 									"</div>" +
 								"</div>";
 						}
@@ -380,16 +381,24 @@ HTML_Engine.chooser = {
 
 		$.each( args.values, function( index, value ){		
 			
-			var id		= args.id;
-			var value 	= args.values[index];
-			var div 	= $("#"+id+"_chooser #element_"+value.id);
-			var input	= div.find("#input_value");
-			var slider	= div.find("#slider");
-			
-			var change = function( event, ui){
-				input.val(ui.value);
-			};
-				
+			var id		= args.id,
+				value 	= args.values[index],
+				div 	= $("#"+id+"_chooser #element_"+value.id),
+				input	= div.find("#input_value"),
+				slider	= div.find("#slider"),
+				extra	= div.find("#extra"),
+				action	= value.change?value.change:undefined,
+				gen_act	= args.generalChange?args.generalChange:undefined,
+				change 	= function( event, ui){
+					input.val(ui.value);
+					if(action){
+						action(event, ui, extra);
+					}
+					if(gen_act){
+						gen_act(event, ui, extra);
+					}
+				};
+
 			slider.slider({
 				min: value.min?value.min:0,
 				max: value.max?value.max:0,
@@ -397,9 +406,10 @@ HTML_Engine.chooser = {
 				range: "min",
 				value: value.min?value.min:0,
 				slide: change,
-				change: change
+				change: change,
+				create: function( event, ui ) {ui.value = 1;change(event,ui);}
 		    	});
-			input.val(value.min?value.min:0);
+		
 			input.on("change keyup paste", function(){
 				if($(this).val()!=='' && (parseInt($(this).val()) || $(this).val() === '0' ) ) {slider.slider( "value", parseInt($(this).val()) )} ;
 			});
@@ -431,8 +441,23 @@ HTML_Engine.chooser = {
 	 * @param string chooser The id of the chooser
 	 * @param string element The id of the elemenent 
 	 */
-	get: function(chooser, element){
+	fetch: function(chooser, element){
 		return $("#"+chooser+"_chooser #element_"+element+" #input_value").val()
+	},
+	
+	/**
+	 * It returns the all the values of the elements inside a chooser
+	 * @param string chooser The id of the chooser
+	 */
+	fetchAll: function(chooser){
+		
+		var all 	= $("#"+chooser+"_chooser").find(".element"),
+			values 	= {};
+		
+		for(i=0;i<=all.length-1;i++){
+			values[$(all[i]).attr("id")] = $(all[i]).find("#input_value").val();
+		}
+		return values;		
 	}
 };
 
@@ -448,43 +473,121 @@ HTML_Engine.insideMilitary = {
 	 */
 	content: function(){
 		var html = "";
+		var nr_of_active_units = 55;
 		
-		html += "<div class='heading'>Your number of active units in this city are: " + "<span class='bold'> " + 0 + "</span> </div>";
+		html += "<div class='heading'>Active military units: " + "<span class='bold'> " + nr_of_active_units + "</span> </div>";
+		html += "<div class='heading'> The daily cost of military is: " + 
+								HTML_Engine.displayResources.content({
+										resources: {
+										"gold" : nr_of_active_units * 5, /* TODO @George real resources */
+										"food" : nr_of_active_units * 1 /* TODO @George real resources */
+									}
+								}) + "</div>";
 		html += HTML_Engine.chooser.content({
 			info: "The military plays an important role for your city. You can increase your military power and became a local or imperial power. The first step is to train free people in order to became military units. ",
 			values: [
 						{
-							title: "Train people",
+							title: "Train new military units",
 							id: "units"
 						}
 					],
 			button: "Train !",
 			id: "military_train"
 		});	
+		if(nr_of_active_units !== 0){
+			html += HTML_Engine.chooser.content({
+				info: "You can reduce the cost of military by reducing the number of military people. Unfortuntly this does not give back the resources.",
+				values: [
+							{
+								title: "Reduce military units",
+								id: "units"
+							}
+						],
+				button: "Reduce units!",
+				id: "military_untrain"
+			});	
+		}
+		
+		
+	
 		
 		return html;
 	},
 	/**
-	 * It enables the functionality for the military
+	 * It enables the functionality for the military building
 	 */
 	enable: function(){
-		// activate corresponding chooser
+
+		var nr_of_active_units = 55;
+		
+		/**
+		 * It creates the chooser to let the user to choose how many utits to create
+		 */
 		HTML_Engine.chooser.enable({
+			
 			id: "military_train",
 			values: [
 						{ id: 'units',
 							min: 1,
-							max: 700 /* the number of free people*/
+							max: 700, /* TODO @Cristian the number of free people*/
+							change: function(event, ui, extra){
+										extra.html(HTML_Engine.displayResources.content({
+											resources: {
+												"wood" : parseInt(ui.value)*20, /* TODO @George real resources */
+												"food" : parseInt(ui.value)*5 /* TODO @George real resources */
+											},
+											time: parseInt(ui.value)*10 /* TODO @George real resources */
+										}));
+									}
 						}								
 					],
 			performAction: function(){
-										alert('You want to train '+ HTML_Engine.chooser.get("military_train", "units")+ ' units  \n Unfortuntly, the task for this is not done');
+										game.performTask("move_people", {
+											from: "free",
+											to: "military",
+											number: HTML_Engine.chooser.fetch("military_train", "units")
+										} );
 									}
 		});
+		
+
+		if(nr_of_active_units !== 0){
+			/**
+			 * It creates the chooser to let the user to choose how many utits to create
+			 */
+			HTML_Engine.chooser.enable({
+				
+				id: "military_untrain",
+				values: [
+							{ id: 'units',
+								min: 1,
+								max: nr_of_active_units, /* TODO @Cristian the number of free people*/
+								change: function(event, ui, extra){
+											extra.html(HTML_Engine.displayResources.content({
+												time: parseInt(ui.value)*5 /* TODO @George real resources */
+											}));
+										}
+							}								
+						],
+				performAction: function(){
+											game.performTask("move_people", {
+												from: "military",
+												to: "free",
+												number: HTML_Engine.chooser.fetch("military_untrain", "units")
+											} );
+										}
+			});
+		}
 	},
-	disable: function(args){	
+	/**
+	 * It calls the disable methods of the military choosers
+	 */
+	disable: function(){	
 		HTML_Engine.chooser.disable({
 			id: "military_train"
+		});		
+		HTML_Engine.chooser.disable({
+			id: "military_untrain"
 		});
 	}
 };

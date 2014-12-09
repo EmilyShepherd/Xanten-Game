@@ -33,6 +33,11 @@ body {
 	padding: 6px;	
 }
 
+.chooser .element{
+	border-top: 1px solid rgb(255, 217, 110);
+	margint-top:2px;	
+}
+
 /* About the game */
 
 #game-content {
@@ -84,9 +89,9 @@ body {
 .board {
 	background: url('../img/game/back_background.png') repeat left top;
 	min-height: 150px;
-	width: 210px;
+	width: 235px;
 	padding-left: 44px;
-	padding-right: 39px;
+	padding-right: 32px;
 	color: #542c0f;
 	max-height: 300px;
 	overflow: auto;

@@ -229,14 +229,14 @@ Game.prototype.removeCurrentAction = function(){
  */
 Game.prototype.loadActions = function() {
 	game.actions = {
-			"available_buildings" 	: new Action(HTML_Engine.getAvailableBuildings, function(){game.currentMap.deselect();} ),
-			"city-map-selected" 	: new Action(HTML_Engine.cityMapSelected, undefined),
-			"world-map-selected" 	: new Action(HTML_Engine.worldMapSelected, undefined, {
+			"available_buildings" 		: new Action(HTML_Engine.getAvailableBuildings, function(){game.currentMap.deselect();} ),
+			"city-map-selected" 		: new Action(HTML_Engine.cityMapSelected, undefined),
+			"world-map-selected" 		: new Action(HTML_Engine.worldMapSelected, undefined, {
 																				"url":"/game/", /* should be the address of the world map*/
 																				"cb":function(information){/*change world map*/game.worldMap.render();}
 																				}),
-			"inside_building"		: new Action(HTML_Engine.insideBuilding, function(){game.currentMap.deselect();}  ),
-			"no_action" 			: new Action(HTML_Engine.noAction, undefined  ),
-			"seeMessage" 			: new Action(HTML_Engine.seeMessage, undefined )
+			"inside_building"			: new Action(HTML_Engine.insideBuilding, function(){game.currentMap.deselect();}  ),
+			"no_action" 				: new Action(HTML_Engine.noAction, undefined  ),
+			"inside_building_military"	: new Action(HTML_Engine.insideMilitary, function(){game.currentMap.deselect();}  )
 	};	
 };

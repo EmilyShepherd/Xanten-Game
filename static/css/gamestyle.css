@@ -1,3 +1,6 @@
+*{
+	outline: none;	
+}
 body {
 	min-width: 1000px;
 	margin: 0px;
@@ -9,6 +12,25 @@ body {
 		url("../img/game/gamebackground.png");
 	background-repeat: no-repeat, no-repeat, repeat-y, repeat-y, repeat;
 	background-position: left top, right top, left top, right top, left top;
+}
+
+
+.chooser input[type="number"]{
+	
+	color: rgb(253, 137, 49);
+	background: rgb(255, 255, 255);
+	font-size: 17px;
+	border: 1px solid rgb(165, 126, 79);
+	margin: 2px;
+	font-weight: bold;
+	width: 80px;
+	padding: 5px;
+}
+
+.chooser {
+	background: rgb(255, 246, 221);
+	border: 1px solid rgb(255, 217, 110);
+	padding: 6px;	
 }
 
 /* About the game */
@@ -71,7 +93,7 @@ body {
 	font-size: 14px;
 }
 
-.board .board_list {
+.board .board_list, .board .heading {
 	background: rgb(246, 235, 186);
 	border: 1px solid	rgb(246, 235, 186);
 	padding: 5px;
@@ -132,7 +154,7 @@ body {
 	font-weight: bold;
 }
 
-.hover, .hasAction {
+.hover, .hasAction, .ui-slider, .ui-slider-handle {
 	cursor: pointer;
 }
 

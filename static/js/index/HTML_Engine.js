@@ -47,6 +47,7 @@ HTML_Engine.getImage = {
 	}
 }
 
+
 /**
  * Returns the list of all the building which can be created and the resources for them
  */
@@ -328,3 +329,164 @@ HTML_Engine.shortTimeRepresentation = function (sec_num){
 	
 	return elements.join(", ");		
 }
+
+
+/*	Chooser */
+
+
+/**
+ * A chooser represents a set of mutiple input values from user using sliders
+ */
+HTML_Engine.chooser = {
+	/**
+	 * It generates the html of the chooser
+	 * @param object args Information regarding the chooser. It must contain:
+	 * The id of the chooser: chooser.id
+	 * A description for the chooser: chooser.info
+	 * The elements of the choose as an array, each object with an id and title: chooser.values
+	 * The title of the button: chooser.button
+	 * 
+	 */
+	content: function(args){
+		var html = '';
+		html = "<div class='heading'>" +
+					"<div class='chooser' id='"+args.id+"_chooser' > " +
+						"<div class='info'>" +(args.info?args.info:"")+ "</div>";						
+						for (var i = 0; i < args.values.length; i++) {
+							var value = args.values[i];
+							html+= "<div class='element' id='element_"+value.id+"'>"+
+									"<div class='bold'>"+value.title+":</div>"+
+									"<div><div id='slider' class='element_slider'></div></div>"+
+									"<div>" +
+									"<input type='number' size='3' value='1'  id='input_value' />" +
+									"</div>" +
+								"</div>";
+						}
+						html +="<div class='center'>" +
+								"<input type='button' value='"+args.button+"' id='"+args.id+"_button' /> " +
+							"</div>" +
+					"</div>" +
+				"</div>";		
+		return html;
+	},
+	/**
+	 * It enables the chooser. It enables all the elements inside it
+	 * @param Object args An object with the settings for all the elements inside a chooser:
+	 * The id of the chooser: args.id
+	 * The values of the elements as an array: args.values. Each element contain: id, min, max
+	 * The action to be performed when the button is clicked: chooser.performAction
+	 */
+	enable: function(args){	
+
+		$.each( args.values, function( index, value ){		
+			
+			var id		= args.id;
+			var value 	= args.values[index];
+			var div 	= $("#"+id+"_chooser #element_"+value.id);
+			var input	= div.find("#input_value");
+			var slider	= div.find("#slider");
+			
+			var change = function( event, ui){
+				input.val(ui.value);
+			};
+				
+			slider.slider({
+				min: value.min?value.min:0,
+				max: value.max?value.max:0,
+				animate: true,
+				range: "min",
+				value: value.min?value.min:0,
+				slide: change,
+				change: change
+		    	});
+			input.val(value.min?value.min:0);
+			input.on("change keyup paste", function(){
+				if($(this).val()!=='' && (parseInt($(this).val()) || $(this).val() === '0' ) ) {slider.slider( "value", parseInt($(this).val()) )} ;
+			});
+
+
+		});
+		
+		$("#"+args.id+"_button")
+			.button()
+			.click(args.performAction);		
+	},
+	/**
+	 * It removes the functions from the memory and disables the listenerrs
+	 * @param Object args An object with the id of the chooser. 
+	 */
+	disable: function(args){	
+		
+		var divs = $("#"+args.id+"_chooser div.element");
+		
+		for(i=0;i<divs.length;i++){
+			div = divs[i];
+			$(div).find("#slider").slider("destroy");
+			$(div).find("#input_value").off();
+		}
+	},
+	
+	/**
+	 * It returns the value for an elemenent inside a chooser
+	 * @param string chooser The id of the chooser
+	 * @param string element The id of the elemenent 
+	 */
+	get: function(chooser, element){
+		return $("#"+chooser+"_chooser #element_"+element+" #input_value").val()
+	}
+};
+
+/*	Buildings */
+
+/**
+ * The military
+ */
+HTML_Engine.insideMilitary = {
+		
+	/**
+	 * It generates the content for the military building
+	 */
+	content: function(){
+		var html = "";
+		
+		html += "<div class='heading'>Your number of active units in this city are: " + "<span class='bold'> " + 0 + "</span> </div>";
+		html += HTML_Engine.chooser.content({
+			info: "The military plays an important role for your city. You can increase your military power and became a local or imperial power. The first step is to train free people in order to became military units. ",
+			values: [
+						{
+							title: "Train people",
+							id: "units"
+						}
+					],
+			button: "Train !",
+			id: "military_train"
+		});	
+		
+		return html;
+	},
+	/**
+	 * It enables the functionality for the military
+	 */
+	enable: function(){
+		// activate corresponding chooser
+		HTML_Engine.chooser.enable({
+			id: "military_train",
+			values: [
+						{ id: 'units',
+							min: 1,
+							max: 700 /* the number of free people*/
+						}								
+					],
+			performAction: function(){
+										alert('You want to train '+ HTML_Engine.chooser.get("military_train", "units")+ ' units  \n Unfortuntly, the task for this is not done');
+									}
+		});
+	},
+	disable: function(args){	
+		HTML_Engine.chooser.disable({
+			id: "military_train"
+		});
+	}
+};
+	
+	

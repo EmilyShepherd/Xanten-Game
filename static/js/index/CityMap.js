@@ -29,7 +29,7 @@ var CityMap = function(array){
 			this.selectBackground(x, y);
 		}
 		else if($(this.HTML_element+" #cel_"+x+"_"+y+" img").hasClass('hasAction')){
-			game.performAction('inside_building');
+			game.performAction('inside_building_military');
 			this.selectImage(x, y);
 		}else {
 			game.performAction('clear', null);
@@ -46,6 +46,3 @@ var CityMap = function(array){
 	
 	return map;
 }
-
-
-

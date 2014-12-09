@@ -18,7 +18,8 @@
  *																}),
  *  
  */
-function Action(HTML_Engine_Reference, beforeRemove, serverCall){	
+function Action(name, HTML_Engine_Reference, beforeRemove, serverCall){	
+	this.name				   = name;
 	this.HTML_Engine_Reference = HTML_Engine_Reference;
 	this.beforeRemove          = beforeRemove;
 	this.args                  = undefined;
@@ -38,6 +39,7 @@ Action.prototype.update = function(){
  */
 Action.prototype.perform = function(){
 
+	$("#action_window div.before_window").html(this.name);
 	var instance   = this;
 	if(this.serverCall){
 		HTML_Engine.loadAction.content()

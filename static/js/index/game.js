@@ -1,4 +1,5 @@
 /**
+
  * The game object
  *
  * @author Cristian Sima
@@ -281,7 +282,7 @@ Game.prototype.performTask= function(name, args){
 	
 	
 	game.performAction("start_task");
-	game.tasks[name](args);
+	game.currentTasksn[game.currentTask.lengh] =  game.tasks[name](args);
 };
 
 /**

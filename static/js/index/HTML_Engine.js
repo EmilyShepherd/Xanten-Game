@@ -151,12 +151,12 @@ HTML_Engine.displayResources = {
 			things.push(HTML_Engine.getImage.content("img_resource", resource, resource) + " <span class='bold resource_format_" +resource+ "'>" + HTML_Engine.shortResourceRepresentation(resources.resources[resource])+" </span>");
 		}
 		
-		if(resources.time){
-			things.push("Time: "+HTML_Engine.shortTimeRepresentation(resources.time));
+		if(resources.people){
+			things.push(HTML_Engine.getImage.content("img_resource", 'people', 'people') + " <span class='bold resource_format_people"+ "'>" + HTML_Engine.shortResourceRepresentation(resources.people)+" </span>");
 		}
 		
-		if(resources.people){
-			things.push("Number of people: <span class='bold'>"+HTML_Engine.shortResourceRepresentation(resources.people) + "</span>");
+		if(resources.time){
+			things.push("Time: "+HTML_Engine.shortTimeRepresentation(resources.time));
 		}
 		
 		text += things.join("<br />") + "</div>";
@@ -473,9 +473,14 @@ HTML_Engine.insideMilitary = {
 	 */
 	content: function(){
 		var html = "";
-		var nr_of_active_units = 55;
+		var nr_of_active_units = 55; // TODO @Cristian The real number
 		
-		html += "<div class='heading'>Active military units: " + "<span class='bold'> " + nr_of_active_units + "</span> </div>";
+		html += "<div class='heading'> The number of active units:";
+		html += HTML_Engine.displayResources.content({
+			resources: {
+				"military" : nr_of_active_units 				
+			},
+		}) + "</div>";
 		html += "<div class='heading'> The daily cost of military is: " + 
 								HTML_Engine.displayResources.content({
 										resources: {

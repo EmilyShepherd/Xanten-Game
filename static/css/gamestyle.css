@@ -179,7 +179,15 @@ body {
 }
 
 .resource_format_gold {
-	color: rgb(219, 176, 52)
+	color: rgb(219, 176, 52);
+}
+
+.resource_format_people {
+	color: #4183C2;
+}
+
+.resource_format_military {
+	color: rgb(38, 65, 5);
 }
 
 

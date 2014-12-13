@@ -20,7 +20,7 @@
 function ProgressBar(task){
 	
 	this.task = task;
-	this.id   = task.id;
+	this.id   = task.response.id;
 	
 	this.value = 0;
 	

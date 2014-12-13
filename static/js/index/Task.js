@@ -36,8 +36,6 @@ function Task(information, title, serverDetails, afterConfirmation, beforeStarti
 	this.duringPerforming  	= ((duringPerforming)?function(){instance._duringPerforming();instance.duringPerforming(instance);}:this._duringPerforming());
 	this.afterConfirmation 	= ((afterConfirmation)?function(){instance._afterConfirmation();instance.afterConfirmation(instance);}:this._afterConfirmation());
 
-	this.done = done;
-	
 	// starts
 	this._activate();
 }

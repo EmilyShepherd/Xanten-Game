@@ -88,10 +88,39 @@ RealTimeEngine.prototype.stop = function(){
  */
 RealTimeEngine.prototype._progress = function(){
 	// TODO @Cristian
+	
+	
+	/*
+	game.player.resources.food  += (game.player.buildings.dock.people * game.player.buildings.dock.level);
+	game.player.resources.food  += (game.player.buildings.grapevine.people * game.player.buildings.grapevine.level);
+	
+	game.player.resources.wood  += Math.round(0.3 * 
+								parseInt(game.player.buildings.lumberjack.num *
+								parseInt(game.player.buildings.lumberjack.people) *
+								parseInt(game.player.buildings.lumberjack.level) ));
+	
+
+	  * self.lumberjackLvl                         
+	  * self.peopleAtLumberjack                    
+	  * self.lumberjacks                           
+	  * secs / 60.0
+	self.stone +=                                    
+	    (random.randrange(1, 19) / 10.0) * 0.3     
+	  * self.mineLvl                               
+	  * self.peopleAtMine                          
+	  * self.mines                                 
+	  * secs / 60.0
+	self.gold +=                                     
+	    (random.randrange(1, 19) / 10.0) * 0.3     
+	  * self.mineLvl                               
+	  * self.peopleAtMine                          
+	  * self.goldMines                             
+	  * secs / 60.0
+  
 	game.player.resources.stone -= 276;
 	game.player.resources.food 	+= 132;
 	game.player.resources.wood 	+= 2;
-	
+	*/
 	game.resources.updateResources();
 };
 

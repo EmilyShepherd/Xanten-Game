@@ -12,9 +12,8 @@
  * @param mapArray The array
  * @param name It should be city or world
  */
-function XantenMap(mapArray, name){
-	this.buldings 			= mapArray;
-	this.backgrounds		= null;
+function XantenMap(array, name){
+	this.array 				= array;
 	this.selectedCell 		= null;
 	this.name 				= name;
 	this.HTML_element		= "#map-board-"+this.name;
@@ -131,16 +130,4 @@ XantenMap.prototype.hide = function(){
  */
 XantenMap.prototype.render = function(){
 	alert('The render method for '+this.name+' map must be overriden.');
-};
-
-XantenMap.prototype.extend =  function(ext) {
-	var clone = Object.create(this);
-
-	for (var prop in ext) {
-		if (ext.hasOwnProperty(prop)) {
-			clone[prop] = ext[prop];
-		}
-	}
-
-	return clone;
 };

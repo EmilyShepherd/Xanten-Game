@@ -64,7 +64,7 @@ Action.prototype.updateHTML = function(){
 	$("#actions_board .inside").fadeIn('slow');
 	
 	if(this.HTML_Engine_Reference.enable){
-		this.HTML_Engine_Reference.enable();
+		this.HTML_Engine_Reference.enable(this.args);
 	}
 };
 

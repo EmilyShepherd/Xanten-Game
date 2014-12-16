@@ -30,6 +30,25 @@ var  HTML_Engine = {
 	};
 */
 
+/**
+ * It generates a table
+ */
+HTML_Engine.table = {
+	content: function (data) {
+		var html = "<table>";
+		for(var i=0; i<=data.length-1; i++){
+			console.log(data);
+			column = data[i];
+			html += "<tr>";
+			for(var j=0; j<=column.length-1; j++){
+				html += "<td class='bold' style='color:"+(j%2==0?"rgb(142, 142, 142)":"rgb(0, 71, 187)")+"'>"+data[i][j]+"</td>";
+			}
+			html += "</tr>";
+		}
+		html += "</table>"
+		return html;
+	}
+};
 
 /**
  * It returns a image from the game
@@ -147,18 +166,20 @@ HTML_Engine.displayResources = {
 		var text = "<div class='tab'> ",
 			things = [];
 		
+		var interval = resources.interval?("<span style='font-weight:italic;color:#969696'> for "+resources.interval)+"</span>":"";
+		
 		for(resource in resources.resources){
-			things.push(HTML_Engine.getImage.content("img_resource", resource, resource) + " <span class='bold resource_format_" +resource+ "'>" + HTML_Engine.shortResourceRepresentation(resources.resources[resource])+" </span>");
+			things.push(HTML_Engine.getImage.content("img_resource", resource, resource) + " <span class='bold resource_format_" +resource+ "'>" + HTML_Engine.shortResourceRepresentation(resources.resources[resource])+" </span>" + interval);
 		}
 		
 		if(resources.people){
-			things.push(HTML_Engine.getImage.content("img_resource", 'people', 'people') + " <span class='bold resource_format_people"+ "'>" + HTML_Engine.shortResourceRepresentation(resources.people)+" </span>");
+			things.push(HTML_Engine.getImage.content("img_resource", 'people', 'people') + " <span class='bold resource_format_people"+ "'>" + HTML_Engine.shortResourceRepresentation(resources.people)+" </span>" + interval);
 		}
 		
 		if(resources.time){
 			things.push("Time: "+HTML_Engine.shortTimeRepresentation(resources.time));
 		}
-		
+			
 		text += things.join("<br />") + "</div>";
 		
 		return text;
@@ -597,4 +618,197 @@ HTML_Engine.insideMilitary = {
 	}
 };
 	
+/* ------------------------------ World Map  ------------------ */
+
+
+
+HTML_Engine.selectCity = {
+	content: function(args){		
+		var city = game.worldMap.getCityById(args);
+		var html = "";
+		html += HTML_Engine.table.content(
+			[
+			 	["Name of city:", city.name ],
+			 	["Player:", city.player],
+			 	["Level:", city.level]
+			 ]
+		);				
+		
+		html += "<br /><br />" +
+				"<div class='heading'><span class='bold'> Actions for this city: </span><br />" +
+				"<div class='heading'>Your imperial forces can bring new resources. <br /><input class='action_bt' id='start_attack' value='Perform an attack' /></div>" +
+				"<div class='heading'>Do you have something important to tell to this king ? <br /><input class='action_bt' id='send_message' value='Send message' /></div>" +
+				"<div class='heading'>Do you want to have a fair trade with this city ?<br /><input class='action_bt' id='trade_resources' value='Trade resources' /></div>" +
+				"" +
+				"</div>";
+		
+		return html;
+		
+	},
+	enable: function(id_selected_city){		
+		$(".action_bt").button();
+		$("#start_attack").click(function(){
+			game.performAction("attackCity", id_selected_city);
+		});
+		$("#send_message").click(function(){
+			game.performAction("sendMessage", id_selected_city);
+		});
+		$("#trade_resources").click(function(){
+			game.performAction("tradeResources", id_selected_city);
+		});
+	},
+	disable: function(){	
+		$(".action_bt, #start_attack, #send_message, #trade_resources").off();
+	}
+};
+
+
+/**
+ * Attack a city
+ */
+HTML_Engine.attackCity = {
+		
+	/**
+	 * It generates the content for the military building
+	 */
+	content: function(args){
+		var nr_of_active_units = 55; // TODO @Cristian The real number
+		var html = "<div class='heading'>Target: <span class='bold' style='color:red'>" + game.worldMap.getCityById(args).name + "</div>";
+
+		html += "<div class='heading'> The number of active units:";
+		html += HTML_Engine.displayResources.content({
+			resources: {
+				"military" : nr_of_active_units 				
+			},
+		}) + "</div>";
+		
+		if(nr_of_active_units !== 0 && game.player.buildings.military.level !== 0){
+			html += HTML_Engine.chooser.content({
+				info: "Decide very wize how many units you want to send",
+				values: [
+							{
+								title: "Military units",
+								id: "units"
+							},
+							{
+								title: "Wine to increse happiness",
+								id: "wine"
+							}
+						],
+				button: "Start attack !",
+				id: "military_attack"
+			});	
+		}
+				
+		return html;
+	},
+	/**
+	 * It enables the functionality for the attack
+	 */
+	enable: function(args){
+
+		var nr_of_active_units = 55;
+
+		if(nr_of_active_units !== 0 && game.player.buildings.military.level !== 0){
+			/**
+			 * It creates the chooser to let the user to choose how many utits to send into attack
+			 */
+			HTML_Engine.chooser.enable({
+				
+				id: "military_attack",
+				values: [
+							{ id: 'units',
+								min: 1,
+								max: nr_of_active_units, /* TODO @Cristian the number of free people*/
+								change: function(event, ui, extra){
+											extra.html(HTML_Engine.displayResources.content({
+												resources : {
+													gold: parseInt(ui.value)*500, /* TODO @George real resources */
+													food: parseInt(ui.value)*200
+												},
+												interval: "one minute"
+											}));
+										}
+							},
+							{
+								id: 'wine',
+								mine: 1,
+								max: 900, /* TODO @Cristian */
+								change: function(event, ui, extra){
+									extra.html("Incresed by " + Math.round(parseInt(ui.value)/900*25) + "%");
+								}
+								
+							}
+						],
+				performAction: function(){
+											game.performTask("attack_city_1", {
+												target: args,
+												number: HTML_Engine.chooser.fetchAll("military_attack")
+											} );
+										}
+			});
+		} else {
+			return "You have no active units or military.";
+		}
+	},
+	/**
+	 * It calls the disable methods of the military choosers
+	 */
+	disable: function(){	
+		HTML_Engine.chooser.disable({
+			id: "military_attack"
+		});	
+	}
+};
+
+
+/**
+ * Send a message
+ */
+// TODO @Joe
+HTML_Engine.sendMessage = {
+		
+	/**
+	 * It generates the content for the message
+	 */
+	content: function(args){
+		// TODO @George
+		var html = "Its HTML_Engine content should be implemented";				
+		return html;
+	},
+	/**
+	 * It enables the functionality for the message
+	 */
+	enable: function(args){
+
+	},
+	disable: function(){
+	}
+};
+
+
+/**
+ * Trade 
+ */
+// TODO @Cristian
+HTML_Engine.trade = {
+		
+	/**
+	 * It generates the content for the trade
+	 */
+	content: function(args){
+		// TODO @George
+		var html = "Its HTML_Engine content should be implemented";				
+		return html;
+	},
+	/**
+	 * It enables the functionality for the trade
+	 */
+	enable: function(args){
+
+	},
+	disable: function(){
+	}
+};
+
 	

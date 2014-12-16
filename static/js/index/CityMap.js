@@ -32,7 +32,7 @@ var CityMap = function(array){
 			game.performAction('inside_building_military');
 			this.selectImage(x, y);
 		}else {
-			game.performAction('clear', null);
+			game.performAction('no_action', null);
 		}
 	};
 

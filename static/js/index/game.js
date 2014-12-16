@@ -263,13 +263,16 @@ Game.prototype.removeCurrentAction = function(){
 Game.prototype.loadActions = function() {
 	game.actions = {
 			"available_buildings" 		: new Action("Create a building", HTML_Engine.getAvailableBuildings, function(){game.currentMap.deselect();} ),
+			"selectCity" 				: new Action("Actions city", HTML_Engine.selectCity, function(){game.worldMap.deselect();} ),
+			"sendMessage" 				: new Action("Send Message", HTML_Engine.sendMessage, function(){game.worldMap.deselect();} ),
+			"tradeResources" 			: new Action("Trade resources", HTML_Engine.trade, function(){game.worldMap.deselect();} ),
+			"attackCity" 				: new Action("Starting the attack", HTML_Engine.attackCity, undefined ),
 			"city-map-selected" 		: new Action("Your city", HTML_Engine.cityMapSelected, undefined),
 			"world-map-selected" 		: new Action("World map", HTML_Engine.worldMapSelected, undefined, {
 																				"url":"/game/", /* should be the address of the world map*/
 																				"cb":function(information){/*change world map*/game.worldMap.render();}
 																				}),
-			"inside_building"			: new Action("", HTML_Engine.insideBuilding, function(){game.currentMap.deselect();}  ),
-			"no_action" 				: new Action("", HTML_Engine.noAction, undefined  ),
+			"no_action" 				: new Action("No action", HTML_Engine.noAction, undefined  ),
 			"inside_building_military"	: new Action("Military", HTML_Engine.insideMilitary, function(){game.currentMap.deselect();}  ),
 			"start_task"				: new Action("Actions", HTML_Engine.loadAction, undefined)
 	};	
@@ -279,10 +282,11 @@ Game.prototype.loadActions = function() {
 Game.prototype.performTask= function(name, args){
 	
 	// TODO - @George register the task with progressbars 
-	
-	
+		
 	game.performAction("start_task");
-	game.currentTasksn[game.currentTask.lengh] =  game.tasks[name](args);
+	
+	// TODO @George uncomment the next line when you have done the task id
+	// game.currentTasks.push(game.tasks[name](args).id); 
 };
 
 /**
@@ -294,6 +298,11 @@ Game.prototype.loadTasks = function() {
 			"move_people" 		: function(args){
 													//  TODO @George to create the task
 													alert("You want to move from "+args.from+" to "+args.to+" a number of "+args.number);
+													
+													return null;
+												},
+			"attack_city_1"		: function(args){
+													return null;
 												}
 	};	
 };

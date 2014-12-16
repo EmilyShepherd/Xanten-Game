@@ -23,7 +23,451 @@ $(document).ready(function() {
 
 
 	if(settings.developerMode === true){
-		start_game({"status": "started", "token":"the token", "city_map": "o-s,o-s,o-s,oc-sw,g,g,g,o,o,o,o-w,g,g,g,o-n,ob-ne,o,o-w,t0,g,t1,g,oc-ne,o-n,oc-nw,oc-se,o-s,oc-sw,t1,g,g,g,o-e,o,o-w,g,g,g,g,oc-ne,o-n,oc-nw,g,m0,g,g,g,g,t1", "world_map": "o-s,o-s,o-s,oc-sw,g,g,g,o,o,o,o-w,g,g,g,o-n,ob-ne,o,o-w,t0,g,t1,g,oc-ne,o-n,oc-nw,oc-se,o-s,oc-sw,t1,g,g,g,o-e,o,o-w,g,g,g,g,oc-ne,o-n,oc-nw,g,m0,g,g,g,g,t1", "player": {"resources": {"gold": 50.0, "stone": 200.0, "wood": 200.0, "food": 200.0}, "level": "Hamlet", "buildings": {"storage": {"level": 1, "num": 0}, "mine": {"level": 1, "num": 0, "people": 0}, "dock": {"level": 1, "num": 0, "people": 0}, "house": {"num": 1}, "trade": {"people": 0, "num": 0}, "military": {"people": 0, "num": 0, "level ": 1}, "lumberjack": {"level": 1, "num": 0, "people": 0}, "grapevine": {"people": 0, "num": 0}, "home": {"level": 1, "num": 1, "people": 50}}, "position": 13}});
+		start_game({"status": "started", "token":"the token", 
+			"maps" : {
+			"city" : [
+						[
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								}
+							],
+							[
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								}
+							],
+							[
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								}
+							],
+							[
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								}
+							],
+							[
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								}
+							],
+							[
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								}
+							],
+							[
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								},
+								{
+									"id_background": 1,
+									"id_building": 1
+								}
+							]
+					],
+		"world":  {
+					map:
+					[
+						[
+								{
+									"id_background": 1,
+									"id_city": 1
+								},
+								{
+									"id_background": 1,
+									"id_city": 2
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								}
+							],
+							[
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								}
+							],
+							[
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								}
+							],
+							[
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								}
+							],
+							[
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								}
+							],
+							[
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								}
+							],
+							[
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								},
+								{
+									"id_background": 1,
+									"id_city": null
+								}
+							]
+					],
+					cities: {
+									1: {
+										name: "Fantomous",
+										player: "Aladin",
+										level: "12"										
+									},
+									2: {										
+										name: "Glacious",
+										player: "Kanga",
+										level: "11"
+									}
+								}
+			}
+
+		}
+	
+		, "player": {"id": 1, "resources": {"gold": 50.0, "stone": 200.0, "wood": 200.0, "food": 200.0}, "level": "Hamlet", "buildings": {"storage": {"level": 1, "num": 0}, "mine": {"level": 1, "num": 0, "people": 0}, "dock": {"level": 1, "num": 0, "people": 0}, "house": {"num": 1}, "trade": {"people": 0, "num": 0}, "military": {"people": 0, "num": 0, "level ": 1}, "lumberjack": {"level": 1, "num": 0, "people": 0}, "grapevine": {"people": 0, "num": 0}, "home": {"level": 1, "num": 1, "people": 50}}, "position": 13}});
 		$("#before_game").hide();
 		$("#cover").hide();
 		$("#game").show();
@@ -42,8 +486,8 @@ $(document).ready(function() {
       
         var after_file_loaded = function(){
         	
-    		var cityMap  = new CityMap(response.city_map);
-    		var worldMap = new WorldMap(response.general_map);
+    		var cityMap  = new CityMap(response.maps.city);
+    		var worldMap = new WorldMap(response.maps.world);
     		
     		game = new Game(response.token, response.player, cityMap, worldMap);
     		

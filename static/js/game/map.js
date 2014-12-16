@@ -19,7 +19,6 @@
 	}
 
 	function generateGeneralMap(size){
-
 		// Controlling amount of space on the map.
 		var minClear = 0;
 		var noClear = 49;
@@ -234,25 +233,6 @@
 		y = 0;
 		while (y < 7) {
 			while (x < 7) {
-				if (check(y, x) === "g") {
-					if (check(y, x-1) === "o-s" && check(y, x+1) === "o-s") imgArray[y][x] = "o-s";
-					if (check(y, x-1) === "o-n" && check(y, x+1) === "o-n") imgArray[y][x] = "o-n";
-					if (check(y-1, x) === "o-e" && check(y+1, x) === "o-e") imgArray[y][x] = "o-e";
-					if (check(y-1, x) === "o-w" && check(y+1, x) === "o-w") imgArray[y][x] = "o-w";
-					if (check(y-1, x) === "o-e" && check(y, x-1) === "o-s") imgArray[y][x] = "ob-se";
-					if (check(y-1, x) === "o-e" && check(y, x+1) === "o-n") imgArray[y][x] = "ob-ne";
-					if (check(y+1, x) === "o-w" && check(y, x-1) === "o-s") imgArray[y][x] = "ob-sw";
-					if (check(y+1, x) === "o-w" && check(y, x+1) === "o-n") imgArray[y][x] = "ob-nw";
-				}
-				x++;
-			}
-			x = 0;
-			y++;
-		}
-		x = 0;
-		y = 0;
-		while (y < 7) {
-			while (x < 7) {
 				if (check(y, x) === "ob-nw" && check(y, x+1) === "ob-nw") imgArray[y][x] = "o";
 				if (check(y, x) === "ob-ne" && check(y, x-1) === "ob-ne") imgArray[y][x] = "o";
 				if (check(y-1, x) === "ob-ne" && check(y, x+1) === "ob-ne") imgArray[y][x] = "oc-ne";
@@ -306,6 +286,25 @@
 		y = 0;
 		while (y < 7) {
 			while (x < 7) {
+				if (check(y, x-1) === "o-s" && check(y, x+1) === "o-s") imgArray[y][x] = "o-s";
+				if (check(y, x-1) === "o-n" && check(y, x+1) === "o-n") imgArray[y][x] = "o-n";
+				if (check(y-1, x) === "o-e" && check(y+1, x) === "o-e") imgArray[y][x] = "o-e";
+				if (check(y-1, x) === "o-w" && check(y+1, x) === "o-w") imgArray[y][x] = "o-w";
+				if (check(y, x) === "g" || check(y, x) === "g") {
+					if (check(y-1, x) === "o-e" && check(y, x-1) === "o-s") imgArray[y][x] = "ob-se";
+					if (check(y-1, x) === "o-e" && check(y, x+1) === "o-n") imgArray[y][x] = "ob-ne";
+					if (check(y+1, x) === "o-w" && check(y, x-1) === "o-s") imgArray[y][x] = "ob-sw";
+					if (check(y+1, x) === "o-w" && check(y, x+1) === "o-n") imgArray[y][x] = "ob-nw";
+				}
+				x++;
+			}
+			x = 0;
+			y++;
+		}
+		x = 0;
+		y = 0;
+		while (y < 7) {
+			while (x < 7) {
 				if (check(y, x) === "g") {
 					if (check(y+1, x) === "o") {
 						if (check(y-1, x) === "o") {
@@ -329,7 +328,6 @@
 			x = 0;
 			y++;
 		}
-		// Fixes #2
 		x = 0;
 		y = 0;
 		while (y < 7) {
@@ -342,6 +340,44 @@
 					if (check(y, x+1) === "o-s") imgArray[y][x] = "oa-nw";
 					if (check(y+1, x) === "o-e") imgArray[y][x] = "oa-nw";
 				}
+				if (check(y, x) === "oc-se") {
+					if (check(y, x-1) === "o-n") imgArray[y][x] = "oa-ne";
+					if (check(y-1, x) === "o-e") imgArray[y][x] = "oa-ne";
+				}
+				if (check(y, x) === "oc-sw") {
+					if (check(y, x+1) === "o-n") imgArray[y][x] = "oa-nw";
+					if (check(y-1, x) === "o-w") imgArray[y][x] = "oa-nw";
+				}
+				if (check(y, x) === "o") {
+					if (check(y-1, x) === "ob-nw" && check(y, x+1) === "oc-sw") imgArray[y][x] = "ob-sw";
+					if (check(y+1, x) === "ob-sw" && check(y, x+1) === "oc-nw") imgArray[y][x] = "ob-nw";
+					if (check(y-1, x) === "ob-ne" && check(y, x-1) === "oc-se") imgArray[y][x] = "ob-se";
+					if (check(y+1, x) === "ob-se" && check(y, x-1) === "oc-ne") imgArray[y][x] = "ob-ne";
+				}
+				if (check(y, x) === "g") {
+					r = Math.random();
+					if (r < FOREST_SEED/2) {
+						imgArray[y][x] = "t0";
+					} else if (r < FOREST_SEED) {
+						imgArray[y][x] = "t1";
+					}
+				}
+				x++;
+			}
+			x = 0;
+			y++;
+		}
+		x = 0;
+		y = 0;
+		while (y < 7) {
+			while (x < 7) {
+				if (check(y, x) === "t0") {
+					if (check(y-1,x) === "g" && Math.random() < FOREST_EXPAND) imgArray[y-1][x] = "t1";
+					if (check(y+1,x) === "g" && Math.random() < FOREST_EXPAND) imgArray[y+1][x] = "t1";
+					if (check(y,x-1) === "g" && Math.random() < FOREST_EXPAND) imgArray[y][x-1] = "t1";
+					if (check(y,x+1) === "g" && Math.random() < FOREST_EXPAND) imgArray[y][x+1] = "t1";
+				}
+				if (check(y, x) === "g" && Math.random() < ROCK_SEED) imgArray[y][x] = "m".concat(Math.round(Math.random());
 				x++;
 			}
 			x = 0;

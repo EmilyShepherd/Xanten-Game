@@ -24,7 +24,7 @@ function XantenMap(array, name){
  * @returns arrray The array of the map
  */
 XantenMap.prototype.getArray = function(){
-	return this.mapArray;
+	return this.array;
 }
 
 /**
@@ -32,7 +32,7 @@ XantenMap.prototype.getArray = function(){
  * @returns arrray The array of the map
  */
 XantenMap.prototype.getSize = function(){
-	return this.mapArray.length;
+	return this.array.length;
 }
 
 
@@ -82,21 +82,21 @@ XantenMap.prototype.init = function(){
 	
 	//  Plese do not modify this! The code is working but I'm waiting for the python team 
 	 
-	/*
-		table = "<table id='#map-board-" + this.name + "' class='map'><tbody>";
-		
-		for(vertical = 1; vertical <= this.getSize(); vertical++){
-			table += '<tr>';
-			for(horizontal = 1; horizontal <= this.getSize(); horizontal++){
-				table += '<td id="cel_' + vertical + '_' + horizontal + '"></td>';
-			}
-			table += '</tr>';
+	
+	table = "<table id='map-board-" + this.name + "' class='map' border='0' cellspacing='0'><tbody>";
+	
+	for(vertical = 1; vertical <= this.getSize(); vertical++){
+		table += '<tr>';
+		for(horizontal = 1; horizontal <= this.getSize(); horizontal++){
+			table += '<td id="cel_' + vertical + '_' + horizontal + '"></td>';
 		}
-		
-		table 	+= "</tbody></table>";
-		div 	= "<div id='map-window-" + this.name + "' class='map-window'>" + table + "</div>";
-		$("#map-window").append(div);
-	*/
+		table += '</tr>';
+	}
+	
+	table 	+= "</tbody></table>";
+	div 	= "<div id='map-window-" + this.name + "' class='map-window'>" + table + "</div>";
+	$("#map-window").append(div);
+
 	
 	
 	$("#map-board-"+this.name+" td").click(function(){
@@ -115,6 +115,8 @@ XantenMap.prototype.init = function(){
  */
 XantenMap.prototype.select = function(){
 	$(this.HTML_element).fadeIn("slow");
+	$("#map-window-"+this.name).show();
+	$("#map-board-city-"+this.name).show();
 };
 
 /**

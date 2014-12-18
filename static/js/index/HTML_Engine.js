@@ -659,6 +659,36 @@ HTML_Engine.insideMilitary = {
 		});
 	}
 };
+
+
+
+
+/**
+ * The administration building
+ */
+HTML_Engine.insideAdministration = {
+		
+	/**
+	 * It generates the content for the administration building
+	 */
+	content: function(){
+	
+		var nr_of_active_units = game.player.buildings.military.people; 
+	
+		var html = "";
+		html += HTML_Engine.getBuilding.info("administration");
+		html += "TODO @George";
+	
+		
+		return html;
+	},
+	enable: function(){
+
+	},
+	disable: function(){	
+	}
+};
+	
 	
 /* ------------------------------ World Map  ------------------ */
 

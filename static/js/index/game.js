@@ -15,8 +15,9 @@
  * @param XantenMap cityMap A XantenMap object which contain information regarding the city
  * @param XantenMap worldMap A XantenMap object which contain information regarding the city 
  */
-function Game(token, player, cityMap, worldMap){
+function Game(data, token, player, cityMap, worldMap){
 	
+	this.data             = data;
 	this.token             = token;
 	this.started           = false;
 	this.player            = player;
@@ -98,45 +99,7 @@ Game.prototype.init = function() {
 		track: true  
     });
 	
-	/*
-	 *  String library 
-	 */
-	String.prototype.capitalize = function() {
-	    return this.charAt(0).toUpperCase() + this.slice(1);
-	}	  
 	
-	String.prototype.replaceAll = function(str1, str2, ignore) 
-	{
-	    return this.replace(new RegExp(str1.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g,"\\$&"),(ignore?"gi":"g")),(typeof(str2)=="string")?str2.replace(/\$/g,"$$$$"):str2);
-	} 
-	
-	Number.prototype.formatNumber = function(decPlaces) {
-	    decPlaces = isNaN(decPlaces = Math.abs(decPlaces)) ? 2 : decPlaces;
-	    decSeparator = ".";
-	    thouSeparator = " ";
-
-	    var n = this.toFixed(decPlaces);
-	    if (decPlaces) {
-	        var i = n.substr(0, n.length - (decPlaces + 1));
-	        var j = decSeparator + n.substr(-decPlaces);
-	    } else {
-	        i = n;
-	        j = '';
-	    }
-
-	    function reverse(str) {
-	        var sr = '';
-	        for (var l = str.length - 1; l >= 0; l--) {
-	            sr += str.charAt(l);
-	        }
-	        return sr;
-	    }
-
-	    if (parseInt(i)) {
-	        i = reverse(reverse(i).replace(/(\d{3})(?=\d)/g, "$1" + thouSeparator));
-	    }
-	    return i+j;
-	};
 	    
 	
 	/*
@@ -278,8 +241,9 @@ Game.prototype.loadActions = function() {
 																				"cb":function(information){/*change world map*/game.worldMap.render();}
 																				}),
 			"no_action" 				: new Action("No action", HTML_Engine.noAction, undefined  ),
-			"inside_building_military"	: new Action("Military", HTML_Engine.insideMilitary, function(){game.currentMap.deselect();}  ),
-			"start_task"				: new Action("Actions", HTML_Engine.loadAction, undefined)
+			"start_task"				: new Action("Actions", HTML_Engine.loadAction, undefined),
+			"inside_military"			: new Action("Military", HTML_Engine.insideMilitary, function(){game.currentMap.deselect();}  ),
+			"inside_administration"		: new Action(function(){ return HTML_Engine.getBuilding.name("administration", game.player.level)}, HTML_Engine.insideAdministration, function(){game.currentMap.deselect();}  )
 	};	
 };
 

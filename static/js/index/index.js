@@ -25,240 +25,292 @@ $(document).ready(function() {
 	if(settings.developerMode === true){
 		start_game({
 			
-			"game_city_map_buildings": {
-				1: {
-					name: "administration",
-					maxNumber: 1,
-					maxLevel: 50
-				},
-				2: {
-					name: "Mine",
-					maxLevel: 10
-				}
-			},
-			game_city_map_background: {
-				1: {
-						allowBuildings: true,
-						allowConstructions: false,
-						img: "1.png"
-				},
-				2: {
-						allowBuildings: false, 
-						allowConstructions: false,
-						img: "2.png"
-				}
-			},
+		
 			"status": "started", "token":"the token", 
+			"data":{
+					"city_map_buildings": {
+						1: {
+							name: "administration",
+							maxNumber: 1,
+							maxLevel: 50
+						},
+						2: {
+							name: "Military",
+							maxNumber: 1
+						}
+					},
+					"city_map_background": {
+						1: {
+								allowBuildings: true,
+								allowConstructions: false,
+								img: "1.png"
+						},
+						2: {
+								allowBuildings: false, 
+								allowConstructions: false,
+								img: "2.png"
+						}
+					}
+			},
 			"maps" : {
 			"city" : [
 						[
 								{
 									"id_background": 1,
-									"id_building": 1
+									"type_construction": "building",
+									"id_construction": 1
 								},
 								{
 									"id_background": 2,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 2,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 2,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								}
 							],
 							[
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 2,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 2,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": "building",
+									"id_construction": 2
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								}
 							],
 							[
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								}
 							],
 							[
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								}
 							],
 							[
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								}
 							],
 							[
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								}
 							],
 							[
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								},
 								{
 									"id_background": 1,
-									"id_building": null
+									"type_construction": null,
+									"id_construction": null
 								}
 							]
 					],
@@ -514,7 +566,7 @@ $(document).ready(function() {
     		var cityMap  = new CityMap(response.maps.city);
     		var worldMap = new WorldMap(response.maps.world);
     		
-    		game = new Game(response.token, response.player, cityMap, worldMap);
+    		game = new Game(response.data, response.token, response.player, cityMap, worldMap);
     		
     		// loads the game
     		game.init();

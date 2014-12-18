@@ -96,9 +96,9 @@ HTML_Engine.getBuilding = {
 	},
 	description: function(name){
 		switch(name.toLowerCase()){
-			case "mine": return "Your brave workers can bring you stone. This building increases the level of stone which is so needed for you";
-			case "storage": return "This building helps you to keep a part of resources safe";
-			default: return "This building has no description yet :(";
+			case "mine": 		return "Your brave workers can bring you stone. This building increases the level of stone which is so needed for you";
+			case "storage": 	return "This building helps you to keep a part of resources safe";
+			default: 			return "This building has no description yet :( (@Joe)";
 		}
 	},
 	info: function(building) {
@@ -125,16 +125,24 @@ HTML_Engine.getAvailableBuildings = {
 		
 		for(building in game.player.buildings){
 
-			var resources = game.resources.getNecessaryForBuilding(building, 1);
-			
-			text += "<div class='board_list hover' id='action_build_" + building + "' >" +
-					"<input type='hidden' name='building_id' ='" + building.id + "' />" +
-					HTML_Engine.getBuilding.info(building);
+			var data = game.getBuildingDataByName(building)
+			var b_obj = game.player.buildings[building];
+		
+			if(	(!data.maxLevel || (data.maxLevel && b_obj.level <= data.maxLevel)) && 
+				 (!data.maxNumber || (data.maxNumber &&  b_obj.num <= data.maxNumber )) ){
 					
-								
-			text += HTML_Engine.displayResources.content(resources);
+				var resources = game.resources.getNecessaryForBuilding(building, 1);
 				
-			text += "</div><br />";
+				text += "<div class='board_list hover' id='action_build_" + building + "' >" +
+						"<input type='hidden' name='building_id' ='" + building + "' />" +
+						HTML_Engine.getBuilding.info(building);
+						
+									
+				text += HTML_Engine.displayResources.content(resources);
+					
+				text += "</div><br />";
+			
+			}
 		}
 		return text;
 	},
@@ -144,17 +152,6 @@ HTML_Engine.getAvailableBuildings = {
 	 */
 	enable: function(){
 		$("#actions_board .board_list").click(function(){
-			
-			 //game.performAction("no_action");
-			
-			 // comment the above
-			 
-			 // uncomment the next
-			 
-			
-			// Example of task
-			// It is not working because the ProgressBar is not done
-			// It is correct
 			
 			game.removeCurrentAction();
 			

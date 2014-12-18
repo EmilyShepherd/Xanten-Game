@@ -35,9 +35,45 @@ $(document).ready(function() {
 							maxLevel: 50
 						},
 						2: {
-							name: "Military",
-							maxNumber: 1
-						}
+							name: "military",
+							maxNumber: 1,
+							maxLevel: null
+						},
+						3: {
+							name: "storage",
+							maxNumber: 1,
+							maxLevel: 10
+						},
+						4: {
+							name: "mill",
+							maxNumber: 1,
+							maxLevel: 10
+						},
+						5: {
+							name: "mine",
+							maxNumber: 1,
+							maxLevel: 10
+						},
+						6: {
+							name: "house",
+							maxNumber: null,
+							maxLevel: null
+						},
+						7: {
+							name: "trade",
+							maxNumber: null,
+							maxLevel: null
+						},
+						8: {
+							name: "lumberjack",
+							maxNumber: 1,
+							maxLevel: 10
+						},
+						9: {
+							name: "farm",
+							maxNumber: 1,
+							maxLevel: 10
+						},
 					},
 					"city_map_background": {
 						1: {
@@ -544,7 +580,7 @@ $(document).ready(function() {
 
 		}
 	
-		, "player": {"id": 1, "level": 1, "resources": {"gold": 50.0, "stone": 200.0, "wood": 200.0, "food": 200.0},  "buildings": {"storage": {"level": 1, "num": 0}, "mine": {"level": 1, "num": 0, "people": 0}, "mill": {"level": 1, "num": 0, "people": 0}, "house": {"num": 1}, "trade": {"people": 0, "num": 0}, "military": {"people": 10, "num": 0, "level ": 1}, "lumberjack": {"level": 1, "num": 0, "people": 0}, "farm": {"people": 0, "num": 0}, "administration": {"level": 1, "num": 1, "people": 50}}, "position": 13}});
+		, "player": {"id": 1, "level": 1, "resources": {"gold": 50.0, "stone": 200.0, "wood": 200.0, "food": 200.0},  "buildings": {"storage": {"level": 0, "num": 0}, "mine": {"level": 0, "num": 0, "people": 0}, "mill": {"level": 0, "num": 0, "people": 0}, "house": {"num": 1}, "trade": {"level":0, "people": 0, "num": 0}, "military": {"people": 10, "num": 0, "level": 1}, "lumberjack": {"level": 0, "num": 0, "people": 0}, "farm": {"people": 0, "num": 0, "level": 0}, "administration": {"level": 1, "num": 1, "people": 50}}, "position": 13}});
 		$("#before_game").hide();
 		$("#cover").hide();
 		$("#game").show();

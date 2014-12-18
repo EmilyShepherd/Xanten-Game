@@ -306,6 +306,15 @@ Game.prototype.getOrganizationInformationByLevel = function(what, level_of_city)
 };
 
 
+Game.prototype.getBuildingDataByName = function(name){
+	for(b in game.data.city_map_buildings){
+		
+		if(game.data.city_map_buildings[b].name === name){
+			return game.data.city_map_buildings[b];
+		}
+	}
+	console.log('Nu exista '+name)
+};
 
 
 Game.prototype.performTask= function(name, args){

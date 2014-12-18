@@ -105,6 +105,11 @@ Game.prototype.init = function() {
 	    return this.charAt(0).toUpperCase() + this.slice(1);
 	}	  
 	
+	String.prototype.replaceAll = function(str1, str2, ignore) 
+	{
+	    return this.replace(new RegExp(str1.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g,"\\$&"),(ignore?"gi":"g")),(typeof(str2)=="string")?str2.replace(/\$/g,"$$$$"):str2);
+	} 
+	
 	Number.prototype.formatNumber = function(decPlaces) {
 	    decPlaces = isNaN(decPlaces = Math.abs(decPlaces)) ? 2 : decPlaces;
 	    decSeparator = ".";
@@ -277,6 +282,66 @@ Game.prototype.loadActions = function() {
 			"start_task"				: new Action("Actions", HTML_Engine.loadAction, undefined)
 	};	
 };
+
+
+Game.prototype.getOrganizationInformationByLevel = function(what, level_of_city){
+	
+	var info = {};
+	var level = parseInt(level_of_city);
+	
+	if(level <=4){
+		info = { 
+					name: "Hamlet",
+					administration: "Foyer",
+					house: "Neighbourhood",
+					period: "Ancient Time"
+		};
+	} else 
+	if(level >= 5 && level <= 9){
+		info = { 
+					name: "Village",
+					administration: "Village Hall",
+					house: "Cul-de-sac",
+					period: "Medieval Age"
+		};
+	} else 
+	if(level >= 10 && level <= 14){
+		info = { 
+					name: "Town",
+					administration: "Town Square",
+					house: "Residential Area",
+					period: "Classical Era"
+						
+		};
+	} else 
+	if(level >= 15 && level <= 19){
+		info = { 
+					name: "City",
+					administration: "City Hall",
+					house: "Borough",
+					period: "Industrial Period"
+		};
+	} else
+	if(level >= 20 && level <= 49){
+		info = {
+					name: "Metropolis",
+					administration: "Metropolis Hall",
+					house: "District",
+					period: "Modern History"
+		};
+	} else {
+		info = {
+					name: "Magapolis",
+					administration: "Government",
+					house: "Region",
+					period: "Contemporary Period"
+		}
+	}
+	
+	return info[what];
+};
+
+
 
 
 Game.prototype.performTask= function(name, args){

@@ -37,7 +37,6 @@ HTML_Engine.table = {
 	content: function (data) {
 		var html = "<table>";
 		for(var i=0; i<=data.length-1; i++){
-			console.log(data);
 			column = data[i];
 			html += "<tr>";
 			for(var j=0; j<=column.length-1; j++){
@@ -61,10 +60,54 @@ HTML_Engine.getImage = {
 		 * @param string image The name of the image (for example: gold or mine
 		 * @param string title It is optional. It sets the title for the image
 		 */
-	content:function(path, image, title){	
-			return "<img "+(title?("title='" + image.capitalize()+"'"):"")+" src='" + HTML_Engine.path[path] + image + ".png' align='absmiddle' />";
+	content:function(path, image, title, type){	
+			var type = (type)?type:"png";
+			return "<img "+(title?("title='" + image.capitalize()+"'"):"")+" src='" + HTML_Engine.path[path] + image + "."+type+"' align='absmiddle' />";
 	}
 }
+
+HTML_Engine.getBuilding = {
+	name: function(name, level){
+		var name = name?name:"";
+		if(name === "house"){
+			name = game.getOrganizationInformationByLevel("house", level);
+		} else if(name === "administration"){
+			name = game.getOrganizationInformationByLevel("administration", level);
+		}		
+		return name.capitalize();
+	},
+	image: function(name, level, dim){
+		
+		var name	= HTML_Engine.getBuilding.name(name, level);
+		
+		var title 	= "";
+					
+		if(name === "administration"){
+			title = game.getOrganizationInformationByLevel("administration", level);
+		}
+		
+		if(title){
+			name += "-" + title;
+		}
+
+		var src = name.replaceAll(" ", "_");
+		
+		return "<img align='absmiddle' width='" + dim + "px' height='" + dim + "px' src='/static/img/game/buildings/"+src+".png' />";
+	},
+	description: function(name){
+		switch(name.toLowerCase()){
+			case "mine": return "Your brave workers can bring you stone. This building increases the level of stone which is so needed for you";
+			case "storage": return "This building helps you to keep a part of resources safe";
+			default: return "This building has no description yet :(";
+		}
+	},
+	info: function(building) {
+		return HTML_Engine.getBuilding.image(building, game.player.level, 60) +
+		"&nbsp;&nbsp;<span class='bold'>" + HTML_Engine.getBuilding.name(building, game.player.level) + "</span> "+
+		"<div class='chooser'>"+ HTML_Engine.getBuilding.description(building) + "</div>";
+	}
+}
+
 
 
 /**
@@ -76,21 +119,19 @@ HTML_Engine.getAvailableBuildings = {
 	 * It generates the content
 	 */
 	content: function(){
-	
-		// TODO to display the resources for the building
-		// TODO to display the image of the building
 		
 	
 		var text = "Buildings available to build there: <br />";
 		
 		for(building in game.player.buildings){
 
-			var resources = game.resources.getNecessaryForBuilding(building, 'create');
+			var resources = game.resources.getNecessaryForBuilding(building, 1);
 			
 			text += "<div class='board_list hover' id='action_build_" + building + "' >" +
 					"<input type='hidden' name='building_id' ='" + building.id + "' />" +
-					"<img align='absmiddle' width='60px' height='60px' src='http://clipart.nicubunu.ro/png/rpg_map/tavern.svg.png"+/*building.img*/""+"' /> <span class='bold'>" + building.capitalize() + "</span>  <br />";
-			
+					HTML_Engine.getBuilding.info(building);
+					
+								
 			text += HTML_Engine.displayResources.content(resources);
 				
 			text += "</div><br />";
@@ -306,8 +347,8 @@ HTML_Engine.failTask = {
  */
 HTML_Engine.shortResourceRepresentation = function (input){
 	
-	var len  = input.toString().length,
-		text = "";
+	var len  = parseInt(input.toString().length),
+		text = "";	
 	
 	if(len <= 3){
 		text = input;
@@ -493,9 +534,11 @@ HTML_Engine.insideMilitary = {
 	 * It generates the content for the military building
 	 */
 	content: function(){
+	
+		var nr_of_active_units = game.player.buildings.military.people; 
+	
 		var html = "";
-		var nr_of_active_units = 55; // TODO @Cristian The real number
-		
+		html += HTML_Engine.getBuilding.info("military");
 		html += "<div class='heading'> The number of active units:";
 		html += HTML_Engine.displayResources.content({
 			resources: {
@@ -544,7 +587,7 @@ HTML_Engine.insideMilitary = {
 	 */
 	enable: function(){
 
-		var nr_of_active_units = 55;
+		var nr_of_active_units = game.player.buildings.military.people; 
 		
 		/**
 		 * It creates the chooser to let the user to choose how many utits to create
@@ -557,13 +600,12 @@ HTML_Engine.insideMilitary = {
 							min: 1,
 							max: 700, /* TODO @Cristian the number of free people*/
 							change: function(event, ui, extra){
-										extra.html(HTML_Engine.displayResources.content({
-											resources: {
-												"wood" : parseInt(ui.value)*20, /* TODO @George real resources */
-												"food" : parseInt(ui.value)*5 /* TODO @George real resources */
-											},
-											time: parseInt(ui.value)*10 /* TODO @George real resources */
-										}));
+										extra.html(HTML_Engine.displayResources.content(
+											game.resources.getCostForUnit('military', parseInt(ui.value))
+										) + "<div> Daily cost: </div>" + 
+										HTML_Engine.displayResources.content(
+											game.resources.getCostForUnit('military_daily', parseInt(ui.value))
+										));
 									}
 						}								
 					],
@@ -672,7 +714,7 @@ HTML_Engine.attackCity = {
 	 * It generates the content for the military building
 	 */
 	content: function(args){
-		var nr_of_active_units = 55; // TODO @Cristian The real number
+		var nr_of_active_units = game.player.buildings.military.people; 
 		var html = "<div class='heading'>Target: <span class='bold' style='color:red'>" + game.worldMap.getCityById(args).name + "</div>";
 
 		html += "<div class='heading'> The number of active units:";
@@ -684,7 +726,7 @@ HTML_Engine.attackCity = {
 		
 		if(nr_of_active_units !== 0 && game.player.buildings.military.level !== 0){
 			html += HTML_Engine.chooser.content({
-				info: "Decide very wize how many units you want to send",
+				info: "Decide very wize how many units you want to send. The daily cost is an addition cost to the one from military for the units.",
 				values: [
 							{
 								title: "Military units",
@@ -698,6 +740,8 @@ HTML_Engine.attackCity = {
 				button: "Start attack !",
 				id: "military_attack"
 			});	
+		} else {
+			html += "<div>Unfortunately, you have no military units to use</div>";			
 		}
 				
 		return html;
@@ -707,7 +751,7 @@ HTML_Engine.attackCity = {
 	 */
 	enable: function(args){
 
-		var nr_of_active_units = 55;
+		var nr_of_active_units = game.player.buildings.military.people; 
 
 		if(nr_of_active_units !== 0 && game.player.buildings.military.level !== 0){
 			/**
@@ -721,13 +765,9 @@ HTML_Engine.attackCity = {
 								min: 1,
 								max: nr_of_active_units, /* TODO @Cristian the number of free people*/
 								change: function(event, ui, extra){
-											extra.html(HTML_Engine.displayResources.content({
-												resources : {
-													gold: parseInt(ui.value)*500, /* TODO @George real resources */
-													food: parseInt(ui.value)*200
-												},
-												interval: "one minute"
-											}));
+											extra.html(HTML_Engine.displayResources.content(
+													game.resources.getCostForUnit("military_attack", ui.value)
+											));
 										}
 							},
 							{

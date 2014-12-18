@@ -23,7 +23,32 @@ $(document).ready(function() {
 
 
 	if(settings.developerMode === true){
-		start_game({"status": "started", "token":"the token", 
+		start_game({
+			
+			"game_city_map_buildings": {
+				1: {
+					name: "administration",
+					maxNumber: 1,
+					maxLevel: 50
+				},
+				2: {
+					name: "Mine",
+					maxLevel: 10
+				}
+			},
+			game_city_map_background: {
+				1: {
+						allowBuildings: true,
+						allowConstructions: false,
+						img: "1.png"
+				},
+				2: {
+						allowBuildings: false, 
+						allowConstructions: false,
+						img: "2.png"
+				}
+			},
+			"status": "started", "token":"the token", 
 			"maps" : {
 			"city" : [
 						[
@@ -32,208 +57,208 @@ $(document).ready(function() {
 									"id_building": 1
 								},
 								{
-									"id_background": 1,
-									"id_building": 1
+									"id_background": 2,
+									"id_building": null
+								},
+								{
+									"id_background": 2,
+									"id_building": null
+								},
+								{
+									"id_background": 2,
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
-								},
-								{
-									"id_background": 1,
-									"id_building": 1
-								},
-								{
-									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								}
 							],
 							[
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
+								},
+								{
+									"id_background": 2,
+									"id_building": null
+								},
+								{
+									"id_background": 2,
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
-								},
-								{
-									"id_background": 1,
-									"id_building": 1
-								},
-								{
-									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								}
 							],
 							[
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								}
 							],
 							[
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								}
 							],
 							[
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								}
 							],
 							[
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								}
 							],
 							[
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								},
 								{
 									"id_background": 1,
-									"id_building": 1
+									"id_building": null
 								}
 							]
 					],
@@ -467,7 +492,7 @@ $(document).ready(function() {
 
 		}
 	
-		, "player": {"id": 1, "resources": {"gold": 50.0, "stone": 200.0, "wood": 200.0, "food": 200.0}, "level": "Hamlet", "buildings": {"storage": {"level": 1, "num": 0}, "mine": {"level": 1, "num": 0, "people": 0}, "dock": {"level": 1, "num": 0, "people": 0}, "house": {"num": 1}, "trade": {"people": 0, "num": 0}, "military": {"people": 0, "num": 0, "level ": 1}, "lumberjack": {"level": 1, "num": 0, "people": 0}, "grapevine": {"people": 0, "num": 0}, "home": {"level": 1, "num": 1, "people": 50}}, "position": 13}});
+		, "player": {"id": 1, "level": 1, "resources": {"gold": 50.0, "stone": 200.0, "wood": 200.0, "food": 200.0},  "buildings": {"storage": {"level": 1, "num": 0}, "mine": {"level": 1, "num": 0, "people": 0}, "mill": {"level": 1, "num": 0, "people": 0}, "house": {"num": 1}, "trade": {"people": 0, "num": 0}, "military": {"people": 10, "num": 0, "level ": 1}, "lumberjack": {"level": 1, "num": 0, "people": 0}, "farm": {"people": 0, "num": 0}, "administration": {"level": 1, "num": 1, "people": 50}}, "position": 13}});
 		$("#before_game").hide();
 		$("#cover").hide();
 		$("#game").show();

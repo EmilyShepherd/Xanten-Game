@@ -41,7 +41,32 @@ var CityMap = function(array){
 	 * It renders the information of the array in the images
 	 */
 	map.render = function(){
-		// TODO
+		
+		for(i=0; i<=this.length-1; i++){
+			for(j=0; j<=this.length-1; j++){					
+				var cell = $(this.HTML_element + " #cel_"+i+"_"+j);				
+				cell.removeClass();				
+				var background = game.game_city_map_background(this.array[i][j].id_background);
+				if(background.allowBuildings){					
+					if(!this.array[i][j].id_building){
+						cell.addClass("allow_construction");						
+					}
+					else {
+						// building
+						var building = game.game_city_map_buildings(this.array[i][j].id_building);
+						cell.html(HTML_Engine.getBuilding(building.name));
+					}
+					// background	
+				} else {
+					// TODO @Cristian Elements
+				}
+				
+				// background
+				$(this.HTML_element + " #cel_"+i+"_"+j).css('background-image', 'url(/static/img/game/city/' + background.img + ')');
+			
+			}
+
+		}
 	};
 	
 	return map;

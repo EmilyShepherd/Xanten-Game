@@ -16,7 +16,6 @@
 	map.__proto__ 	= "WorldMap";
 	map.cities		= data.cities;
 	
-	console.log(map.array);
 	/**
 	 * It selects a cell
 	 * @param x The x coordinate

@@ -74,10 +74,6 @@ Game.prototype.init = function() {
 	this.loadTasks();
 	
 	// maps
-	
-	game.worldMap.raphael = {};
-	game.worldMap.raphael.obj = Raphael("raphael", 700, 700)
-	
 	this.cityMap.init();
 	this.worldMap.init();
 

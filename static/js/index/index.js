@@ -618,7 +618,46 @@ $(document).ready(function() {
 									level: 34
 								}
 			
-				}
+				},
+				militaryMovements: {
+						1: {
+								path: [[0, 0],
+								[0, 1],
+								[1, 2],
+								[1, 1],
+								[4, 2],
+								[2, 2]
+								],
+								from: 1,
+								to: 1,
+								resources: {
+									resources: {
+									"food": 100,
+									wood: 2220,
+									military: 100
+								},
+								time : 200
+							}
+						},
+						
+						2: {
+							path: [[3, 1],
+							[3, 0],
+							[2, 0],
+							[1, 0]],
+							to: 3,
+							from: 1,
+							resources: {
+								resources: {
+								"food": 100,
+								wood: 2220,
+								military: 100
+							},
+							time : 300
+						}
+					}
+					}
+				
 			}
 
 		}

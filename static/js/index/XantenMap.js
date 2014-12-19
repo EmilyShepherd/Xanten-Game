@@ -106,6 +106,10 @@ XantenMap.prototype.init = function(){
 		instance.selectCell(elements[0], elements[1]);
 	});
 	
+	if(this._init){
+		this._init();
+	}
+	
 	this.render();
 };
 

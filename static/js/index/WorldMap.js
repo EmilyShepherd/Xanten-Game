@@ -15,7 +15,7 @@
 	var map 		= new XantenMap(data.map, 'world');
 	map.__proto__ 	= "WorldMap";
 	map.cities		= data.cities;
-	
+	map.data		= data;
 	/**
 	 * It selects a cell
 	 * @param x The x coordinate
@@ -67,118 +67,144 @@
 			}
 		}
 		
-		this.renderAttacks();
 		this.renderTrades();
 	};
 	
 	
-	map.renderAttacks = function(){
-		
-		console.log('da');
-		
-		var instance = this; //make the variables global, so you can access them in the animation function
-		this.raphael.line = [];
+
 	
-		 	var	discattr = {
-			    stroke: "none"
-			};
-		 	
-		 if(this.raphael.e){
-			 clearInterval(instance.raphael.animation);
-			 instance.raphael.e.remove();
-			 instance.raphael.text.remove();
-		 }
-		  
-		  function generate(x,y, zx, zy){
-			 				
-			    /*var ax = Math.floor(Math.random() * 20) + x;
-			    var ay = Math.floor(Math.random() * 20) + (y - 10);
-			    var bx = Math.floor(Math.random() * 20) + (zx - 20);
-			    var by = Math.floor(Math.random() * 20) + (zy - 10);
-			    
-			    return ["C", ax, ay, bx, by, zx, zy];*/
-			    return ["L", x, y];
-		  }
-			
-			function curve(path, colour) {
-				
-				var x = path[0][0], y= path[0][1];
-
-				var pixel = 100;
-				
-				for(var i=1; i<=path.length-1; i++){
-
-					x = path[i][0] ;
-					y = path[i][1];
-					
-					var zx = path[i][0];
-					var zy = path[i][1];					
-					
-					instance.raphael.line.push(generate(x* pixel + 50 , y* pixel + 50, zx* pixel + 50, zy* pixel + 50));
-					
-				}
-			    
-				instance.raphael.line.unshift(["M", path[0][0] * pixel + 50, path[0][1] * pixel + 50])
-						
-				console.log(instance.raphael.line);
-				
-			    instance.raphael.e = instance.raphael.obj.circle(path[0][0] * pixel + 30, path[0][1] * pixel + 30, 10, 10).attr({
-			        stroke: "none",
-			        fill: "rgb(246, 235, 186)"
-			    });
-				
-				instance.raphael.myPath = instance.raphael.obj.path(instance.raphael.line).attr({
-				    stroke: colour,
-				    "stroke-width": 4,
-				"stroke-linecap": "round"
-				        });
-				
-				instance.raphael.text = instance.raphael.obj.text(path[0][0] * pixel + 30, path[0][1] * pixel + 30, "Attack");
-				
-				    controls = instance.raphael.obj.set(
-				    		instance.raphael.obj.circle(x, y, 5).attr(discattr), instance.raphael.obj.circle(zx, zy, 5).attr(discattr));
-			}
-			
-			function animate(){
-			    if(instance.raphael.myPath.getTotalLength() <= instance.counter){   //break as soon as the total length is reached
-			        clearInterval(instance.raphael.animation);
-			        instance.raphael.e.remove();
-			        instance.raphael.text.remove();
-			        return;
-			    }
-			    var pos = instance.raphael.myPath.getPointAtLength(instance.raphael.counter);   //get the position (see Raphael docs)
-			    instance.raphael.e.attr({cx: pos.x, cy: pos.y});  //set the circle position
-			    instance.raphael.text.attr({cx: pos.x, cy: pos.y});  //set the circle position
-			    
-			    instance.raphael.counter++; // count the step counter one up
-			};
-			
-			var path = [[0, 0], [0, 1], [1, 2], [2, 2], [3, 1]]
-			
-			curve(path,"rgb(160, 123, 75)");
-			
-			this.raphael.animation = window.setInterval(animate, 500);  //execute the animation function all 10ms (change the value for another speed)
-
-		    this.raphael.counter = 0;    // a counter that counts animation steps
+	map.renderAttacks = function() {
+		for(move in this.data.militaryMovements){
+			var move_obj = this.data.militaryMovements[move];
+			this._addPath(move_obj.path, "military", HTML_Engine.worldPath.moveMilitaryUnits(move_obj.from, move_obj.to, move_obj.resources),
+					move_obj.resources.time * 90,
+					undefined
+			);
+		}			
+	};
+	
+	map._init = function(){
+		var instance = this;
+		this.canvas = {};		
+		this.canvas.stage = new createjs.Stage("canvas");
+		this.canvas.paths = {};
 		
+		createjs.Ticker.addEventListener("tick", tick);
+		
+		function tick(event) {
+		    instance.canvas.stage.update();
+		}
+		
+		createjs.MotionGuidePlugin.install();
+		
+		this.renderAttacks();
+	};
+	
+	map._addPath = function (path, type, description, duration, callBack){
+			
+		var id 							= Object.keys(this.canvas.paths).length
+			instance 					= this, //make the variables global, so you can access them in the animation function
+			ido 						= "path_"+(parseInt(id) + 0),
+			instance.canvas.paths[ido]	= {},
+			currentPath					= this.canvas.paths[ido],
+			currentPath.duration		= duration,
+			currentPath.id				= ido,
+			pixel						= 100,
+			startX						= path[0][0] * pixel + 50,
+			startY						= path[0][1] * pixel + 50,
+			lines						= [startX, startY],
+			x							= startX,
+			y							= startY;;
+			
+		if(path.length%2 === 0){
+			console.log(path.length+"l")
+			lines.push(startX);
+			lines.push(startY);
+		}
+			
+		var circle = new createjs.Shape();
+			circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, 2);
+			circle.x = startX;
+			circle.y = startY;
+		
+		var line = new createjs.Shape();
+			line.graphics.setStrokeStyle(3);
+			line.graphics.beginStroke("#A7ACA6");
+			line.graphics.moveTo(startX, startY);
+
+		
+			
+			
+		for (var i = 1; i <= path.length - 1; i++) {
+			
+
+			var zx = path[i][0];
+			var zy = path[i][1];
+
+			var small_line = [zx * pixel + 50, zy * pixel + 50];
+			
+			lines.push(small_line[0]);
+			lines.push(small_line[1]);
+			line.graphics.lineTo(small_line[0], small_line[1]);
+			
+
+			x = path[i][0];
+			y = path[i][1];
+		}
+		
+
+		console.log(lines)
+				
+		line.graphics.endStroke();
+		
+		var end = (function(){
+			var v = ido;
+			if(callBack){
+				var c = callBack;
+			}
+			return function(){instance.removePath(v); if(c) {c();} };
+		})();
+		
+		createjs.Tween.
+				get(circle).
+				to({guide:{ path:lines}},duration).
+				call(end);
+		
+	    
+		this.canvas.stage.addChild(line);
+		this.canvas.stage.addChild(circle);
+
+		
+		this.canvas.stage.update();
+		
+		currentPath.line 	= line;
+		currentPath.circle 	= circle;     
+	};
+	
+	map.removePath = function(id){
+		var p =game.worldMap.canvas.paths[id];
+		this.canvas.stage.removeChild(p.line)		
+		this.canvas.stage.removeChild(p.circle)		
+		this.canvas.stage.update();
+		delete this.canvas.paths[id];
 	};
 	
 	map.renderTrades = function(){
-		
+	
+	
 	}
-
+	
 	map._select = function(){
-		$("#raphael").show();
-	};
-
+		$("#canvas").show();
+	}
+	
 	map._hide = function(){
-		$("#raphael").hide();
-	};
-	
-	
-	/**
-	 * It returns the object with the information regarding the city
-	 * @param (number) id The id of the city
+		$("#canvas").hide();
+	}
+ 
+ 	/** 
+ 	 * It returns the city using the id
+ 	 * @param id The id of the city
 	 * @return (object) An object with information regarding the city
 	 */
 	map.getCityById = function(id){

@@ -829,6 +829,15 @@ HTML_Engine.attackCity = {
 };
 
 
+HTML_Engine.worldPath = {
+	getCityName : function(city){
+		return ((game.worldMap.cities[city] === game.player.id)?"Your city":game.worldMap.cities[city].name);
+	},
+	moveMilitaryUnits : function(c1, c2, resources){
+		return "<span class='bold'>Move military units</span> <br/> From: "+ HTML_Engine.worldPath.getCityName(c1)+ " </br> Target: "+ HTML_Engine.worldPath.getCityName(c2)+ "<br /><br /> " + HTML_Engine.displayResources.content(resources);
+	}
+};
+
 /**
  * Send a message
  */

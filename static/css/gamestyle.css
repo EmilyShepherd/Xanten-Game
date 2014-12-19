@@ -62,6 +62,13 @@ body {
 	width: 305px;
 }
 
+
+.ui-slider-handle.ui-state-active {
+    z-index: 5;
+    position: absolute;
+}
+
+
 /* About boards and windows */
 
 .before_window {
@@ -274,17 +281,20 @@ body {
 .map td.selected,.map td.selected:hover {
 	border: 1px solid white;
 	-webkit-filter: opacity(0.7);
+	margin-top: -1px;
 }
 
 .map td.selected {
 	transition-duration: 0.5s;
 	border: 1px solid white;
+	margin-top: -1px;
 }
 
 .map .allow_construction:hover {
 	cursor: url("../img/cursor/build_cursor_1.png"), auto;
 	-webkit-filter: opacity(0.9);
 	border: 1px solid rgb(181, 181, 181);
+	padding: -1px;
 }
 
 .map .allow_construction:active {
@@ -300,12 +310,16 @@ body {
 	text-align: center;
 	vertical-align: middle;
 	position: relative;
+	border:1px solid transparent;
 }
 
 .map img {
-	height: 100px;
-	width: 100px;
+	height: 98px;
+	width: 98px;
 	transition-duration: 0.5s;
+	position: relative;
+	top:0px;
+	z-index:2;
 	transition-timing-function: linear;
 }
 
@@ -316,10 +330,13 @@ body {
 	filter: url("data:image/svg+xml;utf8,<svg height='0' xmlns='http://www.w3.org/2000/svg'><filter id='drop-shadow'><feGaussianBlur in='SourceAlpha' stdDeviation='4'/><feOffset dx='12' dy='12' result='offsetblur'/><feFlood flood-color='rgba(0,0,0,0.5)'/><feComposite in2='offsetblur' operator='in'/><feMerge><feMergeNode/><feMergeNode in='SourceGraphic'/></feMerge></filter></svg>#drop-shadow");
 	-ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
 	filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
+	
+	margin-top: -7px;
 }
 
 .map td img.selected, .map td img.selected:hover {
 	-webkit-filter: sepia(1) grayscale(1) opacity(0.7);
+	margin-top: -7px;
 }
 
 .map .level {
@@ -338,6 +355,24 @@ body {
 	box-shadow: 0px 0px 3px 1px rgb(53, 53, 53);
 	padding: 1px;
 	border-radius: 20px;
+	z-index:3;
+}
+
+.map .description {
+	position: absolute;
+	top: 79px;
+	left: 16px;
+	margin: 0px;
+	height: 18px;
+	font-size: 13px;
+	color: rgb(103, 11, 8);
+	border: 1px solid rgb(159, 121, 72);
+	z-index: 1;
+	background: rgb(246, 235, 186);
+	padding: 2px;
+	box-shadow: 0px 0px px 1px rgb(53, 53, 53);
+	border-radius: 4px;
+	z-index:3;
 }
 
 /* Progress Bar */

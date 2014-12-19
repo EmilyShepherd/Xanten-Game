@@ -117,6 +117,9 @@ XantenMap.prototype.select = function(){
 	$(this.HTML_element).fadeIn("slow");
 	$("#map-window-"+this.name).show();
 	$("#map-board-city-"+this.name).show();
+	if(this._select){
+		this._select();
+	}
 };
 
 /**
@@ -125,6 +128,9 @@ XantenMap.prototype.select = function(){
 XantenMap.prototype.hide = function(){
 	this.deselect();
 	$(this.HTML_element).hide();
+	if(this._hide){
+		this._hide();
+	}
 };
 
 /**

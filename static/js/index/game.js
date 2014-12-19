@@ -74,6 +74,10 @@ Game.prototype.init = function() {
 	this.loadTasks();
 	
 	// maps
+	
+	game.worldMap.raphael = {};
+	game.worldMap.raphael.obj = Raphael("raphael", 700, 700)
+	
 	this.cityMap.init();
 	this.worldMap.init();
 
@@ -242,6 +246,7 @@ Game.prototype.loadActions = function() {
 																				}),
 			"no_action" 				: new Action("No action", HTML_Engine.noAction, undefined  ),
 			"start_task"				: new Action("Actions", HTML_Engine.loadAction, undefined),
+			"clear"						: new Action("Actions", "", undefined),
 			"inside_military"			: new Action("Military", HTML_Engine.insideMilitary, function(){game.currentMap.deselect();}  ),
 			"inside_administration"		: new Action(function(){ return HTML_Engine.getBuilding.name("administration", game.player.level)}, HTML_Engine.insideAdministration, function(){game.currentMap.deselect();}  )
 	};	

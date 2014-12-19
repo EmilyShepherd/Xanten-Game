@@ -32,7 +32,7 @@ var CityMap = function(array){
 			game.performAction('inside_'+building);
 			this.selectImage(x, y);
 		}else {
-			game.performAction('no_action', null);
+			game.performAction('city-map-selected', null);
 		}
 	};
 	
@@ -43,22 +43,26 @@ var CityMap = function(array){
 		for(i=1; i <= this.array.length; i++){
 			for(j=1; j <= this.array.length; j++){
 				var cell 		= $(this.HTML_element + " #cel_"+i+"_"+j),
-					background 	= game.data.city_map_background[this.array[(i-1)][(j-1)].id_background];				
+					background 	= game.data.city_map_backgrounds[this.array[(i-1)][(j-1)].id_background];				
 				cell.removeClass();				
 				if(background.allowBuildings === true) {					
-					if(background.allowBuildings === true && this.array[(i-1)][(j-1)].type_construction !== "building"){			
+					if(background.allowBuildings === true && this.array[(i-1)][(j-1)].type_construction === null){			
 						cell.addClass("allow_construction");	
 					}
-					else {
+					else if(this.array[(i-1)][(j-1)].type_construction === "building") {
 						var building = game.data.city_map_buildings[this.array[(i-1)][(j-1)].id_construction];
-						cell.html(HTML_Engine.getBuilding.image(building.name+"", game.player.level, 70) + "<span class='level'>"+game.player.buildings[building.name.toLowerCase()].level+"</span>");
+						cell.html(HTML_Engine.getBuilding.image(building.name+"", game.player.level,98) + "<span class='level'>"+game.player.buildings[building.name.toLowerCase()].level+"</span>");
 						$(this.HTML_element+" #cel_"+i+"_"+j+" img").addClass('hasAction');	
 						$(this.HTML_element+" #cel_"+i+"_"+j+" img").attr({"name_of_building": building.name.toLowerCase()});	
 						$(this.HTML_element+" #cel_"+i+"_"+j+" img").attr({"title": building.name.capitalize()});	
+					} else {
+						var element = game.data.city_map_elements[this.array[(i-1)][(j-1)].id_construction];
+						cell.html(HTML_Engine.getBuilding.image(element.name+"", game.player.level, 70));
+						$(this.HTML_element+" #cel_"+i+"_"+j+" img").attr({"name_of_building": element.name.toLowerCase()});	
+						$(this.HTML_element+" #cel_"+i+"_"+j+" img").attr({"title": element.name.capitalize()});
 					}
-				} else {
-					// TODO @Cristian Elements
-				}				
+					
+				} 			
 				$(this.HTML_element + " #cel_"+i+"_"+j).css('background-image', 'url(/static/img/game/background/city/' + background.img + ')');
 			}
 		}

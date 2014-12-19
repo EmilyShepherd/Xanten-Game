@@ -75,7 +75,43 @@ $(document).ready(function() {
 							maxLevel: 10
 						},
 					},
-					"city_map_background": {
+					"city_map_elements": {
+						1 : {
+							name: "Tower",
+							img: "tower.png"
+						},
+						2 : {
+							name: "Plant",
+							img: "plant.png"
+						}
+					},
+					"world_map_backgrounds": {
+						1: {
+							allowCity: true,
+							img: "1.png"
+						},
+						2: {
+							allowCity: true,
+							img: "2.png"
+						},
+						3: {
+							allowCity: true,
+							img: "3.png"
+						},
+						4: {
+							allowCity: true,
+							img: "4.png"
+						},
+						5: {
+							allowCity: true,
+							img: "5.png"
+						},
+						6: {
+							allowCity: true,
+							img: "6.png"
+						}
+					},
+					"city_map_backgrounds": {
 						1: {
 								allowBuildings: true,
 								allowConstructions: false,
@@ -251,8 +287,8 @@ $(document).ready(function() {
 								},
 								{
 									"id_background": 1,
-									"type_construction": null,
-									"id_construction": null
+									"type_construction": 'element',
+									"id_construction": 2
 								},
 								{
 									"id_background": 1,
@@ -261,8 +297,8 @@ $(document).ready(function() {
 								},
 								{
 									"id_background": 1,
-									"type_construction": null,
-									"id_construction": null
+									"type_construction": "element",
+									"id_construction": 1
 								},
 								{
 									"id_background": 1,
@@ -356,7 +392,7 @@ $(document).ready(function() {
 						[
 								{
 									"id_background": 1,
-									"id_city": 1
+									"id_city": null
 								},
 								{
 									"id_background": 1,
@@ -375,11 +411,11 @@ $(document).ready(function() {
 									"id_city": null
 								},
 								{
-									"id_background": 1,
+									"id_background": 3,
 									"id_city": null
 								},
 								{
-									"id_background": 1,
+									"id_background": 4,
 									"id_city": null
 								}
 							],
@@ -398,18 +434,18 @@ $(document).ready(function() {
 								},
 								{
 									"id_background": 1,
-									"id_city": null
+									"id_city": 1
 								},
 								{
 									"id_background": 1,
 									"id_city": null
 								},
 								{
-									"id_background": 1,
+									"id_background": 5,
 									"id_city": null
 								},
 								{
-									"id_background": 1,
+									"id_background": 6,
 									"id_city": null
 								}
 							],
@@ -424,7 +460,7 @@ $(document).ready(function() {
 								},
 								{
 									"id_background": 1,
-									"id_city": null
+									"id_city": 3
 								},
 								{
 									"id_background": 1,
@@ -564,18 +600,25 @@ $(document).ready(function() {
 								}
 							]
 					],
-					cities: {
-									1: {
-										name: "Fantomous",
-										player: "Aladin",
-										level: "12"										
-									},
-									2: {										
-										name: "Glacious",
-										player: "Kanga",
-										level: "11"
-									}
+					cities: {				
+								1: {
+									name: "Fantomous",
+									player: "Aladin",
+									level: 4,
+												
+								},
+								2: {						
+									name: "Glacious",
+									player: "Kanga",
+									level: 6
+								},
+								3: {						
+									player: "Kelipsi",
+									name: "Oldistinesti",
+									level: 34
 								}
+			
+				}
 			}
 
 		}

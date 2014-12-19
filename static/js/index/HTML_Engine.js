@@ -840,7 +840,7 @@ HTML_Engine.sendMessage = {
 	 */
 	content: function(args){
 		// TODO @George
-		var html = "Its HTML_Engine content should be implemented";				
+		var html = "Its HTML_Engine content should be implemented @Joe";				
 		return html;
 	},
 	/**
@@ -865,7 +865,7 @@ HTML_Engine.trade = {
 	 */
 	content: function(args){
 		// TODO @George
-		var html = "Its HTML_Engine content should be implemented";				
+		var html = "Its HTML_Engine content should be implemented @George";				
 		return html;
 	},
 	/**

@@ -37,7 +37,7 @@ Resources.prototype.updatePeople = function() {
 Resources.prototype.updateDetailsCity = function() {
 	$("#city_details #name").html(game.player.city.name);
 	$("#city_details #level").html("Level: "+game.player.city.level);
-	$("#city_details #type").html(game.player.city.type);
+	$("#city_details #type").html(HTML_Engine.getOrganizationInformationByLevel("name", game.player.level) );
 };
 
 /**

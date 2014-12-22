@@ -8,6 +8,7 @@
 
 
 // TODO !!! This object is not ready. It does not work because you have to complete it
+// CAN BE COMPLETED ONCE SERVER GIVES RESPONSE
 
 
 
@@ -20,7 +21,7 @@
 function ProgressBar(task){
 	
 	this.task = task;
-	this.id   = task.response.id;
+	this.id   = 1//task.response.id;
 	
 	this.value = 0;
 	

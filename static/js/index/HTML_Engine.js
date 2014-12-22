@@ -97,7 +97,7 @@ HTML_Engine.getBuilding = {
 	description: function(name){
 		switch(name.toLowerCase()){
 			case "mine": 		return "Your brave workers can bring you stone. This building increases the level of stone which is so needed for you";
-			case "storage": 	return "This building helps you to keep a part of resources safe";
+			case "storage": 	return "This building keeps some of your resources safe, in case of an attack.";
 			default: 			return "This building has no description yet :( (@Joe)";
 		}
 	},
@@ -156,7 +156,7 @@ HTML_Engine.getAvailableBuildings = {
 			game.removeCurrentAction();
 			
 			var data			= $(this).serialize();
-			var building_name 	= "mine";//game.city_map_buildings[data.building_id];
+			var building_name 	= "";
 			
 			
 			new Task(data, 
@@ -670,11 +670,22 @@ HTML_Engine.insideAdministration = {
 	 */
 	content: function(){
 	
-		var nr_of_active_units = game.player.buildings.military.people; 
+		var nr_of_free_units = game.player.buildings.administration.people; 
 	
 		var html = "";
 		html += HTML_Engine.getBuilding.info("administration");
-		html += "TODO @George";
+		html += "<div class='heading'> The number of free people:";
+		html += HTML_Engine.displayResources.content({
+			resources: {
+				"people" : nr_of_free_units 				
+			},
+		}) + "</div>";
+		html += "<div class='heading'> Daily income from free people: " + 
+								HTML_Engine.displayResources.content({
+										resources: {
+										"gold" : nr_of_free_units * 0.1, /* TODO @George real resources */
+									}
+								}) + "</div>";
 	
 		
 		return html;

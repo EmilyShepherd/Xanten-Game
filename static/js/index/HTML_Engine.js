@@ -18,29 +18,23 @@ var  HTML_Engine = {
 		}
 }
 
-
-/* // Example:
-	HTML_Engine. = {
-		content: function(args){		
-		},
-		enable: function(args){			
-		},
-		disable: function(args){			
-		}
-	};
-*/
-
 /**
  * It generates a table
  */
 HTML_Engine.table = {
-	content: function (data) {
-		var html = "<table>";
+	/**
+	 * It generates a table
+	 * @param (array) data information regarding the rows and columns of the table
+	 * @param (boolean) boldFirst If set to true it bolds the first column
+	 * @return The HTML code for the table
+	 */
+	content: function (data, boldFirst) {
+		var html = "<table width='100%'>";
 		for(var i=0; i<=data.length-1; i++){
 			column = data[i];
 			html += "<tr>";
 			for(var j=0; j<=column.length-1; j++){
-				html += "<td class='bold' style='color:"+(j%2==0?"rgb(142, 142, 142)":"rgb(0, 71, 187)")+"'>"+data[i][j]+"</td>";
+				html += "<td " + (boldFirst?"class='bold'":"") + " style='color:"+(j%2==0?"rgb(142, 142, 142)":"rgb(0, 71, 187)")+"'>"+data[i][j]+"</td>";
 			}
 			html += "</tr>";
 		}
@@ -52,13 +46,13 @@ HTML_Engine.table = {
 /**
  * It returns a image from the game
  */
-HTML_Engine.getImage = {
-	
+HTML_Engine.getImage = {	
 		/**
 		 * It constructs an image. For example: HTML_Engine.content.getImage('img_resource', 'gold', 'Gold') returns ===> <img title="Gold" src="/static/img/game/resource/gold.png" align="absmiddle">
-		 * @param string path A HTML_Engine.path string
-		 * @param string image The name of the image (for example: gold or mine
-		 * @param string title It is optional. It sets the title for the image
+		 * @param (string) path A HTML_Engine.path string
+		 * @param (string) image The name of the image (for example: gold or mine
+		 * @param (string) title It is optional. It sets the title for the image
+		 * @return (string) The HTML code for the image
 		 */
 	content:function(path, image, title, type){	
 			var type = (type)?type:"png";
@@ -66,138 +60,15 @@ HTML_Engine.getImage = {
 	}
 }
 
-HTML_Engine.getBuilding = {
-	name: function(name, level){
-		var name = name?name:"";
-		if(name === "house"){
-			name = game.getOrganizationInformationByLevel("house", level);
-		} else if(name === "administration"){
-			name = game.getOrganizationInformationByLevel("administration", level);
-		}		
-		return name.capitalize();
-	},
-	image: function(name, level, dim){
-		
-		var name	= HTML_Engine.getBuilding.name(name, level);
-		
-		var title 	= "";
-					
-		if(name === "administration"){
-			title = game.getOrganizationInformationByLevel("administration", level);
-		}
-		
-		if(title){
-			name += "-" + title;
-		}
-
-		var src = name.replaceAll(" ", "_");
-		
-		return "<img align='absmiddle' width='" + dim + "px' height='" + dim + "px' src='/static/img/game/buildings/"+src+".png' />";
-	},
-	description: function(name){
-		switch(name.toLowerCase()){
-			case "mine": 		return "Your brave workers can bring you stone. This building increases the level of stone which is so needed for you";
-			case "storage": 	return "This building keeps some of your resources safe, in case of an attack.";
-			default: 			return "This building has no description yet :( (@Joe)";
-		}
-	},
-	info: function(building) {
-		return HTML_Engine.getBuilding.image(building, game.player.level, 60) +
-		"&nbsp;&nbsp;<span class='bold'>" + HTML_Engine.getBuilding.name(building, game.player.level) + "</span> "+
-		"<div class='chooser'>"+ HTML_Engine.getBuilding.description(building) + "</div>";
-	}
-}
-
-
-
-/**
- * Returns the list of all the building which can be created and the resources for them
- */
-HTML_Engine.getAvailableBuildings = {
-		
-	/**
-	 * It generates the content
-	 */
-	content: function(){
-		
-	
-		var text = "Buildings available to build there: <br />";
-		
-		for(building in game.player.buildings){
-
-			var data = game.getBuildingDataByName(building)
-			var b_obj = game.player.buildings[building];
-		
-			if(	(!data.maxLevel || (data.maxLevel && b_obj.level <= data.maxLevel)) && 
-				 (!data.maxNumber || (data.maxNumber &&  b_obj.num <= data.maxNumber )) ){
-					
-				var resources = game.resources.getNecessaryForBuilding(building, 1);
-				
-				text += "<div class='board_list hover' id='action_build_" + building + "' >" +
-						"<input type='hidden' name='building_id' ='" + building + "' />" +
-						HTML_Engine.getBuilding.info(building);
-						
-									
-				text += HTML_Engine.displayResources.content(resources);
-					
-				text += "</div><br />";
-			
-			}
-		}
-		return text;
-	},
-	
-	/**
-	 * It add a listener for each building
-	 */
-	enable: function(){
-		$("#actions_board .board_list").click(function(){
-			
-			game.removeCurrentAction();
-			
-			var data			= $(this).serialize();
-			var building_name 	= "";
-			
-			
-			new Task(data, 
-					'Create building <span class="bold">' + building_name + '</span>',
-					{
-						"url": '/me/building/' + building_name  + '/build',
-						"type": 'GET'						
-					},
-					function(task){
-						// create building
-						game.player.buildings.id = task.response.building;
-						game.player.buildings.bulding_id.status = 'Building';
-						game.cityMap.render(); // change the status of the city map
-						game.consumeResources(game.resources.getNecessaryForBuilding(data.building_id, 'create'));
-					}, 
-					undefined, 
-					undefined, 
-					function(task){
-						game.player.buildings.bulding_id.num++;
-						game.player.buildings.bulding_id.level = 1;
-						game.player.buildings.bulding_id.status = 'Done';
-					});
-			})
-	},
-	
-	/**
-	 * It removes all the listeners
-	 */
-	disable: function(){
-		$("#actions_board .board_list").off();
-	}
-};
-
 /**
  * It displays the resources (gold, wood, stone, food, people and the time)  in HTML format
  */
 HTML_Engine.displayResources = {
 	/**
 	 * It displays the resources
-	 * @param object The resources specified by Resources.getNecessaryForBuilding
-	 * @see Resources.getNecessaryForBuilding
+	 * @param (object) The resources specified by Resources.prepareResources
+	 * @see Resources
+	 * @return (string) The HTML code which displays the resources
 	 */
 	content: function(resources){
 	
@@ -228,59 +99,13 @@ HTML_Engine.displayResources = {
  * It returns the string for no action for a string
  */
 HTML_Engine.noAction = {
-		/**
-		 * It returns the string
-		 */
-		content: function(){
-			return "No action for now"
-		}
-}
-
-/**
- * It returns the HTML code when the city map was chosen
- */
-HTML_Engine.cityMapSelected = {
-		/**
-		 * It returns the string
-		 */
-		content: function(){
-			return "<br /><img src='http://clipart.nicubunu.ro/svg/rpg_map/statue.svg' /><div><span class='bold'>Aloha there, </span><br />Here is your glorious city, with brave and nice people who have a wonderfull life. Be carefull to mantain in this state...</div>";
-		}
-}
-
-/**
- * It returns the HTML code when the world map was chosen
- */
-HTML_Engine.worldMapSelected = {
-		/**
-		 * It returns the string
-		 */
-		content: function(){
-			return "<img align='middle' src='http://clipart.nicubunu.ro/png/events/graduation03.svg.png' /> <div>Hmmm... It seems you can see the world map. It contains the other cities. Click on a city to see the options.</div>";
-		}
-}
-
-//It is an example of a dynamic action with arguments
-/**
- * It displays a message
- */
-HTML_Engine.seeMessage = {
-		/**
-		 * It displays the content of the message
-		 * @param args The object which contain information regarding the message ('id' and 'content')
-		 */
-		content: function(args){
-			return "This is the message nr <b>"+args.id+"<b>:<br/ ><i>"+args.content+'</i>. ';
-		}
-}
-
-/**
- * It returns the HTML code when a building is selected
- */
-HTML_Engine.insideBuilding = {
-		content: function(args){
-			return "That building is now selected and you are inside. There is no action here.";
-		}
+	/**
+	 * It returns the string for no action
+	 * @return (string) The string for no action
+	 */
+	content: function(){
+		return "No action for now";
+	}
 }
 
 /**
@@ -289,13 +114,13 @@ HTML_Engine.insideBuilding = {
 HTML_Engine.failAction = {
 	/**
 	 * It returns the string
+	 * @return (string) It returns the string
 	 */
 	content: function(){
 		$("#actions_board .inside").html("Sir, there was a problem for your people to get that information... Try to find better ones and then tell them <span class='link' id='action-try-again'>to try again</span>");
-
 	},
 	/**
-	 * It adds a listener for the button 'try again'.
+	 * It adds a listener for the button 'try again'
 	 */
 	enable: function(){
 		$("#action-try-again").click(function(){
@@ -305,31 +130,30 @@ HTML_Engine.failAction = {
 };
 
 /**
- * It displays the string which is seen while an action is performing an AJAX request
- */
-HTML_Engine.loadAction = {
-	/**
-	 * It generates the string
-	 */
-	content: function(){
-		$("#actions_board .inside").html("<div class='center'><img src='static/img/game/loading.gif' width='32px' height='32px'/></div> Sir, please wait to check this...");
-	}	
-};
-
-/**
  * It shows the 
  */
 HTML_Engine.failTask = {
 	/**
-	 * It generates the content
+	 * It addes a new news which shows that that task was not possible for a certain reson
 	 * @param task_title The title of the task
-	 * @param reason  The reason of the task
+	 * @param reason  The reason of the task 
 	 */	
 	content: function(task_title, reason){
 		game.newsBoard.add(task_title + " was no possible because " + reason);	
 	}
 };
 
+/**
+ * It displays the string which is seen while an action is performing an AJAX request
+ */
+HTML_Engine.loadAction = {
+	/**
+	 * TODO
+	 */
+	content: function(){
+		$("#actions_board .inside").html("<div class='center'><img src='static/img/game/loading.gif' width='32px' height='32px'/></div> Sir, please wait to check this...");
+	}	
+};
 
 /**
  * It returns a short representation of the resource. 
@@ -343,7 +167,6 @@ HTML_Engine.failTask = {
  * @returns string The amount in a short representation
  */
 HTML_Engine.shortResourceRepresentation = function (input){
-	
 	var len  = parseInt(input.toString().length),
 		text = "";	
 	
@@ -361,7 +184,6 @@ HTML_Engine.shortResourceRepresentation = function (input){
 	return "<span title='"+ input.formatNumber(0) +"'>"+text+"</span>";
 }
 
-
 /**
  * It returns a short representation of time in this format: {hours} h, {minutes} h, {seconds} sec OR "Instant" (if time is 0)
  * 
@@ -369,14 +191,12 @@ HTML_Engine.shortResourceRepresentation = function (input){
  * @param Number sec_num The time expressed in number of seconds
  * @return string The time in this format: {hours} h, {minutes} h, {seconds} sec OR "Instant" (if time is 0)
  */
-HTML_Engine.shortTimeRepresentation = function (sec_num){
-	
+HTML_Engine.shortTimeRepresentation = function (sec_num){	
 	sec_num = parseInt(sec_num);
 	
 	if(sec_num === 0){
 		return "<span class='bold'>Instant</span>";
 	}
-
 	var	elements = [],
 	 	hours   = Math.floor(sec_num / 3600),
 	 	minutes = Math.floor((sec_num - (hours * 3600)) / 60),
@@ -389,9 +209,7 @@ HTML_Engine.shortTimeRepresentation = function (sec_num){
 	return elements.join(", ");		
 }
 
-
-/*	Chooser */
-
+// TODO @Cristian the comments are good until now
 
 /**
  * A chooser represents a set of mutiple input values from user using sliders
@@ -496,9 +314,10 @@ HTML_Engine.chooser = {
 	},
 	
 	/**
-	 * It returns the value for an elemenent inside a chooser
+	 * It returns the value for an element inside a chooser
 	 * @param string chooser The id of the chooser
-	 * @param string element The id of the elemenent 
+	 * @param string element The id of the element
+	 * @return The value of the element inside that chooser 
 	 */
 	fetch: function(chooser, element){
 		return $("#"+chooser+"_chooser #element_"+element+" #input_value").val()
@@ -507,9 +326,9 @@ HTML_Engine.chooser = {
 	/**
 	 * It returns the all the values of the elements inside a chooser
 	 * @param string chooser The id of the chooser
+	 * @return The values of all the chooser's elements
 	 */
-	fetchAll: function(chooser){
-		
+	fetchAll: function(chooser){		
 		var all 	= $("#"+chooser+"_chooser").find(".element"),
 			values 	= {};
 		
@@ -520,22 +339,152 @@ HTML_Engine.chooser = {
 	}
 };
 
-/*	Buildings */
+/* ------------------------------ City Map  ------------------------------ */
 
 /**
- * The military
+ * It returns the HTML code when the city map was chosen
  */
-HTML_Engine.insideMilitary = {
+HTML_Engine.cityMapSelected = {
+	/**
+	 * It returns the string when the city map is selected
+	 * @return (string) Returns a general description of the city
+	 */
+	content: function(){
+		return "<br /><img src='http://clipart.nicubunu.ro/svg/rpg_map/statue.svg' /><div><span class='bold'>Aloha there, </span><br />This is your glorious city, with brave and nice people who have a wonderfull life. Be carefull to mantain in this state...</div>";
+	}
+}
+
+/**
+ * Returns the list of all the building which can be created and the resources for them
+ */
+HTML_Engine.getAvailableBuildings = {
+		
+	/**
+	 * It generates the content
+	 * @returns (string) A list of all the buildings and the resources to be created
+	 */
+	content: function() {	
+		var text = "Buildings available to build there: <br />";
+		
+		for(building in game.player.buildings){
+
+			var data = game.getBuildingDataByName(building)
+			var b_obj = game.player.buildings[building];
+		
+			if(	(!data.maxLevel || (data.maxLevel && b_obj.level <= data.maxLevel)) && 
+				 (!data.maxNumber || (data.maxNumber &&  b_obj.num <= data.maxNumber )) ){
+					
+				var resources = game.resources.getNecessaryForBuilding(building, 1);
+				
+				text += "<div class='board_list hover' id='action_build_" + building + "' >" +
+						"<input type='hidden' name='building_id' ='" + building + "' />" +
+						HTML_Engine.getBuilding.info(building);
+						
+									
+				text += HTML_Engine.displayResources.content(resources);
+					
+				text += "</div><br />";
+			
+			}
+		}
+		return text;
+	},	
+	/**
+	 * It add a listener for each building
+	 */
+	enable: function(){
+		$("#actions_board .board_list").click(function(){
+			
+			game.removeCurrentAction();
+			
+			var data			= $(this).serialize();
+			var building_name 	= "";
+			
+			
+			new Task(data, 
+					'Create building <span class="bold">' + building_name + '</span>',
+					{
+						"url": '/me/building/' + building_name  + '/build',
+						"type": 'GET'						
+					},
+					function(task){
+						// create building
+						game.player.buildings.id = task.response.building;
+						game.player.buildings.bulding_id.status = 'Building';
+						game.cityMap.render(); // change the status of the city map
+						game.consumeResources(game.resources.getNecessaryForBuilding(data.building_id, 'create'));
+					}, 
+					undefined, 
+					undefined, 
+					function(task){
+						game.player.buildings.bulding_id.num++;
+						game.player.buildings.bulding_id.level = 1;
+						game.player.buildings.bulding_id.status = 'Done';
+					});
+			})
+	},	
+	/**
+	 * It removes all the listeners
+	 */
+	disable: function(){
+		$("#actions_board .board_list").off();
+	}
+};
+		/* ------------------ Buildings  ------------------ */
+
+/**
+ * The administration building
+ */
+HTML_Engine.inside_administration = {
+		
+	/**
+	 * It generates the content for the administration building
+	 * @return (string) The HTML code for the administration building
+	 */
+	content: function(){
+		var nr_of_free_units = game.player.buildings.administration.people, 
+			html = "";
+
+		html += HTML_Engine.getBuilding.info("administration");
+		html += HTML_Engine.upgradeBuilding.content("administration", (parseInt(game.player.buildings["administration"].level) + 1));
+		html += "<div class='heading'> The number of free people:";
+		html += HTML_Engine.displayResources.content({
+			resources: {
+				"people" : nr_of_free_units 				
+			},
+		}) + "</div>";
+		html += "<div class='heading'> Daily income from free people: " + 
+								HTML_Engine.displayResources.content({
+										resources: {
+										"gold" : nr_of_free_units * 0.1, /* TODO @George real resources */
+									}
+								}) + "</div>";	
+		return html;
+	},
+	enable: function(){
+		HTML_Engine.upgradeBuilding.enable("administration");
+		// TODO @George
+	},
+	disable: function(){
+		HTML_Engine.upgradeBuilding.disable("administration");
+		// TODO @George
+	}	
+};
+
+/**
+ * The military building
+ */
+HTML_Engine.inside_military = {
 		
 	/**
 	 * It generates the content for the military building
 	 */
 	content: function(){
-	
-		var nr_of_active_units = game.player.buildings.military.people; 
-	
-		var html = "";
+		var nr_of_active_units = game.player.buildings.military.people,	
+			html = "";
+		
 		html += HTML_Engine.getBuilding.info("military");
+		html += HTML_Engine.upgradeBuilding.content("military", (parseInt(game.player.buildings["administration"].level) + 1));
 		html += "<div class='heading'> The number of active units:";
 		html += HTML_Engine.displayResources.content({
 			resources: {
@@ -572,21 +521,19 @@ HTML_Engine.insideMilitary = {
 				button: "Reduce units!",
 				id: "military_untrain"
 			});	
-		}
-		
-		
-	
-		
+		}		
 		return html;
 	},
 	/**
 	 * It enables the functionality for the military building
 	 */
 	enable: function(){
-
 		var nr_of_active_units = game.player.buildings.military.people; 
+
+
+		HTML_Engine.upgradeBuilding.enable("military");
 		
-		/**
+		/*
 		 * It creates the chooser to let the user to choose how many utits to create
 		 */
 		HTML_Engine.chooser.enable({
@@ -617,7 +564,7 @@ HTML_Engine.insideMilitary = {
 		
 
 		if(nr_of_active_units !== 0){
-			/**
+			/*
 			 * It creates the chooser to let the user to choose how many utits to create
 			 */
 			HTML_Engine.chooser.enable({
@@ -645,7 +592,7 @@ HTML_Engine.insideMilitary = {
 		}
 	},
 	/**
-	 * It calls the disable methods of the military choosers
+	 * It disable the functionality for military building
 	 */
 	disable: function(){	
 		HTML_Engine.chooser.disable({
@@ -654,52 +601,138 @@ HTML_Engine.insideMilitary = {
 		HTML_Engine.chooser.disable({
 			id: "military_untrain"
 		});
+		HTML_Engine.upgradeBuilding.disable("military");
 	}
 };
 
+/**
+ * It returns html information regarding the building
+ */
+HTML_Engine.getBuilding = {
+	/**
+	 *  It returns the name of the building (special names for house or administration)
+	 *  @param (string) name The name of the building
+	 *  @param (number) level The level of the building
+	 *  @return (string) The name of the building capitalized
+	 */
+	name: function(name, level){
+		var name = name?name:"";
+		if(name === "house"){
+			name = game.getOrganizationInformationByLevel("house", level);
+		} else if(name === "administration"){
+			name = game.getOrganizationInformationByLevel("administration", level);
+		}		
+		return name.capitalize();
+	},
+	/**
+	 * It returns the image of the building. Note: the administration building has 6 different images according to the level of the city
+	 *  @param (string) name The name of the building
+	 *  @param (number) level The level of the building
+	 *  @param (number) dim The dimension for height and width of the image 
+	 *  @return (string) The image of the building
+	 */
+	image: function(name, level, dim){
+		
+		var name	= HTML_Engine.getBuilding.name(name, level);
+		
+		var title 	= "";
+					
+		if(name === "administration"){
+			title = game.getOrganizationInformationByLevel("administration", level);
+		}
+		
+		if(title){
+			name += "-" + title;
+		}
 
+		var src = name.replaceAll(" ", "_");
+		
+		return "<img align='absmiddle' width='" + dim + "px' height='" + dim + "px' src='/static/img/game/buildings/"+src+".png' />";
+	},
+	/**
+	 * It returns the description of the building
+	 * @param (string) name The name of the building
+	 * @return (string) The description of the building
+	 */
+	description: function(name){
+		switch(name.toLowerCase()){
+			case "mine": 		return "Your brave workers can bring you stone. This building increases the level of stone which is so needed for you";
+			case "storage": 	return "This building keeps some of your resources safe, in case of an attack.";
+			default: 			return "This building has no description yet :( (@Joe)";
+		}
+	},
+	/**
+	 * It returs a general info regarding the building. It includes the image and the description of the building
+	 * @param (string) building The name of the building
+	 * @return (string) A general info about the building
+	 */
+	info: function(building) {
+		return HTML_Engine.getBuilding.image(building, game.player.level, 60) +
+		"&nbsp;&nbsp;<span class='bold'>" + HTML_Engine.getBuilding.name(building, game.player.level) + "</span> "+
+		"<div class='chooser'>"+ HTML_Engine.getBuilding.description(building) + "</div>";
+	}
+}
+
+HTML_Engine.buildingUnderConstruction = {
+	content: function(){
+		// image from http://www.iconarchive.com/show/construction-icons-by-proycontec/document-construction-icon.html
+		return "This building is under construction. <br /> <div class='center'><img src='/static/img/game/buildings/building_construction.png' /></div>";
+	}
+}
+
+/**
+ * HTML content for the upgrading a building
+ */
+HTML_Engine.upgradeBuilding = {
+
+	/**
+	 * It shows the upgrading panel or a message if the upgrading building is being performed
+	 * @param (string) building_name The name of the building
+	 * @return (string) A string which shows the building is under upgrading or a panel to upgrade the building
+	 */
+	content: function(building_name, next_level){
+		if(game.player.buildings[building_name].status === 'upgrading'){
+			return "Your workers are upgrading this building...";
+		} else {			
+			var data = game.getBuildingDataByName(building_name);
+			if(!data.maxLevel || (next_level <= data.maxLevel)){
+				// image from http://www.iconarchive.com/show/orb-icons-by-taytel/arrow-up-icon.html
+				return "<div class='board_list hover chooser' id='upgrade_building'>" +
+						HTML_Engine.table.content([["Upgrade to level <span class='bold'>" + next_level + "</span> <br />"  + HTML_Engine.displayResources.content(game.resources.getNecessaryForBuilding(building_name, next_level)),"<img src='/static/img/game/buildings/upgrade.png' align='right' />"]], false) +
+						"</div>";
+			}
+		}
+	},
+	/**
+	 * It enables the panel
+	 */
+	enable: function(){
+		$("#upgrade_building").click(function(){
+			// @George
+		});
+	},
+	/**
+	 * It disables the panel
+	 */
+	disable: function(){
+		$("#upgrade_building").off();
+	}
+};
+	
+/* ------------------------------ World Map  ------------------------------ */
 
 
 /**
- * The administration building
+ * It returns the HTML code when the world map was chosen
  */
-HTML_Engine.insideAdministration = {
-		
+HTML_Engine.worldMapSelected = {
 	/**
-	 * It generates the content for the administration building
+	 * It returns the string
 	 */
 	content: function(){
-	
-		var nr_of_free_units = game.player.buildings.administration.people; 
-	
-		var html = "";
-		html += HTML_Engine.getBuilding.info("administration");
-		html += "<div class='heading'> The number of free people:";
-		html += HTML_Engine.displayResources.content({
-			resources: {
-				"people" : nr_of_free_units 				
-			},
-		}) + "</div>";
-		html += "<div class='heading'> Daily income from free people: " + 
-								HTML_Engine.displayResources.content({
-										resources: {
-										"gold" : nr_of_free_units * 0.1, /* TODO @George real resources */
-									}
-								}) + "</div>";
-	
-		
-		return html;
-	},
-	enable: function(){
-
-	},
-	disable: function(){	
+		return "<img align='middle' src='http://clipart.nicubunu.ro/png/events/graduation03.svg.png' /> <div>Hmmm... It seems you can see the world map. It contains the other cities. Click on a city to see the options.</div>";
 	}
-};
-	
-	
-/* ------------------------------ World Map  ------------------ */
-
+}
 
 
 HTML_Engine.selectCity = {
@@ -711,7 +744,7 @@ HTML_Engine.selectCity = {
 			 	["Name of city:", city.name ],
 			 	["Player:", city.player],
 			 	["Level:", city.level]
-			 ]
+			 ], true
 		);				
 		
 		html += "<br /><br />" +
@@ -897,5 +930,19 @@ HTML_Engine.trade = {
 	disable: function(){
 	}
 };
+
+//It is an example of a dynamic action with arguments
+/**
+ * It displays a message
+ */
+HTML_Engine.seeMessage = {
+		/**
+		 * It displays the content of the message
+		 * @param args The object which contain information regarding the message ('id' and 'content')
+		 */
+		content: function(args){
+			return "This is the message nr <b>"+args.id+"<b>:<br/ ><i>"+args.content+'</i>. ';
+		}
+}
 
 	

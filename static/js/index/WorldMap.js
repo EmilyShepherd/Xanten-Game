@@ -117,7 +117,6 @@
 			y							= startY;;
 			
 		if(path.length%2 === 0){
-			console.log(path.length+"l")
 			lines.push(startX);
 			lines.push(startY);
 		}
@@ -152,8 +151,6 @@
 			y = path[i][1];
 		}
 		
-
-		console.log(lines)
 				
 		line.graphics.endStroke();
 		

@@ -20,6 +20,7 @@
  */
 function Action(name, HTML_Engine_Reference, beforeRemove, serverCall){	
 	this.name				   = name;
+	this.instance			   = this;
 	this.HTML_Engine_Reference = HTML_Engine_Reference;
 	this.beforeRemove          = beforeRemove;
 	this.args                  = undefined;
@@ -38,7 +39,7 @@ Action.prototype.update = function(){
  * If the action needs an AJAX request it does it. Then it calls the call back and updates the HTML. If it does not need an AJAX request, it just updates the HTML
  */
 Action.prototype.perform = function(){
-
+	var instance = this;
 	$("#action_window div.before_window").html(this.name);
 	var instance   = this;
 	if(this.serverCall){

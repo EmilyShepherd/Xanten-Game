@@ -29,7 +29,7 @@ var CityMap = function(array){
 		}
 		else if($(this.HTML_element+" #cel_"+x+"_"+y+" img").hasClass('hasAction')){
 			var building = $(this.HTML_element+" #cel_"+x+"_"+y+" img").attr("name_of_building");
-			game.performAction('inside_'+building);
+			game.performAction('inside_building', {name: building});
 			this.selectImage(x, y);
 		}else {
 			game.performAction('city-map-selected', null);

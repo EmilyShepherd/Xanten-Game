@@ -207,7 +207,7 @@ Game.prototype.performAction = function(name, args){
 	if(game.currentAction){
 		game.currentAction.remove();		// execute the code before it is gone
 	}
-	var action = game.actions[name];
+	var action = game.actions[name](args);
 	action.args = args;
 	game.currentAction = action; 
 	action.perform();
@@ -230,21 +230,22 @@ Game.prototype.removeCurrentAction = function(){
  */
 Game.prototype.loadActions = function() {
 	game.actions = {
-			"available_buildings" 		: new Action("Create a building", HTML_Engine.getAvailableBuildings, function(){game.currentMap.deselect();} ),
-			"selectCity" 				: new Action("Actions city", HTML_Engine.selectCity, function(){game.worldMap.deselect();} ),
-			"sendMessage" 				: new Action("Send Message", HTML_Engine.sendMessage, function(){game.worldMap.deselect();} ),
-			"tradeResources" 			: new Action("Trade resources", HTML_Engine.trade, function(){game.worldMap.deselect();} ),
-			"attackCity" 				: new Action("Starting the attack", HTML_Engine.attackCity, undefined ),
-			"city-map-selected" 		: new Action("Your city", HTML_Engine.cityMapSelected, undefined),
-			"world-map-selected" 		: new Action("World map", HTML_Engine.worldMapSelected, undefined, {
+			"available_buildings" 		: function(args){ return new Action("Create a building", HTML_Engine.getAvailableBuildings, function(){game.currentMap.deselect();} ); },
+			"selectCity" 				: function(args){ return new Action("Actions city", HTML_Engine.selectCity, function(){game.worldMap.deselect();} ); console.log("da");},
+			"sendMessage" 				: function(args){ return new Action("Send Message", HTML_Engine.sendMessage, function(){game.worldMap.deselect();} ); },
+			"tradeResources" 			: function(args){ return new Action("Trade resources", HTML_Engine.trade, function(){game.worldMap.deselect();} ); },
+			"attackCity" 				: function(args){ return new Action("Starting the attack", HTML_Engine.attackCity, undefined ); },
+			"city-map-selected" 		: function(args){ return new Action("Your city", HTML_Engine.cityMapSelected, undefined); },
+			"world-map-selected" 		: function(args){ return new Action("World map", HTML_Engine.worldMapSelected, undefined, {
 																				"url":"/game/", /* should be the address of the world map*/
 																				"cb":function(information){/*change world map*/game.worldMap.render();}
-																				}),
-			"no_action" 				: new Action("No action", HTML_Engine.noAction, undefined  ),
-			"start_task"				: new Action("Actions", HTML_Engine.loadAction, undefined),
-			"clear"						: new Action("Actions", "", undefined),
-			"inside_military"			: new Action("Military", HTML_Engine.insideMilitary, function(){game.currentMap.deselect();}  ),
-			"inside_administration"		: new Action(function(){ return HTML_Engine.getBuilding.name("administration", game.player.level)}, HTML_Engine.insideAdministration, function(){game.currentMap.deselect();}  )
+																				}); },
+			"no_action" 				: function(args){ return new Action("No action", HTML_Engine.noAction, undefined  ); },
+			"start_task"				: function(args){ return new Action("Actions", HTML_Engine.loadAction, undefined); },
+			"clear"						: function(args){ return new Action("Actions", "", undefined); },
+			"inside_building"			: function(args){ return new Action(HTML_Engine.getBuilding.name(args.name, game.player.level),
+													(function() { var name = args.name; if(game.player.buildings[name].status === 'under_construction'){ return HTML_Engine.buildingUnderConstruction; } else { return HTML_Engine["inside_"+args.name];} })(),
+													function(){game.currentMap.deselect();}  )}
 	};	
 };
 

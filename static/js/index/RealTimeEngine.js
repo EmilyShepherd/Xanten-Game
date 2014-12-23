@@ -141,8 +141,8 @@ RealTimeEngine.prototype.sendMessage = function(message, player_id){
 	return {
 		sent_from: game.player.id,
 		content: message,
-		id: player_id
-		date: new Date();
+		id: player_id,
+		date: new Date()
 	}
 };
 

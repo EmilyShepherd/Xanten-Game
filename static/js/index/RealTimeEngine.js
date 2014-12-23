@@ -10,21 +10,21 @@
 
 /**
  * It makes the game alive
- * 
+ *
  */
 function RealTimeEngine(){
 	this.isRunning 	= false;
 	this.threads 	= {};
 	this.websocket  = undefined;
-	
+
 	this.init();
 }
 
 
 /**
- * It loads the WebSocket framework and assign the listeners for events (receive/send message, disasters and statistics) 
+ * It loads the WebSocket framework and assign the listeners for events (receive/send message, disasters and statistics)
  */
-RealTimeEngine.prototype.init = function(){	
+RealTimeEngine.prototype.init = function(){
     // this.channel   = new goog.appengine.Channel('{{ channel_id }}');
 };
 
@@ -32,52 +32,52 @@ RealTimeEngine.prototype.init = function(){
  * It stats the thread for resources, starts the channel for websocket and assigns the listeners
  */
 RealTimeEngine.prototype.run = function(){
-	
+
 	var instance = this;
-	
+
 	if(this.isRunning){
 		alert('RealTimeEngine is already running');
 		return;
 	}
-	
+
 	this.isRunning = true;
-	
+
 	/*
-	 * 
+	 *
 	this.websocket = channel.open()
 
     this.websocket.onmessage = function(evt) {
     	instance.receiveMessage(evt);
     }
-    
+
     this.websocket.onstatistics = function(statistics) {
     	instance.receiveDailyStatistics(statistics);
     }
-    
+
     this.websocket.ongamestatus = function(status) {
     	instance.receiveGameStatus(status);
     }
-	
-	
-	
+
+
+
 	*/
-	
-	
+
+
 	instance._progress();
-	this.threads.resources = setInterval(instance._progress, 1000);	
+	this.threads.resources = setInterval(instance._progress, 1000);
 };
 
 /**
  * It stops the calculation of resources. It stops the connection with the websocket and removes the listeners
  */
 RealTimeEngine.prototype.stop = function(){
-	
-	this.isRunning = false; 
-	
+
+	this.isRunning = false;
+
 	clearInterval(this.threads.resources);
-	
-	this.websocket = this.channel.close();
-	
+
+	this.websocket = this.channel.close()
+
     this.websocket.onmessage    = undefined;
     this.websocket.onstatistics = undefined;
     this.websocket.ongamestatus = undefined;
@@ -88,35 +88,35 @@ RealTimeEngine.prototype.stop = function(){
  */
 RealTimeEngine.prototype._progress = function(){
 	// TODO @Cristian
-	
-	
+
+
 	/*
 	game.player.resources.food  += (game.player.buildings.dock.people * game.player.buildings.dock.level);
 	game.player.resources.food  += (game.player.buildings.grapevine.people * game.player.buildings.grapevine.level);
-	
-	game.player.resources.wood  += Math.round(0.3 * 
+
+	game.player.resources.wood  += Math.round(0.3 *
 								parseInt(game.player.buildings.lumberjack.num *
 								parseInt(game.player.buildings.lumberjack.people) *
 								parseInt(game.player.buildings.lumberjack.level) ));
-	
 
-	  * self.lumberjackLvl                         
-	  * self.peopleAtLumberjack                    
-	  * self.lumberjacks                           
+
+	  * self.lumberjackLvl
+	  * self.peopleAtLumberjack
+	  * self.lumberjacks
 	  * secs / 60.0
-	self.stone +=                                    
-	    (random.randrange(1, 19) / 10.0) * 0.3     
-	  * self.mineLvl                               
-	  * self.peopleAtMine                          
-	  * self.mines                                 
+	self.stone +=
+	    (random.randrange(1, 19) / 10.0) * 0.3
+	  * self.mineLvl
+	  * self.peopleAtMine
+	  * self.mines
 	  * secs / 60.0
-	self.gold +=                                     
-	    (random.randrange(1, 19) / 10.0) * 0.3     
-	  * self.mineLvl                               
-	  * self.peopleAtMine                          
-	  * self.goldMines                             
+	self.gold +=
+	    (random.randrange(1, 19) / 10.0) * 0.3
+	  * self.mineLvl
+	  * self.peopleAtMine
+	  * self.goldMines
 	  * secs / 60.0
-  
+
 	game.player.resources.stone -= 276;
 	game.player.resources.food 	+= 132;
 	game.player.resources.wood 	+= 2;
@@ -132,6 +132,18 @@ RealTimeEngine.prototype._progress = function(){
  */
 RealTimeEngine.prototype.sendMessage = function(message, player_id){
 	// TODO @Joe
+	// Censor obscenities
+	message = message.replace(/[A-Z]*(bastard|bitch|cock|cunt|dick|faggot|fuck|nigger|pussies|pussy|rape|shit|slut)[A-Z]*/ig, function(match) {
+		var returnstring = "";
+		for (var i=0; i < match.length; i++){returnstring += '*';}
+		return returnstring;
+	});
+	return {
+		sent_from: game.player.id,
+		content: message,
+		id: player_id
+		date: new Date();
+	}
 };
 
 
@@ -149,7 +161,7 @@ RealTimeEngine.prototype.receiveMessage = function(message){
  * @param string message An object which contain all the information regarding the message ("sent_from", "content", "id", "date")
  */
 RealTimeEngine.prototype.receiveAttack = function(message){
-	// TODO @Joe 
+	// TODO @Joe
 };
 
 
@@ -158,7 +170,7 @@ RealTimeEngine.prototype.receiveAttack = function(message){
  * @param string id_city The id of the city which is attacked
  */
 RealTimeEngine.prototype.performAttack = function(id_city){
-	// TODO @Cristian 
+	// TODO @Cristian
 };
 
 /**
@@ -166,7 +178,7 @@ RealTimeEngine.prototype.performAttack = function(id_city){
  * @param object statistics The statistics for a day (people, gold, disasters)
  */
 RealTimeEngine.prototype.receiveDailyStatistics = function(statistics){
-	// TODO @Cristian 
+	// TODO @Cristian
 };
 
 /**
@@ -174,5 +186,5 @@ RealTimeEngine.prototype.receiveDailyStatistics = function(statistics){
  * @param object status It contains the status of the game.
  */
 RealTimeEngine.prototype.receiveGameStatus = function(status){
-	// TODO @Cristian 
+	// TODO @Cristian
 };

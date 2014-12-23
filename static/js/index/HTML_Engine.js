@@ -562,7 +562,7 @@ HTML_Engine.insideMilitary = {
 		});	
 		if(nr_of_active_units !== 0){
 			html += HTML_Engine.chooser.content({
-				info: "You can reduce the cost of military by reducing the number of military people. Unfortunately this does not give back the resources.",
+				info: "You can reduce the cost of military by reducing the number of military people. Unfortuntly this does not give back the resources.",
 				values: [
 							{
 								title: "Reduce military units",
@@ -680,18 +680,12 @@ HTML_Engine.insideAdministration = {
 				"people" : nr_of_free_units 				
 			},
 		}) + "</div>";
-		html += "<div class='heading'> Daily income from free people: " 
-		html += HTML_Engine.displayResources.content({
-				resources: {
-				"gold" : nr_of_free_units * 0.1, /* TODO @George real resources */
-			}
-		}) + "</div>";
-		html += "<div class='heading'> Daily immigration rate: " 
-		html += HTML_Engine.displayResources.content({
-				resources: {
-				"people" : nr_of_free_units * 0.1, /* TODO @George real resources */
-			}
-		}) + "</div>";
+		html += "<div class='heading'> Daily income from free people: " + 
+								HTML_Engine.displayResources.content({
+										resources: {
+										"gold" : nr_of_free_units * 0.1, /* TODO @George real resources */
+									}
+								}) + "</div>";
 	
 		
 		return html;

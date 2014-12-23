@@ -376,8 +376,8 @@ HTML_Engine.getAvailableBuildings = {
 					
 				var resources = game.resources.getNecessaryForBuilding(building, 1);
 				
-				text += "<div class='board_list hover' id='action_build_" + building + "' >" +
-						"<input type='hidden' name='building_id' ='" + building + "' />" +
+				text += "<div class='board_list hover' building_name='" + building + "' id='action_build_" + building + "' >" +
+					
 						HTML_Engine.getBuilding.info(building);
 						
 									
@@ -398,8 +398,12 @@ HTML_Engine.getAvailableBuildings = {
 			game.removeCurrentAction();
 			
 			var data			= $(this).serialize();
-			var building_name 	= "";
+
+			var building_name = $(this).attr("building_name");
 			
+			alert("George, you want to upgrade the building "+building_name);
+			
+			return;
 			
 			new Task(data, 
 					'Create building <span class="bold">' + building_name + '</span>',

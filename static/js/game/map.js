@@ -252,8 +252,8 @@
 			x = 0;
 			y++;
 		}
-		x = 0
-		y = 0
+		x = 0;
+		y = 0;
 		while (y < 7) {
 			while (x < 7) {
 				if (check(y, x) === "ob-sw") {
@@ -377,7 +377,7 @@
 					if (check(y,x-1) === "g" && Math.random() < FOREST_EXPAND) imgArray[y][x-1] = "t1";
 					if (check(y,x+1) === "g" && Math.random() < FOREST_EXPAND) imgArray[y][x+1] = "t1";
 				}
-				if (check(y, x) === "g" && Math.random() < ROCK_SEED) imgArray[y][x] = "m".concat(Math.round(Math.random());
+				if (check(y, x) === "g" && Math.random() < ROCK_SEED) imgArray[y][x] = "m".concat(Math.round(Math.random()));
 				x++;
 			}
 			x = 0;

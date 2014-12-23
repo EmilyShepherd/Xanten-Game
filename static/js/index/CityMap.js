@@ -53,6 +53,7 @@ var CityMap = function(array){
 						var building = game.data.city_map_buildings[this.array[(i-1)][(j-1)].id_construction],
 							img		 = building.name;
 						
+						// free commercial image from https://openclipart.org/detail/149155/old-mine-by-chrisdesign
 						if(game.player.buildings[building.name].status === 'under_construction'){
 							img = "construction";
 						}

@@ -180,11 +180,19 @@
 	
 	map.removePath = function(id){
 		var p =game.worldMap.canvas.paths[id];
+		p.circle.removeAllEventListeners();
 		this.canvas.stage.removeChild(p.line)		
 		this.canvas.stage.removeChild(p.circle)		
 		this.canvas.stage.update();
 		delete this.canvas.paths[id];
 	};
+	
+	map._freeze = function(){
+		for(path in this.canvas.paths){
+			this.removePath(this.canvas.paths[path].id);
+		}
+		createjs.Ticker.removeAllEventListeners();
+	}
 	
 	map.renderTrades = function(){
 	

@@ -339,6 +339,19 @@ HTML_Engine.chooser = {
 	}
 };
 
+/**
+ * It returns the HTML code when the game is over
+ */
+HTML_Engine.gameOver = {
+	/**
+	 * It returns the string when the game is over
+	 * @return (string) Returns a message when the game is over
+	 */
+	content: function(){
+		return "The game is over";
+	}
+}
+
 /* ------------------------------ City Map  ------------------------------ */
 
 /**

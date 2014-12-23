@@ -49,6 +49,18 @@ XantenMap.prototype.deselect = function(){
  * @param x The x coordinate of the map
  * @param y The y coordinate of the map
  */
+XantenMap.prototype.freeze = function(){
+	this.selectCell = function(){};
+	if(this._freeze){
+		this._freeze();
+	}
+};
+
+/**
+ * It selects an image from the map
+ * @param x The x coordinate of the map
+ * @param y The y coordinate of the map
+ */
 XantenMap.prototype.selectImage = function(x, y){
 	$($(this.HTML_element+" #cel_"+x+"_"+y).find("img")).addClass('selected');
 };

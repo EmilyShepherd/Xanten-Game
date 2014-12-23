@@ -35,7 +35,7 @@ var CityMap = function(array){
 			game.performAction('city-map-selected', null);
 		}
 	};
-	
+		
 	/**
 	 * It renders the information of the array in the images
 	 */

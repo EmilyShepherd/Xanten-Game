@@ -329,8 +329,6 @@ Game.prototype.getBuildingDataByName = function(name){
 	console.log('Nu exista '+name)
 };
 
-<<<<<<< HEAD
-=======
 /**
  * It stops everything. Need to refresh the page in order to re-start the game
  */
@@ -343,18 +341,6 @@ Game.prototype.freeze = function(){
 	game.performAction('game_over');	
 }
 
-
-Game.prototype.performTask= function(name, args){
-	
-	// TODO - @George register the task with progressbars 
-		
-	game.performAction("start_task");
-	
-	// TODO @George uncomment the next line when you have done the task id
-	// game.currentTasks.push(game.tasks[name](args).id); 
-};
-
->>>>>>> origin/master
 /**
  * It loads the list of the actions for the game
  * @see Action

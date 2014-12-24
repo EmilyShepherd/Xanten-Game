@@ -57,12 +57,7 @@ RealTimeEngine.prototype.run = function(){
     this.websocket.ongamestatus = function(status) {
     	instance.receiveGameStatus(status);
     }
-
-
-
-	*/
-
-
+    */
 	instance._progress();
 	this.threads.resources = setInterval(instance._progress, 1000);
 };
@@ -70,17 +65,17 @@ RealTimeEngine.prototype.run = function(){
 /**
  * It stops the calculation of resources. It stops the connection with the websocket and removes the listeners
  */
-RealTimeEngine.prototype.stop = function(){
+RealTimeEngine.prototype.freeze = function(){
 
 	this.isRunning = false;
 
 	clearInterval(this.threads.resources);
 
-	this.websocket = this.channel.close()
+	// this.websocket = this.channel.close()
 
-    this.websocket.onmessage    = undefined;
-    this.websocket.onstatistics = undefined;
-    this.websocket.ongamestatus = undefined;
+    // this.websocket.onmessage    = undefined;
+    // this.websocket.onstatistics = undefined;
+    // this.websocket.ongamestatus = undefined;
 };
 
 /**

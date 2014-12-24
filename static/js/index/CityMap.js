@@ -35,7 +35,7 @@ var CityMap = function(array){
 			game.performAction('city-map-selected', null);
 		}
 	};
-	
+		
 	/**
 	 * It renders the information of the array in the images
 	 */
@@ -50,8 +50,15 @@ var CityMap = function(array){
 						cell.addClass("allow_construction");	
 					}
 					else if(this.array[(i-1)][(j-1)].type_construction === "building") {
-						var building = game.data.city_map_buildings[this.array[(i-1)][(j-1)].id_construction];
-						cell.html(HTML_Engine.getBuilding.image(building.name+"", game.player.level,98) + "<span class='level'>"+game.player.buildings[building.name.toLowerCase()].level+"</span>");
+						var building = game.data.city_map_buildings[this.array[(i-1)][(j-1)].id_construction],
+							img		 = building.name;
+						
+						// free commercial image from https://openclipart.org/detail/149155/old-mine-by-chrisdesign
+						if(game.player.buildings[building.name].status === 'under_construction'){
+							img = "construction";
+						}
+						cell.html(HTML_Engine.getBuilding.image(img, game.player.level,98) + "<span class='level'>"+game.player.buildings[building.name.toLowerCase()].level+"</span>");
+						
 						$(this.HTML_element+" #cel_"+i+"_"+j+" img").addClass('hasAction');	
 						$(this.HTML_element+" #cel_"+i+"_"+j+" img").attr({"name_of_building": building.name.toLowerCase()});	
 						$(this.HTML_element+" #cel_"+i+"_"+j+" img").attr({"title": building.name.capitalize()});	

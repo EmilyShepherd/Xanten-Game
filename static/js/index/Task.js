@@ -24,8 +24,8 @@ function Task(information, title, serverDetails, afterConfirmation, beforeStarti
 	
 	this.title        		= title;
 	this.information 		= information;
-	this.response		= null;
-	this.serverDetails	= serverDetails;
+	this.response			= null;
+	this.serverDetails		= serverDetails;
 	
 	/*
 	 * If there is exists an override of the method, call it after it calls the default
@@ -33,8 +33,8 @@ function Task(information, title, serverDetails, afterConfirmation, beforeStarti
 	 */
 	this.afterEnds         		= ((afterEnds)?function(){instance._afterEnds();instance.afterEnds(instance);}:this._afterEnds());
 	this.beforeStarting    		= ((beforeStarting)?function(){instance._beforeStarting();instance.beforeStarting(instance);}:this._beforeStarting());
-	this.duringPerforming  	= ((duringPerforming)?function(){instance._duringPerforming();instance.duringPerforming(instance);}:this._duringPerforming());
-	this.afterConfirmation 	= ((afterConfirmation)?function(){instance._afterConfirmation();instance.afterConfirmation(instance);}:this._afterConfirmation());
+	this.duringPerforming  		= ((duringPerforming)?function(){instance._duringPerforming();instance.duringPerforming(instance);}:this._duringPerforming());
+	this.afterConfirmation 		= ((afterConfirmation)?function(){instance._afterConfirmation();instance.afterConfirmation(instance);}:this._afterConfirmation());
 
 	// starts
 	this._activate();

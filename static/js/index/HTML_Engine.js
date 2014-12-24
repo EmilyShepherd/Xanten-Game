@@ -339,6 +339,19 @@ HTML_Engine.chooser = {
 	}
 };
 
+/**
+ * It returns the HTML code when the game is over
+ */
+HTML_Engine.gameOver = {
+	/**
+	 * It returns the string when the game is over
+	 * @return (string) Returns a message when the game is over
+	 */
+	content: function(){
+		return "The game is over";
+	}
+}
+
 /* ------------------------------ City Map  ------------------------------ */
 
 /**
@@ -367,24 +380,16 @@ HTML_Engine.getAvailableBuildings = {
 		var text = "Buildings available to build there: <br />";
 		
 		for(building in game.player.buildings){
-
 			var data = game.getBuildingDataByName(building)
 			var b_obj = game.player.buildings[building];
 		
 			if(	(!data.maxLevel || (data.maxLevel && b_obj.level <= data.maxLevel)) && 
-				 (!data.maxNumber || (data.maxNumber &&  b_obj.num <= data.maxNumber )) ){
-					
-				var resources = game.resources.getNecessaryForBuilding(building, 1);
-				
+				 (!data.maxNumber || (data.maxNumber &&  b_obj.num <= data.maxNumber )) ){					
+				var resources = game.resources.getNecessaryForBuilding(building, 1);				
 				text += "<div class='board_list hover' building_name='" + building + "' id='action_build_" + building + "' >" +
-					
-						HTML_Engine.getBuilding.info(building);
-						
-									
-				text += HTML_Engine.displayResources.content(resources);
-					
-				text += "</div><br />";
-			
+						HTML_Engine.getBuilding.info(building);								
+				text += HTML_Engine.displayResources.content(resources);					
+				text += "</div><br />";			
 			}
 		}
 		return text;

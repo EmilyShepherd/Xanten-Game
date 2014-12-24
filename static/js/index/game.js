@@ -240,6 +240,7 @@ Game.prototype.removeCurrentAction = function(){
  */
 Game.prototype.loadActions = function() {
 	game.actions = {
+			"game_over"			 		: function(args){ return new Action("Actions", HTML_Engine.gameOver, function(){game.currentMap.deselect();} ); },
 			"available_buildings" 		: function(args){ return new Action("Create a building", HTML_Engine.getAvailableBuildings, function(){game.currentMap.deselect();} ); },
 			"selectCity" 				: function(args){ return new Action("Actions city", HTML_Engine.selectCity, function(){game.worldMap.deselect();} ); console.log("da");},
 			"sendMessage" 				: function(args){ return new Action("Send Message", HTML_Engine.sendMessage, function(){game.worldMap.deselect();} ); },
@@ -328,6 +329,32 @@ Game.prototype.getBuildingDataByName = function(name){
 	console.log('Nu exista '+name)
 };
 
+<<<<<<< HEAD
+=======
+/**
+ * It stops everything. Need to refresh the page in order to re-start the game
+ */
+Game.prototype.freeze = function(){
+	game.RTE.freeze();
+	game.worldMap.freeze();
+	game.cityMap.freeze();
+	// freeze all tasks
+	// @George	
+	game.performAction('game_over');	
+}
+
+
+Game.prototype.performTask= function(name, args){
+	
+	// TODO - @George register the task with progressbars 
+		
+	game.performAction("start_task");
+	
+	// TODO @George uncomment the next line when you have done the task id
+	// game.currentTasks.push(game.tasks[name](args).id); 
+};
+
+>>>>>>> origin/master
 /**
  * It loads the list of the actions for the game
  * @see Action

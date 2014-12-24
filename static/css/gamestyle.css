@@ -378,7 +378,7 @@ body {
 /* Progress Bar */
 
 .ui-progressbar {
-    position: relative;
+	position: relative;
   }
 
 /*.progressbar {
@@ -390,11 +390,12 @@ body {
 }*/
 
 .progress-label {
-    float: left;
+    left: 50%;
+	top: 4px;
     width: 100%;
     height: 100%;
     position: absolute;
     vertical-align: middle;
-    color: white;
+    color: black;
     font-weight: bold;
 }

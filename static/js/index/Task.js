@@ -17,15 +17,16 @@
  * @param function duringPerforming A function to be executed during the execution of task
  * @param function afterEnds A function to be executed after the task is completed
  */
-function Task(information, title, serverDetails, afterConfirmation, beforeStarting, duringPerforming, afterEnds){
+function Task(information, title, serverDetails, afterConfirmation, beforeStarting, duringPerforming, afterEnds, imgSource){
 	
 	// we need for the lambda functions
 	var instance = this;
 	
 	this.title        		= title;
 	this.information 		= information;
-	this.response			= null;
-	this.serverDetails		= serverDetails;
+	this.response		= null;
+	this.serverDetails	= serverDetails;
+	this.imgSource 		= imgSource;
 	
 	/*
 	 * If there is exists an override of the method, call it after it calls the default

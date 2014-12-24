@@ -404,6 +404,7 @@ HTML_Engine.getAvailableBuildings = {
 			
 			var data			= $(this).serialize();
 			var building_name = $(this).attr("building_name");
+			var imageSource = $(this).children('img').attr("src");
 			
 			new Task(data, 
 					'Create building ' + building_name,
@@ -424,7 +425,8 @@ HTML_Engine.getAvailableBuildings = {
 						game.player.buildings.bulding_id.num++;
 						game.player.buildings.bulding_id.level = 1;
 						game.player.buildings.bulding_id.status = 'Done';
-					});
+					},
+					imageSource);
 		});
 	},	
 	/**

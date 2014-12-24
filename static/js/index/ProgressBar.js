@@ -18,7 +18,7 @@ function ProgressBar(task){
 	this.task = task;
 	this.id   = Math.floor((Math.random() * 10) + 1);//task.response.id;
 	
-	game.currentTasksBoard.add("<div id='progressbar_"+this.id+"'><div class='progress-label'>"+task.title+"</div></div>");
+	game.currentTasksBoard.add("<img width='25px' height='25px' src='"+task.imgSource+"'>   "+task.title+"<div id='progressbar_"+this.id+"'><div class='progress-label'></div></div>");
 	
 	var progressbar = $( "#progressbar_"+this.id ),
       progressLabel = $( "#progressbar_"+this.id ).find( ".progress-label" );
@@ -26,7 +26,7 @@ function ProgressBar(task){
     progressbar.progressbar({
 		value: false,
 		change: function() {
-			progressLabel.text( task.title + " " + progressbar.progressbar( "value" ) + "%" );
+			progressLabel.text( progressbar.progressbar( "value" ) + "%" );
 		},
 		complete: function() {
 			progressLabel.text( "Complete!" );

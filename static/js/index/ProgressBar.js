@@ -1,16 +1,11 @@
 /**
  * Represents performing task. It is a view object (MCV)
  *
- * @author Cristian Sima and ...
+ * @author Cristian Sima and George Salter
  * @version 30.11.2014
  */
 
-
-
-// TODO !!! This object is not ready. It does not work because you have to complete it
 // CAN BE COMPLETED ONCE SERVER GIVES RESPONSE
-
-
 
 
 /**
@@ -21,22 +16,48 @@
 function ProgressBar(task){
 	
 	this.task = task;
-	this.id   = 1//task.response.id;
+	this.id   = Math.floor((Math.random() * 10) + 1);//task.response.id;
 	
-	this.value = 0;
+	game.currentTasksBoard.add("<div id='progressbar_"+this.id+"'><div class='progress-label'>"+task.title+"</div></div>");
 	
-	// TODO something like this. search on google progress bar jquery or find something nice
-	game.currentTasksBoard.add("<div class='progress_bar' id='progress_bar_"+this.task.id+"'><div id='label'>"+task.title+"</div></div>");
-	this.HTML_element = $("#progress_bar_"+this.task.id);	
+	var progressbar = $( "#progressbar_"+this.id ),
+      progressLabel = $( "#progressbar_"+this.id ).find( ".progress-label" );
+ 
+    progressbar.progressbar({
+		value: false,
+		change: function() {
+			progressLabel.text( task.title + " " + progressbar.progressbar( "value" ) + "%" );
+		},
+		complete: function() {
+			progressLabel.text( "Complete!" );
+		}
+    });
+
+	var seconds = 20;
+	var step = seconds * 10;
+	
+	var progress = function() {
+		var val = progressbar.progressbar( "value" ) || 0;
+ 
+		progressbar.progressbar( "value", val + 1 );
+ 
+		if ( val < 99 ) {
+			setTimeout(progress, step);
+		}
+    };
+	
+	progress();
+	
+	/*this.HTML_element = $("#progress_bar_"+this.task.id);	
 	
 	this.HTML_element.progressbar({
 			value: false,
-	      change: task.progress,
-	      complete: task.afterEnds
+			change: task.progress,
+			complete: task.afterEnds
 	    });	
 	
 
-	this.HTML_element.html();
+	this.HTML_element.html();*/
 	
 	
 	// this.thread = setInterval(this.prototype, 100);
@@ -50,7 +71,7 @@ ProgressBar.prototype.finish = function() {
 	clearInterval(this.thread);
 	
 	task.afterEnds();
-	
+
 	
 	// TODO delete html
 	
@@ -64,13 +85,11 @@ ProgressBar.prototype.finish = function() {
  */
 ProgressBar.prototype.progress =   function () {
 	
-	// check it has the hights progress. if so it goes first in the list
+	// TODO check it has the hights progress. if so it goes first in the list
 	
-   	task.duringPerforming();
-	
-   	// increate the value
+   //	task.duringPerforming();
    	
-	if(this.value  >= 100){
+	if(val  >= 100){
 		this.finish();
 	}
 }

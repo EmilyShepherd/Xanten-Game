@@ -213,6 +213,16 @@ Game.prototype.performAction = function(name, args){
 	action.perform();
 }
 
+Game.prototype.performTask= function(name, args){
+	
+	// TODO - @George register the task with progressbars 
+		
+	game.performAction("start_task");
+	
+	// TODO @George uncomment the next line when you have done the task id
+	// game.currentTasks.push(game.tasks[name](args).id); 
+};
+
 /**
  * It removes the current action and clears the actions board
  */
@@ -316,17 +326,6 @@ Game.prototype.getBuildingDataByName = function(name){
 		}
 	}
 	console.log('Nu exista '+name)
-};
-
-
-Game.prototype.performTask= function(name, args){
-	
-	// TODO - @George register the task with progressbars 
-		
-	game.performAction("start_task");
-	
-	// TODO @George uncomment the next line when you have done the task id
-	// game.currentTasks.push(game.tasks[name](args).id); 
 };
 
 /**

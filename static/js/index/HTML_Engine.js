@@ -398,15 +398,10 @@ HTML_Engine.getAvailableBuildings = {
 			game.removeCurrentAction();
 			
 			var data			= $(this).serialize();
-
 			var building_name = $(this).attr("building_name");
 			
-			alert("George, you want to upgrade the building "+building_name);
-			
-			return;
-			
 			new Task(data, 
-					'Create building <span class="bold">' + building_name + '</span>',
+					'Create building ' + building_name,
 					{
 						"url": '/me/building/' + building_name  + '/build',
 						"type": 'GET'						
@@ -425,7 +420,7 @@ HTML_Engine.getAvailableBuildings = {
 						game.player.buildings.bulding_id.level = 1;
 						game.player.buildings.bulding_id.status = 'Done';
 					});
-			})
+		});
 	},	
 	/**
 	 * It removes all the listeners

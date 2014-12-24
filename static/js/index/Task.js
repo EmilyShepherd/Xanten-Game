@@ -61,17 +61,22 @@ Task.prototype._activate = function(){
 };
 
 /**
+ * @deprciated May not need this
  * It is the default function for duringPerforming. It just shows the progress of the 
  */
 Task.prototype._duringPerforming = function(){
-	 game.currentProgressTasks[this].progressLabel.text( this.name + game.currentProgressTasks[this].progressbar( "value" ) + "%" );
+	//var val = game.currentProgressTasks[this].value || 0;
+
+	//$("div #label").text( this.title + game.currentProgressTasks[this].value + "%" );
 }
 
 /**
  * It is the default function for beforeStarting. It creates the progress bar for this task
  */
 Task.prototype._beforeStarting = function(){
-	game.createProgressBar(this);
+	game.currentProgressTasks[this] = new ProgressBar(this);
+	
+	//game.performTask(NAME, ARGS);
 };
 
 /**

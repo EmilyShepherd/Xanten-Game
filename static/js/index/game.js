@@ -77,7 +77,12 @@ Game.prototype.init = function() {
 	this.cityMap.init();
 	this.worldMap.init();
 
-	this.selectMap(game.cityMap);
+	if(settings.developerMode){
+		this.selectMap(game[settings.defaultMap+"Map"]);
+	}
+	else {
+		this.selectMap(game.cityMap);		
+	}
 
 	// graphics part
 	this.render();
@@ -125,6 +130,9 @@ Game.prototype.init = function() {
 Game.prototype.start = function(){
 
 	this.loadCurrentTasks();
+	this.resources.updateStatistics();
+	this.resources.updateResources();
+	this.resources.updateDetailsCity();
 	this.RTE.run();
 };
 
@@ -165,6 +173,8 @@ Game.prototype.update = function() {
 	
 	// update the current action content
 	this.currentAction.update();
+	
+	this.resources.updateStatistics();
 };
 
 /**
@@ -328,6 +338,7 @@ Game.prototype.getBuildingDataByName = function(name){
 	}
 	console.log('Nu exista '+name)
 };
+
 
 /**
  * It stops everything. Need to refresh the page in order to re-start the game

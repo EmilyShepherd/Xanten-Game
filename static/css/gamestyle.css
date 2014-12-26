@@ -203,7 +203,7 @@ body {
 
 
 #top_board {
-	height: 110px;
+	height: 95px;
 	margin: 0px;
 	width: 100%;
 }
@@ -259,15 +259,18 @@ body {
 }
 
 #city_details #name {
-	top: 0px;
+	right: 240px;
+	top: 50px;
 }
 
 #city_details #level {
-	top: 30px;
+	right: 140px;
+	top: 50px;
 }
 
 #city_details #type {
-	top: 60px;
+	right: 60px;
+	top: 50px;
 }
 
 /* Maps */
@@ -314,17 +317,17 @@ body {
 }
 
 .map img {
+	z-index:3;
 	height: 98px;
 	width: 98px;
 	transition-duration: 0.5s;
 	position: relative;
 	top:0px;
-	z-index:2;
 	transition-timing-function: linear;
 }
 
 .map td .hasAction:hover {
-	z-index: 555555 !important;
+	z-index: 2 !important;
 	cursor: url("../img/cursor/hand_cursor.png"), auto;
 	-webkit-filter: sepia(1) drop-shadow(-12px 0px 17px rgba(255,255,5,0.7));
 	filter: url("data:image/svg+xml;utf8,<svg height='0' xmlns='http://www.w3.org/2000/svg'><filter id='drop-shadow'><feGaussianBlur in='SourceAlpha' stdDeviation='4'/><feOffset dx='12' dy='12' result='offsetblur'/><feFlood flood-color='rgba(0,0,0,0.5)'/><feComposite in2='offsetblur' operator='in'/><feMerge><feMergeNode/><feMergeNode in='SourceGraphic'/></feMerge></filter></svg>#drop-shadow");

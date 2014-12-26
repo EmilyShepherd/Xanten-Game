@@ -16,7 +16,8 @@ var thread_games,
  * This starts a default game and enters the game without the create/join promt
  */
 var settings = { 
-		"developerMode": true			// avoid the connection and effects
+		"developerMode": true,
+		"defaultMap": "world"// avoid the connection and effects
 	};
  
 $(document).ready(function() {
@@ -33,7 +34,11 @@ $(document).ready(function() {
 							name: "administration",
 							maxNumber: 1,
 							maxLevel: 50,
-							limit: null
+							limit: null,
+							capacity: function(level){
+									return {};
+									// TODO @George
+							}
 						},
 						2: {
 							name: "military",
@@ -41,7 +46,7 @@ $(document).ready(function() {
 							maxLevel: null,							
 							capacity: function(level){
 											return {
-												resources: {
+												"resources": {
 													"military": Math.floor(4^level)
 												}
 											}
@@ -54,10 +59,10 @@ $(document).ready(function() {
 							capacity: function(level){
 									return {
 										unit: "%",
-										resources: {
-											"food": 5*level,
-											"wood": 5*level, 
-											"stone": 5*level
+										"resources": {
+											"food": 	5 * level,
+											"wood": 	5 * level, 
+											"stone": 	5 * level
 										}
 									}
 							}
@@ -65,32 +70,75 @@ $(document).ready(function() {
 						4: {
 							name: "mill",
 							maxNumber: 1,
-							maxLevel: 10
+							maxLevel: 10,							
+							capacity: function(level){
+									return {
+										"resources": {
+											"food": game.player.buildings.mill.people  * level
+										}
+									}
+							}
 						},
 						5: {
 							name: "mine",
 							maxNumber: 1,
-							maxLevel: 10
+							maxLevel: 10,							
+							capacity: function(level){
+									return {
+										"resources": {
+											"stone": 0.5 * level * game.player.buildings.mine.num * game.player.buildings.mine.people
+										}
+									}
+							}
 						},
 						6: {
 							name: "house",
 							maxNumber: null,
-							maxLevel: null
+							maxLevel: null,							
+							capacity: function(level){
+								return {
+									"people": (1000 * 1.1^(game.player.level)) * game.player.buildings.house.num									
+								}
+							}
 						},
 						7: {
 							name: "trade",
-							maxNumber: null,
-							maxLevel: null
+							maxNumber: 10,
+							maxLevel: 1,
+							capacity: function(level){
+								return {
+									"resources": {
+										"gold": 	3 * 5^ level,
+										"wood": 	7 * 5^ level,
+										"food": 	5 * 5^ level,
+										"stone":  	8 * 5^ level
+									}
+								};
+							}
 						},
 						8: {
 							name: "lumberjack",
 							maxNumber: 1,
-							maxLevel: 10
+							maxLevel: 10,							
+							capacity: function(level){
+								return {
+									"resources": {
+										"wood": 0.3 * level * game.player.buildings.lumberjack.num * game.player.buildings.lumberjack.people
+									}
+								}
+							}
 						},
 						9: {
 							name: "farm",
 							maxNumber: 1,
-							maxLevel: 10
+							maxLevel: 10,							
+							capacity: function(level){
+								return {
+									"resources": {
+										"food": 0.3 * level * game.player.buildings.farm.num * game.player.buildings.farm.people
+									}
+								}
+							}
 						},
 					},
 					"city_map_elements": {
@@ -268,43 +316,6 @@ $(document).ready(function() {
 								},
 								{
 									"id_background": 1,
-									"type_construction": null,
-									"id_construction": null
-								},
-								{
-									"id_background": 1,
-									"type_construction": null,
-									"id_construction": null
-								},
-								{
-									"id_background": 1,
-									"type_construction": null,
-									"id_construction": null
-								},
-								{
-									"id_background": 1,
-									"type_construction": null,
-									"id_construction": null
-								},
-								{
-									"id_background": 1,
-									"type_construction": null,
-									"id_construction": null
-								}
-							],
-							[
-								{
-									"id_background": 1,
-									"type_construction": null,
-									"id_construction": null
-								},
-								{
-									"id_background": 1,
-									"type_construction": null,
-									"id_construction": null
-								},
-								{
-									"id_background": 1,
 									"type_construction": 'element',
 									"id_construction": 2
 								},
@@ -349,6 +360,43 @@ $(document).ready(function() {
 									"id_background": 1,
 									"type_construction": null,
 									"id_construction": null
+								},
+								{
+									"id_background": 1,
+									"type_construction": null,
+									"id_construction": null
+								},
+								{
+									"id_background": 1,
+									"type_construction": "building",
+									"id_construction": 4
+								},
+								{
+									"id_background": 1,
+									"type_construction": "building",
+									"id_construction": 5
+								}
+							],
+							[
+								{
+									"id_background": 1,
+									"type_construction": "building",
+									"id_construction": 6
+								},
+								{
+									"id_background": 1,
+									"type_construction": "building",
+									"id_construction": 7
+								},
+								{
+									"id_background": 1,
+									"type_construction": "building",
+									"id_construction": 8
+								},
+								{
+									"id_background": 1,
+									"type_construction": "building",
+									"id_construction": 9
 								},
 								{
 									"id_background": 1,
@@ -622,7 +670,7 @@ $(document).ready(function() {
 								1: {
 									name: "Fantomous",
 									player: "Aladin",
-									level: 4,
+									level: 7,
 												
 								},
 								2: {						
@@ -639,12 +687,10 @@ $(document).ready(function() {
 				},
 				militaryMovements: {
 						1: {
-								path: [[0, 0],
-								[0, 1],
-								[1, 2],
-								[1, 1],
-								[4, 2],
-								[2, 2]
+								path: [
+								       	[0, 1],
+										[0, 0],
+										[4, 5]
 								],
 								from: 1,
 								to: 1,
@@ -656,31 +702,68 @@ $(document).ready(function() {
 								},
 								time : 200
 							}
-						},
-						
-						2: {
-							path: [[3, 1],
-							[3, 0],
-							[2, 0],
-							[1, 0]],
-							to: 3,
-							from: 1,
-							resources: {
-								resources: {
-								"food": 100,
-								wood: 2220,
-								military: 100
-							},
-							time : 300
 						}
 					}
-					}
+					
 				
 			}
 
 		}
 	
-		, "player": {"id": 1, "level": 1, "resources": {"gold": 50.0, "stone": 200.0, "wood": 200.0, "food": 200.0},  "buildings": {"storage": {"level": 7, "num": 1}, "mine": {"level": 0, "num": 0, "people": 0}, "mill": {"level": 0, "num": 0, "people": 0}, "house": {"num": 1}, "trade": {"level":0, "people": 0, "num": 0}, "military": {"people": 2, "num": 1, "level": 1}, "lumberjack": {"level": 0, "num": 0, "people": 0}, "farm": {"people": 0, "num": 0, "level": 0}, "administration": {"level": 1, "num": 1, "people": 50}}, "position": 13}});
+		, "player": {
+			"id": 1, 
+			"level": 7, 
+			"resources": 
+				{	
+					"gold": 50.0, 
+					"stone": 200.0,
+					"wood": 200.0, 
+					"food": 200.0
+				},  
+			"buildings": {
+			"storage": {
+				"level": 7,
+				"num": 1
+			},
+			"mine": {
+				"level": 1,
+				"num": 1,
+				"people": 0
+			},
+			"mill": {
+				"level": 1,
+				"num": 1,
+				"people": 0
+			},
+			"house": {
+				"num": 1
+			},
+			"trade": {
+				"level": 1,
+				"people": 0,
+				"num": 1
+			},
+			"military": {
+				"people": 0,
+				"num": 1,
+				"level": 1
+			},
+			"lumberjack": {
+				"level": 1,
+				"num": 1,
+				"people": 0
+			},
+			"farm": {
+				"people": 0,
+				"num": 1,
+				"level": 1
+			},
+			"administration": {
+				"level": 1,
+				"num": 1,
+				"people": 50
+			}
+		}, "position": 13}});
 		$("#before_game").hide();
 		$("#cover").hide();
 		$("#game").show();

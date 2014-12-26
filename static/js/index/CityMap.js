@@ -57,7 +57,8 @@ var CityMap = function(array){
 						if(game.player.buildings[building.name].status === 'under_construction'){
 							img = "construction";
 						}
-						cell.html(HTML_Engine.getBuilding.image(img, game.player.level,98) + "<span class='level'>"+game.player.buildings[building.name.toLowerCase()].level+"</span>");
+						var level = game.player.buildings[building.name.toLowerCase()].level;
+						cell.html(HTML_Engine.getBuilding.image(img, game.player.level,98) + (level?"<span class='level'>"+level+"</span>":""));
 						
 						$(this.HTML_element+" #cel_"+i+"_"+j+" img").addClass('hasAction');	
 						$(this.HTML_element+" #cel_"+i+"_"+j+" img").attr({"name_of_building": building.name.toLowerCase()});	

@@ -383,7 +383,6 @@ HTML_Engine.getAvailableBuildings = {
 		for(building in game.player.buildings){
 			var data = game.getBuildingDataByName(building)
 			var b_obj = game.player.buildings[building];
-			console.log(data.name + b_obj.num + " " + data.maxNumber)
 			if(	(!data.maxLevel || (data.maxLevel && b_obj.level < data.maxLevel)) && 
 				 (!data.maxNumber || (data.maxNumber &&  b_obj.num < data.maxNumber )) ){					
 				var resources = game.resources.getNecessaryForBuilding(building, 1);				
@@ -501,8 +500,7 @@ HTML_Engine.inside_military = {
 					"military" : nr_of_active_units 				
 				}				
 			}) + "</div>";
-		}
-		html += "</div>";
+		
 		html += "<div class='heading'> The daily cost of military is: " + 
 								HTML_Engine.displayResources.content({
 										resources: {
@@ -510,6 +508,8 @@ HTML_Engine.inside_military = {
 										"food" : nr_of_active_units * 1 /* TODO @George real resources */
 									}									
 								}) + "</div>";
+		}
+		html += "</div>";
 		html += HTML_Engine.chooser.content({
 			info: "The military plays an important role for your city. You can increase your military power and became a local or imperial power. The first step is to train free people in order to became military units. ",
 			values: [
@@ -625,12 +625,12 @@ HTML_Engine.inside_military = {
 HTML_Engine.inside_storage = {
 		
 	/**
-	 * It generates the content for the military building
+	 * It generates the content for the storage building
 	 */
 	content: function(){
 		var html = "";
 		html += HTML_Engine.getBuilding.info("storage", true);
-		html += HTML_Engine.upgradeBuilding.content("military", (parseInt(game.player.buildings["storage"].level) + 1));
+		html += HTML_Engine.upgradeBuilding.content("storage", (parseInt(game.player.buildings["storage"].level) + 1));
 		// TODO @George
 		return html;
 	},
@@ -644,6 +644,157 @@ HTML_Engine.inside_storage = {
 	}	
 };
 
+
+/**
+ * 4. The mill building
+ */
+HTML_Engine.inside_mill = {
+		
+	/**
+	 * 
+	 */
+	content: function(){
+		var html = "";
+		html += HTML_Engine.getBuilding.info("mill", true);
+		html += HTML_Engine.upgradeBuilding.content("mill", (parseInt(game.player.buildings["mill"].level) + 1));
+		// TODO @George
+		return html;
+	},
+	enable: function(){
+		HTML_Engine.upgradeBuilding.enable("mill");
+		// TODO @George
+	},
+	disable: function(){
+		HTML_Engine.upgradeBuilding.disable("mill");
+		// TODO @George
+	}	
+};
+
+/**
+ * 5. The mine building
+ */
+HTML_Engine.inside_mine = {
+		
+	/**
+	 * It generates the content for the mine building
+	 */
+	content: function(){
+		var html = "";
+		html += HTML_Engine.getBuilding.info("mine", true);
+		html += HTML_Engine.upgradeBuilding.content("mine", (parseInt(game.player.buildings["mine"].level) + 1));
+		// TODO @George
+		return html;
+	},
+	enable: function(){
+		HTML_Engine.upgradeBuilding.enable("mine");
+		// TODO @George
+	},
+	disable: function(){
+		HTML_Engine.upgradeBuilding.disable("mine");
+		// TODO @George
+	}	
+};
+
+
+/**
+ * 6. The house building
+ */
+HTML_Engine.inside_house = {
+		
+	/**
+	 * It generates the content for the house building
+	 */
+	content: function(){
+		var html = "";
+		html += HTML_Engine.getBuilding.info("house", true);
+		// TODO @George
+		return html;
+	},
+	enable: function(){
+		HTML_Engine.upgradeBuilding.enable("house");
+		// TODO @George
+	},
+	disable: function(){
+		HTML_Engine.upgradeBuilding.disable("house");
+		// TODO @George
+	}	
+};
+
+/**
+ * 7. The trade building
+ */
+HTML_Engine.inside_trade = {
+		
+	/**
+	 * It generates the content for the trade building
+	 */
+	content: function(){
+		var html = "";
+		html += HTML_Engine.getBuilding.info("trade", true);
+		html += HTML_Engine.upgradeBuilding.content("trade", (parseInt(game.player.buildings["trade"].level) + 1));
+		// TODO @George
+		return html;
+	},
+	enable: function(){
+		HTML_Engine.upgradeBuilding.enable("trade");
+		// TODO @George
+	},
+	disable: function(){
+		HTML_Engine.upgradeBuilding.disable("trade");
+		// TODO @George
+	}	
+};
+
+
+/**
+ * 8. The lumberjack building
+ */
+HTML_Engine.inside_lumberjack = {
+		
+	/**
+	 * It generates the content for the lumberjack building
+	 */
+	content: function(){
+		var html = "";
+		html += HTML_Engine.getBuilding.info("lumberjack", true);
+		html += HTML_Engine.upgradeBuilding.content("lumberjack", (parseInt(game.player.buildings["lumberjack"].level) + 1));
+		// TODO @George
+		return html;
+	},
+	enable: function(){
+		HTML_Engine.upgradeBuilding.enable("lumberjack");
+		// TODO @George
+	},
+	disable: function(){
+		HTML_Engine.upgradeBuilding.disable("lumberjack");
+		// TODO @George
+	}	
+};
+
+/**
+ * 9. The farm building
+ */
+HTML_Engine.inside_farm = {
+		
+	/**
+	 * It generates the content for the lumberjack building
+	 */
+	content: function(){
+		var html = "";
+		html += HTML_Engine.getBuilding.info("farm", true);
+		html += HTML_Engine.upgradeBuilding.content("farm", (parseInt(game.player.buildings["farm"].level) + 1));
+		// TODO @George
+		return html;
+	},
+	enable: function(){
+		HTML_Engine.upgradeBuilding.enable("farm");
+		// TODO @George
+	},
+	disable: function(){
+		HTML_Engine.upgradeBuilding.disable("farm");
+		// TODO @George
+	}	
+};
 
 /**
  * It returns html information regarding the building
@@ -707,15 +858,16 @@ HTML_Engine.getBuilding = {
 	 * @return (string) A general info about the building
 	 */
 	info: function(building, full) {
-		var data = game.getBuildingDataByName(building);
+		var data 	= game.getBuildingDataByName(building),
+			level 	= game.player.buildings[building].level;
 		html = "<div class='building_info'>";
 		html += "<div class='title'> " + HTML_Engine.getBuilding.image(building, game.player.level, 60) + "<span class='bold'>" + HTML_Engine.getBuilding.name(building, game.player.level) + "</span>";
-		if(full){
+		if(level && full){
 			html += "<div class='level'>" + game.player.buildings[building].level + "</div>";
 		}		
 		html += "</div>";
 		if(data.capacity && full) {
-			html += "<div class='capacity'> Capacity: <br />" + HTML_Engine.displayResources.content(data.capacity(game.player.buildings[building].level)) + "</div>";
+			html += "<div class='capacity'> Capacity: <br />" + HTML_Engine.displayResources.content(data.capacity(level)) + "</div>";
 		}
 		html += "<div class='description'>"+ HTML_Engine.getBuilding.description(building) + "</div>";
 		html += "</div>"

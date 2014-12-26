@@ -24,20 +24,34 @@ Resources.prototype.updateResources = function(){
 };
 
 /**
+ * It sums the number of all people for the city
+ * @returns (number) The number of all the people from the city
+ */
+Resources.prototype.getAllPeopleOfCity = function(){
+	var people = 0;
+	for(building in game.player.buildings){
+		if(game.player.buildings[building].people) {
+			people += parseInt(game.player.buildings[building].people);
+		}
+	}	
+	return people;
+}
+
+/**
  * It updates the number of people
  */
-Resources.prototype.updatePeople = function() {
-	$("#resources #people").html(Resources.shortResourceRepresentation(game.player.resources.people));
-	$("#resources #gold").html(Resources.shortResourceRepresentation(game.player.resources.gold));
+Resources.prototype.updateStatistics = function() {
+	$("#resources #people").html(HTML_Engine.shortResourceRepresentation(this.getAllPeopleOfCity()));
+	$("#resources #gold").html(HTML_Engine.shortResourceRepresentation(game.player.resources.gold));
 };
 
 /**
  * It updates the details of the city (name, level, type of city)
  */
 Resources.prototype.updateDetailsCity = function() {
-	$("#city_details #name").html(game.player.city.name);
-	$("#city_details #level").html("Level: "+game.player.city.level);
-	$("#city_details #type").html(HTML_Engine.getOrganizationInformationByLevel("name", game.player.level) );
+	$("#city_details #name").html(game.worldMap.data.cities[game.player.id].name);
+	$("#city_details #level").html("Level: "+game.player.level);
+	$("#city_details #type").html(game.getOrganizationInformationByLevel("name", game.player.level) );
 };
 
 /**

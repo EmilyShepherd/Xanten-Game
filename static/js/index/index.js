@@ -50,7 +50,17 @@ $(document).ready(function() {
 						3: {
 							name: "storage",
 							maxNumber: 1,
-							maxLevel: 10
+							maxLevel: 10,							
+							capacity: function(level){
+									return {
+										unit: "%",
+										resources: {
+											"food": 5*level,
+											"wood": 5*level, 
+											"stone": 5*level
+										}
+									}
+							}
 						},
 						4: {
 							name: "mill",
@@ -221,8 +231,8 @@ $(document).ready(function() {
 								},
 								{
 									"id_background": 1,
-									"type_construction": null,
-									"id_construction": null
+									"type_construction": "building",
+									"id_construction": 3
 								},
 								{
 									"id_background": 1,
@@ -670,7 +680,7 @@ $(document).ready(function() {
 
 		}
 	
-		, "player": {"id": 1, "level": 1, "resources": {"gold": 50.0, "stone": 200.0, "wood": 200.0, "food": 200.0},  "buildings": {"storage": {"level": 0, "num": 0}, "mine": {"level": 0, "num": 0, "people": 0}, "mill": {"level": 0, "num": 0, "people": 0}, "house": {"num": 1}, "trade": {"level":0, "people": 0, "num": 0}, "military": {"people": 2, "num": 0, "level": 1}, "lumberjack": {"level": 0, "num": 0, "people": 0}, "farm": {"people": 0, "num": 0, "level": 0}, "administration": {"level": 1, "num": 1, "people": 50}}, "position": 13}});
+		, "player": {"id": 1, "level": 1, "resources": {"gold": 50.0, "stone": 200.0, "wood": 200.0, "food": 200.0},  "buildings": {"storage": {"level": 7, "num": 1}, "mine": {"level": 0, "num": 0, "people": 0}, "mill": {"level": 0, "num": 0, "people": 0}, "house": {"num": 1}, "trade": {"level":0, "people": 0, "num": 0}, "military": {"people": 2, "num": 1, "level": 1}, "lumberjack": {"level": 0, "num": 0, "people": 0}, "farm": {"people": 0, "num": 0, "level": 0}, "administration": {"level": 1, "num": 1, "people": 50}}, "position": 13}});
 		$("#before_game").hide();
 		$("#cover").hide();
 		$("#game").show();

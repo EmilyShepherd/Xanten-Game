@@ -75,10 +75,11 @@ HTML_Engine.displayResources = {
 		var text = "<div class='tab'> ",
 			things = [];
 		
-		var interval = resources.interval?("<span style='font-weight:italic;color:#969696'> for "+resources.interval)+"</span>":"";
+		var interval 	= resources.interval?("<span style='font-weight:italic;color:#969696'> for "+resources.interval)+"</span>":"";
+		var unit 		= resources.unit?("<span style='font-weight:italic;color:#969696'>"+resources.unit)+"</span>":"";
 		
 		for(resource in resources.resources){
-			things.push(HTML_Engine.getImage.content("img_resource", resource, resource) + " <span class='bold resource_format_" +resource+ "'>" + HTML_Engine.shortResourceRepresentation(resources.resources[resource])+" </span>" + interval);
+			things.push(HTML_Engine.getImage.content("img_resource", resource, resource) + " <span class='bold resource_format_" +resource+ "'>" + HTML_Engine.shortResourceRepresentation(resources.resources[resource])+" </span>" + interval + unit);
 		}
 		
 		if(resources.people){
@@ -382,9 +383,9 @@ HTML_Engine.getAvailableBuildings = {
 		for(building in game.player.buildings){
 			var data = game.getBuildingDataByName(building)
 			var b_obj = game.player.buildings[building];
-		
-			if(	(!data.maxLevel || (data.maxLevel && b_obj.level <= data.maxLevel)) && 
-				 (!data.maxNumber || (data.maxNumber &&  b_obj.num <= data.maxNumber )) ){					
+			console.log(data.name + b_obj.num + " " + data.maxNumber)
+			if(	(!data.maxLevel || (data.maxLevel && b_obj.level < data.maxLevel)) && 
+				 (!data.maxNumber || (data.maxNumber &&  b_obj.num < data.maxNumber )) ){					
 				var resources = game.resources.getNecessaryForBuilding(building, 1);				
 				text += "<div class='board_list hover' building_name='" + building + "' id='action_build_" + building + "' >" +
 						HTML_Engine.getBuilding.info(building);								
@@ -478,7 +479,7 @@ HTML_Engine.inside_administration = {
 };
 
 /**
- * The military building
+ * 2. The military building
  */
 HTML_Engine.inside_military = {
 		
@@ -487,8 +488,7 @@ HTML_Engine.inside_military = {
 	 */
 	content: function(){
 		var nr_of_active_units = game.player.buildings.military.people,	
-			html = "";
-		
+			html = "";		
 		html += HTML_Engine.getBuilding.info("military", true);
 		html += HTML_Engine.upgradeBuilding.content("military", (parseInt(game.player.buildings["administration"].level) + 1));
 		html += "<div class='heading'>";
@@ -620,6 +620,32 @@ HTML_Engine.inside_military = {
 };
 
 /**
+ * 3. The storage building
+ */
+HTML_Engine.inside_storage = {
+		
+	/**
+	 * It generates the content for the military building
+	 */
+	content: function(){
+		var html = "";
+		html += HTML_Engine.getBuilding.info("storage", true);
+		html += HTML_Engine.upgradeBuilding.content("military", (parseInt(game.player.buildings["storage"].level) + 1));
+		// TODO @George
+		return html;
+	},
+	enable: function(){
+		HTML_Engine.upgradeBuilding.enable("storage");
+		// TODO @George
+	},
+	disable: function(){
+		HTML_Engine.upgradeBuilding.disable("storage");
+		// TODO @George
+	}	
+};
+
+
+/**
  * It returns html information regarding the building
  */
 HTML_Engine.getBuilding = {
@@ -689,7 +715,7 @@ HTML_Engine.getBuilding = {
 		}		
 		html += "</div>";
 		if(data.capacity && full) {
-			html += "<div class='capacity'> Capacity: <br />" + HTML_Engine.displayResources.content(data.capacity(game.player.level)) + "</div>";
+			html += "<div class='capacity'> Capacity: <br />" + HTML_Engine.displayResources.content(data.capacity(game.player.buildings[building].level)) + "</div>";
 		}
 		html += "<div class='description'>"+ HTML_Engine.getBuilding.description(building) + "</div>";
 		html += "</div>"

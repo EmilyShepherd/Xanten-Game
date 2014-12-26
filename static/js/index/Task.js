@@ -46,6 +46,8 @@ function Task(information, title, serverDetails, afterConfirmation, beforeStarti
  */
 Task.prototype._activate = function(){
 	
+	var instance = this;
+	
 	game.removeCurrentAction();				// clear the actions board
 	
 	$.ajax({
@@ -53,11 +55,11 @@ Task.prototype._activate = function(){
 			"type": this.serverDetails.type,
 			"data": this.serverDetails.data,
 			"success": function(response){
-							this.response = response;
-							this.afterConfirmation();
-							this.beforeStarting();
+							instance.response = response;
+							instance.afterConfirmation();
+							instance.beforeStarting();
 						},
-			"error": function(){HTML_Engine.fail.content(this.title, " your people are not now able.");}
+			"error": function(){HTML_Engine.fail.content(instance.title, " your people are not now able.");}
 	});
 };
 

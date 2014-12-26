@@ -451,7 +451,7 @@ HTML_Engine.inside_administration = {
 		var nr_of_free_units = game.player.buildings.administration.people, 
 			html = "";
 
-		html += HTML_Engine.getBuilding.info("administration");
+		html += HTML_Engine.getBuilding.info("administration", true);
 		html += HTML_Engine.upgradeBuilding.content("administration", (parseInt(game.player.buildings["administration"].level) + 1));
 		html += "<div class='heading'> The number of free people:";
 		html += HTML_Engine.displayResources.content({
@@ -489,20 +489,26 @@ HTML_Engine.inside_military = {
 		var nr_of_active_units = game.player.buildings.military.people,	
 			html = "";
 		
-		html += HTML_Engine.getBuilding.info("military");
+		html += HTML_Engine.getBuilding.info("military", true);
 		html += HTML_Engine.upgradeBuilding.content("military", (parseInt(game.player.buildings["administration"].level) + 1));
-		html += "<div class='heading'> The number of active units:";
-		html += HTML_Engine.displayResources.content({
-			resources: {
-				"military" : nr_of_active_units 				
-			},
-		}) + "</div>";
+		html += "<div class='heading'>";
+		if(nr_of_active_units === 0){
+			html += "Sir, no military units :(";
+		} else {
+			html += "The number of active units:";
+			html += HTML_Engine.displayResources.content({
+				resources: {
+					"military" : nr_of_active_units 				
+				}				
+			}) + "</div>";
+		}
+		html += "</div>";
 		html += "<div class='heading'> The daily cost of military is: " + 
 								HTML_Engine.displayResources.content({
 										resources: {
 										"gold" : nr_of_active_units * 5, /* TODO @George real resources */
 										"food" : nr_of_active_units * 1 /* TODO @George real resources */
-									}
+									}									
 								}) + "</div>";
 		html += HTML_Engine.chooser.content({
 			info: "The military plays an important role for your city. You can increase your military power and became a local or imperial power. The first step is to train free people in order to became military units. ",
@@ -535,6 +541,8 @@ HTML_Engine.inside_military = {
 	 */
 	enable: function(){
 		var nr_of_active_units = game.player.buildings.military.people; 
+		var limit_of_military	= game.getBuildingDataByName("military").capacity(game.player.level).resources.military;
+		
 
 
 		HTML_Engine.upgradeBuilding.enable("military");
@@ -548,7 +556,7 @@ HTML_Engine.inside_military = {
 			values: [
 						{ id: 'units',
 							min: 1,
-							max: 700, /* TODO @Cristian the number of free people*/
+							max: limit_of_military - nr_of_active_units, /* TODO @Cristian the number of free people*/
 							change: function(event, ui, extra){
 										extra.html(HTML_Engine.displayResources.content(
 											game.resources.getCostForUnit('military', parseInt(ui.value))
@@ -672,10 +680,20 @@ HTML_Engine.getBuilding = {
 	 * @param (string) building The name of the building
 	 * @return (string) A general info about the building
 	 */
-	info: function(building) {
-		return HTML_Engine.getBuilding.image(building, game.player.level, 60) +
-		"&nbsp;&nbsp;<span class='bold'>" + HTML_Engine.getBuilding.name(building, game.player.level) + "</span> "+
-		"<div class='chooser'>"+ HTML_Engine.getBuilding.description(building) + "</div>";
+	info: function(building, full) {
+		var data = game.getBuildingDataByName(building);
+		html = "<div class='building_info'>";
+		html += "<div class='title'> " + HTML_Engine.getBuilding.image(building, game.player.level, 60) + "<span class='bold'>" + HTML_Engine.getBuilding.name(building, game.player.level) + "</span>";
+		if(full){
+			html += "<div class='level'>" + game.player.buildings[building].level + "</div>";
+		}		
+		html += "</div>";
+		if(data.capacity && full) {
+			html += "<div class='capacity'> Capacity: <br />" + HTML_Engine.displayResources.content(data.capacity(game.player.level)) + "</div>";
+		}
+		html += "<div class='description'>"+ HTML_Engine.getBuilding.description(building) + "</div>";
+		html += "</div>"
+		return html;
 	}
 }
 

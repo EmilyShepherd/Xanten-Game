@@ -16,80 +16,41 @@
 function ProgressBar(task){
 	
 	this.task = task;
-	this.id   = Math.floor((Math.random() * 10) + 1);//task.response.id;
 	
-	game.currentTasksBoard.add("<img width='25px' height='25px' src='"+task.imgSource+"'>   "+task.title+"<div id='progressbar_"+this.id+"'><div class='progress-label'></div></div>");
+	game.currentTasksBoard.add("<div id='task_"+this.task.id+"'><img width='25px' height='25px' src='"+task.imgSource+"'>   "+task.title+"<div id='progressbar_"+this.task.id+"'><div class='progress-label'></div></div></div>");
 	
-	var progressbar = $( "#progressbar_"+this.id ),
-      progressLabel = $( "#progressbar_"+this.id ).find( ".progress-label" );
+	this.p			 		= $( "#progressbar_"+this.task.id );
+    this.progressLabel 		= $( "#progressbar_"+this.task.id ).find( ".progress-label" );
+    
+    var instance			= this,
+	    seconds 			= 2,
+	 	step 				= seconds * 10,
+	 	progress			= (function(){ var i = instance; 
+								 	return function(){
+							    		val = i.p.progressbar( "value" ) || 0;
+							    		i.p.progressbar( "value", val + 1 );	
+							    	}; })(instance);
  
-    progressbar.progressbar({
+    this.p.progressbar({
 		value: false,
 		change: function() {
-			progressLabel.text( progressbar.progressbar( "value" ) + "%" );
+    		instance.progressLabel.text( instance.p.progressbar( "value" ) + "%" );
 		},
 		complete: function() {
-			progressLabel.text( "Complete!" );
+			instance.progressLabel.text( "Complete!" );
+			instance.finish();
 		}
-    });
+    });	
 
-	var seconds = 20;
-	var step = seconds * 10;
+	this.thread = setInterval(progress, step);
 	
-	var progress = function() {
-		var val = progressbar.progressbar( "value" ) || 0;
- 
-		progressbar.progressbar( "value", val + 1 );
- 
-		if ( val < 99 ) {
-			setTimeout(progress, step);
-		}
-    };
-	
-	progress();
-	
-	/*this.HTML_element = $("#progress_bar_"+this.task.id);	
-	
-	this.HTML_element.progressbar({
-			value: false,
-			change: task.progress,
-			complete: task.afterEnds
-	    });	
-	
-
-	this.HTML_element.html();*/
-	
-	
-	// this.thread = setInterval(this.prototype, 100);
 }
 
 /**
  *  It finished the task. It stops the progress, calls the task.afterEnds() method and deletes itself from the game
  */
-ProgressBar.prototype.finish = function() {
-	
-	clearInterval(this.thread);
-	
-	task.afterEnds();
-
-	
-	// TODO delete html
-	
-	
-	// delete itself from game logics	
-	delete game.currentProgressTasks[this];
+ProgressBar.prototype.finish = function() {	
+	this.task.afterEnds();
 };
 
-/**
- * It is executed every time a new progress is done. it calls the task durring performing
- */
-ProgressBar.prototype.progress =   function () {
-	
-	// TODO check it has the hights progress. if so it goes first in the list
-	
-   //	task.duringPerforming();
-   	
-	if(val  >= 100){
-		this.finish();
-	}
-}
+

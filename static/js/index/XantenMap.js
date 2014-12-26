@@ -17,6 +17,7 @@ function XantenMap(array, name){
 	this.selectedCell 		= null;
 	this.name 				= name;
 	this.HTML_element		= "#map-board-"+this.name;
+	this.selectedCell		= null;
 }
 
 /**
@@ -33,6 +34,10 @@ XantenMap.prototype.getArray = function(){
  */
 XantenMap.prototype.getSize = function(){
 	return this.array.length;
+}
+
+XantenMap.prototype.getSelectedCell = function(){
+	return this.selectedCell;
 }
 
 
@@ -115,6 +120,10 @@ XantenMap.prototype.init = function(){
 		var id = $(this).attr("id");
 		var array = id.substring(4, id.length);
 		var elements = array.split("_");
+		instance.selectedCell = {
+				x:  elements[0]-1,
+				y: elements[1]-1
+		};
 		instance.selectCell(elements[0], elements[1]);
 	});
 	
@@ -130,6 +139,7 @@ XantenMap.prototype.init = function(){
  * It calls the render and shows the map
  */
 XantenMap.prototype.select = function(){
+	
 	$(this.HTML_element).fadeIn("slow");
 	$("#map-window-"+this.name).show();
 	$("#map-board-city-"+this.name).show();
@@ -147,6 +157,13 @@ XantenMap.prototype.hide = function(){
 	if(this._hide){
 		this._hide();
 	}
+};
+
+/**
+ * It changes the map backgrounds and images.
+ */
+XantenMap.prototype.update = function(){
+	this.render();
 };
 
 /**

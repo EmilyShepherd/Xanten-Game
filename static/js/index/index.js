@@ -17,7 +17,7 @@ var thread_games,
  */
 var settings = { 
 		"developerMode": true,
-		"defaultMap": "world"// avoid the connection and effects
+		"defaultMap": "city"// avoid the connection and effects
 	};
  
 $(document).ready(function() {
@@ -31,6 +31,7 @@ $(document).ready(function() {
 			"data":{
 					"city_map_buildings": {
 						1: {
+							id: 1,
 							name: "administration",
 							maxNumber: 1,
 							maxLevel: 50,
@@ -41,6 +42,7 @@ $(document).ready(function() {
 							}
 						},
 						2: {
+							id: 2,
 							name: "military",
 							maxNumber: 1,
 							maxLevel: null,							
@@ -53,6 +55,7 @@ $(document).ready(function() {
 									}
 						},
 						3: {
+							id: 3,
 							name: "storage",
 							maxNumber: 1,
 							maxLevel: 10,							
@@ -68,6 +71,7 @@ $(document).ready(function() {
 							}
 						},
 						4: {
+							id: 4,
 							name: "mill",
 							maxNumber: 1,
 							maxLevel: 10,							
@@ -80,6 +84,7 @@ $(document).ready(function() {
 							}
 						},
 						5: {
+							id: 5,
 							name: "mine",
 							maxNumber: 1,
 							maxLevel: 10,							
@@ -92,6 +97,7 @@ $(document).ready(function() {
 							}
 						},
 						6: {
+							id: 6,
 							name: "house",
 							maxNumber: null,
 							maxLevel: null,							
@@ -102,6 +108,7 @@ $(document).ready(function() {
 							}
 						},
 						7: {
+							id: 7,
 							name: "trade",
 							maxNumber: 10,
 							maxLevel: 1,
@@ -117,6 +124,7 @@ $(document).ready(function() {
 							}
 						},
 						8: {
+							id: 8,
 							name: "lumberjack",
 							maxNumber: 1,
 							maxLevel: 10,							
@@ -129,6 +137,7 @@ $(document).ready(function() {
 							}
 						},
 						9: {
+							id: 9,
 							name: "farm",
 							maxNumber: 1,
 							maxLevel: 10,							
@@ -689,7 +698,7 @@ $(document).ready(function() {
 						1: {
 								path: [
 								       	[0, 1],
-										[0, 0],
+										[0, 4],
 										[4, 5]
 								],
 								from: 1,
@@ -700,7 +709,7 @@ $(document).ready(function() {
 									wood: 2220,
 									military: 100
 								},
-								time : 200
+								time : 20
 							}
 						}
 					}

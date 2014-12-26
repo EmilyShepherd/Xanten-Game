@@ -17,27 +17,28 @@
  * @param function duringPerforming A function to be executed during the execution of task
  * @param function afterEnds A function to be executed after the task is completed
  */
-function Task(information, title, serverDetails, afterConfirmation, beforeStarting, duringPerforming, afterEnds, imgSource){
+function Task(data, title, serverDetails, afterConfirmation, beforeStarting, duringPerforming, afterEnds, imgSource){
 	
 	// we need for the lambda functions
 	var instance = this;
 	
+	this.id					= Math.round(Math.random() * (133333 - 10) + 133333);
 	this.title        		= title;
-	this.information 		= information;
+	this.data		 		= data;
 	this.response		= null;
 	this.serverDetails	= serverDetails;
-	this.imgSource 		= imgSource;
 	
 	/*
 	 * If there is exists an override of the method, call it after it calls the default
 	 * If not call the default
 	 */
-	this.afterEnds         		= ((afterEnds)?function(){instance._afterEnds();instance.afterEnds(instance);}:this._afterEnds());
-	this.beforeStarting    		= ((beforeStarting)?function(){instance._beforeStarting();instance.beforeStarting(instance);}:this._beforeStarting());
-	this.duringPerforming  		= ((duringPerforming)?function(){instance._duringPerforming();instance.duringPerforming(instance);}:this._duringPerforming());
-	this.afterConfirmation 		= ((afterConfirmation)?function(){instance._afterConfirmation();instance.afterConfirmation(instance);}:this._afterConfirmation());
-
-	// starts
+	this.imgSource				= (imgSource?imgSource:"http://clipart.nicubunu.ro/svg/rpg_map/statue.svg");
+	
+	this._beforeStarting 		= (beforeStarting?beforeStarting:this._beforeStarting);
+	this._afterEnds 				= (afterEnds?afterEnds:this._afterEnds);
+	this._afterConfirmation		= (afterConfirmation?afterConfirmation:this._afterConfirmation);		
+	this._duringPerforming		= (duringPerforming?duringPerforming:this._duringPerforming);
+	
 	this._activate();
 }
 
@@ -56,46 +57,71 @@ Task.prototype._activate = function(){
 			"data": this.serverDetails.data,
 			"success": function(response){
 							instance.response = response;
+							console.log('aaa')
 							instance.afterConfirmation();
-							instance.beforeStarting();
 						},
 			"error": function(){HTML_Engine.fail.content(instance.title, " your people are not now able.");}
 	});
 };
 
 /**
- * @deprciated May not need this
  * It is the default function for duringPerforming. It just shows the progress of the 
  */
-Task.prototype._duringPerforming = function(){
-	//var val = game.currentProgressTasks[this].value || 0;
-
-	//$("div #label").text( this.title + game.currentProgressTasks[this].value + "%" );
+Task.prototype.duringPerforming = function(){
+	this._duringPerforming(this);
 }
+
+Task.prototype._beforeStarting = function(){	
+};
+
+Task.prototype._afterEnds = function(){	
+};
+
+Task.prototype._afterConfirmation = function(){
+};
+
+Task.prototype._duringPerforming = function(){	
+};
 
 /**
  * It is the default function for beforeStarting. It creates the progress bar for this task
  */
-Task.prototype._beforeStarting = function(){
-	game.currentProgressTasks[this] = new ProgressBar(this);
-	
-	//game.performTask(NAME, ARGS);
+Task.prototype.beforeStarting = function(){
+	this._beforeStarting(this);
+	this.progressTasks = new ProgressBar(this);
 };
 
 /**
  * It is the default function for afterConfirmation. It checks if the server confirmed the task. Else, it stops it
  */
-Task.prototype._afterConfirmation = function(){
-	if(this.response.status === "error" ){
+Task.prototype.afterConfirmation = function(){
+	if(this.response.status === "er2ror" ){
 		HTML_Engine.failTask.content(this.title, this.response.message);
-		this.afterEnds();
+		this.forceStop();
+	} else {
+		game.performAction('clear');
+		
+		this._afterConfirmation(this);
+		this.beforeStarting();
 	}
 };
+
+Task.prototype.forceStop = function(){
+	// remove 
+	if(this.progressTasks){
+		clearInterval(this.progressTasks.thread);
+		$("#task_" + this.id).slideUp();
+	}
+	game.removeTask(this);
+	game.update();	
+}
 
 /**
  * It is the default function for afterEnds. It removes the progress bar for the task, the task and updates the game
  */
-Task.prototype._afterEnds = function(){
-	game.removeTask(this);
-	game.update();							// updates the game
+Task.prototype.afterEnds = function(){
+	
+	this._afterEnds(this);
+	this.forceStop();
+						// updates the game
 };

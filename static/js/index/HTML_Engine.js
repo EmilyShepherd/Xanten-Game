@@ -398,35 +398,8 @@ HTML_Engine.getAvailableBuildings = {
 	 * It add a listener for each building
 	 */
 	enable: function(){
-		$("#actions_board .board_list").click(function(){
-			
-			game.removeCurrentAction();
-			
-			var data			= $(this).serialize();
-			var building_name = $(this).attr("building_name");
-			var imageSource = $(this).children('img').attr("src");
-			
-			new Task(data, 
-					'Create building ' + building_name,
-					{
-						"url": '/me/building/' + building_name  + '/build',
-						"type": 'GET'						
-					},
-					function(task){
-						// create building
-						game.player.buildings.id = task.response.building;
-						game.player.buildings.bulding_id.status = 'Building';
-						game.cityMap.render(); // change the status of the city map
-						game.consumeResources(game.resources.getNecessaryForBuilding(data.building_id, 'create'));
-					}, 
-					undefined, 
-					undefined, 
-					function(task){
-						game.player.buildings.bulding_id.num++;
-						game.player.buildings.bulding_id.level = 1;
-						game.player.buildings.bulding_id.status = 'Done';
-					},
-					imageSource);
+		$("#actions_board .board_list").click(function(){			
+			game.performTask("create_building", this);
 		});
 	},	
 	/**

@@ -136,6 +136,36 @@ Game.prototype.start = function(){
 	this.RTE.run();
 };
 
+
+/**
+ * It stops everything. Need to refresh the page in order to re-start the game
+ */
+Game.prototype.freeze = function(){
+	game.RTE.freeze();
+	game.worldMap.freeze();
+	game.cityMap.freeze();
+	// freeze all tasks
+	// TODO @George	
+	game.performAction('game_over');	
+}
+
+/**
+ * It updates the game. It updates the current action content (by calling the action 'update' method), the content maps
+ */
+Game.prototype.update = function() {	
+	
+	// updates the map
+	this.worldMap.render();
+	this.cityMap.render();
+	
+	// update the current action content
+	if(this.currentAction){
+		this.currentAction.update();
+	}
+	
+	this.resources.updateStatistics();
+};
+
 /**
  * It loads and creates the current tasks
  */
@@ -162,20 +192,7 @@ Game.prototype.render = function() {
 	$("#tasks_board").css({"height":heightForTwoBoards+"px", "min-height": heightForTwoBoards+"px"});	
 };
 
-/**
- * It updates the game. It updates the current action content (by calling the action 'update' method), the content maps
- */
-Game.prototype.update = function() {	
-	
-	// updates the map
-	this.worldMap.render();
-	this.cityMap.render();
-	
-	// update the current action content
-	this.currentAction.update();
-	
-	this.resources.updateStatistics();
-};
+
 
 /**
  * It creates a progress bar task
@@ -200,10 +217,10 @@ Game.prototype.removeProgressBar = function(task_object){
 Game.prototype.consumeResources = function(resourcesToConsume){
 	for(resource in resourcesToConsume){
 		if(resource !== 'seconds' && resource !== 'people' ){
-			player.resources.resource -= resourcesToConsume[resource];
+			game.player.resources[resource] -= resourcesToConsume[resource];
 		}
 	}
-	Game.resources.updateResources();
+	game.resources.updateResources();
 };
 
 /**
@@ -223,16 +240,6 @@ Game.prototype.performAction = function(name, args){
 	action.perform();
 }
 
-Game.prototype.performTask= function(name, args){
-	
-	// TODO - @George register the task with progressbars 
-		
-	game.performAction("start_task");
-	
-	// TODO @George uncomment the next line when you have done the task id
-	// game.currentTasks.push(game.tasks[name](args).id); 
-};
-
 /**
  * It removes the current action and clears the actions board
  */
@@ -244,11 +251,33 @@ Game.prototype.removeCurrentAction = function(){
 	$("#actions_board .inside").html("");
 }
 
+
+Game.prototype.performTask= function(name, args){
+	
+	var args = args?args:undefined,
+		task = game.tasks[name](args);		
+
+	game.performAction("start_task");	
+	task.args = args;	
+	game.currentTasks.push(task);
+	
+	
+	// TODO @George uncomment the next line when you have done the task id
+	 
+};
+
+Game.prototype.removeTask = function(task){
+	delete game.currentTasks[task];
+}
+
 /**
  * It loads the list of the actions for the game
  * @see Action
  */
 Game.prototype.loadActions = function() {
+	
+	game.currentTasks = [];
+	
 	game.actions = {
 			"game_over"			 		: function(args){ return new Action("Actions", HTML_Engine.gameOver, function(){game.currentMap.deselect();} ); },
 			"available_buildings" 		: function(args){ return new Action("Create a building", HTML_Engine.getAvailableBuildings, function(){game.currentMap.deselect();} ); },
@@ -271,10 +300,56 @@ Game.prototype.loadActions = function() {
 };
 
 
+
+/**
+ * It loads the list of the actions for the game
+ * @see Action
+ */
+Game.prototype.loadTasks = function() {
+	game.tasks = {
+			"train_military" 		: function(args){
+													
+												},
+			"create_building"		: function(args){
+											var data			= {},
+										 	imageSource 	= $(args).children('img').attr("src");
+											 	data["building"] 	= $(args).attr("building_name");
+											 	
+											
+											return new Task(data, 
+													'Create building ' + data["building"],
+													{
+														"url": '/me/building/' + data["building"]  + '/build',
+														"type": 'GET'						
+													},
+													function(task){
+														// create building
+														game.player.buildings[task.data.building].num 		= 1;
+														if(task.data.building !== "house") {
+															game.player.buildings[task.data.building].level 	= 1;
+														}
+														game.player.buildings[task.data.building].status 	= 'under_construction';
+														var c = game.cityMap.getSelectedCell();
+														game.cityMap.array[c.x][c.y].type_construction = "building";
+														game.cityMap.array[c.x][c.y].id_construction = game.getBuildingDataByName(task.data.building).id;
+														game.cityMap.update(); // change the status of the city map
+														game.consumeResources(game.resources.getNecessaryForBuilding(task.data["building"], 'create'));
+													}, 
+													undefined, 
+													undefined, 
+													function(task){
+														game.player.buildings[task.data.building].status = 'Done';
+													},
+													imageSource);
+										}
+	};	
+};
+
+
 Game.prototype.getOrganizationInformationByLevel = function(what, level_of_city){
 	
-	var info = {};
-	var level = parseInt(level_of_city);
+	var info = {},
+		level = parseInt(level_of_city);
 	
 	if(level <=4){
 		info = { 
@@ -336,36 +411,4 @@ Game.prototype.getBuildingDataByName = function(name){
 			return game.data.city_map_buildings[b];
 		}
 	}
-	console.log('Nu exista '+name)
-};
-
-
-/**
- * It stops everything. Need to refresh the page in order to re-start the game
- */
-Game.prototype.freeze = function(){
-	game.RTE.freeze();
-	game.worldMap.freeze();
-	game.cityMap.freeze();
-	// freeze all tasks
-	// @George	
-	game.performAction('game_over');	
-}
-
-/**
- * It loads the list of the actions for the game
- * @see Action
- */
-Game.prototype.loadTasks = function() {
-	game.tasks = {
-			"move_people" 		: function(args){
-													//  TODO @George to create the task
-													alert("You want to move from "+args.from+" to "+args.to+" a number of "+args.number);
-													
-													return null;
-												},
-			"attack_city_1"		: function(args){
-													return null;
-												}
-	};	
 };

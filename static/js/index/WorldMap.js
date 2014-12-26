@@ -83,18 +83,20 @@
 		}			
 	};
 	
+	map._drawCanvas = function(){
+		var instance = this;
+		createjs.Ticker.addEventListener("tick", tick);		
+		function tick(event) {
+		    instance.canvas.stage.update();
+		}
+	}
+	
 	map._init = function(){
 		var instance = this;
 		this.canvas = {};		
 		this.canvas.stage = new createjs.Stage("canvas");
 		this.canvas.paths = {};
-		
-		createjs.Ticker.addEventListener("tick", tick);
-		
-		function tick(event) {
-		    instance.canvas.stage.update();
-		}
-		
+			
 		createjs.MotionGuidePlugin.install();
 		
 		this.renderAttacks();
@@ -102,6 +104,11 @@
 	
 	map._addPath = function (path, type, description, duration, callBack){
 			
+
+		if(!this.canvas.paths.length){
+			this._drawCanvas();
+		}
+		
 		var id 							= Object.keys(this.canvas.paths).length
 			instance 					= this, //make the variables global, so you can access them in the animation function
 			ido 						= "path_"+(parseInt(id) + 0),
@@ -184,7 +191,10 @@
 		this.canvas.stage.removeChild(p.line)		
 		this.canvas.stage.removeChild(p.circle)		
 		this.canvas.stage.update();
-		delete this.canvas.paths[id];
+		delete this.canvas.paths[id];		
+		if(!this.canvas.paths.length){
+			createjs.Ticker.removeAllEventListeners();
+		}
 	};
 	
 	map._freeze = function(){
@@ -194,17 +204,20 @@
 		createjs.Ticker.removeAllEventListeners();
 	}
 	
-	map.renderTrades = function(){
-	
+	map.renderTrades = function(){	
 	
 	}
 	
 	map._select = function(){
 		$("#canvas").show();
+		if(this.canvas.paths.length){
+			this._drawCanvas();
+		}
 	}
 	
 	map._hide = function(){
 		$("#canvas").hide();
+		createjs.Ticker.removeAllEventListeners();
 	}
  
  	/** 

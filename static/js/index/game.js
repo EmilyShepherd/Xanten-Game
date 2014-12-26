@@ -324,7 +324,6 @@ Game.prototype.loadTasks = function() {
 													},
 													function(task){
 														// create building
-														game.player.buildings[task.data.building].num 		= 1;
 														if(task.data.building !== "house") {
 															game.player.buildings[task.data.building].level 	= 1;
 														}
@@ -338,6 +337,7 @@ Game.prototype.loadTasks = function() {
 													undefined, 
 													undefined, 
 													function(task){
+														game.player.buildings[task.data.building].num++;
 														game.player.buildings[task.data.building].status = 'Done';
 													},
 													imageSource);

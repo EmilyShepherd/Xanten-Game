@@ -9,15 +9,15 @@
  * It represents a WorldMap object. It extends the XantenMap object
  * @param array The array of the map
  */
- function WorldMap(data, cities){
+ function WorldMap(obj){
 	 
-	// extends
-	var map 		= new XantenMap(data.map, 'world');
+	var map 		= new XantenMap(obj.array, 'world');
 	map.__proto__ 	= "WorldMap";
-	map.cities		= data.cities;
-	map.data		= data;
+	map.players		= obj.players;
+	map.backgrounds	= obj.backgrounds;
+	
 	/**
-	 * It selects a cell
+	 * 
 	 * @param x The x coordinate
 	 * @param y The y coordinate
 	 */
@@ -25,9 +25,6 @@
 		
 		this.deselect();
 		
-		
-		// TODO @Crisian  - get information about city
-		// 
 		var id_selected_city = this.getCityByPosition(x, y);
 		if(id_selected_city){
 			if(id_selected_city !== game.player.id){
@@ -45,33 +42,35 @@
 	};
 
 	/**
-	 * It renders the information of the array in the images. 
+	 * It renders the information of the array into Graphical form
 	 */
 	map.render = function(){
 		for(i=1; i <= this.array.length; i++){
 			for(j=1; j <= this.array.length; j++){
 				var cell 		= $(this.HTML_element + " #cel_"+i+"_"+j),
 					array_bg	= this.array[(i-1)][(j-1)],
-					background 	= game.data.world_map_backgrounds[array_bg.id_background];
+					background 	= this.backgrounds[array_bg.id_background];
 				
 				cell.removeClass();
 				
 				if(background.allowCity && array_bg.id_city) {	
 					cell.addClass("allow_city");	
-					var player 	= game.worldMap.getCityById(array_bg.id_city);
+					var player 	= this.getCityById(array_bg.id_city);
 					cell.html(HTML_Engine.getBuilding.image("administration", player.level, 98) + "<span class='level'>" + player.level + "</span>" + "<span class='description'>"+player.name.capitalize()+"</span>");
 					$(this.HTML_element+" #cel_"+i+"_"+j+" img").addClass('hasAction');	
 					$(this.HTML_element+" #cel_"+i+"_"+j+" img").attr({"name_of_building": player});	
 				} 			
 				$(this.HTML_element + " #cel_"+i+"_"+j).css('background-image', 'url(/static/img/game/background/world/' + background.img + ')');
 			}
-		}
-		
-		this.renderTrades();
+		}		
+		// this.renderTrades();
+		// this.renderAttacks();
 	};
 	
 	
-
+	map.renderTrades = function(){	
+	
+	}
 	
 	map.renderAttacks = function() {
 		for(move in this.data.militaryMovements){
@@ -91,20 +90,8 @@
 		}
 	}
 	
-	map._init = function(){
-		var instance = this;
-		this.canvas = {};		
-		this.canvas.stage = new createjs.Stage("canvas");
-		this.canvas.paths = {};
-			
-		createjs.MotionGuidePlugin.install();
-		
-		this.renderAttacks();
-	};
-	
 	map._addPath = function (path, type, description, duration, callBack){
 			
-
 		if(!this.canvas.paths.length){
 			this._drawCanvas();
 		}
@@ -137,9 +124,6 @@
 			line.graphics.setStrokeStyle(3);
 			line.graphics.beginStroke("#A7ACA6");
 			line.graphics.moveTo(startX, startY);
-
-		
-			
 			
 		for (var i = 1; i <= path.length - 1; i++) {
 			
@@ -196,29 +180,6 @@
 			createjs.Ticker.removeAllEventListeners();
 		}
 	};
-	
-	map._freeze = function(){
-		for(path in this.canvas.paths){
-			this.removePath(this.canvas.paths[path].id);
-		}
-		createjs.Ticker.removeAllEventListeners();
-	}
-	
-	map.renderTrades = function(){	
-	
-	}
-	
-	map._select = function(){
-		$("#canvas").show();
-		if(this.canvas.paths.length){
-			this._drawCanvas();
-		}
-	}
-	
-	map._hide = function(){
-		$("#canvas").hide();
-		createjs.Ticker.removeAllEventListeners();
-	}
  
  	/** 
  	 * It returns the city using the id
@@ -226,7 +187,7 @@
 	 * @return (object) An object with information regarding the city
 	 */
 	map.getCityById = function(id){
-		return this.cities[id];
+		return this.players[id];
 	};
 	
 	/**
@@ -256,6 +217,35 @@
 			}
 		}
 	};
+	
+	map._init = function(){
+		var instance = this;
+		this.canvas = {};		
+		this.canvas.stage = new createjs.Stage("canvas");
+		this.canvas.paths = {};
+			
+		createjs.MotionGuidePlugin.install();
+		
+	};
+	
+	map._freeze = function(){
+		for(path in this.canvas.paths){
+			this.removePath(this.canvas.paths[path].id);
+		}
+		createjs.Ticker.removeAllEventListeners();
+	}
+	
+	map._select = function(){
+		$("#canvas").show();
+		if(this.canvas.paths.length){
+			this._drawCanvas();
+		}
+	}
+	
+	map._hide = function(){
+		$("#canvas").hide();
+		createjs.Ticker.removeAllEventListeners();
+	}
 	
 	return map;
  }

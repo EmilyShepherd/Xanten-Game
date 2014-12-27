@@ -9,11 +9,12 @@
  * It represents a cityMap object. It extends the XantenMap object
  * @param array The array of the map
  */
-var CityMap = function(array){
+var CityMap = function(obj){
 	
 	// extends
-	var map 						= new XantenMap(array, 'city');
-	map.__proto__                 	= "CityMap";		
+	var map 						= new XantenMap(obj.array, 'city');
+	map.__proto__                 	= "CityMap";	
+	map.backgrounds					= obj.backgrounds;
 	
 	/**
 	 * It selects a cell
@@ -43,29 +44,31 @@ var CityMap = function(array){
 		for(i=1; i <= this.array.length; i++){
 			for(j=1; j <= this.array.length; j++){
 				var cell 		= $(this.HTML_element + " #cel_"+i+"_"+j),
-					background 	= game.data.city_map_backgrounds[this.array[(i-1)][(j-1)].id_background];				
+					background 	= this.backgrounds[this.array[(i-1)][(j-1)].id_background];				
+				
 				cell.removeClass();				
+				
 				if(background.allowBuildings === true) {					
 					if(background.allowBuildings === true && this.array[(i-1)][(j-1)].type_construction === null){			
 						cell.addClass("allow_construction");	
 					}
 					else if(this.array[(i-1)][(j-1)].type_construction === "building") {
-						var building = game.data.city_map_buildings[this.array[(i-1)][(j-1)].id_construction],
-							img		 = building.name;
+						var building 		= game.constructions.getBuildingById(this.array[(i-1)][(j-1)].id_construction),
+							img		 		= building.name,
+							player_building = game.player.city.buildings[building.name];
 						
 						// free commercial image from https://openclipart.org/detail/149155/old-mine-by-chrisdesign
-						if(game.player.buildings[building.name].status === 'under_construction'){
+						if(player_building.status === 'under_construction'){
 							img = "construction";
 						}
-						var level = game.player.buildings[building.name.toLowerCase()].level;
-						cell.html(HTML_Engine.getBuilding.image(img, game.player.level,98) + (level?"<span class='level'>"+level+"</span>":""));
+						cell.html(HTML_Engine.getBuilding.image(img, game.player.level, 98) + (player_building.level?"<span class='level'>" + player_building.level + "</span>":""));
 						
 						$(this.HTML_element+" #cel_"+i+"_"+j+" img").addClass('hasAction');	
 						$(this.HTML_element+" #cel_"+i+"_"+j+" img").attr({"name_of_building": building.name.toLowerCase()});	
 						$(this.HTML_element+" #cel_"+i+"_"+j+" img").attr({"title": building.name.capitalize()});	
 					} else {
-						var element = game.data.city_map_elements[this.array[(i-1)][(j-1)].id_construction];
-						cell.html(HTML_Engine.getBuilding.image(element.name+"", game.player.level, 70));
+						var element = game.constructions.getElementById(this.array[(i-1)][(j-1)].id_construction);
+						cell.html(HTML_Engine.getBuilding.image(element.name + "", game.player.level, 70));
 						$(this.HTML_element+" #cel_"+i+"_"+j+" img").attr({"name_of_building": element.name.toLowerCase()});	
 						$(this.HTML_element+" #cel_"+i+"_"+j+" img").attr({"title": element.name.capitalize()});
 					}

@@ -53,3 +53,13 @@
 	    }
 	})();
 	
+
+	// Fix JQuery problem with tooltip
+	$(document).tooltip({
+		position: {
+			my: "right bottom+50"
+		},
+		tooltipClass: "entry-tooltip-positioner",
+		track: true
+	});
+	

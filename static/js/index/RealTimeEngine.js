@@ -116,7 +116,7 @@ RealTimeEngine.prototype._progress = function(){
 	game.player.resources.food 	+= 132;
 	game.player.resources.wood 	+= 2;
 	*/
-	game.resources.updateResources();
+	Window.updateResources();
 };
 
 

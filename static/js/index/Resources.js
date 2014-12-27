@@ -1,8 +1,14 @@
+/**
+ * @file Represents Resources object.
+ * @author JavaScript Team. Team M
+ * @version 30.12.2014
+ */
 
 /**
- * A resource object. It processes the resources
- * @param (object) obj 
- * @returns (object)
+ * A resource object. It Math.rounds the numeric resources
+ * @param {object} obj 
+ * @returns (Resources)
+ * @constructor
  */
 var Resources = function(obj){
 	for (var prop in obj) {
@@ -23,9 +29,10 @@ var Resources = function(obj){
 
 /**
  *  It combines 2 resources object
- *  @param (object) First object
- *  @param (object) Second object
- *  @return (object) The combination
+ *  @param {Resources} First object
+ *  @param {Resources} Second object
+ *  @return {Resources} The combination of both
+ *  @memberOf Resources
  */
 Resources.combine = function(r1, r2){
 	var r = r1;
@@ -52,4 +59,6 @@ Resources.combine = function(r1, r2){
 			r1.resources[prop] = r2.resources[prop];
 		}
 	}
+	
+	return new Resources(r1);
 };

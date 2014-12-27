@@ -1,27 +1,28 @@
 /**
- * Represents a city map object.
- *
+ * @file Represents a city map object.
  * @author Cristian Sima
- * @version 30.11.2014
+ * @version 30.12.2014
  */
 
 /**
  * It represents a cityMap object. It extends the XantenMap object
- * @param array The array of the map
+ * @constructor
+ * @extends XantenMap
+ * @param {array} obj The array of the map
  */
 var CityMap = function(obj){
-	
-	// extends
-	var map 						= new XantenMap(obj.array, 'city');
-	map.__proto__                 	= "CityMap";	
-	map.backgrounds					= obj.backgrounds;
+		
+	var CityMap 						= new XantenMap(obj.array, 'city');
+	CityMap.__proto__                 	= "CityMap";	
+	CityMap.backgrounds					= obj.backgrounds;
 	
 	/**
-	 * It selects a cell
-	 * @param x The x coordinate
-	 * @param y The y coordinate
+	 * It is called when a cell is selected. It 
+	 * @memberOf CityMap.prototype
+	 * @param (number) x The x coordinate
+	 * @param (number) y The y coordinate
 	 */
-	map.selectCell = function(x, y){
+	CityMap.selectCell = function(x, y){
 		this.deselect();	
 
 		if($(this.HTML_element + " #cel_"+x+"_"+y).hasClass('allow_construction')){
@@ -39,8 +40,9 @@ var CityMap = function(obj){
 		
 	/**
 	 * It renders the information of the array in the images
+	 * @memberOf CityMap.prototype
 	 */
-	map.render = function(){		
+	CityMap.render = function(){		
 		for(i=1; i <= this.array.length; i++){
 			for(j=1; j <= this.array.length; j++){
 				var cell 		= $(this.HTML_element + " #cel_"+i+"_"+j),
@@ -71,12 +73,11 @@ var CityMap = function(obj){
 						cell.html(HTML_Engine.getBuilding.image(element.name + "", game.player.level, 70));
 						$(this.HTML_element+" #cel_"+i+"_"+j+" img").attr({"name_of_building": element.name.toLowerCase()});	
 						$(this.HTML_element+" #cel_"+i+"_"+j+" img").attr({"title": element.name.capitalize()});
-					}
-					
+					}					
 				} 			
 				$(this.HTML_element + " #cel_"+i+"_"+j).css('background-image', 'url(/static/img/game/background/city/' + background.img + ')');
 			}
 		}
 	};	
-	return map;
+	return CityMap;
 }

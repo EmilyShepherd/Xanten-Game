@@ -1,11 +1,12 @@
 /**
- * The HTML_Engine object
- *
- * @author Cristian Sima
- * @version 30.11.2014
+ * @file The HTML_Engine generates the HTML for the game. represents the View object (MCV). It  It generates the code, it adds the necessary listeners. Then it can disable the listeners
+ * @author JavaScript Team. Team M
+ * @version 30.12.2014
  */
+
 /**
- * The HTML_Engine generates the HTML for the game. represents the View object (MCV). It  It generates the code, it adds the necessary listeners. Then it can disable the listeners
+ * @namespace The HTML_Engine generates the HTML for the game. represents the View object (MCV). It  It generates the code, it adds the necessary listeners. Then it can disable the listeners
+ * @constructor
  */
 var HTML_Engine = {
 	path: {
@@ -18,13 +19,15 @@ var HTML_Engine = {
 }
 
 /**
- * It generates a table
+ * @namespace It generates a table
+ * @memberOf HTML_Engine
  */
 HTML_Engine.table = {
 	/**
 	 * It generates a table
-	 * @param (array) data information regarding the rows and columns of the table
-	 * @param (boolean) boldFirst If set to true it bolds the first column
+	 * @memberOf HTML_Engine.table
+	 * @param {array} data information regarding the rows and columns of the table
+	 * @param {boolean} boldFirst If set to true it bolds the first column
 	 * @return The HTML code for the table
 	 */
 	content: function(data, boldFirst) {
@@ -43,15 +46,16 @@ HTML_Engine.table = {
 };
 
 /**
- * It returns a image from the game
+ * @namespace It returns a image from the game
+ * @memberOf HTML_Engine
  */
 HTML_Engine.getImage = {
 	/**
 	 * It constructs an image. For example: HTML_Engine.content.getImage('img_resource', 'gold', 'Gold') returns ===> <img title="Gold" src="/static/img/game/resource/gold.png" align="absmiddle">
-	 * @param (string) path A HTML_Engine.path string
-	 * @param (string) image The name of the image (for example: gold or mine
-	 * @param (string) title It is optional. It sets the title for the image
-	 * @return (string) The HTML code for the image
+	 * @param {string} path A HTML_Engine.path string
+	 * @param {string} image The name of the image (for example: gold or mine
+	 * @param {string} title It is optional. It sets the title for the image
+	 * @return {string} The HTML code for the image
 	 */
 	content: function(path, image, title, type) {
 		var type = (type) ? type : "png";
@@ -60,14 +64,15 @@ HTML_Engine.getImage = {
 }
 
 /**
- * It displays the resources (gold, wood, stone, food, people and the time)  in HTML format
+ * @namespace It displays the resources (gold, wood, stone, food, people and the time)  in HTML format
+ * @memberOf HTML_Engine
  */
 HTML_Engine.displayResources = {
 	/**
 	 * It displays the resources
-	 * @param (object) The resources specified by Resources.prepareResources
+	 * @param {Resources} resources The resources specified by Resources.prepareResources
 	 * @see Resources
-	 * @return (string) The HTML code which displays the resources
+	 * @return {string} The HTML code which displays the resources
 	 */
 	content: function(resources) {
 
@@ -96,12 +101,13 @@ HTML_Engine.displayResources = {
 }
 
 /**
- * It returns the string for no action for a string
+ * @namespace It returns the string for no action for a string
+ * @memberOf HTML_Engine
  */
 HTML_Engine.noAction = {
 	/**
 	 * It returns the string for no action
-	 * @return (string) The string for no action
+	 * @return {string} The string for no action
 	 */
 	content: function() {
 		return "No action for now";
@@ -109,12 +115,13 @@ HTML_Engine.noAction = {
 }
 
 /**
- * It returns the string when an action which needs information from server fail. It allows the user to perform again it
+ * @namespace It returns the string when an action which needs information from server fail. It allows the user to perform again it
+ * @memberOf HTML_Engine
  */
 HTML_Engine.failAction = {
 	/**
 	 * It returns the string
-	 * @return (string) It returns the string
+	 * @return {string} It returns the string
 	 */
 	content: function() {
 		$("#actions_board .inside").html("Sir, there was a problem for your people to get that information... Try to find better ones and then tell them <span class='link' id='action-try-again'>to try again</span>");
@@ -130,13 +137,14 @@ HTML_Engine.failAction = {
 };
 
 /**
- * It shows the
+ * @namespace It shows the message when an task fails
+ * @memberOf HTML_Engine
  */
 HTML_Engine.failTask = {
 	/**
-	 * It addes a new news which shows that that task was not possible for a certain reson
-	 * @param task_title The title of the task
-	 * @param reason  The reason of the task
+	 * It adds a new news which shows that that task was not possible for a certain reson
+	 * @param {string} task_title The title of the task
+	 * @param {string} reason The reason of the task
 	 */
 	content: function(task_title, reason) {
 		game.newsBoard.add(task_title + " was no possible because " + reason);
@@ -144,11 +152,13 @@ HTML_Engine.failTask = {
 };
 
 /**
- * It displays the string which is seen while an action is performing an AJAX request
+ * @namespace It displays the string which is seen while an action is performing an AJAX request
+ * @memberOf HTML_Engine
  */
 HTML_Engine.loadAction = {
 	/**
-	 * TODO
+	 * It returns the string for loading an action
+	 * @return {string} The string for loading an action
 	 */
 	content: function() {
 		$("#actions_board .inside").html("<div class='center'><img src='static/img/game/loading.gif' width='32px' height='32px'/></div> Sir, please wait to check this...");
@@ -157,12 +167,12 @@ HTML_Engine.loadAction = {
 
 /**
  * It returns a short representation of the resource.
- *
+ * @example
  * <1000 => the value
  * 1k
  * 1m
  * 1b
- *
+ * @memberOf HTML_Engine
  * @param Number input The amount of resource
  * @returns string The amount in a short representation
  */
@@ -186,8 +196,7 @@ HTML_Engine.shortResourceRepresentation = function(input) {
 
 /**
  * It returns a short representation of time in this format: {hours} h, {minutes} h, {seconds} sec OR "Instant" (if time is 0)
- *
- *
+ * @memberOf HTML_Engine
  * @param Number sec_num The time expressed in number of seconds
  * @return string The time in this format: {hours} h, {minutes} h, {seconds} sec OR "Instant" (if time is 0)
  */

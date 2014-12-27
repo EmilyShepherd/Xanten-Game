@@ -1,0 +1,41 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**
+<span class='line'>  2</span>  * @file Represents a player object.
+<span class='line'>  3</span>  * @author Cristian Sima
+<span class='line'>  4</span>  * @version 30.12.2014
+<span class='line'>  5</span>  */</span><span class="WHIT">
+<span class='line'>  6</span> 
+<span class='line'>  7</span> </span><span class="COMM">/**
+<span class='line'>  8</span>  * It creates a player. The player holds information regarding the city, name, level id
+<span class='line'>  9</span>  * @constructor
+<span class='line'> 10</span>  * @param (object) info 		The information object	
+<span class='line'> 11</span>  * @returns (object) Player		The player
+<span class='line'> 12</span>  */</span><span class="WHIT">
+<span class='line'> 13</span> </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">Player</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">info</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 14</span> </span><span class="WHIT">	</span><span class="NAME">this.id</span><span class="WHIT">			</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">info.id</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="WHIT">
+<span class='line'> 15</span> </span><span class="WHIT">	</span><span class="NAME">this.name</span><span class="WHIT">		</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">info.name</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 16</span> </span><span class="WHIT">	</span><span class="NAME">this.level</span><span class="WHIT">		</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">info.level</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 17</span> </span><span class="WHIT">	</span><span class="NAME">this.resources</span><span class="WHIT">	</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Resources</span><span class="PUNC">(</span><span class="PUNC">(</span><span class="NAME">info.resources</span><span class="PUNC">?</span><span class="NAME">info.resources</span><span class="PUNC">:</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 18</span> </span><span class="WHIT">	</span><span class="NAME">this.city</span><span class="WHIT"> 		</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">info.buildings</span><span class="PUNC">)</span><span class="PUNC">?</span><span class="PUNC">(</span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">City</span><span class="PUNC">(</span><span class="NAME">info.buildings</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">:</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 19</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 20</span> 
+<span class='line'> 21</span> </span><span class="COMM">/**
+<span class='line'> 22</span>  * It consumes the given resources. Then, it updates the window
+<span class='line'> 23</span>  * @param {object} resourcesToConsume An Resources object to consume
+<span class='line'> 24</span>  * @see Resources
+<span class='line'> 25</span>  * @memberOf Player.prototype
+<span class='line'> 26</span>  */</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="NAME">Player.prototype.consumeResources</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">resourcesToConsume</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 28</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="PUNC">(</span><span class="NAME">resource</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">resourcesToConsume</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 29</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">resource</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="STRN">'seconds'</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">resource</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="STRN">'people'</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="WHIT">			</span><span class="NAME">game.player.resources</span><span class="PUNC">[</span><span class="NAME">resource</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">resourcesToConsume</span><span class="PUNC">[</span><span class="NAME">resource</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 32</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="WHIT">	</span><span class="NAME">Window.updateResources</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 34</span> </span><span class="PUNC">}</span><span class="PUNC">;</span></pre></body></html>

@@ -1,27 +1,31 @@
 /**
- * Represents a world map object.
- *
+ * @fileOverview Represents a world map object.
  * @author Cristian Sima
- * @version 30.11.2014
+ * @version 30.12.2014
  */
+
+
 
 /**
  * It represents a WorldMap object. It extends the XantenMap object
+ * @constructor
+ * @extends XantenMap
  * @param array The array of the map
- */
- function WorldMap(obj){
-	 
-	var map 		= new XantenMap(obj.array, 'world');
-	map.__proto__ 	= "WorldMap";
-	map.players		= obj.players;
-	map.backgrounds	= obj.backgrounds;
+*/
+function WorldMap(obj){
+	
+	var WorldMap	 		= new XantenMap(obj.array, 'world');
+	WorldMap.__proto__ 		= "WorldMap";
+	WorldMap.players		= obj.players;
+	WorldMap.backgrounds	= obj.backgrounds;
 	
 	/**
 	 * 
+	 * @memberOf WorldMap.prototype 
 	 * @param x The x coordinate
 	 * @param y The y coordinate
 	 */
-	map.selectCell = function(x, y){
+	WorldMap.selectCell = function(x, y){
 		
 		this.deselect();
 		
@@ -43,8 +47,9 @@
 
 	/**
 	 * It renders the information of the array into Graphical form
+	 * @memberOf WorldMap.prototype 
 	 */
-	map.render = function(){
+	WorldMap.render = function(){
 		for(i=1; i <= this.array.length; i++){
 			for(j=1; j <= this.array.length; j++){
 				var cell 		= $(this.HTML_element + " #cel_"+i+"_"+j),
@@ -67,12 +72,19 @@
 		// this.renderAttacks();
 	};
 	
-	
-	map.renderTrades = function(){	
-	
+	/**
+	 * It renders the trades
+	 * @memberOf WorldMap.prototype
+	 */
+	WorldMap.renderTrades = function(){	
+		// TODO
 	}
 	
-	map.renderAttacks = function() {
+	/**
+	 * It renders the attacks
+	 * @memberOf WorldMap.prototype 
+	 */
+	WorldMap.renderAttacks = function() {
 		for(move in this.data.militaryMovements){
 			var move_obj = this.data.militaryMovements[move];
 			this._addPath(move_obj.path, "military", HTML_Engine.worldPath.moveMilitaryUnits(move_obj.from, move_obj.to, move_obj.resources),
@@ -82,7 +94,11 @@
 		}			
 	};
 	
-	map._drawCanvas = function(){
+	/**
+	 * It draws the canvas
+	 * @private
+	 */
+	WorldMap._drawCanvas = function(){
 		var instance = this;
 		createjs.Ticker.addEventListener("tick", tick);		
 		function tick(event) {
@@ -90,7 +106,16 @@
 		}
 	}
 	
-	map._addPath = function (path, type, description, duration, callBack){
+	/**
+	 * It adds a new path
+	 * @param {array} path A 2d array with the path
+	 * @param {string} type It can be 'attack' or 'trade'
+	 * @param {string} description The description for the path
+	 * @param {number} duration The duration in ms
+	 * @param {function} callBack A function to be called when the path is removed
+	 * @private
+	 */
+	WorldMap._addPath = function (path, type, description, duration, callBack){
 			
 		if(!this.canvas.paths.length){
 			this._drawCanvas();
@@ -169,7 +194,12 @@
 		currentPath.circle 	= circle;     
 	};
 	
-	map.removePath = function(id){
+	/**
+	 * It removes the path
+	 * @param {number} id The id of the path (eg. path_0)
+	 * @private 
+	 */
+	WorldMap.removePath = function(id){
 		var p =game.worldMap.canvas.paths[id];
 		p.circle.removeAllEventListeners();
 		this.canvas.stage.removeChild(p.line)		
@@ -185,8 +215,9 @@
  	 * It returns the city using the id
  	 * @param id The id of the city
 	 * @return (object) An object with information regarding the city
+	 * @memberOf WorldMap.prototype
 	 */
-	map.getCityById = function(id){
+	WorldMap.getCityById = function(id){
 		return this.players[id];
 	};
 	
@@ -195,8 +226,9 @@
 	 * @param (number) x The x position
 	 * @param (number) y The y position
 	 * @return (number) The id of the city or null if nothing is there
+	 * @memberOf WorldMap.prototype
 	 */
-	map.getCityByPosition = function(x, y){
+	WorldMap.getCityByPosition = function(x, y){
 		return this.array[(x-1)][(y-1)].id_city;
 	};
 	
@@ -204,8 +236,9 @@
 	 * It returns the position of a city on the map
 	 * @param (number) id The id of the city
 	 * @return (object) An object with the x and y position
+	 * @memberOf WorldMap.prototype
 	 */
-	map.getCityPositionById = function(id){
+	WorldMap.getCityPositionById = function(id){
 		for(i=0; i<=this.array.length-1; i++){
 			for(j=0; j<=this.array.length-1; j++){
 				if(array[i][j].id_city === id){
@@ -218,7 +251,11 @@
 		}
 	};
 	
-	map._init = function(){
+	/**
+	 *  It creates the canvas and installs the motionGuidePlugin
+	 *	@memberOf WorldMap.prototype
+	 */
+	WorldMap._init = function(){
 		var instance = this;
 		this.canvas = {};		
 		this.canvas.stage = new createjs.Stage("canvas");
@@ -228,24 +265,36 @@
 		
 	};
 	
-	map._freeze = function(){
+	/**
+	 * It deletes all the paths and stops the ticker listener
+	 * @memberOf WorldMap.prototype
+	 */
+	WorldMap._freeze = function(){
 		for(path in this.canvas.paths){
 			this.removePath(this.canvas.paths[path].id);
 		}
 		createjs.Ticker.removeAllEventListeners();
 	}
 	
-	map._select = function(){
+	/**
+	 * It shows the canvas and it starts the ticker if there are any paths
+	 * @memberOf WorldMap.prototype
+	 */
+	WorldMap._select = function(){
 		$("#canvas").show();
 		if(this.canvas.paths.length){
 			this._drawCanvas();
 		}
 	}
 	
-	map._hide = function(){
+	/**
+	 * It hides the canvas and it removes the listener ticker
+	 * @memberOf WorldMap.prototype
+	 */
+	WorldMap._hide = function(){
 		$("#canvas").hide();
 		createjs.Ticker.removeAllEventListeners();
 	}
 	
-	return map;
+	return WorldMap;
  }

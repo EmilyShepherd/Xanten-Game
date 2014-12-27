@@ -1,17 +1,37 @@
 /**
- * Represents the view object which updates information
- *
+ * @file Represents the view object which updates information
  * @author Cristian Sima
  * @version 30.12.2014
  */
 
-function Window(){
-	this.actionsBoard      = new Board("actions");
-	this.newsBoard         = new Board("news");
-	this.currentTasksBoard = new Board("tasks");
-}
+/**
+ * It represents the view object which updates information
+ * @constructor 
+ */
+function Window(){}
 
+/**
+ * A reference to the bord for actions
+ * @memberOf Window
+ */
+Window.actionsBoard      = new Board("actions");
 
+/**
+ * A reference to the board for news
+ * @memberOf Window
+ */
+Window.newsBoard         = new Board("news");
+
+/**
+ * A reference to the board for tasks
+ * @memberOf Window
+ */
+Window.currentTasksBoard = new Board("tasks");
+
+/**
+ * It scrools the window to top, it renders the game and sets a listener for changing the map buttons
+ * @memberOf Window
+ */
 Window.init = function() {	
 	window.scrollTo(0, 0);
 	console.log('here')
@@ -20,11 +40,15 @@ Window.init = function() {
 	$('#map-view :radio').change(function() {
 		game.selectMap(game[$('#map-view :radio:checked').val() + "Map"]);
 	});
+	Window.updateDetailsCity();
+	Window.updateResources();
+	Window.updateStatistics();
 	Window.update();
 }
 
 /**
  * It updates the resources (gold, stone, wood, food)
+ * @memberOf Window
  */
 Window.updateResources = function(){
 	$("#resources #stone").html(HTML_Engine.shortResourceRepresentation(game.player.resources.stone));
@@ -34,23 +58,26 @@ Window.updateResources = function(){
 
 /**
  * It updates the number of people
+ * @memberOf Window
  */
 Window.updateStatistics = function() {
-	$("#resources #people").html(HTML_Engine.shortResourceRepresentation(this.getAllPeopleOfCity()));
+	$("#resources #people").html(HTML_Engine.shortResourceRepresentation(game.player.city.getNumberOfPeople()));
 	$("#resources #gold").html(HTML_Engine.shortResourceRepresentation(game.player.resources.gold));
 };
 
 /**
  * It updates the details of the city (name, level, type of city)
+ * @memberOf Window
  */
 Window.updateDetailsCity = function() {
-	$("#city_details #name").html(game.worldMap.data.cities[game.player.id].name);
+	$("#city_details #name").html(game.player.name);
 	$("#city_details #level").html("Level: "+game.player.level);
-	$("#city_details #type").html(game.getOrganizationInformationByLevel("name", game.player.level) );
+	$("#city_details #type").html(game.organization.getByLevel("name", game.player.level) );
 };
 
 /**
  * It updates the width and height for all boards, windows
+ * @memberOf Window
  */
 Window.update = function() {
 	$("#actions_board").css({"height":1+"px", "min-height": 1+"px"});

@@ -1,21 +1,36 @@
 /**
  * Holds information regarding the buildings and elements
+ * @memberOf Game.prototype
  */
 game.constructions = {};
 
 /**
  * Holds information regarding the buildings: name, maxLevel, maxNumber, capacity, cost to upgrade
+ * @memberOf Game.prototype
  */
 game.constructions.buildings = {
+	
 	"administration": {
 		id: 1,
 		name: "administration",
 		maxNumber: 1,
 		maxLevel: 50,
+		/**
+		 * It returns the capacity of the building for a given level
+		 * @param {number} level The level of the building
+		 * @return {Resource} A Resources object which describe the capacity of the building
+		 * @inner 
+		 */
 		capacity: function(level) {
 			return {};
 			// TODO @George
 		},
+		/**
+		 * It returns the necessary resources in order to level up the building to a given level
+		 * @param {number} level The level of the building
+		 * @return {Resource} A Resources object which describe the necessary resources in order to level up the building to a given level
+		 * @inner  
+		 */
 		levelUp: function(level) {
 			return new Resources({
 				resources: {
@@ -33,6 +48,12 @@ game.constructions.buildings = {
 		name: "military",
 		maxNumber: 1,
 		maxLevel: null,
+		/**
+		 * It returns the capacity of the building for a given level
+		 * @param {number} level The level of the building
+		 * @return {Resource} A Resources object which describe the capacity of the building
+		 * @inner  
+		 */
 		capacity: function(level) {
 			return new Resources({
 				"resources": {
@@ -40,6 +61,12 @@ game.constructions.buildings = {
 				}
 			});
 		},
+		/**
+		 * It returns the necessary resources in order to level up the building to a given level
+		 * @param {number} level The level of the building
+		 * @return {Resource} A Resources object which describe the necessary resources in order to level up the building to a given level
+		 * @inner  
+		 */
 		levelUp: function(level) {
 			return new Resources({
 				resources: {
@@ -56,6 +83,12 @@ game.constructions.buildings = {
 		name: "storage",
 		maxNumber: 1,
 		maxLevel: 10,
+		/**
+		 * It returns the capacity of the building for a given level
+		 * @param {number} level The level of the building
+		 * @return {Resource} A Resources object which describe the capacity of the building
+		 * @inner  
+		 */
 		capacity: function(level) {
 			return new Resources({
 				unit: "%",
@@ -66,6 +99,12 @@ game.constructions.buildings = {
 				}
 			});
 		},
+		/**
+		 * It returns the necessary resources in order to level up the building to a given level
+		 * @param {number} level The level of the building
+		 * @return {Resource} A Resources object which describe the necessary resources in order to level up the building to a given level
+		 * @inner  
+		 */
 		levelUp: function(level) {
 			return new Resources({
 				resources: {
@@ -82,6 +121,12 @@ game.constructions.buildings = {
 		name: "mill",
 		maxNumber: 1,
 		maxLevel: 10,
+		/**
+		 * It returns the capacity of the building for a given level
+		 * @param {number} level The level of the building
+		 * @return {Resource} A Resources object which describe the capacity of the building
+		 * @inner  
+		 */
 		capacity: function(level) {
 			return new Resources({
 				"resources": {
@@ -89,6 +134,12 @@ game.constructions.buildings = {
 				}
 			});
 		},
+		/**
+		 * It returns the necessary resources in order to level up the building to a given level
+		 * @param {number} level The level of the building
+		 * @return {Resource} A Resources object which describe the necessary resources in order to level up the building to a given level
+		 * @inner  
+		 */
 		levelUp: function(level) {
 			return new Resources({
 				resources: {
@@ -105,6 +156,12 @@ game.constructions.buildings = {
 		name: "mine",
 		maxNumber: 1,
 		maxLevel: 10,
+		/**
+		 * It returns the capacity of the building for a given level
+		 * @param {number} level The level of the building
+		 * @return {Resource} A Resources object which describe the capacity of the building
+		 * @inner  
+		 */
 		capacity: function(level) {
 			return new Resources({
 				"resources": {
@@ -112,6 +169,12 @@ game.constructions.buildings = {
 				}
 			})
 		},
+		/**
+		 * It returns the necessary resources in order to level up the building to a given level
+		 * @param {number} level The level of the building
+		 * @return {Resource} A Resources object which describe the necessary resources in order to level up the building to a given level
+		 * @inner  
+		 */
 		levelUp: function(level) {
 			return new Resources({
 				resources: {
@@ -128,11 +191,23 @@ game.constructions.buildings = {
 		name: "house",
 		maxNumber: null,
 		maxLevel: null,
+		/**
+		 * It returns the capacity of the building for a given level
+		 * @param {number} level The level of the building
+		 * @return {Resource} A Resources object which describe the capacity of the building
+		 * @inner  
+		 */
 		capacity: function(level) {
 			return new Resources({
 				"people": (1000 * 1.1 ^ (game.player.level)) * game.player.city.buildings.house.num
 			});
 		},
+		/**
+		 * It returns the necessary resources in order to level up the building to a given level
+		 * @param {number} level The level of the building
+		 * @return {Resource} A Resources object which describe the necessary resources in order to level up the building to a given level
+		 * @inner  
+		 */
 		levelUp: function(level) {
 			return new Resources({
 				resources: {
@@ -149,6 +224,12 @@ game.constructions.buildings = {
 		name: "trade",
 		maxNumber: 10,
 		maxLevel: 1,
+		/**
+		 * It returns the capacity of the building for a given level
+		 * @param {number} level The level of the building
+		 * @return {Resource} A Resources object which describe the capacity of the building
+		 * @inner  
+		 */
 		capacity: function(level) {
 			return new Resources({
 				"resources": {
@@ -159,6 +240,12 @@ game.constructions.buildings = {
 				}
 			});
 		},
+		/**
+		 * It returns the necessary resources in order to level up the building to a given level
+		 * @param {number} level The level of the building
+		 * @return {Resource} A Resources object which describe the necessary resources in order to level up the building to a given level
+		 * @inner  
+		 */
 		levelUp: function(level) {
 			return new Resources({
 				resources: {
@@ -175,6 +262,12 @@ game.constructions.buildings = {
 		name: "lumberjack",
 		maxNumber: 1,
 		maxLevel: 10,
+		/**
+		 * It returns the capacity of the building for a given level
+		 * @param {number} level The level of the building
+		 * @return {Resource} A Resources object which describe the capacity of the building
+		 * @inner  
+		 */
 		capacity: function(level) {
 			return new Resources({
 				"resources": {
@@ -182,6 +275,12 @@ game.constructions.buildings = {
 				}
 			});
 		},
+		/**
+		 * It returns the necessary resources in order to level up the building to a given level
+		 * @param {number} level The level of the building
+		 * @return {Resource} A Resources object which describe the necessary resources in order to level up the building to a given level
+		 * @inner  
+		 */
 		levelUp: function(level) {
 			return new Resources({
 				resources: {
@@ -198,6 +297,12 @@ game.constructions.buildings = {
 		name: "farm",
 		maxNumber: 1,
 		maxLevel: 10,
+		/**
+		 * It returns the capacity of the building for a given level
+		 * @param {number} level The level of the building
+		 * @return {Resource} A Resources object which describe the capacity of the building
+		 * @inner  
+		 */
 		capacity: function(level) {
 			return new Resources({
 				"resources": {
@@ -205,6 +310,12 @@ game.constructions.buildings = {
 				}
 			});
 		},
+		/**
+		 * It returns the necessary resources in order to level up the building to a given level
+		 * @param {number} level The level of the building
+		 * @return {Resource} A Resources object which describe the necessary resources in order to level up the building to a given level
+		 * @inner  
+		 */
 		levelUp: function(level) {
 			return new Resources({
 				resources: {
@@ -217,8 +328,10 @@ game.constructions.buildings = {
 		}
 	}
 };
+
 /**
  * Holds information regarding the elements
+ * @memberOf Game.prototype
  */
 game.constructions.elements = {
 	"Tower": {
@@ -235,8 +348,9 @@ game.constructions.elements = {
 
 /**
  * It returns the data object of a building using the id of the building
- * @param (number) id The id of the building
- * @return (object) The object which contain information regarding the building
+ * @param {number} id The id of the building
+ * @return {object} The object which contain information regarding the building
+ * @memberOf Game.prototype
  */
 game.constructions.getBuildingById = function(id) {
 	for (b in game.constructions.buildings) {
@@ -248,8 +362,9 @@ game.constructions.getBuildingById = function(id) {
 
 /**
  * It returns the data object of a element using the id of the building
- * @param (number) id The id of the building
- * @return (object) The object which contain information regarding the building
+ * @param {number} id The id of the building
+ * @return {object} The object which contain information regarding the building
+ * @memberOf Game.prototype
  */
 game.constructions.getElementById = function(id) {
 	for (e in game.constructions.elements) {

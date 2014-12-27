@@ -1,6 +1,7 @@
 /**
  * The actions of the game
  * @see Action
+ * @memberOf Game.prototype
  */
 game.actions = {
 	"game_over": function(args) {

@@ -1,28 +1,27 @@
 /**
- * It does the magic of the game. It maintain the connection with the server, it progress any websockets and it progress the resources
- *
- * @author Cristian Sima and ...
- * @version 2.12.2014
+ * @file It does the magic of the game. It maintain the connection with the server, it progress any websockets and it progress the resources
+ * @author Cristian Sima
+ * @version 30.12.2014
  */
 
-
-
-
 /**
- * It makes the game alive
- *
+ * It does the magic of the game. It maintain the connection with the server, it progress any websockets and it progress the resources.
+ * @constructor
+ * @property {boolean} isRunning If true, the RTE is running, false otherwise
+ * @property {object} websocket The reference to the websocket object
  */
 function RealTimeEngine(){
 	this.isRunning 	= false;
 	this.threads 	= {};
 	this.websocket  = undefined;
-
 	this.init();
 }
 
 
 /**
  * It loads the WebSocket framework and assign the listeners for events (receive/send message, disasters and statistics)
+ * @private
+ * @memberOf RealTimeEngine.prototype
  */
 RealTimeEngine.prototype.init = function(){
     // this.channel   = new goog.appengine.Channel('{{ channel_id }}');
@@ -30,6 +29,7 @@ RealTimeEngine.prototype.init = function(){
 
 /**
  * It stats the thread for resources, starts the channel for websocket and assigns the listeners
+ * @memberOf RealTimeEngine.prototype
  */
 RealTimeEngine.prototype.run = function(){
 
@@ -64,6 +64,7 @@ RealTimeEngine.prototype.run = function(){
 
 /**
  * It stops the calculation of resources. It stops the connection with the websocket and removes the listeners
+ * @memberOf RealTimeEngine.prototype
  */
 RealTimeEngine.prototype.freeze = function(){
 
@@ -80,6 +81,8 @@ RealTimeEngine.prototype.freeze = function(){
 
 /**
  * It is called each second. It updates the amounts of resources
+ * @memberOf RealTimeEngine.prototype
+ * @private
  */
 RealTimeEngine.prototype._progress = function(){
 	// TODO @Cristian
@@ -122,8 +125,9 @@ RealTimeEngine.prototype._progress = function(){
 
 /**
  * it is called in order to send a message to another player
- * @param string message The message to be sent
- * @param number player_id The id of the player
+ * @memberOf RealTimeEngine.prototype
+ * @param {string} message The message to be sent
+ * @param {number} player_id The id of the player
  */
 RealTimeEngine.prototype.sendMessage = function(message, player_id){
 	// TODO @Joe
@@ -144,7 +148,8 @@ RealTimeEngine.prototype.sendMessage = function(message, player_id){
 
 /**
  * It is called when a message is received for this user
- * @param string message An object which contain all the information regarding the message ("sent_from", "content", "id", "date")
+ * @memberOf RealTimeEngine.prototype
+ * @param {string} message An object which contain all the information regarding the message ("sent_from", "content", "id", "date")
  */
 RealTimeEngine.prototype.receiveMessage = function(message){
 	// TODO @Joe 
@@ -153,7 +158,8 @@ RealTimeEngine.prototype.receiveMessage = function(message){
 
 /**
  * It is called when a message is received for this user
- * @param string message An object which contain all the information regarding the message ("sent_from", "content", "id", "date")
+ * @memberOf RealTimeEngine.prototype
+ * @param {string} message An object which contain all the information regarding the message ("sent_from", "content", "id", "date")
  */
 RealTimeEngine.prototype.receiveAttack = function(message){
 	// TODO @Joe
@@ -162,7 +168,8 @@ RealTimeEngine.prototype.receiveAttack = function(message){
 
 /**
  * Perform an attack
- * @param string id_city The id of the city which is attacked
+ * @param {string} id_city The id of the city which is attacked
+ * @memberOf RealTimeEngine.prototype
  */
 RealTimeEngine.prototype.performAttack = function(id_city){
 	// TODO @Cristian
@@ -170,7 +177,8 @@ RealTimeEngine.prototype.performAttack = function(id_city){
 
 /**
  * It is called when the game receives the statistics for a day. It includes disasters
- * @param object statistics The statistics for a day (people, gold, disasters)
+ * @memberOf RealTimeEngine.prototype
+ * @param {object} statistics The statistics for a day (people, gold, disasters)
  */
 RealTimeEngine.prototype.receiveDailyStatistics = function(statistics){
 	// TODO @Cristian
@@ -178,7 +186,8 @@ RealTimeEngine.prototype.receiveDailyStatistics = function(statistics){
 
 /**
  * It is called when server tells the status of the game
- * @param object status It contains the status of the game.
+ * @memberOf RealTimeEngine.prototype
+ * @param {object} status It contains the status of the game.
  */
 RealTimeEngine.prototype.receiveGameStatus = function(status){
 	// TODO @Cristian

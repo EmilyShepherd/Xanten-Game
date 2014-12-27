@@ -1,8 +1,14 @@
+/**
+ * @file Represents a player object.
+ * @author Cristian Sima
+ * @version 30.12.2014
+ */
 
 /**
  * It creates a player. The player holds information regarding the city, name, level id
+ * @constructor
  * @param (object) info 		The information object	
- * @returns (object) Plyayer	The player
+ * @returns (object) Player		The player
  */
 var Player = function(info){
 	this.id			= info.id; 
@@ -12,30 +18,17 @@ var Player = function(info){
 	this.city 		= (info.buildings)?(new City(info.buildings)):{};
 };
 
+/**
+ * It consumes the given resources. Then, it updates the window
+ * @param {object} resourcesToConsume An Resources object to consume
+ * @see Resources
+ * @memberOf Player.prototype
+ */
 Player.prototype.consumeResources = function(resourcesToConsume){
 	for(resource in resourcesToConsume){
 		if(resource !== 'seconds' && resource !== 'people' ){
 			game.player.resources[resource] -= resourcesToConsume[resource];
 		}
 	}
-	game.resources.updateResources();
+	Window.updateResources();
 };
-
-
-var City = function(buildings){
-	this.buildings = buildings;
-}
-
-/**
- * It sums the number of all people for the city
- * @returns (number) The number of all the people from the city
- */
-City.prototype.getNumberOfPeople = function() {
-	var people = 0;
-	for(building in this.buildings){
-		if(this.buildings[building].people) {
-			people += parseInt(this.buildings[building].people);
-		}
-	}	
-	return people;
-}

@@ -21,6 +21,14 @@ class Building:
                     "stone" : 0
                 },
                 "time" : 600
+            },
+            "train" : {
+                "cost" : {
+                    "gold" : 10,
+                    "wood" : 0,
+                    "stone" : 0
+                },
+                "time" : 6
             }
         },
         # Mines produce stone, but there's a chance they will be
@@ -41,6 +49,14 @@ class Building:
                     "stone" : 0
                 },
                 "time" : 600
+            },
+            "train" : {
+                "cost" : {
+                    "gold" : 10,
+                    "wood" : 0,
+                    "stone" : 0
+                },
+                "time" : 6
             }
         },
         "storage" : {
@@ -59,6 +75,14 @@ class Building:
                     "stone" : 0
                 },
                 "time" : 600
+            },
+            "train" : {
+                "cost" : {
+                    "gold" : 10,
+                    "wood" : 0,
+                    "stone" : 0
+                },
+                "time" : 6
             }
         },
         "military" : {
@@ -77,6 +101,14 @@ class Building:
                     "stone" : 0
                 },
                 "time" : 600
+            },
+            "train" : {
+                "cost" : {
+                    "gold" : 10,
+                    "wood" : 0,
+                    "stone" : 0
+                },
+                "time" : 6
             }
         },
         "mine" : {
@@ -96,6 +128,14 @@ class Building:
                     "stone" : 0
                 },
                 "time" : 600
+            },
+            "train" : {
+                "cost" : {
+                    "gold" : 10,
+                    "wood" : 0,
+                    "stone" : 0
+                },
+                "time" : 6
             }
         },
         "lumberjack" : {
@@ -114,6 +154,14 @@ class Building:
                     "stone" : 0
                 },
                 "time" : 600
+            },
+            "train" : {
+                "cost" : {
+                    "gold" : 10,
+                    "wood" : 0,
+                    "stone" : 0
+                },
+                "time" : 6
             }
         }
     }

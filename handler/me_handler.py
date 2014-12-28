@@ -35,7 +35,7 @@ class MeHandler(DefaultHandler):
             cost     = building['cost']
 
             # You need to pay for what you build!
-            if       self.user.gold  < cost['gold']    \
+            if         self.user.gold  < cost['gold']    \
                     or self.user.wood  < cost['wood']    \
                     or self.user.stone < cost['stone']:
                 self.stderr('Not enough resources!')
@@ -79,11 +79,8 @@ class MeHandler(DefaultHandler):
         if number <= 0:
             self.stderr('Number should be a positive integer')
         # Check that the from and to locations actually exist
-        elif not Building.buildings.has_key(moveFrom):
-            self.stderr('Unknown From Building')
-        elif not Building.buildings.has_key(moveTo):
-            self.stderr('Unknown To Building')
-        # Check if they actually have that kind of building
+        elif not self.user.hasBuilding(moveFrom):
+            self.stderr('You don\'t have that kind of building')
         elif not self.user.hasBuilding(moveTo):
             self.stderr('You don\'t have that kind of building')
         # Make sure you're not trying to move more people than we have
@@ -96,16 +93,35 @@ class MeHandler(DefaultHandler):
             # people
             self.user.updateValues()
 
-            # Take away people from user.peopleAtBuidling
-            setattr(
-                self.user, fromAttr,
-                getattr(self.user, fromAttr) - number
-            )
-            # Add people to user.peopleAtOtherBuilding
-            setattr(
-                self.user, toAttr,
-                getattr(self.user, toAttr) + number
-            )
+            building = Building.buildings[moveTo]['train']
+            cost     = building['cost']
+
+            # You need to pay for what you training!
+            if         self.user.gold  < cost['gold']    \
+                    or self.user.wood  < cost['wood']    \
+                    or self.user.stone < cost['stone']:
+                self.stderr('Not enough resources!')
+            # All checks successful, take the resources from the user
+            # and put this into the building queue
+            else:
+                self.user.gold  -= cost['gold']
+                self.user.wood  -= cost['wood']
+                self.user.stone -= cost['stone']
+
+                setattr(
+                    self.user, fromAttr,
+                    getattr(self.user, fromAttr) - number
+                )
+
+                queue           = Queue()
+                queue.queueType = 'people'
+                queue.number    = number
+                queue.name      = moveTo
+                self.user.addQueue(queue, building['time'] * number)
+                queue.put()
+
+                self.json['status'] = 'moved'
+                self.json['queue']  = queue.toDict()
 
             self.user.put()
-            self.json['status'] = 'moved'
+        

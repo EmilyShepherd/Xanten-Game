@@ -179,7 +179,6 @@ Game.prototype.performTask = function(name, args) {
 	var args = args ? args : undefined,
 		task = game.tasks[name](args);
 
-	game.performAction("start_task");
 	task.args = args;
 	game.currentTasks.push(task);
 };

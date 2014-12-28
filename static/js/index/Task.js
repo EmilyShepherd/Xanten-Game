@@ -57,7 +57,7 @@ Task.prototype._activate = function(){
 	
 	var instance = this;
 	
-	game.removeCurrentAction();				// clear the actions board
+	this.progressTasks = new ProgressBar(this);
 	
 	$.ajax({
 			"url": this.serverDetails.url,
@@ -65,7 +65,6 @@ Task.prototype._activate = function(){
 			"data": this.serverDetails.data,
 			"success": function(response){
 							instance.response = response;
-							console.log('aaa')
 							instance.afterConfirmation();
 						},
 			"error": function(){HTML_Engine.failTask.content(instance.title, " your people are not now able.");}
@@ -114,7 +113,7 @@ Task.prototype._duringPerforming = function(){
  */
 Task.prototype.beforeStarting = function(){
 	this._beforeStarting(this);
-	this.progressTasks = new ProgressBar(this);
+	this.progressTasks.start(); 
 };
 
 /**
@@ -125,9 +124,7 @@ Task.prototype.afterConfirmation = function(){
 	if(this.response.status === "er2ror" ){
 		HTML_Engine.failTask.content(this.title, this.response.message);
 		this.forceStop();
-	} else {
-		game.performAction('clear');
-		
+	} else {		
 		this._afterConfirmation(this);
 		this.beforeStarting();
 	}

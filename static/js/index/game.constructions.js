@@ -57,7 +57,7 @@ game.constructions.buildings = {
 		capacity: function(level) {
 			return new Resources({
 				"resources": {
-					"military": Math.floor(4 ^ level)
+					"military": Math.pow(4, level)
 				}
 			});
 		},
@@ -199,7 +199,7 @@ game.constructions.buildings = {
 		 */
 		capacity: function(level) {
 			return new Resources({
-				"people": (1000 * 1.1 ^ (game.player.level)) * game.player.city.buildings.house.num
+				"people": (1000 * Math.pow(1.1, game.player.level) * game.player.city.buildings.house.num)
 			});
 		},
 		/**
@@ -233,10 +233,10 @@ game.constructions.buildings = {
 		capacity: function(level) {
 			return new Resources({
 				"resources": {
-					"gold": 3 * 5 ^ level,
-					"wood": 7 * 5 ^ level,
-					"food": 5 * 5 ^ level,
-					"stone": 8 * 5 ^ level
+					"gold": 3 * Math.pow(5, level),
+					"wood": 7 * Math.pow(5, level),
+					"food": 5 * Math.pow(5, level),
+					"stone": 8 * Math.pow(5, level)
 				}
 			});
 		},

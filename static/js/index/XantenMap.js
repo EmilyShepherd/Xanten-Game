@@ -126,11 +126,7 @@ XantenMap.prototype.init = function(){
 		var id = $(this).attr("id");
 		var array = id.substring(4, id.length);
 		var elements = array.split("_");
-		instance.selectedCell = {
-				x:  elements[0]-1,
-				y: elements[1]-1
-		};
-		instance.selectCell(elements[0], elements[1]);
+		instance._selectCell(elements[0], elements[1]);
 	});	
 	if(this._init){
 		this._init();
@@ -165,11 +161,26 @@ XantenMap.prototype.hide = function(){
 };
 
 /**
+ * It saves the selected cell and calls selectCell method
+ * @memberOf XantenMap.prototype
+ * @param {number} x The x coordinate
+ * @param {number} y The y coordinate
+ */
+XantenMap.prototype._selectCell = function(x, y){
+	this.selectedCell = {"x": x, "y": y};
+	this.selectCell(x, y);
+}
+
+/**
  * It changes the map backgrounds and images.
  * @memberOf XantenMap.prototype
  */
-XantenMap.prototype.update = function(){
+XantenMap.prototype.update = function(){	
+	var s = this.selectedCell;
 	this.render();
+	if(s) {
+		this._selectCell(parseInt(s.x), parseInt(s.y));
+	}
 };
 
 /**

@@ -23,6 +23,7 @@ var CityMap = function(obj){
 	 * @param (number) y The y coordinate
 	 */
 	CityMap.selectCell = function(x, y){
+		console.log("selected" + x+ y)
 		this.deselect();	
 
 		if($(this.HTML_element + " #cel_"+x+"_"+y).hasClass('allow_construction')){
@@ -63,7 +64,7 @@ var CityMap = function(obj){
 						if(player_building.status === 'under_construction'){
 							img = "construction";
 						}
-						cell.html(HTML_Engine.getBuilding.image(img, game.player.level, 98) + (player_building.level?"<span class='level'>" + player_building.level + "</span>":""));
+						cell.html(HTML_Engine.getBuilding.image(img, game.player.level, 98) + (player_building.level?"<span class='" + ((player_building.status === 'upgrading')?"level_upgrading":"level") + "' >" + player_building.level + "</span>":""));
 						
 						$(this.HTML_element+" #cel_"+i+"_"+j+" img").addClass('hasAction');	
 						$(this.HTML_element+" #cel_"+i+"_"+j+" img").attr({"name_of_building": building.name.toLowerCase()});	

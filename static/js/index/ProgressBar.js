@@ -15,7 +15,7 @@ function ProgressBar(task){
 	
 	this.task = task;
 	
-	Window.currentTasksBoard.add("<div id='task_"+this.task.id+"'><img width='25px' height='25px' src='"+task.imgSource+"'>   "+task.title+"<div id='progressbar_"+this.task.id+"'><div class='progress-label'></div></div></div>");
+	Window.currentTasksBoard.add("<div id='task_"+this.task.id+"'><img width='25px' height='25px' src='"+task.imgSource+"' align='absmiddle' >   "+task.title+"<div id='progressbar_"+this.task.id+"'><div class='progress-label'></div></div></div>");
 	
 	this.p			 		= $( "#progressbar_"+this.task.id );
     this.progressLabel 		= $( "#progressbar_"+this.task.id ).find( ".progress-label" );
@@ -39,8 +39,6 @@ function ProgressBar(task){
 			instance.finish();
 		}
     });	
-
-	this.thread = setInterval(progress, step);
 	
 }
 
@@ -52,4 +50,10 @@ ProgressBar.prototype.finish = function() {
 	this.task.afterEnds();
 };
 
-
+/**
+ * It starts the thread
+ * @memberOf ProgressBar.prototype
+ */
+ProgressBar.prototype.start = function(){
+	this.thread = setInterval(progress, step);
+}

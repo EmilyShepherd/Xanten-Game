@@ -490,7 +490,7 @@ HTML_Engine.inside_military = {
 			html = "",
 			capacity = game.constructions.buildings.military.capacity(game.player.city.buildings.military.level).resources.military;
 		html += HTML_Engine.getBuilding.info("military", true);
-		html += HTML_Engine.upgradeBuilding.content("military", (parseInt(game.player.city.buildings["administration"].level) + 1));
+		html += HTML_Engine.upgradeBuilding.content("military", (parseInt(game.player.city.buildings["military"].level) + 1));
 		html += "<div class='heading'>";
 		if (nr_of_active_units === 0) {
 			html += "Sir, no military units :(";
@@ -552,7 +552,6 @@ HTML_Engine.inside_military = {
 		/*
 		 * It creates the chooser to let the user to choose how many utits to create
 		 */
-		console.log(capacity);
 		if (nr_of_active_units < capacity) {
 			HTML_Engine.chooser.enable({
 	
@@ -978,6 +977,8 @@ HTML_Engine.upgradeBuilding = {
 						["Upgrade to level <span class='bold'>" + next_level + "</span> <br />" + HTML_Engine.displayResources.content(game.constructions.buildings[building_name].levelUp(next_level)), "<img src='/static/img/game/buildings/upgrade.png' align='right' />"]
 					], false) +
 					"</div>";
+			} else {
+				return "The building has the maximum level.";
 			}
 		}
 	},

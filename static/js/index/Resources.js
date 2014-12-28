@@ -12,7 +12,7 @@
  */
 var Resources = function(obj){
 	for (var prop in obj) {
-		if(prop !== "resources" && prop !== 'interval'){
+		if(prop !== "resources" && prop !== 'interval' && prop !== "unit"){
 			obj[prop] = Math.round(obj[prop]);
 		}
 	}	

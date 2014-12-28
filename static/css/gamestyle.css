@@ -342,7 +342,7 @@ body {
 	margin-top: -7px;
 }
 
-.map .level, .building_info .level {
+.map .level, .building_info .level, .level_upgrading {
 	position: absolute;
 	top: 3px;
 	left: 60px;
@@ -359,6 +359,7 @@ body {
 	padding: 1px;
 	border-radius: 20px;
 	z-index:3;
+	transition-duration: 0.5s;
 }
 
 .map .description {
@@ -418,7 +419,13 @@ body {
 	height: 16px;
 	padding-left: 5px;
 	left: 52px;
-}	
+}
+
+.level_upgrading {
+	border: 1px solid rgb(103, 34, 255);
+	z-index: 3;
+	background: rgb(34, 209, 255);	
+}
 
 .building_info .title {
 	float:left;

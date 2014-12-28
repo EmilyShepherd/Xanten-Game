@@ -19,7 +19,7 @@ var Player = function(info){
 };
 
 /**
- * It consumes the given resources. Then, it updates the window
+ * It consumes the given resources (also people from administration). Then, it updates the window
  * @param {object} resourcesToConsume An Resources object to consume
  * @see Resources
  * @memberOf Player.prototype
@@ -27,8 +27,9 @@ var Player = function(info){
 Player.prototype.consumeResources = function(resourcesToConsume){
 	for(resource in resourcesToConsume.resources){
 		if(resource !== 'military' ){
-			game.player.resources[resource] -= resourcesToConsume.resources[resource];
+			this.resources[resource] -= resourcesToConsume.resources[resource];
 		}
 	}
+	this.city.buildings.administration.people -= resourcesToConsume.people;
 	Window.updateResources();
 };

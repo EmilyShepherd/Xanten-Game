@@ -112,7 +112,7 @@ Game.prototype.update = function() {
 	this.worldMap.update();
 	this.cityMap.update();
 	
-	Window.updateStatistics();
+	Window.refresh();
 };
 
 /**

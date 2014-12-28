@@ -62,14 +62,14 @@ var CityMap = function(obj){
 						if(player_building.status === 'under_construction'){
 							img = "construction";
 						}
-						cell.html(HTML_Engine.getBuilding.image(img, game.player.level, 98) + (player_building.level?"<span class='" + ((player_building.status === 'upgrading')?"level_upgrading":"level") + "' >" + player_building.level + "</span>":""));
+						cell.html(HTML_Engine.getBuilding.image(img, game.player.getLevel(), 98) + (player_building.level?"<span class='" + ((player_building.status === 'upgrading')?"level_upgrading":"level") + "' >" + player_building.level + "</span>":""));
 						
 						$(this.HTML_element+" #cel_"+i+"_"+j+" img").addClass('hasAction');	
 						$(this.HTML_element+" #cel_"+i+"_"+j+" img").attr({"name_of_building": building.name.toLowerCase()});	
 						$(this.HTML_element+" #cel_"+i+"_"+j+" img").attr({"title": building.name.capitalize()});	
 					} else {
 						var element = game.constructions.getElementById(this.array[(i-1)][(j-1)].id_construction);
-						cell.html(HTML_Engine.getBuilding.image(element.name + "", game.player.level, 70));
+						cell.html(HTML_Engine.getBuilding.image(element.name + "", game.player.getLevel(), 70));
 						$(this.HTML_element+" #cel_"+i+"_"+j+" img").attr({"name_of_building": element.name.toLowerCase()});	
 						$(this.HTML_element+" #cel_"+i+"_"+j+" img").attr({"title": element.name.capitalize()});
 					}					

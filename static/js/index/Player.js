@@ -11,11 +11,20 @@
  * @returns (object) Player		The player
  */
 var Player = function(info){
+	
 	this.id			= info.id; 
 	this.name		= info.name;
-	this.level		= info.level;
 	this.resources	= new Resources((info.resources?info.resources:{}));	
 	this.city 		= (info.buildings)?(new City(info.buildings)):{};
+};
+
+/**
+ * It returns the level of player (same as level of city)
+ * @return {number} level The level of city
+ * @memberOf Player.prototype
+ */
+Player.prototype.getLevel = function(){
+	return this.city.getLevel();
 };
 
 /**

@@ -54,7 +54,7 @@ game.actions = {
 		return new Action("Actions", "", undefined);
 	},
 	"inside_building": function(args) {
-		return new Action(HTML_Engine.getBuilding.name(args.name, game.player.level), (function() {
+		return new Action(HTML_Engine.getBuilding.name(args.name, game.player.getLevel()), (function() {
 				var name = args.name;
 				if (game.player.city.buildings[name].status === 'under_construction') {
 					return HTML_Engine.buildingUnderConstruction;

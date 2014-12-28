@@ -29,3 +29,13 @@ City.prototype.getNumberOfPeople = function() {
 	}	
 	return people;
 };
+
+/**
+ * It returns the level of city
+ * @return {number} level The level of city
+ * @memberOf City.prototype
+ * @see City.prototype.buildings
+ */
+City.prototype.getLevel = function(){
+	return this.buildings.administration.level;
+};

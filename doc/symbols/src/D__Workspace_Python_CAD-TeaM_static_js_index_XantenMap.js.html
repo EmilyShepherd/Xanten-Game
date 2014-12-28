@@ -175,26 +175,27 @@
 <span class='line'>168</span>  * @param {number} y The y coordinate
 <span class='line'>169</span>  */</span><span class="WHIT">
 <span class='line'>170</span> </span><span class="NAME">XantenMap.prototype._selectCell</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">x</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">y</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>171</span> </span><span class="WHIT">	</span><span class="NAME">this.selectedCell</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="STRN">"x"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">x</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"y"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">y</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>171</span> </span><span class="WHIT">	</span><span class="NAME">this.deselect</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>172</span> </span><span class="WHIT">	</span><span class="NAME">this.selectCell</span><span class="PUNC">(</span><span class="NAME">x</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">y</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>173</span> </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>174</span> 
-<span class='line'>175</span> </span><span class="COMM">/**
-<span class='line'>176</span>  * It changes the map backgrounds and images.
-<span class='line'>177</span>  * @memberOf XantenMap.prototype
-<span class='line'>178</span>  */</span><span class="WHIT">
-<span class='line'>179</span> </span><span class="NAME">XantenMap.prototype.update</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">	</span><span class="WHIT">
-<span class='line'>180</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">s</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.selectedCell</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>181</span> </span><span class="WHIT">	</span><span class="NAME">this.render</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>182</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">s</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>183</span> </span><span class="WHIT">		</span><span class="NAME">this._selectCell</span><span class="PUNC">(</span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">s.x</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">s.y</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>184</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>185</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>186</span> 
-<span class='line'>187</span> </span><span class="COMM">/**
-<span class='line'>188</span>  * It changes the map backgrounds and images.
-<span class='line'>189</span>  * @memberOf XantenMap.prototype
-<span class='line'>190</span>  */</span><span class="WHIT">
-<span class='line'>191</span> </span><span class="NAME">XantenMap.prototype.render</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>192</span> </span><span class="WHIT">	</span><span class="NAME">alert</span><span class="PUNC">(</span><span class="STRN">'The render method for '</span><span class="PUNC">+</span><span class="NAME">this.name</span><span class="PUNC">+</span><span class="STRN">' map must be overriden.'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>193</span> </span><span class="PUNC">}</span><span class="PUNC">;</span></pre></body></html>
+<span class='line'>173</span> </span><span class="WHIT">	</span><span class="NAME">this.selectedCell</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="STRN">"x"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">x</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"y"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">y</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>174</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>175</span> 
+<span class='line'>176</span> </span><span class="COMM">/**
+<span class='line'>177</span>  * It changes the map backgrounds and images.
+<span class='line'>178</span>  * @memberOf XantenMap.prototype
+<span class='line'>179</span>  */</span><span class="WHIT">
+<span class='line'>180</span> </span><span class="NAME">XantenMap.prototype.update</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'>181</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">s</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.selectedCell</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>182</span> </span><span class="WHIT">	</span><span class="NAME">this.render</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>183</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">s</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>184</span> </span><span class="WHIT">		</span><span class="NAME">this._selectCell</span><span class="PUNC">(</span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">s.x</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">s.y</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>185</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>186</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>187</span> 
+<span class='line'>188</span> </span><span class="COMM">/**
+<span class='line'>189</span>  * It changes the map backgrounds and images.
+<span class='line'>190</span>  * @memberOf XantenMap.prototype
+<span class='line'>191</span>  */</span><span class="WHIT">
+<span class='line'>192</span> </span><span class="NAME">XantenMap.prototype.render</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>193</span> </span><span class="WHIT">	</span><span class="NAME">alert</span><span class="PUNC">(</span><span class="STRN">'The render method for '</span><span class="PUNC">+</span><span class="NAME">this.name</span><span class="PUNC">+</span><span class="STRN">' map must be overriden.'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>194</span> </span><span class="PUNC">}</span><span class="PUNC">;</span></pre></body></html>

@@ -66,8 +66,8 @@ game.tasks = {
 		},
 		"create_building": function(args) {
 			var data = {};
-			
-			data["building"] = $(args).attr("building_name");
+			data["cell"] 		= game.cityMap.getSelectedCell();
+			data["building"] 	= $(args).attr("building_name");
 	
 			return new Task(data,
 				'Create building ' + data["building"], {
@@ -80,9 +80,8 @@ game.tasks = {
 						game.player.city.buildings[task.data.building].level = 1;
 					}
 					game.player.city.buildings[task.data.building].status = 'under_construction';
-					var c = game.cityMap.getSelectedCell();
-					game.cityMap.array[c.x-1][c.y-1].type_construction = "building";
-					game.cityMap.array[c.x-1][c.y-1].id_construction = game.constructions.buildings[task.data.building].id;
+					game.cityMap.array[data.cell.x-1][data.cell.y-1].type_construction = "building";
+					game.cityMap.array[data.cell.x-1][data.cell.y-1].id_construction = game.constructions.buildings[task.data.building].id;
 					game.cityMap.update(); // change the status of the city map
 					game.player.consumeResources(game.constructions.buildings[task.data["building"]].levelUp(1));
 				},

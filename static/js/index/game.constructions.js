@@ -199,7 +199,7 @@ game.constructions.buildings = {
 		 */
 		capacity: function(level) {
 			return new Resources({
-				"people": (1000 * Math.pow(1.1, game.player.level) * game.player.city.buildings.house.num)
+				"people": (1000 * Math.pow(1.1, game.player.getLevel()) * game.player.city.buildings.house.num)
 			});
 		},
 		/**
@@ -222,8 +222,8 @@ game.constructions.buildings = {
 	"trade": {
 		id: 7,
 		name: "trade",
-		maxNumber: 10,
-		maxLevel: 1,
+		maxNumber: 1,
+		maxLevel: 10,
 		/**
 		 * It returns the capacity of the building for a given level
 		 * @param {number} level The level of the building

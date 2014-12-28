@@ -113,7 +113,10 @@ Task.prototype._duringPerforming = function(){
  */
 Task.prototype.beforeStarting = function(){
 	this._beforeStarting(this);
-	this.progressTasks.start(); 
+	this.progressTasks.start();
+	if(game.currentAction){
+		game.currentAction.update();
+	}
 };
 
 /**

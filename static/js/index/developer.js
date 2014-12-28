@@ -49,8 +49,8 @@ developer.game = {
 					}],
 					[{
 						"id_background": 1,
-						"type_construction": null,
-						"id_construction": null
+						"type_construction": "building",
+						"id_construction": 2
 					}, {
 						"id_background": 2,
 						"type_construction": null,
@@ -471,9 +471,9 @@ developer.game = {
 				"num": 1
 			},
 			"military": {
-				"people": 0,
-				"num": 0,
-				"level": 0
+				"people": 3,
+				"num": 1,
+				"level": 1
 			},
 			"lumberjack": {
 				"level": 0,

@@ -37,7 +37,7 @@ Player.prototype.consumeResources = function(resourcesToConsume){
 	if(resourcesToConsume.resources) {
 		for(resource in resourcesToConsume.resources){
 			if(resource === 'military' ) {
-				this.city.buildings.militarty.people -= resourcesToConsume.resources[resource];
+				this.city.buildings.military.people -= resourcesToConsume.resources[resource];
 			} else {
 				this.resources[resource] -= resourcesToConsume.resources[resource];
 			}
@@ -45,6 +45,28 @@ Player.prototype.consumeResources = function(resourcesToConsume){
 	}
 	if(resourcesToConsume.people) {
 		this.city.buildings.administration.people -= resourcesToConsume.people;
+	}
+	Window.updateResources();
+};
+
+/**
+ * It adds the resources to the player
+ * @param {object} resourcesToConsume An Resources object to add
+ * @see Resources
+ * @memberOf Player.prototype
+ */
+Player.prototype.giveResources = function(resourcesToAdd){
+	if(resourcesToAdd.resources) {
+		for(resource in resourcesToAdd.resources){
+			if(resource === 'military' ) {
+				this.city.buildings.military.people = parseInt(this.city.buildings.military.people) + parseInt(resourcesToAdd.resources[resource]);
+			} else {
+				this.resources[resource] = parseInt(this.resources[resource]) + parseInt(resourcesToAdd.resources[resource]);
+			}
+		}
+	}
+	if(resourcesToAdd.people) {
+		this.city.buildings.administration.people =  parseInt(this.city.buildings.administration.people) + parseInt(resourcesToAdd.people);
 	}
 	Window.updateResources();
 };

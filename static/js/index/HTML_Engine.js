@@ -1163,9 +1163,10 @@ HTML_Engine.attackCity = {
 
 				}],
 				performAction: function() {
-					game.performTask("attack_city_1", {
-						target: idCity,
-						number: HTML_Engine.chooser.fetchAll("military_attack")
+					game.performTask("move_military_units", {
+						from: game.player.id,
+						to: idCity,
+						options: HTML_Engine.chooser.fetchAll("military_attack")
 					});
 				}
 			});
@@ -1194,7 +1195,7 @@ HTML_Engine.worldPath = {
 	 * @return {string} The name of the city
 	 */
 	getCityName: function(idCity) {
-		return ((game.worldMap.cities[idCity] === game.player.id) ? "Your city" : game.worldMap.cities[idCity].name);
+		return ((game.worldMap.getCityById(idCity) === game.player.id) ? "Your city" : game.worldMap.getCityById(idCity).name);
 	},
 	/**
 	 * It returns the string for a description of moving military units

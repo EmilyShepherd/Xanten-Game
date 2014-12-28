@@ -206,7 +206,7 @@ HTML_Engine.failTask = {
 	 * @param {string} reason The reason of the task
 	 */
 	content: function(task_title, reason) {
-		Window.newsBoard.add(task_title + " was no possible because " + reason);
+		Window.newsBoard.add("<span class='news_problem'>Problem</span>:" +task_title + "<br /> <span class='bold'>Reason:</span> was no possible because " + reason);
 	}
 };
 
@@ -400,20 +400,26 @@ HTML_Engine.getAvailableBuildings = {
 	 * @returns {string} A list of all the buildings and the resources to be created
 	 */
 	content: function() {
-		var text = "Buildings available to build there: <br />";
-
+		var text = "<span class='bold'>Buildings available to build there: </span><br />",
+			b	 = 0;
+		
 		for (building in game.player.city.buildings) {
 			var data = game.constructions.buildings[building],
 				b_obj = game.player.city.buildings[building];
 			
 			if ((!data.maxLevel || (data.maxLevel && b_obj.level < data.maxLevel)) &&
-				(!data.maxNumber || (data.maxNumber && b_obj.num < data.maxNumber))) {
+				(!data.maxNumber || (data.maxNumber && b_obj.num < data.maxNumber)) &&
+				b_obj.status !== 'under_construction') {
 				var resources = game.constructions.buildings[building].levelUp(1);
 				text += "<div class='board_list hover' building_name='" + building + "' id='action_build_" + building + "' >" +
 					HTML_Engine.getBuilding.info(building);
 				text += HTML_Engine.displayResources.content(resources);
 				text += "</div><br />";
+				b++;
 			}
+		}
+		if(b === 0){
+			text += "It seems there are no buildings to be done...";
 		}
 		return text;
 	},
@@ -466,7 +472,7 @@ HTML_Engine.inside_administration = {
 		return html;
 	},
 	enable: function() {
-		HTML_Engine.upgradeBuilding.enable("administration");
+		HTML_Engine.upgradeBuilding.enable("administration", (parseInt(game.player.city.buildings["administration"].level) + 1));
 		// TODO @George
 	},
 	disable: function() {
@@ -543,7 +549,7 @@ HTML_Engine.inside_military = {
 		var nr_of_active_units = game.player.city.buildings.military.people,
 			capacity = game.constructions.buildings.military.capacity(game.player.city.buildings.military.level).resources.military;
 
-		HTML_Engine.upgradeBuilding.enable("military");
+		HTML_Engine.upgradeBuilding.enable("military", (parseInt(game.player.city.buildings["military"].level) + 1));
 
 		/*
 		 * It creates the chooser to let the user to choose how many utits to create
@@ -638,7 +644,7 @@ HTML_Engine.inside_storage = {
 	 * It enables the functionality for the building
 	 */
 	enable: function() {
-		HTML_Engine.upgradeBuilding.enable("storage");
+		HTML_Engine.upgradeBuilding.enable("storage", (parseInt(game.player.city.buildings["storage"].level) + 1));
 		// TODO @George
 	},
 	/**
@@ -672,7 +678,7 @@ HTML_Engine.inside_mill = {
 	 * It enables the functionality for the building
 	 */
 	enable: function() {
-		HTML_Engine.upgradeBuilding.enable("mill");
+		HTML_Engine.upgradeBuilding.enable("mill", (parseInt(game.player.city.buildings["mill"].level) + 1));
 		// TODO @George
 	},
 	/**
@@ -705,7 +711,7 @@ HTML_Engine.inside_mine = {
 	 * It enables the functionality for the building
 	 */
 	enable: function() {
-		HTML_Engine.upgradeBuilding.enable("mine");
+		HTML_Engine.upgradeBuilding.enable("mine", (parseInt(game.player.city.buildings["mine"].level) + 1));
 		// TODO @George
 	},
 	/**
@@ -738,7 +744,7 @@ HTML_Engine.inside_house = {
 	 * It enables the functionality for the building
 	 */
 	enable: function() {
-		HTML_Engine.upgradeBuilding.enable("house");
+		HTML_Engine.upgradeBuilding.enable("house", (parseInt(game.player.city.buildings["administration"].level) + 1));
 		// TODO @George
 	},
 	/**
@@ -771,7 +777,7 @@ HTML_Engine.inside_trade = {
 	 * It enables the functionality for the building
 	 */
 	enable: function() {
-		HTML_Engine.upgradeBuilding.enable("trade");
+		HTML_Engine.upgradeBuilding.enable("trade", (parseInt(game.player.city.buildings["trade"].level) + 1));
 		// TODO @George
 	},
 	/**
@@ -805,7 +811,7 @@ HTML_Engine.inside_lumberjack = {
 	 * It enables the functionality for the building
 	 */
 	enable: function() {
-		HTML_Engine.upgradeBuilding.enable("lumberjack");
+		HTML_Engine.upgradeBuilding.enable("lumberjack", (parseInt(game.player.city.buildings["lumberjack"].level) + 1));
 		// TODO @George
 	},
 	/**
@@ -838,7 +844,7 @@ HTML_Engine.inside_farm = {
 	 * It enables the functionality for the building
 	 */
 	enable: function() {
-		HTML_Engine.upgradeBuilding.enable("farm");
+		HTML_Engine.upgradeBuilding.enable("farm", (parseInt(game.player.city.buildings["farm"].level) + 1));
 		// TODO @George
 	},
 	/**
@@ -919,7 +925,7 @@ HTML_Engine.getBuilding = {
 		var data = game.constructions.buildings[building],
 			level = game.player.city.buildings[building].level;
 		html = "<div class='building_info'>";
-		html += "<div class='title'> " + HTML_Engine.getBuilding.image(building, game.player.level, 60) + "<span class='bold'>" + HTML_Engine.getBuilding.name(building, game.player.level) + "</span>";
+		html += "<div class='title'> " + HTML_Engine.getBuilding.image(building, game.player.getLevel(), 60) + "<span class='bold'>" + HTML_Engine.getBuilding.name(building, game.player.getLevel()) + "</span>";
 		if (level && full) {
 			html += "<div class='level'>" + game.player.city.buildings[building].level + "</div>";
 		}
@@ -969,7 +975,7 @@ HTML_Engine.upgradeBuilding = {
 				// image from http://www.iconarchive.com/show/orb-icons-by-taytel/arrow-up-icon.html
 				return "<div class='board_list hover chooser' id='upgrade_building' building_name='" + building_name + "'>" +
 					HTML_Engine.table.content([
-						["Upgrade to level <span class='bold'>" + next_level + "</span> <br />" + HTML_Engine.displayResources.content(game.constructions.buildings[building_name].levelUp(next_level)), "<img src='/static/img/game/buildings/upgrade.png' align='right' />"]
+						["Upgrade to level <span class='bold'>" + next_level + "</span></span> <br />" + HTML_Engine.displayResources.content(game.constructions.buildings[building_name].levelUp(next_level)), "<img src='/static/img/game/buildings/upgrade.png' align='right' />"]
 					], false) +
 					"</div>";
 			} else {
@@ -980,7 +986,18 @@ HTML_Engine.upgradeBuilding = {
 	/**
 	 * It enables the panel
 	 */
-	enable: function() {
+	enable: function(building_name, next_level) {
+		
+		if(building_name !== 'house' && building_name !== 'administration') {
+			$("#upgrade_building img").qtip({
+				content: "Capacity for level " + next_level + "<br />" + (HTML_Engine.displayResources.content(game.constructions.buildings[building_name].capacity(next_level))),
+				position: {
+					target: 'mouse', // Track the mouse as the positioning target
+					adjust: { x: 5, y: 5 } // Offset it slightly from under the mouse
+				}
+				
+			});
+		}
 		$("#upgrade_building").click(function() {
 			game.performTask("update_building", {
 				building: $(this).attr("building_name"),
@@ -1132,7 +1149,7 @@ HTML_Engine.attackCity = {
 					/* TODO @Cristian the number of free people*/
 					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content(
-							game.unit.cost.military.attack(parseInt(ui.value))
+							game.unit.military.attack(parseInt(ui.value))
 						));
 					}
 				}, {

@@ -40,10 +40,21 @@ Window.init = function() {
 	$('#map-view :radio').change(function() {
 		game.selectMap(game[$('#map-view :radio:checked').val() + "Map"]);
 	});
+	$("#news_clear").click(function(){
+		Window.newsBoard.clear();
+	})
+	Window.update();
+	Window.refresh();
+}
+
+/**
+ * It updates the details of city, resources, statistics
+ * @memberOf Window
+ */
+Window.refresh = function(){
 	Window.updateDetailsCity();
 	Window.updateResources();
 	Window.updateStatistics();
-	Window.update();
 }
 
 /**
@@ -71,8 +82,8 @@ Window.updateStatistics = function() {
  */
 Window.updateDetailsCity = function() {
 	$("#city_details #name").html(game.player.name);
-	$("#city_details #level").html("Level: "+game.player.level);
-	$("#city_details #type").html(game.organization.getByLevel("name", game.player.level) );
+	$("#city_details #level").html("Level: "+game.player.getLevel());
+	$("#city_details #type").html(game.organization.getByLevel("name", game.player.getLevel()) );
 };
 
 /**

@@ -53,6 +53,7 @@ XantenMap.prototype.getSelectedCell = function(){
 XantenMap.prototype.deselect = function(){
 	$(this.HTML_element+" td").removeClass('selected');
 	$(this.HTML_element+" img").removeClass('selected');
+	this.selectedCell = null;
 }
 
 /**
@@ -167,8 +168,9 @@ XantenMap.prototype.hide = function(){
  * @param {number} y The y coordinate
  */
 XantenMap.prototype._selectCell = function(x, y){
-	this.selectedCell = {"x": x, "y": y};
+	this.deselect();
 	this.selectCell(x, y);
+	this.selectedCell = {"x": x, "y": y};
 }
 
 /**

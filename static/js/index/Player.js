@@ -11,25 +11,40 @@
  * @returns (object) Player		The player
  */
 var Player = function(info){
+	
 	this.id			= info.id; 
 	this.name		= info.name;
-	this.level		= info.level;
 	this.resources	= new Resources((info.resources?info.resources:{}));	
 	this.city 		= (info.buildings)?(new City(info.buildings)):{};
 };
 
 /**
- * It consumes the given resources (also people from administration). Then, it updates the window
+ * It returns the level of player (same as level of city)
+ * @return {number} level The level of city
+ * @memberOf Player.prototype
+ */
+Player.prototype.getLevel = function(){
+	return this.city.getLevel();
+};
+
+/**
+ * It consumes the given resources (also people from administration and military from military). Then, it updates the window
  * @param {object} resourcesToConsume An Resources object to consume
  * @see Resources
  * @memberOf Player.prototype
  */
 Player.prototype.consumeResources = function(resourcesToConsume){
-	for(resource in resourcesToConsume.resources){
-		if(resource !== 'military' ){
-			this.resources[resource] -= resourcesToConsume.resources[resource];
+	if(resourcesToConsume.resources) {
+		for(resource in resourcesToConsume.resources){
+			if(resource === 'military' ) {
+				this.city.buildings.militarty.people -= resourcesToConsume.resources[resource];
+			} else {
+				this.resources[resource] -= resourcesToConsume.resources[resource];
+			}
 		}
 	}
-	this.city.buildings.administration.people -= resourcesToConsume.people;
+	if(resourcesToConsume.people) {
+		this.city.buildings.administration.people -= resourcesToConsume.people;
+	}
 	Window.updateResources();
 };

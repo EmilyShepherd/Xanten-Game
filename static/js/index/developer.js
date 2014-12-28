@@ -61,8 +61,8 @@ developer.game = {
 						"id_construction": null
 					}, {
 						"id_background": 1,
-						"type_construction": "building",
-						"id_construction": 2
+						"type_construction": null,
+						"id_construction": null
 					}, {
 						"id_background": 1,
 						"type_construction": null,
@@ -173,12 +173,12 @@ developer.game = {
 						"id_construction": 7
 					}, {
 						"id_background": 1,
-						"type_construction": "building",
-						"id_construction": 8
+						"type_construction": null,
+						"id_construction": null
 					}, {
 						"id_background": 1,
-						"type_construction": "building",
-						"id_construction": 9
+						"type_construction": null,
+						"id_construction": null
 					}, {
 						"id_background": 1,
 						"type_construction": null,
@@ -472,18 +472,18 @@ developer.game = {
 			},
 			"military": {
 				"people": 0,
-				"num": 1,
-				"level": 1
+				"num": 0,
+				"level": 0
 			},
 			"lumberjack": {
-				"level": 1,
-				"num": 1,
+				"level": 0,
+				"num": 0,
 				"people": 0
 			},
 			"farm": {
 				"people": 0,
-				"num": 1,
-				"level": 1
+				"num": 0,
+				"level": 0
 			},
 			"administration": {
 				"level": 1,

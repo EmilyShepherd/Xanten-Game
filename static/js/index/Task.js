@@ -121,7 +121,7 @@ Task.prototype.beforeStarting = function(){
  * @memberOf Task.prototype
  */
 Task.prototype.afterConfirmation = function(){
-	if(this.response.status === "er2ror" ){
+	if(this.response.status === "erro2r" ){ // TODO should be changed to error
 		HTML_Engine.failTask.content(this.title, this.response.message);
 		this.forceStop();
 	} else {		
@@ -147,6 +147,7 @@ Task.prototype.forceStop = function(){
  * @memberOf Task.prototype 
  */
 Task.prototype.afterEnds = function(){	
+	Window.newsBoard.add("<span class='news_done'>Done</span>: " + this.title);
 	this._afterEnds(this);
 	this.forceStop();
 };

@@ -443,3 +443,15 @@ body {
 	display:inline-block;
 	min-height: 90px;
 }
+
+.news_done, .news_problem {
+	font-weight: bold;	
+}
+
+.news_done {
+	color: green;
+}
+
+.news_problem {
+	color: red;
+}

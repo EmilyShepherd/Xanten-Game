@@ -102,16 +102,17 @@ Game.prototype.freeze = function() {
  */
 Game.prototype.update = function() {
 
-	// updates the map
-	this.worldMap.update();
-	this.cityMap.update();
 
 	// update the current action content
 	if (this.currentAction) {
 		this.currentAction.update();
 	}
 
-	Window.updateStatistics();
+	// updates the map
+	this.worldMap.update();
+	this.cityMap.update();
+	
+	Window.refresh();
 };
 
 /**

@@ -85,40 +85,14 @@ RealTimeEngine.prototype.freeze = function(){
  * @private
  */
 RealTimeEngine.prototype._progress = function(){
-	// TODO @Cristian
-
-
-	/*
-	game.player.resources.food  += (game.player.buildings.dock.people * game.player.buildings.dock.level);
-	game.player.resources.food  += (game.player.buildings.grapevine.people * game.player.buildings.grapevine.level);
-
-	game.player.resources.wood  += Math.round(0.3 *
-								parseInt(game.player.buildings.lumberjack.num *
-								parseInt(game.player.buildings.lumberjack.people) *
-								parseInt(game.player.buildings.lumberjack.level) ));
-
-
-	  * self.lumberjackLvl
-	  * self.peopleAtLumberjack
-	  * self.lumberjacks
-	  * secs / 60.0
-	self.stone +=
-	    (random.randrange(1, 19) / 10.0) * 0.3
-	  * self.mineLvl
-	  * self.peopleAtMine
-	  * self.mines
-	  * secs / 60.0
-	self.gold +=
-	    (random.randrange(1, 19) / 10.0) * 0.3
-	  * self.mineLvl
-	  * self.peopleAtMine
-	  * self.goldMines
-	  * secs / 60.0
-
-	game.player.resources.stone -= 276;
-	game.player.resources.food 	+= 132;
-	game.player.resources.wood 	+= 2;
-	*/
+	// food 
+	game.player.resources.food 	+= parseInt(game.constructions.buildings.farm.capacity(game.player.city.buildings.farm.level).resources.food);
+	game.player.resources.food 	+= parseInt(game.constructions.buildings.mill.capacity(game.player.city.buildings.mill.level).resources.food);
+	// wood
+	game.player.resources.wood 	+= parseInt(game.constructions.buildings.lumberjack.capacity(game.player.city.buildings.lumberjack.level).resources.wood);
+	// stone
+	game.player.resources.stone += parseInt(game.constructions.buildings.mine.capacity(game.player.city.buildings.mine.level).resources.stone);
+	
 	Window.updateResources();
 };
 

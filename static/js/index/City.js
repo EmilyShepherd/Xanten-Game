@@ -24,8 +24,18 @@ City.prototype.getNumberOfPeople = function() {
 	var people = 0;
 	for(building in this.buildings){
 		if(this.buildings[building].people) {
-			people += parseInt(this.buildings[building].people);
+			people = parseInt(people) + parseInt(this.buildings[building].people);
 		}
 	}	
 	return people;
+};
+
+/**
+ * It returns the level of city
+ * @return {number} level The level of city
+ * @memberOf City.prototype
+ * @see City.prototype.buildings
+ */
+City.prototype.getLevel = function(){
+	return this.buildings.administration.level;
 };

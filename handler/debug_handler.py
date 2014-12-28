@@ -7,6 +7,7 @@ from game_handler import GameHandler
 
 from model.game import Game
 from model.user import User
+from model.map import Map
 
 # Handles /debug/* requests
 #
@@ -55,3 +56,24 @@ class DebugHandler(DefaultHandler):
         game.join_game(gameO, 'User')
 
         self.stderr('done')
+
+    def test(self):
+        self.json['game'] = {
+            "maps" : {
+                "city" : {
+                    "array" : Map.generateCityMap(),
+                    "backgrounds": {
+                        "1": {
+                            "allowBuildings": True,
+                            "allowConstructions": False,
+                            "img": "1.png"
+                        },
+                        "2": {
+                            "allowBuildings": False,
+                            "allowConstructions": False,
+                            "img": "2.png"
+                        }
+                    }
+                }
+            }
+        }

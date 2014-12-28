@@ -40,3 +40,54 @@ class Map:
                 self.tiles[place] = 'taken'
                 return place
 
+    @staticmethod
+    def generateCityMap():
+        cMap = [ ]
+        treesInColoum = [0] * 7
+
+        for y in range(0, 6):
+            cMap.append([ ])
+            treesInRow = 0
+            for x in range(0, 6):
+                cMap[y].append({
+                    "type_construction" : None,
+                    "id_construction"   : None
+                })
+
+                if treesInRow == 3:
+                    probability = 0
+                else:
+                    surroundingTrees = treesInRow
+
+                    if y != 0:
+                        surroundingTrees += treesInColoum[x]
+                        if x != 0:
+                            surroundingTrees += treesInColoum[x - 1]
+                        if x != 6:
+                            surroundingTrees += treesInColoum[x + 1]
+
+                    if surroundingTrees == 0:
+                        probability = 10
+                    elif surroundingTrees < 7:
+                        probability = 30
+                    elif surroundingTrees == 7:
+                        probability = 15
+                    elif surroundingTrees < 10:
+                        probability = 5
+                    else:
+                        probability = 0
+
+                if random.randrange(0, 100) < probability:
+                    treesInRow       += 1
+                    treesInColoum[x] += 1
+                    cMap[y][x]['id_background'] = 2
+                else:
+                    #treesInRow       = 0
+                    #treesInColoum[x] = 0
+                    cMap[y][x]['id_background'] = 1
+
+                    if random.randrange(0, 100) < 10:
+                        cMap[y][x]['type_construction'] = 'element'
+                        cMap[y][x]['id_construction']   = random.randrange(1, 3)
+
+        return cMap

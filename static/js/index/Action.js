@@ -35,18 +35,21 @@ Action.prototype.setArguments = function(args){
 };
 
 /**
- * It calls the perform method of the action and refreshes the content of the action.
+ * It calls the perform method of the action and refreshes the content of the action. It does fadeOUT - fadeIn
  * @memberOf Action.prototype
  */
 Action.prototype.update = function(){
-	this.perform();
+	console.log("show")
+	this.perform(false);
 }
+
 
 /**
  * If the action needs an AJAX request it does it. Then it calls the call back and updates the HTML. If it does not need an AJAX request, it just updates the HTML
+ * @param {boolean} fade If set to true, the action will be shown by a fade effect
  * @memberOf Action.prototype
  */
-Action.prototype.perform = function(){
+Action.prototype.perform = function(fade){
 	var instance = this;
 	$("#action_window div.before_window").html(this.name);
 	var instance   = this;
@@ -55,24 +58,29 @@ Action.prototype.perform = function(){
 		this.ajaxCall = $.ajax({"url": this.serverCall.url,
 				"type": this.serverCall.type,
 				"data": this.serverCall.data,
-				"success": function(response){instance.serverCall.cb(response);instance.updateHTML();},
+				"success": function(response){instance.serverCall.cb(response);instance.updateHTML(true);},
 				"error": function(){HTML_Engine.failAction.content(); HTML_Engine.failAction.enable();}
 		});
 	} else {
-		this.updateHTML();	
+		this.updateHTML(fade);	
 	}
 };
 
 /**
  * It updates the HTML for the action by calling the content function of the HTML_Engine object. Then it activates the content.
+ * @param {boolean} fade If set to true, the action will be shown by a fade effect
  * @private 
  * @memberOf Action.prototype
  */
-Action.prototype.updateHTML = function(){
-	$("#actions_board .inside").html("");
-	$("#actions_board .inside").hide();
+Action.prototype.updateHTML = function(fade){
+	if(fade) {
+		$("#actions_board .inside").html("");
+		$("#actions_board .inside").hide();
+	}
 	$("#actions_board .inside").html(this.HTML_Engine_Reference.content?this.HTML_Engine_Reference.content(this.args):"");
-	$("#actions_board .inside").fadeIn('slow');
+	if(fade) {
+		$("#actions_board .inside").fadeIn('slow');
+	}
 	
 	if(this.HTML_Engine_Reference.enable){
 		this.HTML_Engine_Reference.enable(this.args);

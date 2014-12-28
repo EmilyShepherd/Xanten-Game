@@ -136,10 +136,8 @@ Task.prototype.afterConfirmation = function(){
  */
 Task.prototype.forceStop = function(){
 	// remove 
-	if(this.progressTasks){
-		clearInterval(this.progressTasks.thread);
-		$("#task_" + this.id).slideUp();
-	}
+	clearInterval(this.progressTasks.thread);
+	$("#task_" + this.id).slideUp();
 	game.removeTask(this);
 	game.update();	
 }

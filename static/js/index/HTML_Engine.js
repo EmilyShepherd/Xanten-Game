@@ -503,13 +503,9 @@ HTML_Engine.inside_military = {
 			}) + "</div>";
 
 			html += "<div class='heading'> The daily cost of military is: " +
-				HTML_Engine.displayResources.content({
-					resources: {
-						"gold": nr_of_active_units * 5,
-						/* TODO @George real resources */
-						"food": nr_of_active_units * 1 /* TODO @George real resources */
-					}
-				}) + "</div>";
+				HTML_Engine.displayResources.content(
+					game.unit.military.idle(parseInt(nr_of_active_units))				
+				) + "</div>";
 		}
 		html += "</div>";
 
@@ -560,7 +556,6 @@ HTML_Engine.inside_military = {
 					id: 'units',
 					min: 1,
 					max: capacity - nr_of_active_units,
-					/* TODO @Cristian the number of free people*/
 					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content(
 								game.unit.military.create(parseInt(ui.value))

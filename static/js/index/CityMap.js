@@ -23,7 +23,6 @@ var CityMap = function(obj){
 	 * @param (number) y The y coordinate
 	 */
 	CityMap.selectCell = function(x, y){
-		console.log("selected" + x+ y)
 		this.deselect();	
 
 		if($(this.HTML_element + " #cel_"+x+"_"+y).hasClass('allow_construction')){

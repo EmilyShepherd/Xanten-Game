@@ -80,8 +80,8 @@ game.tasks = {
 				}
 				game.player.city.buildings[task.data.building].status = 'under_construction';
 				var c = game.cityMap.getSelectedCell();
-				game.cityMap.array[c.x][c.y].type_construction = "building";
-				game.cityMap.array[c.x][c.y].id_construction = game.constructions.buildings[task.data.building].id;
+				game.cityMap.array[c.x-1][c.y-1].type_construction = "building";
+				game.cityMap.array[c.x-1][c.y-1].id_construction = game.constructions.buildings[task.data.building].id;
 				game.cityMap.update(); // change the status of the city map
 				game.player.consumeResources(game.constructions.buildings[task.data["building"]].levelUp(1));
 			},

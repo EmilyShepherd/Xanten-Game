@@ -25,9 +25,9 @@ var Player = function(info){
  * @memberOf Player.prototype
  */
 Player.prototype.consumeResources = function(resourcesToConsume){
-	for(resource in resourcesToConsume){
-		if(resource !== 'seconds' && resource !== 'people' ){
-			game.player.resources[resource] -= resourcesToConsume[resource];
+	for(resource in resourcesToConsume.resources){
+		if(resource !== 'military' ){
+			game.player.resources[resource] -= resourcesToConsume.resources[resource];
 		}
 	}
 	Window.updateResources();

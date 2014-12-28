@@ -103,8 +103,8 @@ Game.prototype.freeze = function() {
 Game.prototype.update = function() {
 
 	// updates the map
-	this.worldMap.render();
-	this.cityMap.render();
+	this.worldMap.update();
+	this.cityMap.update();
 
 	// update the current action content
 	if (this.currentAction) {
@@ -150,7 +150,7 @@ Game.prototype.performAction = function(name, args) {
 	var action = game.actions[name](args);
 	action.setArguments(args);
 	game.currentAction = action;
-	action.perform();
+	action.update();
 }
 
 /**

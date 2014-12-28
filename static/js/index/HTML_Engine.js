@@ -19,6 +19,65 @@ var HTML_Engine = {
 }
 
 /**
+ * It returns a short representation of the resource.
+ * @example
+ * <1000 => the value
+ * 1k
+ * 1m
+ * 1b
+ * @memberOf HTML_Engine
+ * @param Number input The amount of resource
+ * @returns string The amount in a short representation
+ */
+HTML_Engine.shortResourceRepresentation = function(input) {
+	var len = parseInt(input.toString().length),
+		text = "";
+
+	if (len <= 3) {
+		text = input;
+	} else
+	if (len >= 4 && len <= 6) {
+		text = ((input / 1000 * 100) / 100).toFixed(2) + "k";
+	} else
+	if (len >= 7 && len <= 9) {
+		text = ((input / 1000000 * 100) / 100).toFixed(2) + 'm';
+	} else
+		text = ((input / 1000000000 * 100) / 100).toFixed(2) + 'b';
+
+	return "<span title='" + input.formatNumber(0) + "'>" + text + "</span>";
+}
+
+/**
+ * It returns a short representation of time in this format: {hours} h, {minutes} h, {seconds} sec OR "Instant" (if time is 0)
+ * @memberOf HTML_Engine
+ * @param Number sec_num The time expressed in number of seconds
+ * @return string The time in this format: {hours} h, {minutes} h, {seconds} sec OR "Instant" (if time is 0)
+ */
+HTML_Engine.shortTimeRepresentation = function(sec_num) {
+	sec_num = parseInt(sec_num);
+
+	if (sec_num === 0) {
+		return "<span class='bold'>Instant</span>";
+	}
+	var elements = [],
+		hours = Math.floor(sec_num / 3600),
+		minutes = Math.floor((sec_num - (hours * 3600)) / 60),
+		seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+	if (hours !== 0) {
+		elements.push("<span class='bold'>" + hours + " h</span>");
+	}
+	if (minutes !== 0) {
+		elements.push("<span class='bold'>" + minutes + " min</span>");
+	}
+	if (seconds !== 0) {
+		elements.push("<span class='bold'>" + seconds + " sec</span>");
+	}
+
+	return elements.join(", ");
+}
+
+/**
  * @namespace It generates a table
  * @memberOf HTML_Engine
  */
@@ -165,79 +224,20 @@ HTML_Engine.loadAction = {
 	}
 };
 
+
 /**
- * It returns a short representation of the resource.
- * @example
- * <1000 => the value
- * 1k
- * 1m
- * 1b
+ * @namespace A chooser represents a set of mutiple input values from user using sliders
  * @memberOf HTML_Engine
- * @param Number input The amount of resource
- * @returns string The amount in a short representation
- */
-HTML_Engine.shortResourceRepresentation = function(input) {
-	var len = parseInt(input.toString().length),
-		text = "";
-
-	if (len <= 3) {
-		text = input;
-	} else
-	if (len >= 4 && len <= 6) {
-		text = ((input / 1000 * 100) / 100).toFixed(2) + "k";
-	} else
-	if (len >= 7 && len <= 9) {
-		text = ((input / 1000000 * 100) / 100).toFixed(2) + 'm';
-	} else
-		text = ((input / 1000000000 * 100) / 100).toFixed(2) + 'b';
-
-	return "<span title='" + input.formatNumber(0) + "'>" + text + "</span>";
-}
-
-/**
- * It returns a short representation of time in this format: {hours} h, {minutes} h, {seconds} sec OR "Instant" (if time is 0)
- * @memberOf HTML_Engine
- * @param Number sec_num The time expressed in number of seconds
- * @return string The time in this format: {hours} h, {minutes} h, {seconds} sec OR "Instant" (if time is 0)
- */
-HTML_Engine.shortTimeRepresentation = function(sec_num) {
-	sec_num = parseInt(sec_num);
-
-	if (sec_num === 0) {
-		return "<span class='bold'>Instant</span>";
-	}
-	var elements = [],
-		hours = Math.floor(sec_num / 3600),
-		minutes = Math.floor((sec_num - (hours * 3600)) / 60),
-		seconds = sec_num - (hours * 3600) - (minutes * 60);
-
-	if (hours !== 0) {
-		elements.push("<span class='bold'>" + hours + " h</span>");
-	}
-	if (minutes !== 0) {
-		elements.push("<span class='bold'>" + minutes + " min</span>");
-	}
-	if (seconds !== 0) {
-		elements.push("<span class='bold'>" + seconds + " sec</span>");
-	}
-
-	return elements.join(", ");
-}
-
-// TODO @Cristian the comments are good until now
-
-/**
- * A chooser represents a set of mutiple input values from user using sliders
  */
 HTML_Engine.chooser = {
 	/**
 	 * It generates the html of the chooser
-	 * @param object args Information regarding the chooser. It must contain:
-	 * The id of the chooser: chooser.id
+	 * @param {object} args Information regarding the chooser. It must contain:
+	 * @example The id of the chooser: chooser.id
 	 * A description for the chooser: chooser.info
 	 * The elements of the choose as an array, each object with an id and title: chooser.values
 	 * The title of the button: chooser.button
-	 *
+	 * @return {string} The HTML code for the chooser
 	 */
 	content: function(args) {
 		var html = '';
@@ -264,8 +264,8 @@ HTML_Engine.chooser = {
 	},
 	/**
 	 * It enables the chooser. It enables all the elements inside it
-	 * @param Object args An object with the settings for all the elements inside a chooser:
-	 * The id of the chooser: args.id
+	 * @param {object} args An object with the settings for all the elements inside a chooser:
+	 * @example The id of the chooser: args.id
 	 * The values of the elements as an array: args.values. Each element contain: id, min, max
 	 * The action to be performed when the button is clicked: chooser.performAction
 	 */
@@ -320,7 +320,7 @@ HTML_Engine.chooser = {
 	},
 	/**
 	 * It removes the functions from the memory and disables the listenerrs
-	 * @param Object args An object with the id of the chooser.
+	 * @param {object} args An object with the id of the chooser.
 	 */
 	disable: function(args) {
 
@@ -335,9 +335,9 @@ HTML_Engine.chooser = {
 
 	/**
 	 * It returns the value for an element inside a chooser
-	 * @param string chooser The id of the chooser
-	 * @param string element The id of the element
-	 * @return The value of the element inside that chooser
+	 * @param {string} chooser The id of the chooser
+	 * @param {string} element The id of the element
+	 * @return {number} The value of the element inside that chooser
 	 */
 	fetch: function(chooser, element) {
 		return $("#" + chooser + "_chooser #element_" + element + " #input_value").val()
@@ -345,8 +345,8 @@ HTML_Engine.chooser = {
 
 	/**
 	 * It returns the all the values of the elements inside a chooser
-	 * @param string chooser The id of the chooser
-	 * @return The values of all the chooser's elements
+	 * @param {string} chooser The id of the chooser
+	 * @return {number} The values of all the chooser's elements
 	 */
 	fetchAll: function(chooser) {
 		var all = $("#" + chooser + "_chooser").find(".element"),
@@ -360,12 +360,13 @@ HTML_Engine.chooser = {
 };
 
 /**
- * It returns the HTML code when the game is over
+ * @namespace It returns the HTML code when the game is over
+ * @memberOf HTML_Engine
  */
 HTML_Engine.gameOver = {
 	/**
 	 * It returns the string when the game is over
-	 * @return (string) Returns a message when the game is over
+	 * @return {string} Returns a message when the game is over
 	 */
 	content: function() {
 		return "The game is over";
@@ -375,12 +376,13 @@ HTML_Engine.gameOver = {
 /* ------------------------------ City Map  ------------------------------ */
 
 /**
- * It returns the HTML code when the city map was chosen
+ * @namespace It returns the HTML code when the city map was chosen
+ * @memberOf HTML_Engine
  */
 HTML_Engine.cityMapSelected = {
 	/**
 	 * It returns the string when the city map is selected
-	 * @return (string) Returns a general description of the city
+	 * @return {string} Returns a general description of the city
 	 */
 	content: function() {
 		return "<br /><img src='http://clipart.nicubunu.ro/svg/rpg_map/statue.svg' /><div><span class='bold'>Aloha there, </span><br />This is your glorious city, with brave and nice people who have a wonderfull life. Be carefull to mantain in this state...</div>";
@@ -388,13 +390,14 @@ HTML_Engine.cityMapSelected = {
 }
 
 /**
- * Returns the list of all the building which can be created and the resources for them
+ * @namespace Returns the list of all the building which can be created and the resources for them
+ * @memberOf HTML_Engine
  */
 HTML_Engine.getAvailableBuildings = {
 
 	/**
 	 * It generates the content
-	 * @returns (string) A list of all the buildings and the resources to be created
+	 * @returns {string} A list of all the buildings and the resources to be created
 	 */
 	content: function() {
 		var text = "Buildings available to build there: <br />";
@@ -432,7 +435,8 @@ HTML_Engine.getAvailableBuildings = {
 /* ------------------ Buildings  ------------------ */
 
 /**
- * The administration building
+ * @namespace The administration building (1)
+ * @memberOf HTML_Engine
  */
 HTML_Engine.inside_administration = {
 
@@ -472,12 +476,14 @@ HTML_Engine.inside_administration = {
 };
 
 /**
- * 2. The military building
+ * @namespace The military building (2)
+ * @memberOf HTML_Engine
  */
 HTML_Engine.inside_military = {
 
 	/**
 	 * It generates the content for the military building
+	 * @return {string} It generates the content for the military building
 	 */
 	content: function() {
 		var nr_of_active_units = game.player.city.buildings.military.people,
@@ -611,12 +617,14 @@ HTML_Engine.inside_military = {
 };
 
 /**
- * 3. The storage building
+ * @namespace The storage building (3)
+ * @memberOf HTML_Engine
  */
 HTML_Engine.inside_storage = {
 
 	/**
 	 * It generates the content for the storage building
+	 * @return {string} It generates the content for the storage building
 	 */
 	content: function() {
 		var html = "";
@@ -625,10 +633,16 @@ HTML_Engine.inside_storage = {
 		// TODO @George
 		return html;
 	},
+	/**
+	 * It enables the functionality for the building
+	 */
 	enable: function() {
 		HTML_Engine.upgradeBuilding.enable("storage");
 		// TODO @George
 	},
+	/**
+	 * It disables the functionality for the building
+	 */
 	disable: function() {
 		HTML_Engine.upgradeBuilding.disable("storage");
 		// TODO @George
@@ -637,12 +651,14 @@ HTML_Engine.inside_storage = {
 
 
 /**
- * 4. The mill building
+ * @namespace The mill building (4)
+ * @memberOf HTML_Engine
  */
 HTML_Engine.inside_mill = {
 
 	/**
-	 *
+	 * It returns the HTML content for the mill building
+	 * @return {string} HTML code for the mill building
 	 */
 	content: function() {
 		var html = "";
@@ -651,10 +667,16 @@ HTML_Engine.inside_mill = {
 		// TODO @George
 		return html;
 	},
+	/**
+	 * It enables the functionality for the building
+	 */
 	enable: function() {
 		HTML_Engine.upgradeBuilding.enable("mill");
 		// TODO @George
 	},
+	/**
+	 * It disables the functionality for the building
+	 */
 	disable: function() {
 		HTML_Engine.upgradeBuilding.disable("mill");
 		// TODO @George
@@ -662,12 +684,14 @@ HTML_Engine.inside_mill = {
 };
 
 /**
- * 5. The mine building
+ * @namespace The mine building(5)
+ * @memberOf HTML_Engine 
  */
 HTML_Engine.inside_mine = {
 
 	/**
 	 * It generates the content for the mine building
+	 * @return {string} HTML code for mine building
 	 */
 	content: function() {
 		var html = "";
@@ -676,10 +700,16 @@ HTML_Engine.inside_mine = {
 		// TODO @George
 		return html;
 	},
+	/**
+	 * It enables the functionality for the building
+	 */
 	enable: function() {
 		HTML_Engine.upgradeBuilding.enable("mine");
 		// TODO @George
 	},
+	/**
+	 * It disables the functionality for the building
+	 */
 	disable: function() {
 		HTML_Engine.upgradeBuilding.disable("mine");
 		// TODO @George
@@ -688,12 +718,14 @@ HTML_Engine.inside_mine = {
 
 
 /**
- * 6. The house building
+ * @namespace The house building (6)
+ * @memberOf HTML_Engine
  */
 HTML_Engine.inside_house = {
 
 	/**
 	 * It generates the content for the house building
+	 * @return {string} The HTML code for the house building
 	 */
 	content: function() {
 		var html = "";
@@ -701,10 +733,16 @@ HTML_Engine.inside_house = {
 		// TODO @George
 		return html;
 	},
+	/**
+	 * It enables the functionality for the building
+	 */
 	enable: function() {
 		HTML_Engine.upgradeBuilding.enable("house");
 		// TODO @George
 	},
+	/**
+	 * It disables the functionality for the building
+	 */
 	disable: function() {
 		HTML_Engine.upgradeBuilding.disable("house");
 		// TODO @George
@@ -712,12 +750,14 @@ HTML_Engine.inside_house = {
 };
 
 /**
- * 7. The trade building
+ * @namespace The trade building (7)
+ * @memberOf HTML_Engine
  */
 HTML_Engine.inside_trade = {
 
 	/**
 	 * It generates the content for the trade building
+	 * @return {string} The HTML code for the trade building
 	 */
 	content: function() {
 		var html = "";
@@ -726,10 +766,16 @@ HTML_Engine.inside_trade = {
 		// TODO @George
 		return html;
 	},
+	/**
+	 * It enables the functionality for the building
+	 */
 	enable: function() {
 		HTML_Engine.upgradeBuilding.enable("trade");
 		// TODO @George
 	},
+	/**
+	 * It disables the functionality for the building
+	 */
 	disable: function() {
 		HTML_Engine.upgradeBuilding.disable("trade");
 		// TODO @George
@@ -738,12 +784,14 @@ HTML_Engine.inside_trade = {
 
 
 /**
- * 8. The lumberjack building
+ * @namespace The lumberjack building (8)
+ * @memberOf
  */
 HTML_Engine.inside_lumberjack = {
 
 	/**
 	 * It generates the content for the lumberjack building
+	 * @return {string} The HTML content for the lumberjack building
 	 */
 	content: function() {
 		var html = "";
@@ -752,10 +800,16 @@ HTML_Engine.inside_lumberjack = {
 		// TODO @George
 		return html;
 	},
+	/**
+	 * It enables the functionality for the building
+	 */
 	enable: function() {
 		HTML_Engine.upgradeBuilding.enable("lumberjack");
 		// TODO @George
 	},
+	/**
+	 * It disables the functionality for the building
+	 */
 	disable: function() {
 		HTML_Engine.upgradeBuilding.disable("lumberjack");
 		// TODO @George
@@ -763,12 +817,14 @@ HTML_Engine.inside_lumberjack = {
 };
 
 /**
- * 9. The farm building
+ * @namespace The farm building (9)
+ * @memberOf HTML_Engine
  */
 HTML_Engine.inside_farm = {
 
 	/**
 	 * It generates the content for the lumberjack building
+	 * @return {string} HTML code for the lumberjack building
 	 */
 	content: function() {
 		var html = "";
@@ -777,10 +833,16 @@ HTML_Engine.inside_farm = {
 		// TODO @George
 		return html;
 	},
+	/**
+	 * It enables the functionality for the building
+	 */
 	enable: function() {
 		HTML_Engine.upgradeBuilding.enable("farm");
 		// TODO @George
 	},
+	/**
+	 * It disables the functionality for the building
+	 */
 	disable: function() {
 		HTML_Engine.upgradeBuilding.disable("farm");
 		// TODO @George
@@ -788,14 +850,15 @@ HTML_Engine.inside_farm = {
 };
 
 /**
- * It returns html information regarding the building
+ * @namespace It returns html information regarding the building
+ * @memberOf HTML_Engine
  */
 HTML_Engine.getBuilding = {
 	/**
 	 *  It returns the name of the building (special names for house or administration)
-	 *  @param (string) name The name of the building
-	 *  @param (number) level The level of the building
-	 *  @return (string) The name of the building capitalized
+	 *  @param {string} name The name of the building
+	 *  @param {number} level The level of the building
+	 *  @return {string} The name of the building capitalized
 	 */
 	name: function(name, level) {
 		var name = name ? name : "";
@@ -808,10 +871,10 @@ HTML_Engine.getBuilding = {
 	},
 	/**
 	 * It returns the image of the building. Note: the administration building has 6 different images according to the level of the city
-	 *  @param (string) name The name of the building
-	 *  @param (number) level The level of the building
-	 *  @param (number) dim The dimension for height and width of the image
-	 *  @return (string) The image of the building
+	 *  @param {string} name The name of the building
+	 *  @param {number} level The level of the building
+	 *  @param {number} dim The dimension for height and width of the image
+	 *  @return {string} The image of the building
 	 */
 	image: function(name, level, dim) {
 
@@ -833,8 +896,8 @@ HTML_Engine.getBuilding = {
 	},
 	/**
 	 * It returns the description of the building
-	 * @param (string) name The name of the building
-	 * @return (string) The description of the building
+	 * @param {string} name The name of the building
+	 * @return {string} The description of the building
 	 */
 	description: function(name) {
 		switch (name.toLowerCase()) {
@@ -848,8 +911,8 @@ HTML_Engine.getBuilding = {
 	},
 	/**
 	 * It returs a general info regarding the building. It includes the image and the description of the building
-	 * @param (string) building The name of the building
-	 * @return (string) A general info about the building
+	 * @param {string} building The name of the building
+	 * @return {string} A general info about the building
 	 */
 	info: function(building, full) {
 		var data = game.constructions.buildings[building],
@@ -869,7 +932,15 @@ HTML_Engine.getBuilding = {
 	}
 }
 
+/**
+ * @namespace The HTML Engine object for showing that a building is under consturction
+ * @memberOf HTML_Engine
+ */
 HTML_Engine.buildingUnderConstruction = {
+	/**
+	 * It returns the content
+	 * @return {string} The HTML content
+	 */
 	content: function() {
 		// image from http://www.iconarchive.com/show/construction-icons-by-proycontec/document-construction-icon.html
 		return "This building is under construction. <br /> <div class='center'><img src='/static/img/game/buildings/building_construction.png' /></div>";
@@ -877,14 +948,16 @@ HTML_Engine.buildingUnderConstruction = {
 }
 
 /**
- * HTML content for the upgrading a building
+ * @namespace HTML content for the upgrading a building
+ * @memberOf HTML_Engine
  */
 HTML_Engine.upgradeBuilding = {
 
 	/**
 	 * It shows the upgrading panel or a message if the upgrading building is being performed
-	 * @param (string) building_name The name of the building
-	 * @return (string) A string which shows the building is under upgrading or a panel to upgrade the building
+	 * @param {string} building_name The name of the building
+	 * @param {number} next_level The level of building
+	 * @return {string} A string which shows the building is under upgrading or a panel to upgrade the building
 	 */
 	content: function(building_name, next_level) {
 		if (game.player.city.buildings[building_name].status === 'upgrading') {
@@ -921,21 +994,31 @@ HTML_Engine.upgradeBuilding = {
 
 
 /**
- * It returns the HTML code when the world map was chosen
+ * @namespace It returns the HTML code when the world map was chosen
+ * @memberOf HTML_Engine
  */
 HTML_Engine.worldMapSelected = {
 	/**
 	 * It returns the string
+	 * @return {string} It returns the content
 	 */
 	content: function() {
 		return "<img align='middle' src='http://clipart.nicubunu.ro/png/events/graduation03.svg.png' /> <div>Hmmm... It seems you can see the world map. It contains the other cities. Click on a city to see the options.</div>";
 	}
 }
 
-
+/**
+ * @namespace The HTML_Engine when a city is selected
+ * @memberOf HTML_Engine
+ */
 HTML_Engine.selectCity = {
-	content: function(args) {
-		var city = game.worldMap.getCityById(args);
+	/**
+	 * It returns the content
+	 * @param {number} id The id of the selected city 
+	 * @return {string} The HTML content
+	 */
+	content: function(id) {
+		var city = game.worldMap.getCityById(id);
 		var html = "";
 		html += HTML_Engine.table.content(
 			[
@@ -956,6 +1039,10 @@ HTML_Engine.selectCity = {
 		return html;
 
 	},
+	/**
+	 * It enables the functionality for the HTML_Engine
+	 * @param {number} id_selected_city The id of the city
+	 */
 	enable: function(id_selected_city) {
 		$(".action_bt").button();
 		$("#start_attack").click(function() {
@@ -968,6 +1055,9 @@ HTML_Engine.selectCity = {
 			game.performAction("tradeResources", id_selected_city);
 		});
 	},
+	/**
+	 * It disables the functionality
+	 */
 	disable: function() {
 		$(".action_bt, #start_attack, #send_message, #trade_resources").off();
 	}
@@ -975,16 +1065,19 @@ HTML_Engine.selectCity = {
 
 
 /**
- * Attack a city
+ * @namespace The HTML_Engine in order to attack a city
+ * @memberOf HTML_Engine
  */
 HTML_Engine.attackCity = {
 
 	/**
 	 * It generates the content for the military building
+	 * @param {number} idCity The id of the city
+	 * @return {string} The HTML content in order to perform an attack
 	 */
-	content: function(args) {
+	content: function(idCity) {
 		var nr_of_active_units = game.player.city.buildings.military.people;
-		var html = "<div class='heading'>Target: <span class='bold' style='color:red'>" + game.worldMap.getCityById(args).name + "</div>";
+		var html = "<div class='heading'>Target: <span class='bold' style='color:red'>" + game.worldMap.getCityById(idCity).name + "</div>";
 		html += "<div class='heading'> The number of active units:";
 		html += HTML_Engine.displayResources.content({
 			resources: {
@@ -1013,8 +1106,9 @@ HTML_Engine.attackCity = {
 	},
 	/**
 	 * It enables the functionality for the attack
+	 * @param {number} idCity The id of the city
 	 */
-	enable: function(args) {
+	enable: function(idCity) {
 
 		var nr_of_active_units = game.player.city.buildings.military.people;
 
@@ -1047,7 +1141,7 @@ HTML_Engine.attackCity = {
 				}],
 				performAction: function() {
 					game.performTask("attack_city_1", {
-						target: args,
+						target: idCity,
 						number: HTML_Engine.chooser.fetchAll("military_attack")
 					});
 				}
@@ -1066,50 +1160,87 @@ HTML_Engine.attackCity = {
 	}
 };
 
-
+/**
+ * @namespace The THML_Engine object for paths
+ * @memberOf HTML_Engine
+ */
 HTML_Engine.worldPath = {
-	getCityName: function(city) {
-		return ((game.worldMap.cities[city] === game.player.id) ? "Your city" : game.worldMap.cities[city].name);
+	/**
+	 * It returns the name of the city based on the id
+	 * @param {number} idCity The id of the city
+	 * @return {string} The name of the city
+	 */
+	getCityName: function(idCity) {
+		return ((game.worldMap.cities[idCity] === game.player.id) ? "Your city" : game.worldMap.cities[idCity].name);
 	},
+	/**
+	 * It returns the string for a description of moving military units
+	 * @param {number} c1 The id of the "from" city
+	 * @param {number} c2 The id of the "to" city
+	 * @param {Resources} resources An object to describe the resources which are being carried 
+	 * @return {string} The HMTL code for describing the moving of military units
+	 */
 	moveMilitaryUnits: function(c1, c2, resources) {
 		return "<span class='bold'>Move military units</span> <br/> From: " + HTML_Engine.worldPath.getCityName(c1) + " </br> Target: " + HTML_Engine.worldPath.getCityName(c2) + "<br /><br /> " + HTML_Engine.displayResources.content(resources);
 	}
 };
 
 /**
- * Send a message
+ * @namespace The object for sending a message
+ * @memberOf HTML_Engine
  */
-// TODO @Joe
 HTML_Engine.sendMessage = {
 
 	/**
 	 * It generates the content for the message
+	 * @return {string} The HTML code for sending a message
 	 */
 	content: function(args) {
-		// TODO @George
+		// TODO @Joe
 		var html = "Its HTML_Engine content should be implemented @Joe";
 		return html;
 	},
 	/**
 	 * It enables the functionality for the message
 	 */
-	enable: function(args) {
-
+	enable: function() {
+		// TODO @Joe
 	},
-	disable: function() {}
+	/**
+	 * It disables the functionality
+	 */
+	disable: function() {
+		// TODO @Joe
+	}
 };
 
 
 /**
- * Trade
+* @namespace The HTML_Engine object for displaying a message
+* @memberOf HTML_Engine
+*/
+HTML_Engine.seeMessage = {
+	/**
+	 * It displays the content of the message
+	 * @param {object} args The object which contain information regarding the message ('id' and 'content')
+	 * @return {string} The HTML content for displaying the message
+	 */
+	content: function(args) {
+		return "This is the message nr <b>" + args.id + "<b>:<br/ ><i>" + args.content + '</i>. ';
+	}
+}
+
+/**
+ * @namespace Trade resources
+ * @memberOf HTML_Engine
  */
-// TODO @Cristian
 HTML_Engine.trade = {
 
 	/**
 	 * It generates the content for the trade
+	 * @return {string} The HTML code for generating the trade 
 	 */
-	content: function(args) {
+	content: function() {
 		// TODO @George
 		var html = "Its HTML_Engine content should be implemented @George";
 		return html;
@@ -1117,22 +1248,13 @@ HTML_Engine.trade = {
 	/**
 	 * It enables the functionality for the trade
 	 */
-	enable: function(args) {
+	enable: function() {
 
 	},
-	disable: function() {}
-};
-
-//It is an example of a dynamic action with arguments
-/**
- * It displays a message
- */
-HTML_Engine.seeMessage = {
 	/**
-	 * It displays the content of the message
-	 * @param args The object which contain information regarding the message ('id' and 'content')
+	 * It disables the functionality
 	 */
-	content: function(args) {
-		return "This is the message nr <b>" + args.id + "<b>:<br/ ><i>" + args.content + '</i>. ';
+	disable: function() {
+		
 	}
-}
+};

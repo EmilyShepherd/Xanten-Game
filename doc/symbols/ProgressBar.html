@@ -5,7 +5,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="generator" content="JsDoc Toolkit" />
 		
-		<title>JsDoc Reference - Window</title>
+		<title>JsDoc Reference - ProgressBar</title>
 
 		<style type="text/css">
 			/* default.css */
@@ -290,7 +290,7 @@ ul.inheritsList
 <!-- ============================== class title ============================ -->
 			<h1 class="classTitle">
 				
-				Class Window
+				Class ProgressBar
 			</h1>
 
 <!-- ============================== class summary ========================== -->			
@@ -301,13 +301,13 @@ ul.inheritsList
 				
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/D__Workspace_Python_CAD-TeaM_static_js_index_Window.js.html">Window.js</a>.
+					<br /><i>Defined in: </i> <a href="../symbols/src/D__Workspace_Python_CAD-TeaM_static_js_index_ProgressBar.js.html">ProgressBar.js</a>.
 				
 			</p>
 
 <!-- ============================== constructor summary ==================== -->			
 			
-			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class Window.">
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class ProgressBar.">
 				<caption>Class Summary</caption>
 				<thead>
 					<tr>
@@ -320,9 +320,9 @@ ul.inheritsList
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/Window.html#constructor">Window</a></b>()
+								<b><a href="../symbols/ProgressBar.html#constructor">ProgressBar</a></b>(Task)
 							</div>
-							<div class="description">It represents the view object which updates information</div>
+							<div class="description">Represents performing task.</div>
 						</td>
 					</tr>
 				</tbody>
@@ -333,7 +333,7 @@ ul.inheritsList
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class Window.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class ProgressBar.">
 					<caption>Field Summary</caption>
 					<thead>
 						<tr>
@@ -344,32 +344,22 @@ ul.inheritsList
 					<tbody>
 					
 						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								Window.<b><a href="../symbols/Window.html#.actionsBoard">actionsBoard</a></b>
+								<b><a href="../symbols/ProgressBar.html#p">p</a></b>
 								</div>
-								<div class="description">A reference to the bord for actions</div>
+								<div class="description">The progress object</div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								Window.<b><a href="../symbols/Window.html#.currentTasksBoard">currentTasksBoard</a></b>
+								<b><a href="../symbols/ProgressBar.html#task">task</a></b>
 								</div>
-								<div class="description">A reference to the board for tasks</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
-								Window.<b><a href="../symbols/Window.html#.newsBoard">newsBoard</a></b>
-								</div>
-								<div class="description">A reference to the board for news</div>
+								<div class="description">The reference of the task object</div>
 							</td>
 						</tr>
 					
@@ -384,7 +374,7 @@ ul.inheritsList
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class Window.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class ProgressBar.">
 					<caption>Method Summary</caption>
 					<thead>
 						<tr>
@@ -395,47 +385,11 @@ ul.inheritsList
 					<tbody>
 					
 						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">Window.<b><a href="../symbols/Window.html#.init">init</a></b>()
+								<div class="fixedFont"><b><a href="../symbols/ProgressBar.html#finish">finish</a></b>()
 								</div>
-								<div class="description">It scrools the window to top, it renders the game and sets a listener for changing the map buttons</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">Window.<b><a href="../symbols/Window.html#.update">update</a></b>()
-								</div>
-								<div class="description">It updates the width and height for all boards, windows</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">Window.<b><a href="../symbols/Window.html#.updateDetailsCity">updateDetailsCity</a></b>()
-								</div>
-								<div class="description">It updates the details of the city (name, level, type of city)</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">Window.<b><a href="../symbols/Window.html#.updateResources">updateResources</a></b>()
-								</div>
-								<div class="description">It updates the resources (gold, stone, wood, food)</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">Window.<b><a href="../symbols/Window.html#.updateStatistics">updateStatistics</a></b>()
-								</div>
-								<div class="description">It updates the number of people</div>
+								<div class="description">It finished the task.</div>
 							</td>
 						</tr>
 					
@@ -456,17 +410,28 @@ ul.inheritsList
 				</div>
 				
 				<div class="fixedFont">
-						<b>Window</b>()
+						<b>ProgressBar</b>(Task)
 				</div>
 				
 				<div class="description">
-					It represents the view object which updates information
+					Represents performing task. It is a view object (MCV). It shows the progress of task in real time in the current task box
 					
 				</div>
 				
 				
 				
 				
+					
+						<dl class="detailList">
+						<dt class="heading">Parameters:</dt>
+						
+							<dt>
+								 <b>Task</b>
+								
+							</dt>
+								<dd>task The task object</dd>
+						
+						</dl>
 					
 					
 					
@@ -484,15 +449,15 @@ ul.inheritsList
 					Field Detail
 				</div>
 				
-					<a name=".actionsBoard"> </a>
-					<div class="fixedFont">&lt;static&gt; 
+					<a name="p"> </a>
+					<div class="fixedFont">
 					
-					
-					<span class="light">Window.</span><b>actionsBoard</b>
+					<span class="light">{object}</span>
+					<b>p</b>
 					
 					</div>
 					<div class="description">
-						A reference to the bord for actions
+						The progress object
 						
 						
 					</div>
@@ -506,37 +471,15 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name=".currentTasksBoard"> </a>
-					<div class="fixedFont">&lt;static&gt; 
+					<a name="task"> </a>
+					<div class="fixedFont">
 					
-					
-					<span class="light">Window.</span><b>currentTasksBoard</b>
-					
-					</div>
-					<div class="description">
-						A reference to the board for tasks
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name=".newsBoard"> </a>
-					<div class="fixedFont">&lt;static&gt; 
-					
-					
-					<span class="light">Window.</span><b>newsBoard</b>
+					<span class="light">{<a href="../symbols/Task.html">Task</a>}</span>
+					<b>task</b>
 					
 					</div>
 					<div class="description">
-						A reference to the board for news
+						The reference of the task object
 						
 						
 					</div>
@@ -558,115 +501,15 @@ ul.inheritsList
 					Method Detail
 				</div>
 				
-					<a name=".init"> </a>
-					<div class="fixedFont">&lt;static&gt; 
+					<a name="finish"> </a>
+					<div class="fixedFont">
 					
 					
-					<span class="light">Window.</span><b>init</b>()
-					
-					</div>
-					<div class="description">
-						It scrools the window to top, it renders the game and sets a listener for changing the map buttons
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name=".update"> </a>
-					<div class="fixedFont">&lt;static&gt; 
-					
-					
-					<span class="light">Window.</span><b>update</b>()
+					<b>finish</b>()
 					
 					</div>
 					<div class="description">
-						It updates the width and height for all boards, windows
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name=".updateDetailsCity"> </a>
-					<div class="fixedFont">&lt;static&gt; 
-					
-					
-					<span class="light">Window.</span><b>updateDetailsCity</b>()
-					
-					</div>
-					<div class="description">
-						It updates the details of the city (name, level, type of city)
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name=".updateResources"> </a>
-					<div class="fixedFont">&lt;static&gt; 
-					
-					
-					<span class="light">Window.</span><b>updateResources</b>()
-					
-					</div>
-					<div class="description">
-						It updates the resources (gold, stone, wood, food)
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name=".updateStatistics"> </a>
-					<div class="fixedFont">&lt;static&gt; 
-					
-					
-					<span class="light">Window.</span><b>updateStatistics</b>()
-					
-					</div>
-					<div class="description">
-						It updates the number of people
+						It finished the task. It stops the progress, calls the task.afterEnds() method and deletes itself from the game
 						
 						
 					</div>

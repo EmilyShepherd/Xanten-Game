@@ -1,23 +1,21 @@
 /**
- * Represents performing task. It is a view object (MCV)
- *
+ * @file Represents a progress bar
  * @author Cristian Sima and George Salter
- * @version 30.11.2014
+ * @version 30.12.2014
  */
-
-// CAN BE COMPLETED ONCE SERVER GIVES RESPONSE
-
 
 /**
  * Represents performing task. It is a view object (MCV). It shows the progress of task in real time in the current task box
- * 
+ * @construct
+ * @property {Task} task The reference of the task object
+ * @property {object} p The progress object
  * @param Task task The task object
  */
 function ProgressBar(task){
 	
 	this.task = task;
 	
-	game.currentTasksBoard.add("<div id='task_"+this.task.id+"'><img width='25px' height='25px' src='"+task.imgSource+"'>   "+task.title+"<div id='progressbar_"+this.task.id+"'><div class='progress-label'></div></div></div>");
+	Window.currentTasksBoard.add("<div id='task_"+this.task.id+"'><img width='25px' height='25px' src='"+task.imgSource+"'>   "+task.title+"<div id='progressbar_"+this.task.id+"'><div class='progress-label'></div></div></div>");
 	
 	this.p			 		= $( "#progressbar_"+this.task.id );
     this.progressLabel 		= $( "#progressbar_"+this.task.id ).find( ".progress-label" );
@@ -48,6 +46,7 @@ function ProgressBar(task){
 
 /**
  *  It finished the task. It stops the progress, calls the task.afterEnds() method and deletes itself from the game
+ *  @memberOf ProgressBar.prototype
  */
 ProgressBar.prototype.finish = function() {	
 	this.task.afterEnds();

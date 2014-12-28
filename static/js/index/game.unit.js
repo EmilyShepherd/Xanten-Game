@@ -2,7 +2,6 @@
  * Holds information regarding a unit
  * @memberOf Game.prototype
  */
-game.unit = {};
 game.unit = {
 	"military": {
 		"create": function(number) {

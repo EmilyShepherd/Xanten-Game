@@ -479,7 +479,7 @@
 <span class='line'>472</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">html</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>473</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'>474</span> </span><span class="WHIT">	</span><span class="NAME">enable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>475</span> </span><span class="WHIT">		</span><span class="NAME">HTML_Engine.upgradeBuilding.enable</span><span class="PUNC">(</span><span class="STRN">"administration"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>475</span> </span><span class="WHIT">		</span><span class="NAME">HTML_Engine.upgradeBuilding.enable</span><span class="PUNC">(</span><span class="STRN">"administration"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">game.player.city.buildings</span><span class="PUNC">[</span><span class="STRN">"administration"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">level</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>476</span> </span><span class="WHIT">		</span><span class="COMM">// TODO @George</span><span class="WHIT">
 <span class='line'>477</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'>478</span> </span><span class="WHIT">	</span><span class="NAME">disable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
@@ -556,7 +556,7 @@
 <span class='line'>549</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">nr_of_active_units</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">game.player.city.buildings.military.people</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'>550</span> </span><span class="WHIT">			</span><span class="NAME">capacity</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">game.constructions.buildings.military.capacity</span><span class="PUNC">(</span><span class="NAME">game.player.city.buildings.military.level</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">resources.military</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>551</span> 
-<span class='line'>552</span> </span><span class="WHIT">		</span><span class="NAME">HTML_Engine.upgradeBuilding.enable</span><span class="PUNC">(</span><span class="STRN">"military"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>552</span> </span><span class="WHIT">		</span><span class="NAME">HTML_Engine.upgradeBuilding.enable</span><span class="PUNC">(</span><span class="STRN">"military"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">game.player.city.buildings</span><span class="PUNC">[</span><span class="STRN">"military"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">level</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>553</span> 
 <span class='line'>554</span> </span><span class="WHIT">		</span><span class="COMM">/*
 <span class='line'>555</span> 		 * It creates the chooser to let the user to choose how many utits to create
@@ -651,7 +651,7 @@
 <span class='line'>644</span> 	 * It enables the functionality for the building
 <span class='line'>645</span> 	 */</span><span class="WHIT">
 <span class='line'>646</span> </span><span class="WHIT">	</span><span class="NAME">enable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>647</span> </span><span class="WHIT">		</span><span class="NAME">HTML_Engine.upgradeBuilding.enable</span><span class="PUNC">(</span><span class="STRN">"storage"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>647</span> </span><span class="WHIT">		</span><span class="NAME">HTML_Engine.upgradeBuilding.enable</span><span class="PUNC">(</span><span class="STRN">"storage"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">game.player.city.buildings</span><span class="PUNC">[</span><span class="STRN">"storage"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">level</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>648</span> </span><span class="WHIT">		</span><span class="COMM">// TODO @George</span><span class="WHIT">
 <span class='line'>649</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'>650</span> </span><span class="WHIT">	</span><span class="COMM">/**
@@ -685,7 +685,7 @@
 <span class='line'>678</span> 	 * It enables the functionality for the building
 <span class='line'>679</span> 	 */</span><span class="WHIT">
 <span class='line'>680</span> </span><span class="WHIT">	</span><span class="NAME">enable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>681</span> </span><span class="WHIT">		</span><span class="NAME">HTML_Engine.upgradeBuilding.enable</span><span class="PUNC">(</span><span class="STRN">"mill"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>681</span> </span><span class="WHIT">		</span><span class="NAME">HTML_Engine.upgradeBuilding.enable</span><span class="PUNC">(</span><span class="STRN">"mill"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">game.player.city.buildings</span><span class="PUNC">[</span><span class="STRN">"mill"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">level</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>682</span> </span><span class="WHIT">		</span><span class="COMM">// TODO @George</span><span class="WHIT">
 <span class='line'>683</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'>684</span> </span><span class="WHIT">	</span><span class="COMM">/**
@@ -718,7 +718,7 @@
 <span class='line'>711</span> 	 * It enables the functionality for the building
 <span class='line'>712</span> 	 */</span><span class="WHIT">
 <span class='line'>713</span> </span><span class="WHIT">	</span><span class="NAME">enable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>714</span> </span><span class="WHIT">		</span><span class="NAME">HTML_Engine.upgradeBuilding.enable</span><span class="PUNC">(</span><span class="STRN">"mine"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>714</span> </span><span class="WHIT">		</span><span class="NAME">HTML_Engine.upgradeBuilding.enable</span><span class="PUNC">(</span><span class="STRN">"mine"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">game.player.city.buildings</span><span class="PUNC">[</span><span class="STRN">"mine"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">level</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>715</span> </span><span class="WHIT">		</span><span class="COMM">// TODO @George</span><span class="WHIT">
 <span class='line'>716</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'>717</span> </span><span class="WHIT">	</span><span class="COMM">/**
@@ -751,7 +751,7 @@
 <span class='line'>744</span> 	 * It enables the functionality for the building
 <span class='line'>745</span> 	 */</span><span class="WHIT">
 <span class='line'>746</span> </span><span class="WHIT">	</span><span class="NAME">enable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>747</span> </span><span class="WHIT">		</span><span class="NAME">HTML_Engine.upgradeBuilding.enable</span><span class="PUNC">(</span><span class="STRN">"house"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>747</span> </span><span class="WHIT">		</span><span class="NAME">HTML_Engine.upgradeBuilding.enable</span><span class="PUNC">(</span><span class="STRN">"house"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">game.player.city.buildings</span><span class="PUNC">[</span><span class="STRN">"administration"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">level</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>748</span> </span><span class="WHIT">		</span><span class="COMM">// TODO @George</span><span class="WHIT">
 <span class='line'>749</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'>750</span> </span><span class="WHIT">	</span><span class="COMM">/**
@@ -784,7 +784,7 @@
 <span class='line'>777</span> 	 * It enables the functionality for the building
 <span class='line'>778</span> 	 */</span><span class="WHIT">
 <span class='line'>779</span> </span><span class="WHIT">	</span><span class="NAME">enable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>780</span> </span><span class="WHIT">		</span><span class="NAME">HTML_Engine.upgradeBuilding.enable</span><span class="PUNC">(</span><span class="STRN">"trade"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>780</span> </span><span class="WHIT">		</span><span class="NAME">HTML_Engine.upgradeBuilding.enable</span><span class="PUNC">(</span><span class="STRN">"trade"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">game.player.city.buildings</span><span class="PUNC">[</span><span class="STRN">"trade"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">level</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>781</span> </span><span class="WHIT">		</span><span class="COMM">// TODO @George</span><span class="WHIT">
 <span class='line'>782</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'>783</span> </span><span class="WHIT">	</span><span class="COMM">/**
@@ -818,7 +818,7 @@
 <span class='line'>811</span> 	 * It enables the functionality for the building
 <span class='line'>812</span> 	 */</span><span class="WHIT">
 <span class='line'>813</span> </span><span class="WHIT">	</span><span class="NAME">enable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>814</span> </span><span class="WHIT">		</span><span class="NAME">HTML_Engine.upgradeBuilding.enable</span><span class="PUNC">(</span><span class="STRN">"lumberjack"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>814</span> </span><span class="WHIT">		</span><span class="NAME">HTML_Engine.upgradeBuilding.enable</span><span class="PUNC">(</span><span class="STRN">"lumberjack"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">game.player.city.buildings</span><span class="PUNC">[</span><span class="STRN">"lumberjack"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">level</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>815</span> </span><span class="WHIT">		</span><span class="COMM">// TODO @George</span><span class="WHIT">
 <span class='line'>816</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'>817</span> </span><span class="WHIT">	</span><span class="COMM">/**
@@ -851,7 +851,7 @@
 <span class='line'>844</span> 	 * It enables the functionality for the building
 <span class='line'>845</span> 	 */</span><span class="WHIT">
 <span class='line'>846</span> </span><span class="WHIT">	</span><span class="NAME">enable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>847</span> </span><span class="WHIT">		</span><span class="NAME">HTML_Engine.upgradeBuilding.enable</span><span class="PUNC">(</span><span class="STRN">"farm"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>847</span> </span><span class="WHIT">		</span><span class="NAME">HTML_Engine.upgradeBuilding.enable</span><span class="PUNC">(</span><span class="STRN">"farm"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">game.player.city.buildings</span><span class="PUNC">[</span><span class="STRN">"farm"</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">level</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>848</span> </span><span class="WHIT">		</span><span class="COMM">// TODO @George</span><span class="WHIT">
 <span class='line'>849</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'>850</span> </span><span class="WHIT">	</span><span class="COMM">/**
@@ -982,7 +982,7 @@
 <span class='line'>975</span> </span><span class="WHIT">				</span><span class="COMM">// image from http://www.iconarchive.com/show/orb-icons-by-taytel/arrow-up-icon.html</span><span class="WHIT">
 <span class='line'>976</span> </span><span class="WHIT">				</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="STRN">"&lt;div class='board_list hover chooser' id='upgrade_building' building_name='"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">building_name</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"'>"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT">
 <span class='line'>977</span> </span><span class="WHIT">					</span><span class="NAME">HTML_Engine.table.content</span><span class="PUNC">(</span><span class="PUNC">[</span><span class="WHIT">
-<span class='line'>978</span> </span><span class="WHIT">						</span><span class="PUNC">[</span><span class="STRN">"Upgrade to level &lt;span class='bold'>"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">next_level</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"&lt;/span> &lt;br />"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">HTML_Engine.displayResources.content</span><span class="PUNC">(</span><span class="NAME">game.constructions.buildings</span><span class="PUNC">[</span><span class="NAME">building_name</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">levelUp</span><span class="PUNC">(</span><span class="NAME">next_level</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"&lt;img src='/static/img/game/buildings/upgrade.png' align='right' />"</span><span class="PUNC">]</span><span class="WHIT">
+<span class='line'>978</span> </span><span class="WHIT">						</span><span class="PUNC">[</span><span class="STRN">"Upgrade to level &lt;span class='bold'>"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">next_level</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"&lt;/span>&lt;/span> &lt;br />"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">HTML_Engine.displayResources.content</span><span class="PUNC">(</span><span class="NAME">game.constructions.buildings</span><span class="PUNC">[</span><span class="NAME">building_name</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">levelUp</span><span class="PUNC">(</span><span class="NAME">next_level</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"&lt;img src='/static/img/game/buildings/upgrade.png' align='right' />"</span><span class="PUNC">]</span><span class="WHIT">
 <span class='line'>979</span> </span><span class="WHIT">					</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT">
 <span class='line'>980</span> </span><span class="WHIT">					</span><span class="STRN">"&lt;/div>"</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>981</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
@@ -993,287 +993,298 @@
 <span class='line'>986</span> </span><span class="WHIT">	</span><span class="COMM">/**
 <span class='line'>987</span> 	 * It enables the panel
 <span class='line'>988</span> 	 */</span><span class="WHIT">
-<span class='line'>989</span> </span><span class="WHIT">	</span><span class="NAME">enable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>990</span> </span><span class="WHIT">		</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"#upgrade_building"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">click</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>991</span> </span><span class="WHIT">			</span><span class="NAME">game.performTask</span><span class="PUNC">(</span><span class="STRN">"update_building"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>992</span> </span><span class="WHIT">				</span><span class="NAME">building</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">attr</span><span class="PUNC">(</span><span class="STRN">"building_name"</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>993</span> </span><span class="WHIT">				</span><span class="NAME">toLevel</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">game.player.city.buildings</span><span class="PUNC">[</span><span class="NAME">$</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">attr</span><span class="PUNC">(</span><span class="STRN">"building_name"</span><span class="PUNC">)</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">level</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>994</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>995</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>996</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>997</span> </span><span class="WHIT">	</span><span class="COMM">/**
-<span class='line'>998</span> 	 * It disables the panel
-<span class='line'>999</span> 	 */</span><span class="WHIT">
-<span class='line'>1000</span> </span><span class="WHIT">	</span><span class="NAME">disable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1001</span> </span><span class="WHIT">		</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"#upgrade_building"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">off</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1002</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>1003</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1004</span> 
-<span class='line'>1005</span> </span><span class="COMM">/* ------------------------------ World Map  ------------------------------ */</span><span class="WHIT">
-<span class='line'>1006</span> 
-<span class='line'>1007</span> 
-<span class='line'>1008</span> </span><span class="COMM">/**
-<span class='line'>1009</span>  * @namespace It returns the HTML code when the world map was chosen
-<span class='line'>1010</span>  * @memberOf HTML_Engine
-<span class='line'>1011</span>  */</span><span class="WHIT">
-<span class='line'>1012</span> </span><span class="NAME">HTML_Engine.worldMapSelected</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1013</span> </span><span class="WHIT">	</span><span class="COMM">/**
-<span class='line'>1014</span> 	 * It returns the string
-<span class='line'>1015</span> 	 * @return {string} It returns the content
-<span class='line'>1016</span> 	 */</span><span class="WHIT">
-<span class='line'>1017</span> </span><span class="WHIT">	</span><span class="NAME">content</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1018</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="STRN">"&lt;img align='middle' src='http://clipart.nicubunu.ro/png/events/graduation03.svg.png' /> &lt;div>Hmmm... It seems you can see the world map. It contains the other cities. Click on a city to see the options.&lt;/div>"</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1019</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>1020</span> </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>1021</span> 
-<span class='line'>1022</span> </span><span class="COMM">/**
-<span class='line'>1023</span>  * @namespace The HTML_Engine when a city is selected
-<span class='line'>1024</span>  * @memberOf HTML_Engine
-<span class='line'>1025</span>  */</span><span class="WHIT">
-<span class='line'>1026</span> </span><span class="NAME">HTML_Engine.selectCity</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1027</span> </span><span class="WHIT">	</span><span class="COMM">/**
-<span class='line'>1028</span> 	 * It returns the content
-<span class='line'>1029</span> 	 * @param {number} id The id of the selected city 
-<span class='line'>1030</span> 	 * @return {string} The HTML content
-<span class='line'>1031</span> 	 */</span><span class="WHIT">
-<span class='line'>1032</span> </span><span class="WHIT">	</span><span class="NAME">content</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">id</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1033</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">city</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">game.worldMap.getCityById</span><span class="PUNC">(</span><span class="NAME">id</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1034</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">html</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1035</span> </span><span class="WHIT">		</span><span class="NAME">html</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">HTML_Engine.table.content</span><span class="PUNC">(</span><span class="WHIT">
-<span class='line'>1036</span> </span><span class="WHIT">			</span><span class="PUNC">[</span><span class="WHIT">
-<span class='line'>1037</span> </span><span class="WHIT">				</span><span class="PUNC">[</span><span class="STRN">"Name of city:"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">city.name</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>1038</span> </span><span class="WHIT">				</span><span class="PUNC">[</span><span class="STRN">"Player:"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">city.player</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>1039</span> </span><span class="WHIT">				</span><span class="PUNC">[</span><span class="STRN">"Level:"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">city.level</span><span class="PUNC">]</span><span class="WHIT">
-<span class='line'>1040</span> </span><span class="WHIT">			</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="WHIT">
-<span class='line'>1041</span> </span><span class="WHIT">		</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1042</span> 
-<span class='line'>1043</span> </span><span class="WHIT">		</span><span class="NAME">html</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"&lt;br />&lt;br />"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT">
-<span class='line'>1044</span> </span><span class="WHIT">			</span><span class="STRN">"&lt;div class='heading'>&lt;span class='bold'> Actions for this city: &lt;/span>&lt;br />"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT">
-<span class='line'>1045</span> </span><span class="WHIT">			</span><span class="STRN">"&lt;div class='heading'>Your imperial forces can bring new resources. &lt;br />&lt;input class='action_bt' id='start_attack' value='Perform an attack' />&lt;/div>"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT">
-<span class='line'>1046</span> </span><span class="WHIT">			</span><span class="STRN">"&lt;div class='heading'>Do you have something important to tell to this king ? &lt;br />&lt;input class='action_bt' id='send_message' value='Send message' />&lt;/div>"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT">
-<span class='line'>1047</span> </span><span class="WHIT">			</span><span class="STRN">"&lt;div class='heading'>Do you want to have a fair trade with this city ?&lt;br />&lt;input class='action_bt' id='trade_resources' value='Trade resources' />&lt;/div>"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT">
-<span class='line'>1048</span> </span><span class="WHIT">			</span><span class="STRN">""</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT">
-<span class='line'>1049</span> </span><span class="WHIT">			</span><span class="STRN">"&lt;/div>"</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1050</span> 
-<span class='line'>1051</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">html</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1052</span> 
-<span class='line'>1053</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>1054</span> </span><span class="WHIT">	</span><span class="COMM">/**
-<span class='line'>1055</span> 	 * It enables the functionality for the HTML_Engine
-<span class='line'>1056</span> 	 * @param {number} id_selected_city The id of the city
-<span class='line'>1057</span> 	 */</span><span class="WHIT">
-<span class='line'>1058</span> </span><span class="WHIT">	</span><span class="NAME">enable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">id_selected_city</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1059</span> </span><span class="WHIT">		</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">".action_bt"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">button</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1060</span> </span><span class="WHIT">		</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"#start_attack"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">click</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1061</span> </span><span class="WHIT">			</span><span class="NAME">game.performAction</span><span class="PUNC">(</span><span class="STRN">"attackCity"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">id_selected_city</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1062</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1063</span> </span><span class="WHIT">		</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"#send_message"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">click</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1064</span> </span><span class="WHIT">			</span><span class="NAME">game.performAction</span><span class="PUNC">(</span><span class="STRN">"sendMessage"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">id_selected_city</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1065</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1066</span> </span><span class="WHIT">		</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"#trade_resources"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">click</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1067</span> </span><span class="WHIT">			</span><span class="NAME">game.performAction</span><span class="PUNC">(</span><span class="STRN">"tradeResources"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">id_selected_city</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1068</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1069</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>1070</span> </span><span class="WHIT">	</span><span class="COMM">/**
-<span class='line'>1071</span> 	 * It disables the functionality
-<span class='line'>1072</span> 	 */</span><span class="WHIT">
-<span class='line'>1073</span> </span><span class="WHIT">	</span><span class="NAME">disable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1074</span> </span><span class="WHIT">		</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">".action_bt, #start_attack, #send_message, #trade_resources"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">off</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1075</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>1076</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1077</span> 
-<span class='line'>1078</span> 
-<span class='line'>1079</span> </span><span class="COMM">/**
-<span class='line'>1080</span>  * @namespace The HTML_Engine in order to attack a city
-<span class='line'>1081</span>  * @memberOf HTML_Engine
-<span class='line'>1082</span>  */</span><span class="WHIT">
-<span class='line'>1083</span> </span><span class="NAME">HTML_Engine.attackCity</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1084</span> 
-<span class='line'>1085</span> </span><span class="WHIT">	</span><span class="COMM">/**
-<span class='line'>1086</span> 	 * It generates the content for the military building
-<span class='line'>1087</span> 	 * @param {number} idCity The id of the city
-<span class='line'>1088</span> 	 * @return {string} The HTML content in order to perform an attack
-<span class='line'>1089</span> 	 */</span><span class="WHIT">
-<span class='line'>1090</span> </span><span class="WHIT">	</span><span class="NAME">content</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">idCity</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1091</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">nr_of_active_units</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">game.player.city.buildings.military.people</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1092</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">html</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"&lt;div class='heading'>Target: &lt;span class='bold' style='color:red'>"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">game.worldMap.getCityById</span><span class="PUNC">(</span><span class="NAME">idCity</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">name</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"&lt;/div>"</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1093</span> </span><span class="WHIT">		</span><span class="NAME">html</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"&lt;div class='heading'> The number of active units:"</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1094</span> </span><span class="WHIT">		</span><span class="NAME">html</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">HTML_Engine.displayResources.content</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1095</span> </span><span class="WHIT">			</span><span class="NAME">resources</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1096</span> </span><span class="WHIT">				</span><span class="STRN">"military"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">nr_of_active_units</span><span class="WHIT">
-<span class='line'>1097</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>1098</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"&lt;/div>"</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1099</span> 
-<span class='line'>1100</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nr_of_active_units</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">game.player.city.buildings.military.level</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1101</span> </span><span class="WHIT">			</span><span class="NAME">html</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">HTML_Engine.chooser.content</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1102</span> </span><span class="WHIT">				</span><span class="NAME">info</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"Decide very wize how many units you want to send. The daily cost is an addition cost to the one from military for the units."</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>1103</span> </span><span class="WHIT">				</span><span class="NAME">values</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1104</span> </span><span class="WHIT">					</span><span class="NAME">title</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"Military units"</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>1105</span> </span><span class="WHIT">					</span><span class="NAME">id</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"units"</span><span class="WHIT">
-<span class='line'>1106</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1107</span> </span><span class="WHIT">					</span><span class="NAME">title</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"Wine to increse happiness"</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>1108</span> </span><span class="WHIT">					</span><span class="NAME">id</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"wine"</span><span class="WHIT">
-<span class='line'>1109</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>1110</span> </span><span class="WHIT">				</span><span class="NAME">button</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"Start attack !"</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>1111</span> </span><span class="WHIT">				</span><span class="NAME">id</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"military_attack"</span><span class="WHIT">
-<span class='line'>1112</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1113</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1114</span> </span><span class="WHIT">			</span><span class="NAME">html</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"&lt;div>Unfortunately, you have no military units to use&lt;/div>"</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1115</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>1116</span> 
-<span class='line'>1117</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">html</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1118</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>1119</span> </span><span class="WHIT">	</span><span class="COMM">/**
-<span class='line'>1120</span> 	 * It enables the functionality for the attack
-<span class='line'>1121</span> 	 * @param {number} idCity The id of the city
-<span class='line'>1122</span> 	 */</span><span class="WHIT">
-<span class='line'>1123</span> </span><span class="WHIT">	</span><span class="NAME">enable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">idCity</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1124</span> 
-<span class='line'>1125</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">nr_of_active_units</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">game.player.city.buildings.military.people</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1126</span> 
-<span class='line'>1127</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nr_of_active_units</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">game.player.city.buildings.military.level</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1128</span> </span><span class="WHIT">			</span><span class="COMM">/**
-<span class='line'>1129</span> 			 * It creates the chooser to let the user to choose how many utits to send into attack
-<span class='line'>1130</span> 			 */</span><span class="WHIT">
-<span class='line'>1131</span> </span><span class="WHIT">			</span><span class="NAME">HTML_Engine.chooser.enable</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1132</span> 
-<span class='line'>1133</span> </span><span class="WHIT">				</span><span class="NAME">id</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"military_attack"</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>1134</span> </span><span class="WHIT">				</span><span class="NAME">values</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1135</span> </span><span class="WHIT">					</span><span class="NAME">id</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">'units'</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>1136</span> </span><span class="WHIT">					</span><span class="NAME">min</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>1137</span> </span><span class="WHIT">					</span><span class="NAME">max</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">nr_of_active_units</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>1138</span> </span><span class="WHIT">					</span><span class="COMM">/* TODO @Cristian the number of free people*/</span><span class="WHIT">
-<span class='line'>1139</span> </span><span class="WHIT">					</span><span class="NAME">change</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ui</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">extra</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1140</span> </span><span class="WHIT">						</span><span class="NAME">extra.html</span><span class="PUNC">(</span><span class="NAME">HTML_Engine.displayResources.content</span><span class="PUNC">(</span><span class="WHIT">
-<span class='line'>1141</span> </span><span class="WHIT">							</span><span class="NAME">game.unit.cost.military.attack</span><span class="PUNC">(</span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">ui.value</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>1142</span> </span><span class="WHIT">						</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1143</span> </span><span class="WHIT">					</span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>1144</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1145</span> </span><span class="WHIT">					</span><span class="NAME">id</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">'wine'</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>1146</span> </span><span class="WHIT">					</span><span class="NAME">mine</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>1147</span> </span><span class="WHIT">					</span><span class="NAME">max</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">900</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>1148</span> </span><span class="WHIT">					</span><span class="COMM">/* TODO @Cristian */</span><span class="WHIT">
-<span class='line'>1149</span> </span><span class="WHIT">					</span><span class="NAME">change</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ui</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">extra</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1150</span> </span><span class="WHIT">						</span><span class="NAME">extra.html</span><span class="PUNC">(</span><span class="STRN">"Incresed by "</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">Math.round</span><span class="PUNC">(</span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">ui.value</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">/</span><span class="WHIT"> </span><span class="NUMB">900</span><span class="WHIT"> </span><span class="PUNC">*</span><span class="WHIT"> </span><span class="NUMB">25</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"%"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1151</span> </span><span class="WHIT">					</span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>1152</span> 
-<span class='line'>1153</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>1154</span> </span><span class="WHIT">				</span><span class="NAME">performAction</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1155</span> </span><span class="WHIT">					</span><span class="NAME">game.performTask</span><span class="PUNC">(</span><span class="STRN">"attack_city_1"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1156</span> </span><span class="WHIT">						</span><span class="NAME">target</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">idCity</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>1157</span> </span><span class="WHIT">						</span><span class="NAME">number</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">HTML_Engine.chooser.fetchAll</span><span class="PUNC">(</span><span class="STRN">"military_attack"</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>1158</span> </span><span class="WHIT">					</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1159</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>1160</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1161</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1162</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="STRN">"You have no active units or military."</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1163</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>1164</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>1165</span> </span><span class="WHIT">	</span><span class="COMM">/**
-<span class='line'>1166</span> 	 * It calls the disable methods of the military choosers
-<span class='line'>1167</span> 	 */</span><span class="WHIT">
-<span class='line'>1168</span> </span><span class="WHIT">	</span><span class="NAME">disable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1169</span> </span><span class="WHIT">		</span><span class="NAME">HTML_Engine.chooser.disable</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1170</span> </span><span class="WHIT">			</span><span class="NAME">id</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"military_attack"</span><span class="WHIT">
-<span class='line'>1171</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1172</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>1173</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1174</span> 
-<span class='line'>1175</span> </span><span class="COMM">/**
-<span class='line'>1176</span>  * @namespace The THML_Engine object for paths
-<span class='line'>1177</span>  * @memberOf HTML_Engine
-<span class='line'>1178</span>  */</span><span class="WHIT">
-<span class='line'>1179</span> </span><span class="NAME">HTML_Engine.worldPath</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1180</span> </span><span class="WHIT">	</span><span class="COMM">/**
-<span class='line'>1181</span> 	 * It returns the name of the city based on the id
-<span class='line'>1182</span> 	 * @param {number} idCity The id of the city
-<span class='line'>1183</span> 	 * @return {string} The name of the city
-<span class='line'>1184</span> 	 */</span><span class="WHIT">
-<span class='line'>1185</span> </span><span class="WHIT">	</span><span class="NAME">getCityName</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">idCity</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1186</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">(</span><span class="NAME">game.worldMap.cities</span><span class="PUNC">[</span><span class="NAME">idCity</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NAME">game.player.id</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="STRN">"Your city"</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">game.worldMap.cities</span><span class="PUNC">[</span><span class="NAME">idCity</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">name</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1187</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>1188</span> </span><span class="WHIT">	</span><span class="COMM">/**
-<span class='line'>1189</span> 	 * It returns the string for a description of moving military units
-<span class='line'>1190</span> 	 * @param {number} c1 The id of the "from" city
-<span class='line'>1191</span> 	 * @param {number} c2 The id of the "to" city
-<span class='line'>1192</span> 	 * @param {Resources} resources An object to describe the resources which are being carried 
-<span class='line'>1193</span> 	 * @return {string} The HMTL code for describing the moving of military units
-<span class='line'>1194</span> 	 */</span><span class="WHIT">
-<span class='line'>1195</span> </span><span class="WHIT">	</span><span class="NAME">moveMilitaryUnits</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">c1</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">c2</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">resources</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1196</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="STRN">"&lt;span class='bold'>Move military units&lt;/span> &lt;br/> From: "</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">HTML_Engine.worldPath.getCityName</span><span class="PUNC">(</span><span class="NAME">c1</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">" &lt;/br> Target: "</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">HTML_Engine.worldPath.getCityName</span><span class="PUNC">(</span><span class="NAME">c2</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"&lt;br />&lt;br /> "</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">HTML_Engine.displayResources.content</span><span class="PUNC">(</span><span class="NAME">resources</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1197</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>1198</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1199</span> 
-<span class='line'>1200</span> </span><span class="COMM">/**
-<span class='line'>1201</span>  * @namespace The object for sending a message
-<span class='line'>1202</span>  * @memberOf HTML_Engine
-<span class='line'>1203</span>  */</span><span class="WHIT">
-<span class='line'>1204</span> </span><span class="NAME">HTML_Engine.sendMessage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1205</span> 
-<span class='line'>1206</span> </span><span class="WHIT">	</span><span class="COMM">/**
-<span class='line'>1207</span> 	 * It generates the content for the message
-<span class='line'>1208</span> 	 * @return {string} The HTML code for sending a message
-<span class='line'>1209</span> 	 */</span><span class="WHIT">
-<span class='line'>1210</span> </span><span class="WHIT">	</span><span class="NAME">content</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">args</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1211</span> </span><span class="WHIT">		</span><span class="COMM">// TODO @Joe</span><span class="WHIT">
-<span class='line'>1212</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">html</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"Its HTML_Engine content should be implemented @Joe"</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1213</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">html</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1214</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>1215</span> </span><span class="WHIT">	</span><span class="COMM">/**
-<span class='line'>1216</span> 	 * It enables the functionality for the message
-<span class='line'>1217</span> 	 */</span><span class="WHIT">
-<span class='line'>1218</span> </span><span class="WHIT">	</span><span class="NAME">enable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1219</span> </span><span class="WHIT">		</span><span class="COMM">// TODO @Joe</span><span class="WHIT">
-<span class='line'>1220</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>1221</span> </span><span class="WHIT">	</span><span class="COMM">/**
-<span class='line'>1222</span> 	 * It disables the functionality
-<span class='line'>1223</span> 	 */</span><span class="WHIT">
-<span class='line'>1224</span> </span><span class="WHIT">	</span><span class="NAME">disable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1225</span> </span><span class="WHIT">		</span><span class="COMM">// TODO @Joe</span><span class="WHIT">
-<span class='line'>1226</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>1227</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1228</span> 
-<span class='line'>1229</span> 
-<span class='line'>1230</span> </span><span class="COMM">/**
-<span class='line'>1231</span> * @namespace The HTML_Engine object for displaying a message
-<span class='line'>1232</span> * @memberOf HTML_Engine
-<span class='line'>1233</span> */</span><span class="WHIT">
-<span class='line'>1234</span> </span><span class="NAME">HTML_Engine.seeMessage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1235</span> </span><span class="WHIT">	</span><span class="COMM">/**
-<span class='line'>1236</span> 	 * It displays the content of the message
-<span class='line'>1237</span> 	 * @param {object} args The object which contain information regarding the message ('id' and 'content')
-<span class='line'>1238</span> 	 * @return {string} The HTML content for displaying the message
-<span class='line'>1239</span> 	 */</span><span class="WHIT">
-<span class='line'>1240</span> </span><span class="WHIT">	</span><span class="NAME">content</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">args</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1241</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="STRN">"This is the message nr &lt;b>"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">args.id</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"&lt;b>:&lt;br/ >&lt;i>"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">args.content</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">'&lt;/i>. '</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1242</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>1243</span> </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>1244</span> 
-<span class='line'>1245</span> </span><span class="COMM">/**
-<span class='line'>1246</span>  * @namespace Trade resources
-<span class='line'>1247</span>  * @memberOf HTML_Engine
-<span class='line'>1248</span>  */</span><span class="WHIT">
-<span class='line'>1249</span> </span><span class="NAME">HTML_Engine.trade</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1250</span> 
-<span class='line'>1251</span> </span><span class="WHIT">	</span><span class="COMM">/**
-<span class='line'>1252</span> 	 * It generates the content for the trade
-<span class='line'>1253</span> 	 * @return {string} The HTML code for generating the trade 
-<span class='line'>1254</span> 	 */</span><span class="WHIT">
-<span class='line'>1255</span> </span><span class="WHIT">	</span><span class="NAME">content</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1256</span> </span><span class="WHIT">		</span><span class="COMM">// TODO @George</span><span class="WHIT">
-<span class='line'>1257</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">html</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"Its HTML_Engine content should be implemented @George"</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1258</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">html</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>1259</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>1260</span> </span><span class="WHIT">	</span><span class="COMM">/**
-<span class='line'>1261</span> 	 * It enables the functionality for the trade
-<span class='line'>1262</span> 	 */</span><span class="WHIT">
-<span class='line'>1263</span> </span><span class="WHIT">	</span><span class="NAME">enable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1264</span> 
-<span class='line'>1265</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>1266</span> </span><span class="WHIT">	</span><span class="COMM">/**
-<span class='line'>1267</span> 	 * It disables the functionality
-<span class='line'>1268</span> 	 */</span><span class="WHIT">
-<span class='line'>1269</span> </span><span class="WHIT">	</span><span class="NAME">disable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>1270</span> </span><span class="WHIT">		</span><span class="WHIT">
-<span class='line'>1271</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>1272</span> </span><span class="PUNC">}</span><span class="PUNC">;</span></pre></body></html>
+<span class='line'>989</span> </span><span class="WHIT">	</span><span class="NAME">enable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">building_name</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">next_level</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>990</span> </span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'>991</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">building_name</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="STRN">'house'</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">building_name</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="STRN">'administration'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>992</span> </span><span class="WHIT">			</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"#upgrade_building img"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">qtip</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>993</span> </span><span class="WHIT">				</span><span class="NAME">content</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"Capacity for level "</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">next_level</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"&lt;br />"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">HTML_Engine.displayResources.content</span><span class="PUNC">(</span><span class="NAME">game.constructions.buildings</span><span class="PUNC">[</span><span class="NAME">building_name</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">capacity</span><span class="PUNC">(</span><span class="NAME">next_level</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>994</span> </span><span class="WHIT">				</span><span class="NAME">position</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>995</span> </span><span class="WHIT">					</span><span class="NAME">target</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">'mouse'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="COMM">// Track the mouse as the positioning target</span><span class="WHIT">
+<span class='line'>996</span> </span><span class="WHIT">					</span><span class="NAME">adjust</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">x</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">5</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">y</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">5</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="COMM">// Offset it slightly from under the mouse</span><span class="WHIT">
+<span class='line'>997</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>998</span> </span><span class="WHIT">				</span><span class="WHIT">
+<span class='line'>999</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1000</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>1001</span> </span><span class="WHIT">		</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"#upgrade_building"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">click</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1002</span> </span><span class="WHIT">			</span><span class="NAME">game.performTask</span><span class="PUNC">(</span><span class="STRN">"update_building"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1003</span> </span><span class="WHIT">				</span><span class="NAME">building</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">attr</span><span class="PUNC">(</span><span class="STRN">"building_name"</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1004</span> </span><span class="WHIT">				</span><span class="NAME">toLevel</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">game.player.city.buildings</span><span class="PUNC">[</span><span class="NAME">$</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">attr</span><span class="PUNC">(</span><span class="STRN">"building_name"</span><span class="PUNC">)</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">level</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>1005</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1006</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1007</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1008</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>1009</span> 	 * It disables the panel
+<span class='line'>1010</span> 	 */</span><span class="WHIT">
+<span class='line'>1011</span> </span><span class="WHIT">	</span><span class="NAME">disable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1012</span> </span><span class="WHIT">		</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"#upgrade_building"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">off</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1013</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>1014</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1015</span> 
+<span class='line'>1016</span> </span><span class="COMM">/* ------------------------------ World Map  ------------------------------ */</span><span class="WHIT">
+<span class='line'>1017</span> 
+<span class='line'>1018</span> 
+<span class='line'>1019</span> </span><span class="COMM">/**
+<span class='line'>1020</span>  * @namespace It returns the HTML code when the world map was chosen
+<span class='line'>1021</span>  * @memberOf HTML_Engine
+<span class='line'>1022</span>  */</span><span class="WHIT">
+<span class='line'>1023</span> </span><span class="NAME">HTML_Engine.worldMapSelected</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1024</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>1025</span> 	 * It returns the string
+<span class='line'>1026</span> 	 * @return {string} It returns the content
+<span class='line'>1027</span> 	 */</span><span class="WHIT">
+<span class='line'>1028</span> </span><span class="WHIT">	</span><span class="NAME">content</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1029</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="STRN">"&lt;img align='middle' src='http://clipart.nicubunu.ro/png/events/graduation03.svg.png' /> &lt;div>Hmmm... It seems you can see the world map. It contains the other cities. Click on a city to see the options.&lt;/div>"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1030</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>1031</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>1032</span> 
+<span class='line'>1033</span> </span><span class="COMM">/**
+<span class='line'>1034</span>  * @namespace The HTML_Engine when a city is selected
+<span class='line'>1035</span>  * @memberOf HTML_Engine
+<span class='line'>1036</span>  */</span><span class="WHIT">
+<span class='line'>1037</span> </span><span class="NAME">HTML_Engine.selectCity</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1038</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>1039</span> 	 * It returns the content
+<span class='line'>1040</span> 	 * @param {number} id The id of the selected city 
+<span class='line'>1041</span> 	 * @return {string} The HTML content
+<span class='line'>1042</span> 	 */</span><span class="WHIT">
+<span class='line'>1043</span> </span><span class="WHIT">	</span><span class="NAME">content</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">id</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1044</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">city</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">game.worldMap.getCityById</span><span class="PUNC">(</span><span class="NAME">id</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1045</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">html</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1046</span> </span><span class="WHIT">		</span><span class="NAME">html</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">HTML_Engine.table.content</span><span class="PUNC">(</span><span class="WHIT">
+<span class='line'>1047</span> </span><span class="WHIT">			</span><span class="PUNC">[</span><span class="WHIT">
+<span class='line'>1048</span> </span><span class="WHIT">				</span><span class="PUNC">[</span><span class="STRN">"Name of city:"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">city.name</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1049</span> </span><span class="WHIT">				</span><span class="PUNC">[</span><span class="STRN">"Player:"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">city.player</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1050</span> </span><span class="WHIT">				</span><span class="PUNC">[</span><span class="STRN">"Level:"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">city.level</span><span class="PUNC">]</span><span class="WHIT">
+<span class='line'>1051</span> </span><span class="WHIT">			</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="WHIT">
+<span class='line'>1052</span> </span><span class="WHIT">		</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1053</span> 
+<span class='line'>1054</span> </span><span class="WHIT">		</span><span class="NAME">html</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"&lt;br />&lt;br />"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT">
+<span class='line'>1055</span> </span><span class="WHIT">			</span><span class="STRN">"&lt;div class='heading'>&lt;span class='bold'> Actions for this city: &lt;/span>&lt;br />"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT">
+<span class='line'>1056</span> </span><span class="WHIT">			</span><span class="STRN">"&lt;div class='heading'>Your imperial forces can bring new resources. &lt;br />&lt;input class='action_bt' id='start_attack' value='Perform an attack' />&lt;/div>"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT">
+<span class='line'>1057</span> </span><span class="WHIT">			</span><span class="STRN">"&lt;div class='heading'>Do you have something important to tell to this king ? &lt;br />&lt;input class='action_bt' id='send_message' value='Send message' />&lt;/div>"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT">
+<span class='line'>1058</span> </span><span class="WHIT">			</span><span class="STRN">"&lt;div class='heading'>Do you want to have a fair trade with this city ?&lt;br />&lt;input class='action_bt' id='trade_resources' value='Trade resources' />&lt;/div>"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT">
+<span class='line'>1059</span> </span><span class="WHIT">			</span><span class="STRN">""</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT">
+<span class='line'>1060</span> </span><span class="WHIT">			</span><span class="STRN">"&lt;/div>"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1061</span> 
+<span class='line'>1062</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">html</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1063</span> 
+<span class='line'>1064</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1065</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>1066</span> 	 * It enables the functionality for the HTML_Engine
+<span class='line'>1067</span> 	 * @param {number} id_selected_city The id of the city
+<span class='line'>1068</span> 	 */</span><span class="WHIT">
+<span class='line'>1069</span> </span><span class="WHIT">	</span><span class="NAME">enable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">id_selected_city</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1070</span> </span><span class="WHIT">		</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">".action_bt"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">button</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1071</span> </span><span class="WHIT">		</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"#start_attack"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">click</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1072</span> </span><span class="WHIT">			</span><span class="NAME">game.performAction</span><span class="PUNC">(</span><span class="STRN">"attackCity"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">id_selected_city</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1073</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1074</span> </span><span class="WHIT">		</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"#send_message"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">click</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1075</span> </span><span class="WHIT">			</span><span class="NAME">game.performAction</span><span class="PUNC">(</span><span class="STRN">"sendMessage"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">id_selected_city</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1076</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1077</span> </span><span class="WHIT">		</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"#trade_resources"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">click</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1078</span> </span><span class="WHIT">			</span><span class="NAME">game.performAction</span><span class="PUNC">(</span><span class="STRN">"tradeResources"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">id_selected_city</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1079</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1080</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1081</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>1082</span> 	 * It disables the functionality
+<span class='line'>1083</span> 	 */</span><span class="WHIT">
+<span class='line'>1084</span> </span><span class="WHIT">	</span><span class="NAME">disable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1085</span> </span><span class="WHIT">		</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">".action_bt, #start_attack, #send_message, #trade_resources"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">off</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1086</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>1087</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1088</span> 
+<span class='line'>1089</span> 
+<span class='line'>1090</span> </span><span class="COMM">/**
+<span class='line'>1091</span>  * @namespace The HTML_Engine in order to attack a city
+<span class='line'>1092</span>  * @memberOf HTML_Engine
+<span class='line'>1093</span>  */</span><span class="WHIT">
+<span class='line'>1094</span> </span><span class="NAME">HTML_Engine.attackCity</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1095</span> 
+<span class='line'>1096</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>1097</span> 	 * It generates the content for the military building
+<span class='line'>1098</span> 	 * @param {number} idCity The id of the city
+<span class='line'>1099</span> 	 * @return {string} The HTML content in order to perform an attack
+<span class='line'>1100</span> 	 */</span><span class="WHIT">
+<span class='line'>1101</span> </span><span class="WHIT">	</span><span class="NAME">content</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">idCity</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1102</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">nr_of_active_units</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">game.player.city.buildings.military.people</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1103</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">html</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"&lt;div class='heading'>Target: &lt;span class='bold' style='color:red'>"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">game.worldMap.getCityById</span><span class="PUNC">(</span><span class="NAME">idCity</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">name</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"&lt;/div>"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1104</span> </span><span class="WHIT">		</span><span class="NAME">html</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"&lt;div class='heading'> The number of active units:"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1105</span> </span><span class="WHIT">		</span><span class="NAME">html</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">HTML_Engine.displayResources.content</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1106</span> </span><span class="WHIT">			</span><span class="NAME">resources</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1107</span> </span><span class="WHIT">				</span><span class="STRN">"military"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">nr_of_active_units</span><span class="WHIT">
+<span class='line'>1108</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1109</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"&lt;/div>"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1110</span> 
+<span class='line'>1111</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nr_of_active_units</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">game.player.city.buildings.military.level</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1112</span> </span><span class="WHIT">			</span><span class="NAME">html</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">HTML_Engine.chooser.content</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1113</span> </span><span class="WHIT">				</span><span class="NAME">info</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"Decide very wize how many units you want to send. The daily cost is an addition cost to the one from military for the units."</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1114</span> </span><span class="WHIT">				</span><span class="NAME">values</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1115</span> </span><span class="WHIT">					</span><span class="NAME">title</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"Military units"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1116</span> </span><span class="WHIT">					</span><span class="NAME">id</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"units"</span><span class="WHIT">
+<span class='line'>1117</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1118</span> </span><span class="WHIT">					</span><span class="NAME">title</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"Wine to increse happiness"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1119</span> </span><span class="WHIT">					</span><span class="NAME">id</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"wine"</span><span class="WHIT">
+<span class='line'>1120</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1121</span> </span><span class="WHIT">				</span><span class="NAME">button</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"Start attack !"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1122</span> </span><span class="WHIT">				</span><span class="NAME">id</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"military_attack"</span><span class="WHIT">
+<span class='line'>1123</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1124</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1125</span> </span><span class="WHIT">			</span><span class="NAME">html</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"&lt;div>Unfortunately, you have no military units to use&lt;/div>"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1126</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>1127</span> 
+<span class='line'>1128</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">html</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1129</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1130</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>1131</span> 	 * It enables the functionality for the attack
+<span class='line'>1132</span> 	 * @param {number} idCity The id of the city
+<span class='line'>1133</span> 	 */</span><span class="WHIT">
+<span class='line'>1134</span> </span><span class="WHIT">	</span><span class="NAME">enable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">idCity</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1135</span> 
+<span class='line'>1136</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">nr_of_active_units</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">game.player.city.buildings.military.people</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1137</span> 
+<span class='line'>1138</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">nr_of_active_units</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">game.player.city.buildings.military.level</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1139</span> </span><span class="WHIT">			</span><span class="COMM">/**
+<span class='line'>1140</span> 			 * It creates the chooser to let the user to choose how many utits to send into attack
+<span class='line'>1141</span> 			 */</span><span class="WHIT">
+<span class='line'>1142</span> </span><span class="WHIT">			</span><span class="NAME">HTML_Engine.chooser.enable</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1143</span> 
+<span class='line'>1144</span> </span><span class="WHIT">				</span><span class="NAME">id</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"military_attack"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1145</span> </span><span class="WHIT">				</span><span class="NAME">values</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1146</span> </span><span class="WHIT">					</span><span class="NAME">id</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">'units'</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1147</span> </span><span class="WHIT">					</span><span class="NAME">min</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1148</span> </span><span class="WHIT">					</span><span class="NAME">max</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">nr_of_active_units</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1149</span> </span><span class="WHIT">					</span><span class="COMM">/* TODO @Cristian the number of free people*/</span><span class="WHIT">
+<span class='line'>1150</span> </span><span class="WHIT">					</span><span class="NAME">change</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ui</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">extra</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1151</span> </span><span class="WHIT">						</span><span class="NAME">extra.html</span><span class="PUNC">(</span><span class="NAME">HTML_Engine.displayResources.content</span><span class="PUNC">(</span><span class="WHIT">
+<span class='line'>1152</span> </span><span class="WHIT">							</span><span class="NAME">game.unit.military.attack</span><span class="PUNC">(</span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">ui.value</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>1153</span> </span><span class="WHIT">						</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1154</span> </span><span class="WHIT">					</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>1155</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1156</span> </span><span class="WHIT">					</span><span class="NAME">id</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">'wine'</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1157</span> </span><span class="WHIT">					</span><span class="NAME">mine</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1158</span> </span><span class="WHIT">					</span><span class="NAME">max</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">900</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1159</span> </span><span class="WHIT">					</span><span class="COMM">/* TODO @Cristian */</span><span class="WHIT">
+<span class='line'>1160</span> </span><span class="WHIT">					</span><span class="NAME">change</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ui</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">extra</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1161</span> </span><span class="WHIT">						</span><span class="NAME">extra.html</span><span class="PUNC">(</span><span class="STRN">"Incresed by "</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">Math.round</span><span class="PUNC">(</span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">ui.value</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">/</span><span class="WHIT"> </span><span class="NUMB">900</span><span class="WHIT"> </span><span class="PUNC">*</span><span class="WHIT"> </span><span class="NUMB">25</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"%"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1162</span> </span><span class="WHIT">					</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>1163</span> 
+<span class='line'>1164</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="PUNC">]</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1165</span> </span><span class="WHIT">				</span><span class="NAME">performAction</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1166</span> </span><span class="WHIT">					</span><span class="NAME">game.performTask</span><span class="PUNC">(</span><span class="STRN">"attack_city_1"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1167</span> </span><span class="WHIT">						</span><span class="NAME">target</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">idCity</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1168</span> </span><span class="WHIT">						</span><span class="NAME">number</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">HTML_Engine.chooser.fetchAll</span><span class="PUNC">(</span><span class="STRN">"military_attack"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>1169</span> </span><span class="WHIT">					</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1170</span> </span><span class="WHIT">				</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>1171</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1172</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1173</span> </span><span class="WHIT">			</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="STRN">"You have no active units or military."</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1174</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>1175</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1176</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>1177</span> 	 * It calls the disable methods of the military choosers
+<span class='line'>1178</span> 	 */</span><span class="WHIT">
+<span class='line'>1179</span> </span><span class="WHIT">	</span><span class="NAME">disable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1180</span> </span><span class="WHIT">		</span><span class="NAME">HTML_Engine.chooser.disable</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1181</span> </span><span class="WHIT">			</span><span class="NAME">id</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"military_attack"</span><span class="WHIT">
+<span class='line'>1182</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1183</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>1184</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1185</span> 
+<span class='line'>1186</span> </span><span class="COMM">/**
+<span class='line'>1187</span>  * @namespace The THML_Engine object for paths
+<span class='line'>1188</span>  * @memberOf HTML_Engine
+<span class='line'>1189</span>  */</span><span class="WHIT">
+<span class='line'>1190</span> </span><span class="NAME">HTML_Engine.worldPath</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1191</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>1192</span> 	 * It returns the name of the city based on the id
+<span class='line'>1193</span> 	 * @param {number} idCity The id of the city
+<span class='line'>1194</span> 	 * @return {string} The name of the city
+<span class='line'>1195</span> 	 */</span><span class="WHIT">
+<span class='line'>1196</span> </span><span class="WHIT">	</span><span class="NAME">getCityName</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">idCity</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1197</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">(</span><span class="NAME">game.worldMap.cities</span><span class="PUNC">[</span><span class="NAME">idCity</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NAME">game.player.id</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="STRN">"Your city"</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">game.worldMap.cities</span><span class="PUNC">[</span><span class="NAME">idCity</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">name</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1198</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1199</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>1200</span> 	 * It returns the string for a description of moving military units
+<span class='line'>1201</span> 	 * @param {number} c1 The id of the "from" city
+<span class='line'>1202</span> 	 * @param {number} c2 The id of the "to" city
+<span class='line'>1203</span> 	 * @param {Resources} resources An object to describe the resources which are being carried 
+<span class='line'>1204</span> 	 * @return {string} The HMTL code for describing the moving of military units
+<span class='line'>1205</span> 	 */</span><span class="WHIT">
+<span class='line'>1206</span> </span><span class="WHIT">	</span><span class="NAME">moveMilitaryUnits</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">c1</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">c2</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">resources</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1207</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="STRN">"&lt;span class='bold'>Move military units&lt;/span> &lt;br/> From: "</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">HTML_Engine.worldPath.getCityName</span><span class="PUNC">(</span><span class="NAME">c1</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">" &lt;/br> Target: "</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">HTML_Engine.worldPath.getCityName</span><span class="PUNC">(</span><span class="NAME">c2</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"&lt;br />&lt;br /> "</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">HTML_Engine.displayResources.content</span><span class="PUNC">(</span><span class="NAME">resources</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1208</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>1209</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1210</span> 
+<span class='line'>1211</span> </span><span class="COMM">/**
+<span class='line'>1212</span>  * @namespace The object for sending a message
+<span class='line'>1213</span>  * @memberOf HTML_Engine
+<span class='line'>1214</span>  */</span><span class="WHIT">
+<span class='line'>1215</span> </span><span class="NAME">HTML_Engine.sendMessage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1216</span> 
+<span class='line'>1217</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>1218</span> 	 * It generates the content for the message
+<span class='line'>1219</span> 	 * @return {string} The HTML code for sending a message
+<span class='line'>1220</span> 	 */</span><span class="WHIT">
+<span class='line'>1221</span> </span><span class="WHIT">	</span><span class="NAME">content</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">args</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1222</span> </span><span class="WHIT">		</span><span class="COMM">// TODO @Joe</span><span class="WHIT">
+<span class='line'>1223</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">html</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"Its HTML_Engine content should be implemented @Joe"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1224</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">html</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1225</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1226</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>1227</span> 	 * It enables the functionality for the message
+<span class='line'>1228</span> 	 */</span><span class="WHIT">
+<span class='line'>1229</span> </span><span class="WHIT">	</span><span class="NAME">enable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1230</span> </span><span class="WHIT">		</span><span class="COMM">// TODO @Joe</span><span class="WHIT">
+<span class='line'>1231</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1232</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>1233</span> 	 * It disables the functionality
+<span class='line'>1234</span> 	 */</span><span class="WHIT">
+<span class='line'>1235</span> </span><span class="WHIT">	</span><span class="NAME">disable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1236</span> </span><span class="WHIT">		</span><span class="COMM">// TODO @Joe</span><span class="WHIT">
+<span class='line'>1237</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>1238</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1239</span> 
+<span class='line'>1240</span> 
+<span class='line'>1241</span> </span><span class="COMM">/**
+<span class='line'>1242</span> * @namespace The HTML_Engine object for displaying a message
+<span class='line'>1243</span> * @memberOf HTML_Engine
+<span class='line'>1244</span> */</span><span class="WHIT">
+<span class='line'>1245</span> </span><span class="NAME">HTML_Engine.seeMessage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1246</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>1247</span> 	 * It displays the content of the message
+<span class='line'>1248</span> 	 * @param {object} args The object which contain information regarding the message ('id' and 'content')
+<span class='line'>1249</span> 	 * @return {string} The HTML content for displaying the message
+<span class='line'>1250</span> 	 */</span><span class="WHIT">
+<span class='line'>1251</span> </span><span class="WHIT">	</span><span class="NAME">content</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">args</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1252</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="STRN">"This is the message nr &lt;b>"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">args.id</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"&lt;b>:&lt;br/ >&lt;i>"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">args.content</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">'&lt;/i>. '</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1253</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>1254</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>1255</span> 
+<span class='line'>1256</span> </span><span class="COMM">/**
+<span class='line'>1257</span>  * @namespace Trade resources
+<span class='line'>1258</span>  * @memberOf HTML_Engine
+<span class='line'>1259</span>  */</span><span class="WHIT">
+<span class='line'>1260</span> </span><span class="NAME">HTML_Engine.trade</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1261</span> 
+<span class='line'>1262</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>1263</span> 	 * It generates the content for the trade
+<span class='line'>1264</span> 	 * @return {string} The HTML code for generating the trade 
+<span class='line'>1265</span> 	 */</span><span class="WHIT">
+<span class='line'>1266</span> </span><span class="WHIT">	</span><span class="NAME">content</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1267</span> </span><span class="WHIT">		</span><span class="COMM">// TODO @George</span><span class="WHIT">
+<span class='line'>1268</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">html</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"Its HTML_Engine content should be implemented @George"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1269</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">html</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>1270</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1271</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>1272</span> 	 * It enables the functionality for the trade
+<span class='line'>1273</span> 	 */</span><span class="WHIT">
+<span class='line'>1274</span> </span><span class="WHIT">	</span><span class="NAME">enable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1275</span> 
+<span class='line'>1276</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>1277</span> </span><span class="WHIT">	</span><span class="COMM">/**
+<span class='line'>1278</span> 	 * It disables the functionality
+<span class='line'>1279</span> 	 */</span><span class="WHIT">
+<span class='line'>1280</span> </span><span class="WHIT">	</span><span class="NAME">disable</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>1281</span> </span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'>1282</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>1283</span> </span><span class="PUNC">}</span><span class="PUNC">;</span></pre></body></html>

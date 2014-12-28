@@ -26,7 +26,7 @@ game.tasks = {
 					game.player.city.buildings[task.data.building].status = 'Done';
 					game.player.city.buildings.administration.people = parseInt(game.player.city.buildings.administration.people) + task.data.peopleBack;
 				},
-				"/static/img/game/buildings/" + HTML_Engine.getBuilding.name(data.building, data.toLevel) + ".png");
+				"/static/img/game/buildings/" + data.building + ".png");
 		},
 		"train_military": function(data) {
 			return new Task(data,

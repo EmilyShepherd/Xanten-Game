@@ -39,7 +39,6 @@ Action.prototype.setArguments = function(args){
  * @memberOf Action.prototype
  */
 Action.prototype.update = function(){
-	console.log("show")
 	this.perform(false);
 }
 

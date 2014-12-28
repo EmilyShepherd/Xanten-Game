@@ -147,6 +147,7 @@ Task.prototype.forceStop = function(){
  * @memberOf Task.prototype 
  */
 Task.prototype.afterEnds = function(){	
+	Window.newsBoard.add("<span class='news_done'>Done</span>: " + this.title);
 	this._afterEnds(this);
 	this.forceStop();
 };

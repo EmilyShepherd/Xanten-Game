@@ -40,6 +40,9 @@ Window.init = function() {
 	$('#map-view :radio').change(function() {
 		game.selectMap(game[$('#map-view :radio:checked').val() + "Map"]);
 	});
+	$("#news_clear").click(function(){
+		Window.newsBoard.clear();
+	})
 	Window.updateDetailsCity();
 	Window.updateResources();
 	Window.updateStatistics();

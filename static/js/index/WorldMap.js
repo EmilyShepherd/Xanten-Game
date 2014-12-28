@@ -27,8 +27,6 @@ function WorldMap(obj){
 	 */
 	WorldMap.selectCell = function(x, y){
 		
-		this.deselect();
-		
 		var id_selected_city = this.getCityByPosition(x, y);
 		if(id_selected_city){
 			if(id_selected_city !== game.player.id){

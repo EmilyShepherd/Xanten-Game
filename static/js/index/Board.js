@@ -21,7 +21,9 @@ function Board(id){
  * @param {string} message The string to be added
  */
 Board.prototype.add = function(message){
-	$("#"+this.id+"_board").append("<div>"+message+"</div>");
+	var div = $("<div style='display:none'>"+message+"</div>");
+	$("#"+this.id+"_board").prepend(div);
+	div.fadeIn(500);;
 }
 
 /**
@@ -29,5 +31,9 @@ Board.prototype.add = function(message){
  * @memberOf Board.prototype
  */
 Board.prototype.clear = function(){
-	$("#"+this.id+"_board").html("");
+	var divs = $("#"+this.id+"_board").find("div");
+	for(var i=0; i<divs.length; i++){
+		var div = divs[i];
+		$(div).fadeOut(i*100, function() { $(this).remove(); });	
+	}
 }

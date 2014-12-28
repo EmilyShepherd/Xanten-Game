@@ -400,20 +400,26 @@ HTML_Engine.getAvailableBuildings = {
 	 * @returns {string} A list of all the buildings and the resources to be created
 	 */
 	content: function() {
-		var text = "Buildings available to build there: <br />";
-
+		var text = "<span class='bold'>Buildings available to build there: </span><br />",
+			b	 = 0;
+		
 		for (building in game.player.city.buildings) {
 			var data = game.constructions.buildings[building],
 				b_obj = game.player.city.buildings[building];
 			
 			if ((!data.maxLevel || (data.maxLevel && b_obj.level < data.maxLevel)) &&
-				(!data.maxNumber || (data.maxNumber && b_obj.num < data.maxNumber))) {
+				(!data.maxNumber || (data.maxNumber && b_obj.num < data.maxNumber)) &&
+				b_obj.status !== 'under_construction') {
 				var resources = game.constructions.buildings[building].levelUp(1);
 				text += "<div class='board_list hover' building_name='" + building + "' id='action_build_" + building + "' >" +
 					HTML_Engine.getBuilding.info(building);
 				text += HTML_Engine.displayResources.content(resources);
 				text += "</div><br />";
+				b++;
 			}
+		}
+		if(b === 0){
+			text += "It seems there are no buildings to be done...";
 		}
 		return text;
 	},

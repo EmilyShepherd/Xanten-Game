@@ -110,8 +110,8 @@
 <span class='line'>103</span> </span><span class="NAME">Game.prototype.update</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'>104</span> 
 <span class='line'>105</span> </span><span class="WHIT">	</span><span class="COMM">// updates the map</span><span class="WHIT">
-<span class='line'>106</span> </span><span class="WHIT">	</span><span class="NAME">this.worldMap.render</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>107</span> </span><span class="WHIT">	</span><span class="NAME">this.cityMap.render</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>106</span> </span><span class="WHIT">	</span><span class="NAME">this.worldMap.update</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>107</span> </span><span class="WHIT">	</span><span class="NAME">this.cityMap.update</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>108</span> 
 <span class='line'>109</span> </span><span class="WHIT">	</span><span class="COMM">// update the current action content</span><span class="WHIT">
 <span class='line'>110</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.currentAction</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
@@ -157,7 +157,7 @@
 <span class='line'>150</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">action</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">game.actions</span><span class="PUNC">[</span><span class="NAME">name</span><span class="PUNC">]</span><span class="PUNC">(</span><span class="NAME">args</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>151</span> </span><span class="WHIT">	</span><span class="NAME">action.setArguments</span><span class="PUNC">(</span><span class="NAME">args</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>152</span> </span><span class="WHIT">	</span><span class="NAME">game.currentAction</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">action</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>153</span> </span><span class="WHIT">	</span><span class="NAME">action.perform</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>153</span> </span><span class="WHIT">	</span><span class="NAME">action.update</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>154</span> </span><span class="PUNC">}</span><span class="WHIT">
 <span class='line'>155</span> 
 <span class='line'>156</span> </span><span class="COMM">/**
@@ -186,17 +186,16 @@
 <span class='line'>179</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">args</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">args</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">args</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">undefined</span><span class="PUNC">,</span><span class="WHIT">
 <span class='line'>180</span> </span><span class="WHIT">		</span><span class="NAME">task</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">game.tasks</span><span class="PUNC">[</span><span class="NAME">name</span><span class="PUNC">]</span><span class="PUNC">(</span><span class="NAME">args</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>181</span> 
-<span class='line'>182</span> </span><span class="WHIT">	</span><span class="NAME">game.performAction</span><span class="PUNC">(</span><span class="STRN">"start_task"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>183</span> </span><span class="WHIT">	</span><span class="NAME">task.args</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">args</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>184</span> </span><span class="WHIT">	</span><span class="NAME">game.currentTasks.push</span><span class="PUNC">(</span><span class="NAME">task</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>185</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>186</span> 
-<span class='line'>187</span> </span><span class="COMM">/**
-<span class='line'>188</span>  * It removes a task from the game
-<span class='line'>189</span>  * @memberOf Game.prototype
-<span class='line'>190</span>  * @param {Task} task The reference to the task to be deleted
-<span class='line'>191</span>  * @see Action
-<span class='line'>192</span>  */</span><span class="WHIT">
-<span class='line'>193</span> </span><span class="NAME">Game.prototype.removeTask</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">task</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>194</span> </span><span class="WHIT">	</span><span class="KEYW">delete</span><span class="WHIT"> </span><span class="NAME">game.currentTasks</span><span class="PUNC">[</span><span class="NAME">task</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>195</span> </span><span class="PUNC">}</span></pre></body></html>
+<span class='line'>182</span> </span><span class="WHIT">	</span><span class="NAME">task.args</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">args</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>183</span> </span><span class="WHIT">	</span><span class="NAME">game.currentTasks.push</span><span class="PUNC">(</span><span class="NAME">task</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>184</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>185</span> 
+<span class='line'>186</span> </span><span class="COMM">/**
+<span class='line'>187</span>  * It removes a task from the game
+<span class='line'>188</span>  * @memberOf Game.prototype
+<span class='line'>189</span>  * @param {Task} task The reference to the task to be deleted
+<span class='line'>190</span>  * @see Action
+<span class='line'>191</span>  */</span><span class="WHIT">
+<span class='line'>192</span> </span><span class="NAME">Game.prototype.removeTask</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">task</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>193</span> </span><span class="WHIT">	</span><span class="KEYW">delete</span><span class="WHIT"> </span><span class="NAME">game.currentTasks</span><span class="PUNC">[</span><span class="NAME">task</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>194</span> </span><span class="PUNC">}</span></pre></body></html>

@@ -24,7 +24,7 @@ City.prototype.getNumberOfPeople = function() {
 	var people = 0;
 	for(building in this.buildings){
 		if(this.buildings[building].people) {
-			people += parseInt(this.buildings[building].people);
+			people = parseInt(people) + parseInt(this.buildings[building].people);
 		}
 	}	
 	return people;

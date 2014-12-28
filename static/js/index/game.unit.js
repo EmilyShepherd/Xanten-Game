@@ -26,7 +26,6 @@ game.unit = {
 			return new Resources({
 				resources: {
 					gold: number * 30.8,
-					/* TODO @George real resources */
 					food: number * 19
 				},
 				interval: "one day"

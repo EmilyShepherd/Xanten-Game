@@ -24,7 +24,7 @@ game.tasks = {
 				function(task) {
 					game.player.city.buildings[task.data.building].level++;
 					game.player.city.buildings[task.data.building].status = 'Done';
-					game.player.city.buildings.administration.people = parseInt(game.player.city.buildings.administration.people) + task.data.peopleBack;
+					game.player.city.buildings.administration.people = parseInt(game.player.city.buildings.administration.people) + parseInt(task.data.peopleBack);
 				},
 				"/static/img/game/buildings/" + data.building + ".png");
 		},
@@ -79,17 +79,20 @@ game.tasks = {
 					if (task.data.building !== "house") {
 						game.player.city.buildings[task.data.building].level = 1;
 					}
+					var resources = game.constructions.buildings[task.data["building"]].levelUp(1);
+					task.data.peopleBack = resources.people;
 					game.player.city.buildings[task.data.building].status = 'under_construction';
 					game.cityMap.array[data.cell.x-1][data.cell.y-1].type_construction = "building";
 					game.cityMap.array[data.cell.x-1][data.cell.y-1].id_construction = game.constructions.buildings[task.data.building].id;
 					game.cityMap.update(); // change the status of the city map
-					game.player.consumeResources(game.constructions.buildings[task.data["building"]].levelUp(1));
+					game.player.consumeResources(resources);
 				},
 				undefined,
 				undefined,
 				function(task) {
 					game.player.city.buildings[task.data.building].num++;
 					game.player.city.buildings[task.data.building].status = 'Done';
+					game.player.city.buildings.administration.people = parseInt(game.player.city.buildings.administration.people) + task.data.peopleBack;
 				},
 				"/static/img/game/buildings/"+data.building+".png");
 	}

@@ -34,6 +34,6 @@ Board.prototype.clear = function(){
 	var divs = $("#"+this.id+"_board").find("div");
 	for(var i=0; i<divs.length; i++){
 		var div = divs[i];
-		$(div).fadeOut(i*100, function() { $(this).remove(); });	
+		$(div).fadeOut(i*10, function() { $(this).remove(); });	
 	}
 }

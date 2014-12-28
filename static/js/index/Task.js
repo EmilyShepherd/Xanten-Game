@@ -68,7 +68,7 @@ Task.prototype._activate = function(){
 							console.log('aaa')
 							instance.afterConfirmation();
 						},
-			"error": function(){HTML_Engine.fail.content(instance.title, " your people are not now able.");}
+			"error": function(){HTML_Engine.failTask.content(instance.title, " your people are not now able.");}
 	});
 };
 

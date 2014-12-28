@@ -21,7 +21,7 @@ function ProgressBar(task){
     this.progressLabel 		= $( "#progressbar_"+this.task.id ).find( ".progress-label" );
     
     var instance			= this,
-	    seconds 			= 2,
+	    seconds 			= Math.random() * (25 - 7) + 7;
 	 	step 				= seconds * 10,
 	 	progress			= (function(){ var i = instance; 
 								 	return function(){

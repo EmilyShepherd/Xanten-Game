@@ -206,7 +206,7 @@ HTML_Engine.failTask = {
 	 * @param {string} reason The reason of the task
 	 */
 	content: function(task_title, reason) {
-		game.newsBoard.add(task_title + " was no possible because " + reason);
+		Window.newsBoard.add(task_title + " was no possible because " + reason);
 	}
 };
 
@@ -487,7 +487,8 @@ HTML_Engine.inside_military = {
 	 */
 	content: function() {
 		var nr_of_active_units = game.player.city.buildings.military.people,
-			html = "";
+			html = "",
+			capacity = game.constructions.buildings.military.capacity(game.player.city.buildings.military.level).resources.military;
 		html += HTML_Engine.getBuilding.info("military", true);
 		html += HTML_Engine.upgradeBuilding.content("military", (parseInt(game.player.city.buildings["administration"].level) + 1));
 		html += "<div class='heading'>";
@@ -511,15 +512,21 @@ HTML_Engine.inside_military = {
 				}) + "</div>";
 		}
 		html += "</div>";
-		html += HTML_Engine.chooser.content({
-			info: "The military plays an important role for your city. You can increase your military power and became a local or imperial power. The first step is to train free people in order to became military units. ",
-			values: [{
-				title: "Train new military units",
-				id: "units"
-			}],
-			button: "Train !",
-			id: "military_train"
-		});
+
+		if (nr_of_active_units < capacity) {
+			html += HTML_Engine.chooser.content({
+				info: "The military plays an important role for your city. You can increase your military power and became a local or imperial power. The first step is to train free people in order to became military units. ",
+				values: [{
+					title: "Train new military units",
+					id: "units"
+				}],
+				button: "Train !",
+				id: "military_train"
+			});
+		} else {
+			html += "Unfortunately, you riched the max. capacity. You can train more units after you upgrade the building."
+		}
+		
 		if (nr_of_active_units !== 0) {
 			html += HTML_Engine.chooser.content({
 				info: "You can reduce the cost of military by reducing the number of military people. Unfortuntly this does not give back the resources.",
@@ -537,42 +544,42 @@ HTML_Engine.inside_military = {
 	 * It enables the functionality for the military building
 	 */
 	enable: function() {
-		var nr_of_active_units = game.player.city.buildings.military.people;
-		var limit_of_military = game.constructions.buildings["military"].capacity(game.player.level).resources.military;
-
-
+		var nr_of_active_units = game.player.city.buildings.military.people,
+			capacity = game.constructions.buildings.military.capacity(game.player.city.buildings.military.level).resources.military;
 
 		HTML_Engine.upgradeBuilding.enable("military");
 
 		/*
 		 * It creates the chooser to let the user to choose how many utits to create
 		 */
-		HTML_Engine.chooser.enable({
-
-			id: "military_train",
-			values: [{
-				id: 'units',
-				min: 1,
-				max: limit_of_military - nr_of_active_units,
-				/* TODO @Cristian the number of free people*/
-				change: function(event, ui, extra) {
-					extra.html(HTML_Engine.displayResources.content(
-							game.unit.military.create(parseInt(ui.value))
-						) + "<div> Daily cost: </div>" +
-						HTML_Engine.displayResources.content(
-								game.unit.military.idle(parseInt(ui.value))
-						));
+		console.log(capacity);
+		if (nr_of_active_units < capacity) {
+			HTML_Engine.chooser.enable({
+	
+				id: "military_train",
+				values: [{
+					id: 'units',
+					min: 1,
+					max: capacity - nr_of_active_units,
+					/* TODO @Cristian the number of free people*/
+					change: function(event, ui, extra) {
+						extra.html(HTML_Engine.displayResources.content(
+								game.unit.military.create(parseInt(ui.value))
+							) + "<div> Daily cost: </div>" +
+							HTML_Engine.displayResources.content(
+									game.unit.military.idle(parseInt(ui.value))
+							));
+					}
+				}],
+				performAction: function() {
+					game.performTask("train_military", {
+						from: "free",
+						to: "military",
+						number: HTML_Engine.chooser.fetch("military_train", "units")
+					});
 				}
-			}],
-			performAction: function() {
-				game.performTask("move_people", {
-					from: "free",
-					to: "military",
-					number: HTML_Engine.chooser.fetch("military_train", "units")
-				});
-			}
-		});
-
+			});
+		}
 
 		if (nr_of_active_units !== 0) {
 			/*
@@ -593,7 +600,7 @@ HTML_Engine.inside_military = {
 					}
 				}],
 				performAction: function() {
-					game.performTask("move_people", {
+					game.performTask("untrain_military", {
 						from: "military",
 						to: "free",
 						number: HTML_Engine.chooser.fetch("military_untrain", "units")
@@ -966,7 +973,7 @@ HTML_Engine.upgradeBuilding = {
 			var data = game.constructions.buildings[building_name];
 			if (!data.maxLevel || (next_level <= data.maxLevel)) {
 				// image from http://www.iconarchive.com/show/orb-icons-by-taytel/arrow-up-icon.html
-				return "<div class='board_list hover chooser' id='upgrade_building'>" +
+				return "<div class='board_list hover chooser' id='upgrade_building' building_name='" + building_name + "'>" +
 					HTML_Engine.table.content([
 						["Upgrade to level <span class='bold'>" + next_level + "</span> <br />" + HTML_Engine.displayResources.content(game.constructions.buildings[building_name].levelUp(next_level)), "<img src='/static/img/game/buildings/upgrade.png' align='right' />"]
 					], false) +
@@ -979,7 +986,10 @@ HTML_Engine.upgradeBuilding = {
 	 */
 	enable: function() {
 		$("#upgrade_building").click(function() {
-			// @George
+			game.performTask("update_building", {
+				building: $(this).attr("building_name"),
+				toLevel: (parseInt(game.player.city.buildings[$(this).attr("building_name")].level) + 1)
+			});
 		});
 	},
 	/**

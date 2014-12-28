@@ -4,12 +4,68 @@
  * @memberOf Game.prototype
  */
 game.tasks = {
-	"train_military": function(args) {
-
+	"update_building": function(data) {
+	
+	return new Task(data,
+		'Level up <span class="bold">' + data["building"] + "</span> to " + data.toLevel , {
+			// TODO change url 
+			"url": '/me/building/' + data["building"] + '/build',
+			"data": data,
+			"type": 'GET'
+		},
+		function(task) {
+			// create building
+			game.player.city.buildings[task.data.building].status = 'upgrading';
+			game.cityMap.update(); // change the status of the city map
+			game.player.consumeResources(game.constructions.buildings[task.data["building"]].levelUp(data.toLevel));
+		},
+		undefined,
+		undefined,
+		function(task) {
+			game.player.city.buildings[task.data.building].level++;
+			game.player.city.buildings[task.data.building].status = 'Done';
+		},
+		"/static/img/game/buildings/" + HTML_Engine.getBuilding.name(data.building, data.toLevel) + ".png");
+	},
+	"train_military": function(data) {
+		return new Task(data,
+				'Training <span class="bold">' + data.number + "</span> military units" , {
+					// TODO url should be changed to /me/people/move
+					// TODO type changed to PUT
+					"url": '/me/building/military/build',
+					"data": data,
+					"type": 'GET'
+				},
+				function(task) {					
+					game.player.consumeResources(game.unit.military.attack(task.data.number));
+				},
+				undefined,
+				undefined,
+				function(task) {
+					game.player.city.buildings.military.people 	= parseInt(task.data.number) + parseInt(game.player.city.buildings.military.people);
+				},
+				"static/img/game/resource/military.png");
+	},
+	"untrain_military": function(data) {
+		return new Task(data,
+				'Reduce <span class="bold">' + data.number + "</span> military units" , {
+					// TODO url should be changed to /me/people/move
+					// TODO type changed to PUT
+					"url": '/me/building/military/build',
+					"data": data,
+					"type": 'GET'
+				},
+				undefined,
+				undefined,
+				undefined,
+				function(task) {
+					game.player.city.buildings.military.people 	= parseInt(game.player.city.buildings.military.people) - parseInt(task.data.number);
+				},
+				"static/img/game/resource/military.png");
 	},
 	"create_building": function(args) {
-		var data = {},
-			imageSource = $(args).children('img').attr("src");
+		var data = {};
+		
 		data["building"] = $(args).attr("building_name");
 
 		return new Task(data,
@@ -35,6 +91,6 @@ game.tasks = {
 				game.player.city.buildings[task.data.building].num++;
 				game.player.city.buildings[task.data.building].status = 'Done';
 			},
-			imageSource);
+			"/static/img/game/buildings/"+data.building+".png");
 	}
 };

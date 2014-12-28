@@ -27,6 +27,8 @@ class GameHandler(DefaultHandler):
 
         self.json    = game.toDict()
 
+        return game
+
     # GET /game/
     #
     # Returns a list of games

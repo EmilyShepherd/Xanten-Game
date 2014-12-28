@@ -10,6 +10,7 @@ from model.game     import Game
 from model.user     import User
 from model.map      import Map
 from model.building import Building
+from model.queue    import Queue
 
 # Handles /me/* requests
 #
@@ -32,14 +33,9 @@ class MeHandler(DefaultHandler):
 
             building = Building.buildings[bname][queue]
             cost     = building['cost']
-            attrName = queue + 'ingQueue'
 
-            # You can only build one thing at a time
-            if getattr(self.user, attrName):
-                self.stderr('You are already ' + queue + 'ing')
-                self.showQueueStatus(queue)
             # You need to pay for what you build!
-            elif       self.user.gold  < cost['gold']    \
+            if       self.user.gold  < cost['gold']    \
                     or self.user.wood  < cost['wood']    \
                     or self.user.stone < cost['stone']:
                 self.stderr('Not enough resources!')
@@ -57,13 +53,16 @@ class MeHandler(DefaultHandler):
                     if random.randrange(0, 99) < chance:
                         bname = 'goldMine'
 
-                # Actually save the values
-                setattr(self.user, attrName, bname)
-                self.user.setQueueFinished(queue, building['time'])
-                self.user.put()
+                queueO           = Queue()
+                queueO.queueType = queue
+                queueO.name      = bname
+                self.user.addQueue(queueO, building['time'])
+                queueO.put()
 
                 self.json['status'] = 'Started'
-                self.showQueueStatus(queue)
+                self.json['queue']  = queueO.toDict()
+
+            self.user.put()
 
     # Moves the specified number of people from one location to another
     def movePeople(self):
@@ -110,9 +109,3 @@ class MeHandler(DefaultHandler):
 
             self.user.put()
             self.json['status'] = 'moved'
-
-    # Returns the name of the current building in the queue, and how
-    # many seconds until it is completed
-    def showQueueStatus(self, queue):
-        self.json[queue + 'ing'] = getattr(self.user, queue + 'ingQueue')
-        self.json['secondsLeft'] = self.user.getQueueFinished(queue)

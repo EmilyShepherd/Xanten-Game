@@ -1,6 +1,9 @@
 from google.appengine.ext import ndb
+import uuid
 
 from default_handler import DefaultHandler
+
+from game_handler import GameHandler
 
 from model.game import Game
 from model.user import User
@@ -45,3 +48,10 @@ class DebugHandler(DefaultHandler):
         self.user.updateValues()
 
         self.json = self.user.toDict()
+
+    def login(self):
+        gameO            = Game(gid = uuid.uuid4().hex)
+        game = GameHandler(self.request, self.response)
+        game.join_game(gameO, 'User')
+
+        self.stderr('done')

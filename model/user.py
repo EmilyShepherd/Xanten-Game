@@ -4,6 +4,8 @@ import datetime
 import random
 import math
 
+from model.queue import Queue
+
 # Represents a user session
 #
 # This stores the user information / resources / stats for a given user
@@ -144,6 +146,34 @@ class User(ndb.Model):
     # Number of people at the docks
     peopleAtDock = ndb.IntegerProperty(default=0)
 
+    def addQueue(self, queue, secs):
+        queue.finish = self.lastUpdated + datetime.timedelta(seconds = secs)
+        queue.uid    = self.uid
+
+    def finishQueue(self, queue):
+
+        timeDelta = queue.finish - self.lastUpdated
+        name      = queue.name
+        number    = 1
+        self.runUpdate(timeDelta.total_seconds())
+
+        self.lastUpdated = queue.finish
+
+        if queue.queueType == Queue.TYPE_BUILD:
+            if name in ['trade', 'storage', 'military', 'grapevine']:
+                setattr(self, name, True)
+                return
+            # Everything else has variable numbers, so get the current
+            # number and add one to it
+            else:
+                name = name + 's'
+        elif queue.queueType == Queue.TYPE_LEVEL:
+            name = name + 'Lvl'
+        elif queue.queueType == Queue.TYPE_PEOPLE:
+            name = 'peopleAt' + name.capitalize()
+
+        setattr(self, name, getattr(self, name) + queue.number)
+
     # Recalculates all the resouces since the last update, and sets
     # the last update timestamp to now()
     #
@@ -163,36 +193,15 @@ class User(ndb.Model):
     #   + (6 minutes of stone as produced by 1 mine,  level 2)
     #   + (1 minute  of stone as produced by 2 mines, level 2) 
     def updateValues(self):
-        
-        # Check if there's stuff in the build / level queues that need
-        # considering (if they finished since the last update, half
-        # the resources need to be calculated without it, and the other
-        # half with it)
-        #
-        # The first case we check for is if BOTH the build and level
-        # queues have a completed item in them, in which case we need
-        # to process both, and in the correct order
-        if self.queueFinished('build') and self.queueFinished('level'):
-            # If the build finished first, calculate the resources up
-            # to that, then from that up to the time the level up
-            # finished
-            if self.buildingFinish < self.levelingFinish:
-                self.finishQueue('build')
-                self.finishQueue('level')
-            # Conversly, if the level finished first, calculate the
-            # resources up to that, then again up to the time the
-            # building completed
-            else:
-                self.finishQueue('level')
-                self.finishQueue('build')
-        # Check if there's just a building finished - if there is,
-        # run up to its finish time
-        elif self.queueFinished('build'):
-            self.finishQueue('build')
-        # Check if there's just a leving up finished - if there is,
-        # run up to its finish time
-        elif self.queueFinished('level'):
-            self.finishQueue('level')
+
+        queues = Queue.query(
+            Queue.uid == self.uid,
+            Queue.finish <= datetime.datetime.now()
+        )
+
+        for queue in queues.order(Queue.finish).fetch():
+            self.finishQueue(queue)
+            queue.key.delete()
         
         # Calculate the change of resources since now and the time we
         # were last updated
@@ -205,42 +214,6 @@ class User(ndb.Model):
     def queueFinished(self, queue):
         return getattr(self, queue + 'ingQueue') \
             and self.getQueueFinished(queue) <= 0
-
-    # Calculates the change in recources since now and the time a
-    # building was completed then adds the building
-    def finishQueue(self, queue):
-
-        # Calculate the resouces changes
-        timeAttrName = queue + 'ingFinish'
-        nameAttrName = queue + 'ingQueue'
-        delta        = getattr(self, timeAttrName) - self.lastUpdated
-        self.runUpdate(delta.total_seconds())
-
-        # Update the building queue, saving the building name
-        building            = getattr(self, nameAttrName)
-        self.lastUpdated    = getattr(self, timeAttrName)
-        setattr(self, nameAttrName, None)
-        setattr(self, timeAttrName, None)
-
-        # If it's a build queue, this needs to update the number of
-        # the buildings
-        if queue == 'build':
-            # Trade, military and storage are limited to one, so are
-            # stored as booleans
-            if building in ['trade', 'storage', 'military', 'grapevine']:
-                setattr(self, building, True)
-                return
-            # Everything else has variable numbers, so get the current
-            # number and add one to it
-            else:
-                building = building + 's'
-        # Whereas if this is a level queue, this needs to update the
-        # relavent level
-        elif queue == 'level':
-            building = building + 'Lvl'
-
-        # Save the increased value
-        setattr(self, building, getattr(self, building) + 1)
 
     # Calculates the resource gains in the given amount of time and adds
     # these to the user's account

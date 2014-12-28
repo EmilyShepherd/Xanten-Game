@@ -43,5 +43,6 @@ app = w.WSGIApplication([
     w.Route('/debug/me',            handler=DebugHandler, handler_method='me'),
     w.Route('/debug/purge/<table>', handler=DebugHandler, handler_method='purge'),
     w.Route('/debug/purge/',        handler=DebugHandler, handler_method='purgeAll'),
-    w.Route('/debug/purge',         handler=DebugHandler, handler_method='purgeAll')
+    w.Route('/debug/purge',         handler=DebugHandler, handler_method='purgeAll'),
+    w.Route('/debug/login',         handler=DebugHandler, handler_method='login')
 ], debug=True) #REMOVE IN MAIN RELEASE

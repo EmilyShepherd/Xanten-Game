@@ -1053,6 +1053,7 @@ HTML_Engine.selectCity = {
 
 		html += "<br /><br />" +
 			"<div class='heading'><span class='bold'> Actions for this city: </span><br />" +
+			"<div class='heading'>Do you want to help him. <br /><input class='action_bt' id='send_units' value='Send units' /></div>" +
 			"<div class='heading'>Your imperial forces can bring new resources. <br /><input class='action_bt' id='start_attack' value='Perform an attack' /></div>" +
 			"<div class='heading'>Do you have something important to tell to this king ? <br /><input class='action_bt' id='send_message' value='Send message' /></div>" +
 			"<div class='heading'>Do you want to have a fair trade with this city ?<br /><input class='action_bt' id='trade_resources' value='Trade resources' /></div>" +
@@ -1068,6 +1069,9 @@ HTML_Engine.selectCity = {
 	 */
 	enable: function(id_selected_city) {
 		$(".action_bt").button();
+		$("#send_units").click(function() {
+			game.performAction("sendUnits", id_selected_city);
+		});
 		$("#start_attack").click(function() {
 			game.performAction("attackCity", id_selected_city);
 		});
@@ -1086,6 +1090,92 @@ HTML_Engine.selectCity = {
 	}
 };
 
+
+
+/**
+ * @namespace The HTML_Engine in order to send units
+ * @memberOf HTML_Engine
+ */
+HTML_Engine.sendUnits = {
+
+	/**
+	 * It generates the content
+	 * @param {number} idCity The id of the city
+	 * @return {string} The HTML content in order to perform an attack
+	 */
+	content: function(idCity) {
+		var nr_of_active_units = game.player.city.buildings.military.people;
+		var html = "<div class='heading'>Target: <span class='bold' style='color:red'>" + game.worldMap.getCityById(idCity).name + "</div>";
+		html += "<div class='heading'> The number of active units:";
+		html += HTML_Engine.displayResources.content({
+			resources: {
+				"military": nr_of_active_units
+			},
+		}) + "</div>";
+
+		if (nr_of_active_units !== 0 && game.player.city.buildings.military.level !== 0) {
+			html += HTML_Engine.chooser.content({
+				info: "Decide very wize how many units you want to send. The daily cost is an addition cost to the one from military for the units.",
+				values: [{
+					title: "Military units",
+					id: "units"
+				}],
+				button: "Send units !",
+				id: "send_units_chooser"
+			});
+		} else {
+			html += "<div>Unfortunately, you have no military units to use</div>";
+		}
+
+		return html;
+	},
+	/**
+	 * It enables the functionality for the attack
+	 * @param {number} idCity The id of the city
+	 */
+	enable: function(idCity) {
+
+		var nr_of_active_units = game.player.city.buildings.military.people;
+
+		if (nr_of_active_units !== 0 && game.player.city.buildings.military.level !== 0) {
+			/**
+			 * It creates the chooser to let the user to choose how many utits to send into attack
+			 */
+			HTML_Engine.chooser.enable({
+
+				id: "send_units_chooser",
+				values: [{
+					id: 'units',
+					min: 1,
+					max: nr_of_active_units,
+					/* TODO @Cristian the number of free people*/
+					change: function(event, ui, extra) {
+						extra.html(HTML_Engine.displayResources.content(
+							game.unit.military.send(parseInt(ui.value))
+						));
+					}
+				}],
+				performAction: function() {
+					game.performTask("send_units", {
+						from: game.player.id,
+						to: idCity,
+						options: HTML_Engine.chooser.fetchAll("send_units_chooser")
+					});
+				}
+			});
+		} else {
+			return "You have no active units or military.";
+		}
+	},
+	/**
+	 * It calls the disable methods of the military choosers
+	 */
+	disable: function() {
+		HTML_Engine.chooser.disable({
+			id: "send_units"
+		});
+	},
+};
 
 /**
  * @namespace The HTML_Engine in order to attack a city
@@ -1181,6 +1271,27 @@ HTML_Engine.attackCity = {
 		HTML_Engine.chooser.disable({
 			id: "military_attack"
 		});
+	},
+	
+	/**
+	 * It generates a report regarding the battle
+	 * @param {object} response The response from the server about the attack
+	 * @param {object} data The data of task
+	 */
+	report: function(data, response) {
+		var html = 	"<span class='bold'>Attack report</span> at " + HTML_Engine.worldPath.getCityName(data.from) + "<br />" + 
+					"<span class='bold'>Your military and friends:</span> " +
+					HTML_Engine.displayResources.content(response.friends) +
+					"<span class='bold'>Your enemies:</span> " +
+					HTML_Engine.displayResources.content(response.enemies);
+		if(response.status === 'won'){
+			html += "You won the battle! <br />";
+			html += "<span class='bold'>Returning home with:</span>"; 
+			html += HTML_Engine.displayResources.content(response.carring);
+		} else {
+			html += "You lost all the units.";
+		}
+		return html;
 	}
 };
 

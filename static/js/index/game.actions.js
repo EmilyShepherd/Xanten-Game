@@ -29,6 +29,9 @@ game.actions = {
 			game.worldMap.deselect();
 		});
 	},
+	"sendUnits": function(args) {
+		return new Action("Send units to city", HTML_Engine.sendUnits, undefined);
+	},
 	"attackCity": function(args) {
 		return new Action("Starting the attack", HTML_Engine.attackCity, undefined);
 	},

@@ -455,3 +455,17 @@ body {
 .news_problem {
 	color: red;
 }
+
+#news_board > div{
+	padding-bottom: 3px;
+	margin-bottom: 1px;
+	padding-left:2px;	
+}
+
+#news_board > div:nth-child(even) {
+	border-left: 6px solid rgb(192, 155, 105);
+}
+
+#news_board > div:nth-child(odd) {
+	border-left: 6px solid gray;
+}

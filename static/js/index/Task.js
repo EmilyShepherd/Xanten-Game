@@ -12,7 +12,7 @@
  * @param {string} title The title which will be seen in the current tasks
  * @param {object} serverDetails An object with the information regarding the url, type, data to be sent to the server for confirmation
  * @param {function} afterConfirmation A function which is executed after the task is confirmed by server. It use the information from server by using this.confirmationDetails
- * @param {function} afterEnds A function to be executed after the task is completed
+ * @param {function} beforeEnds A function to be executed after the task is removed
  * @param {string} imgSource The image of the task
  * @property {object} response An object which holds information from server
  * @property {object} data The data of the taks. Usefull to hold variables
@@ -22,7 +22,7 @@
  * @property {object} title The title of the task
  * 
  */
-function Task(data, title, serverDetails, afterConfirmation, afterEnds, imgSource){
+function Task(data, title, serverDetails, afterConfirmation, beforeEnds, imgSource){
 	
 	var instance = this;
 	
@@ -31,14 +31,13 @@ function Task(data, title, serverDetails, afterConfirmation, afterEnds, imgSourc
 	this.data		 		= data;
 	this.response			= null;
 	this.serverDetails		= serverDetails;
-	
+	this.imgSource			= (imgSource?imgSource:"http://clipart.nicubunu.ro/svg/rpg_map/statue.svg");
+		
 	/*
 	 * If there is exists an override of the method, call it after it calls the default
 	 * If not call the default
 	 */
-	this.imgSource				= (imgSource?imgSource:"http://clipart.nicubunu.ro/svg/rpg_map/statue.svg");
-	
-	this._afterEnds 			= (afterEnds?afterEnds:this._afterEnds);
+	this._beforeEnds 			= (beforeEnds?beforeEnds:this._beforeEnds);
 	this._afterConfirmation		= (afterConfirmation?afterConfirmation:this._afterConfirmation);		
 	
 	this._activate();
@@ -80,7 +79,7 @@ Task.prototype.duringPerforming = function(){
  * @private
  * @memberOf Task.prototype 
  */
-Task.prototype._afterEnds = function(){	
+Task.prototype._beforeEnds = function(){	
 };
 
 /**
@@ -109,12 +108,12 @@ Task.prototype.afterConfirmation = function(){
 };
 
 /**
- * It is the default function for afterEnds. Then, it calls its forceStop method
+ * It is the default function for beforeEnds. Then, it calls its forceStop method
  * @memberOf Task.prototype 
  */
-Task.prototype.afterEnds = function(){	
+Task.prototype.beforeEnds = function(){	
 	Window.newsBoard.add("<span class='news_done'>Done</span>: " + this.title);
-	this._afterEnds(this);
+	this._beforeEnds(this);
 	this.forceStop();
 };
 

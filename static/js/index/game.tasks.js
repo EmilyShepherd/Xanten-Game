@@ -96,7 +96,49 @@ game.tasks = {
 				},
 				"static/img/game/resource/military.png");
 		},
-		
+		// move units to or from a friend city
+		"trade": function(data) {	
+			return new Task(data,
+				'Trade ' + data.what + ' for <span class="bold">'+ data["for"] + "</span>", {
+					// TODO change url 
+					"url": '/me/building/' + data["building"] + '/build',
+					"data": data,
+					"type": 'GET'
+				},
+				function(task) {
+					task.data.receive = new Resources({
+						resources: {}
+					});
+					task.data.give 	= new Resources({
+						resources: {}
+					});
+					if(data['for'] === 'gold'){
+						task.data.receive 		= Resources.combine(task.data.receive, game.unit.trade(task.data.resources.element_wood, .10, "gold"));
+						task.data.receive 		= Resources.combine(task.data.receive, game.unit.trade(task.data.resources.element_food, .50, "gold"));
+						task.data.receive 		= Resources.combine(task.data.receive, game.unit.trade(task.data.resources.element_stone, .20, "gold"));
+						task.data.give.people = task.data.receive.people;
+						task.data.give.resources.wood 	= task.data.resources.element_wood; 
+						task.data.give.resources.food 	= task.data.resources.element_food; 
+						task.data.give.resources.stone 	= task.data.resources.element_stone; 
+					} else {
+						task.data.receive 		= Resources.combine(task.data.receive, game.unit.trade(task.data.resources.element_wood, 5, "wood"));
+						task.data.receive 		= Resources.combine(task.data.receive, game.unit.trade(task.data.resources.element_food, 25, "food"));
+						task.data.receive 		= Resources.combine(task.data.receive, game.unit.trade(task.data.resources.element_stone, 10, "stone"));
+						task.data.give.resources.gold 	= parseInt(task.data.resources.element_wood)
+														+ parseInt(task.data.resources.element_stone) 
+														+ parseInt(task.data.resources.element_food); 
+						task.data.give.people 			= task.data.receive.people;
+					}
+					console.log(task.data.give)
+					console.log(task.data.receive)
+					game.player.consumeResources(task.data.give);
+					game.cityMap.update();							
+				},
+				function(task){
+					game.player.giveResources(task.data.receive);
+				},
+				"static/img/game/buildings/trade.png");
+		},
 		// move units to or from a friend city
 		"send_units": function(data) {	
 			return new Task(data,

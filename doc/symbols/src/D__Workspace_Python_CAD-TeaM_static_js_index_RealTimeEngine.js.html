@@ -92,111 +92,85 @@
 <span class='line'> 85</span>  * @private
 <span class='line'> 86</span>  */</span><span class="WHIT">
 <span class='line'> 87</span> </span><span class="NAME">RealTimeEngine.prototype._progress</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 88</span> </span><span class="WHIT">	</span><span class="COMM">// TODO @Cristian</span><span class="WHIT">
-<span class='line'> 89</span> 
-<span class='line'> 90</span> 
-<span class='line'> 91</span> </span><span class="WHIT">	</span><span class="COMM">/*
-<span class='line'> 92</span> 	game.player.resources.food  += (game.player.buildings.dock.people * game.player.buildings.dock.level);
-<span class='line'> 93</span> 	game.player.resources.food  += (game.player.buildings.grapevine.people * game.player.buildings.grapevine.level);
-<span class='line'> 94</span> 
-<span class='line'> 95</span> 	game.player.resources.wood  += Math.round(0.3 *
-<span class='line'> 96</span> 								parseInt(game.player.buildings.lumberjack.num *
-<span class='line'> 97</span> 								parseInt(game.player.buildings.lumberjack.people) *
-<span class='line'> 98</span> 								parseInt(game.player.buildings.lumberjack.level) ));
+<span class='line'> 88</span> </span><span class="WHIT">	</span><span class="COMM">// food </span><span class="WHIT">
+<span class='line'> 89</span> </span><span class="WHIT">	</span><span class="NAME">game.player.resources.food</span><span class="WHIT"> 	</span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">game.constructions.buildings.farm.capacity</span><span class="PUNC">(</span><span class="NAME">game.player.city.buildings.farm.level</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">resources.food</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 90</span> </span><span class="WHIT">	</span><span class="NAME">game.player.resources.food</span><span class="WHIT"> 	</span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">game.constructions.buildings.mill.capacity</span><span class="PUNC">(</span><span class="NAME">game.player.city.buildings.mill.level</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">resources.food</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 91</span> </span><span class="WHIT">	</span><span class="COMM">// wood</span><span class="WHIT">
+<span class='line'> 92</span> </span><span class="WHIT">	</span><span class="NAME">game.player.resources.wood</span><span class="WHIT"> 	</span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">game.constructions.buildings.lumberjack.capacity</span><span class="PUNC">(</span><span class="NAME">game.player.city.buildings.lumberjack.level</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">resources.wood</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 93</span> </span><span class="WHIT">	</span><span class="COMM">// stone</span><span class="WHIT">
+<span class='line'> 94</span> </span><span class="WHIT">	</span><span class="NAME">game.player.resources.stone</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">parseInt</span><span class="PUNC">(</span><span class="NAME">game.constructions.buildings.mine.capacity</span><span class="PUNC">(</span><span class="NAME">game.player.city.buildings.mine.level</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">resources.stone</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 95</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 96</span> </span><span class="WHIT">	</span><span class="NAME">Window.updateResources</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 97</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 98</span> 
 <span class='line'> 99</span> 
-<span class='line'>100</span> 
-<span class='line'>101</span> 	  * self.lumberjackLvl
-<span class='line'>102</span> 	  * self.peopleAtLumberjack
-<span class='line'>103</span> 	  * self.lumberjacks
-<span class='line'>104</span> 	  * secs / 60.0
-<span class='line'>105</span> 	self.stone +=
-<span class='line'>106</span> 	    (random.randrange(1, 19) / 10.0) * 0.3
-<span class='line'>107</span> 	  * self.mineLvl
-<span class='line'>108</span> 	  * self.peopleAtMine
-<span class='line'>109</span> 	  * self.mines
-<span class='line'>110</span> 	  * secs / 60.0
-<span class='line'>111</span> 	self.gold +=
-<span class='line'>112</span> 	    (random.randrange(1, 19) / 10.0) * 0.3
-<span class='line'>113</span> 	  * self.mineLvl
-<span class='line'>114</span> 	  * self.peopleAtMine
-<span class='line'>115</span> 	  * self.goldMines
-<span class='line'>116</span> 	  * secs / 60.0
-<span class='line'>117</span> 
-<span class='line'>118</span> 	game.player.resources.stone -= 276;
-<span class='line'>119</span> 	game.player.resources.food 	+= 132;
-<span class='line'>120</span> 	game.player.resources.wood 	+= 2;
-<span class='line'>121</span> 	*/</span><span class="WHIT">
-<span class='line'>122</span> </span><span class="WHIT">	</span><span class="NAME">Window.updateResources</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>123</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>124</span> 
-<span class='line'>125</span> 
-<span class='line'>126</span> </span><span class="COMM">/**
-<span class='line'>127</span>  * it is called in order to send a message to another player
-<span class='line'>128</span>  * @memberOf RealTimeEngine.prototype
-<span class='line'>129</span>  * @param {string} message The message to be sent
-<span class='line'>130</span>  * @param {number} player_id The id of the player
-<span class='line'>131</span>  */</span><span class="WHIT">
-<span class='line'>132</span> </span><span class="NAME">RealTimeEngine.prototype.sendMessage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">message</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">player_id</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>133</span> </span><span class="WHIT">	</span><span class="COMM">// TODO @Joe</span><span class="WHIT">
-<span class='line'>134</span> </span><span class="WHIT">	</span><span class="COMM">// Censor obscenities</span><span class="WHIT">
-<span class='line'>135</span> </span><span class="WHIT">	</span><span class="NAME">message</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">message.replace</span><span class="PUNC">(</span><span class="REGX">/[A-Z]*(bastard|bitch|cock|cunt|dick|faggot|fuck|nigger|pussies|pussy|rape|shit|slut)[A-Z]*/ig</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">match</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>136</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">returnstring</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>137</span> </span><span class="WHIT">		</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">match.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="NAME">returnstring</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'*'</span><span class="PUNC">;</span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>138</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">returnstring</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>139</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>140</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>141</span> </span><span class="WHIT">		</span><span class="NAME">sent_from</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">game.player.id</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>142</span> </span><span class="WHIT">		</span><span class="NAME">content</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">message</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>143</span> </span><span class="WHIT">		</span><span class="NAME">id</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">player_id</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>144</span> </span><span class="WHIT">		</span><span class="NAME">date</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Date</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>145</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>146</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>147</span> 
-<span class='line'>148</span> 
-<span class='line'>149</span> </span><span class="COMM">/**
-<span class='line'>150</span>  * It is called when a message is received for this user
-<span class='line'>151</span>  * @memberOf RealTimeEngine.prototype
-<span class='line'>152</span>  * @param {string} message An object which contain all the information regarding the message ("sent_from", "content", "id", "date")
-<span class='line'>153</span>  */</span><span class="WHIT">
-<span class='line'>154</span> </span><span class="NAME">RealTimeEngine.prototype.receiveMessage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">message</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>155</span> </span><span class="WHIT">	</span><span class="COMM">// TODO @Joe </span><span class="WHIT">
-<span class='line'>156</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>157</span> 
-<span class='line'>158</span> 
-<span class='line'>159</span> </span><span class="COMM">/**
-<span class='line'>160</span>  * It is called when a message is received for this user
-<span class='line'>161</span>  * @memberOf RealTimeEngine.prototype
-<span class='line'>162</span>  * @param {string} message An object which contain all the information regarding the message ("sent_from", "content", "id", "date")
-<span class='line'>163</span>  */</span><span class="WHIT">
-<span class='line'>164</span> </span><span class="NAME">RealTimeEngine.prototype.receiveAttack</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">message</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>165</span> </span><span class="WHIT">	</span><span class="COMM">// TODO @Joe</span><span class="WHIT">
-<span class='line'>166</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>167</span> 
-<span class='line'>168</span> 
-<span class='line'>169</span> </span><span class="COMM">/**
-<span class='line'>170</span>  * Perform an attack
-<span class='line'>171</span>  * @param {string} id_city The id of the city which is attacked
-<span class='line'>172</span>  * @memberOf RealTimeEngine.prototype
-<span class='line'>173</span>  */</span><span class="WHIT">
-<span class='line'>174</span> </span><span class="NAME">RealTimeEngine.prototype.performAttack</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">id_city</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>175</span> </span><span class="WHIT">	</span><span class="COMM">// TODO @Cristian</span><span class="WHIT">
-<span class='line'>176</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>177</span> 
-<span class='line'>178</span> </span><span class="COMM">/**
-<span class='line'>179</span>  * It is called when the game receives the statistics for a day. It includes disasters
-<span class='line'>180</span>  * @memberOf RealTimeEngine.prototype
-<span class='line'>181</span>  * @param {object} statistics The statistics for a day (people, gold, disasters)
-<span class='line'>182</span>  */</span><span class="WHIT">
-<span class='line'>183</span> </span><span class="NAME">RealTimeEngine.prototype.receiveDailyStatistics</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">statistics</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>184</span> </span><span class="WHIT">	</span><span class="COMM">// TODO @Cristian</span><span class="WHIT">
-<span class='line'>185</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>186</span> 
-<span class='line'>187</span> </span><span class="COMM">/**
-<span class='line'>188</span>  * It is called when server tells the status of the game
-<span class='line'>189</span>  * @memberOf RealTimeEngine.prototype
-<span class='line'>190</span>  * @param {object} status It contains the status of the game.
-<span class='line'>191</span>  */</span><span class="WHIT">
-<span class='line'>192</span> </span><span class="NAME">RealTimeEngine.prototype.receiveGameStatus</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">status</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>193</span> </span><span class="WHIT">	</span><span class="COMM">// TODO @Cristian</span><span class="WHIT">
-<span class='line'>194</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>195</span> </span></pre></body></html>
+<span class='line'>100</span> </span><span class="COMM">/**
+<span class='line'>101</span>  * it is called in order to send a message to another player
+<span class='line'>102</span>  * @memberOf RealTimeEngine.prototype
+<span class='line'>103</span>  * @param {string} message The message to be sent
+<span class='line'>104</span>  * @param {number} player_id The id of the player
+<span class='line'>105</span>  */</span><span class="WHIT">
+<span class='line'>106</span> </span><span class="NAME">RealTimeEngine.prototype.sendMessage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">message</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">player_id</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>107</span> </span><span class="WHIT">	</span><span class="COMM">// TODO @Joe</span><span class="WHIT">
+<span class='line'>108</span> </span><span class="WHIT">	</span><span class="COMM">// Censor obscenities</span><span class="WHIT">
+<span class='line'>109</span> </span><span class="WHIT">	</span><span class="NAME">message</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">message.replace</span><span class="PUNC">(</span><span class="REGX">/[A-Z]*(bastard|bitch|cock|cunt|dick|faggot|fuck|nigger|pussies|pussy|rape|shit|slut)[A-Z]*/ig</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">match</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>110</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">returnstring</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>111</span> </span><span class="WHIT">		</span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">match.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="NAME">returnstring</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'*'</span><span class="PUNC">;</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>112</span> </span><span class="WHIT">		</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">returnstring</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>113</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>114</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>115</span> </span><span class="WHIT">		</span><span class="NAME">sent_from</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">game.player.id</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>116</span> </span><span class="WHIT">		</span><span class="NAME">content</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">message</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>117</span> </span><span class="WHIT">		</span><span class="NAME">id</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">player_id</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>118</span> </span><span class="WHIT">		</span><span class="NAME">date</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Date</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>119</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>120</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>121</span> 
+<span class='line'>122</span> 
+<span class='line'>123</span> </span><span class="COMM">/**
+<span class='line'>124</span>  * It is called when a message is received for this user
+<span class='line'>125</span>  * @memberOf RealTimeEngine.prototype
+<span class='line'>126</span>  * @param {string} message An object which contain all the information regarding the message ("sent_from", "content", "id", "date")
+<span class='line'>127</span>  */</span><span class="WHIT">
+<span class='line'>128</span> </span><span class="NAME">RealTimeEngine.prototype.receiveMessage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">message</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>129</span> </span><span class="WHIT">	</span><span class="COMM">// TODO @Joe </span><span class="WHIT">
+<span class='line'>130</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>131</span> 
+<span class='line'>132</span> 
+<span class='line'>133</span> </span><span class="COMM">/**
+<span class='line'>134</span>  * It is called when a message is received for this user
+<span class='line'>135</span>  * @memberOf RealTimeEngine.prototype
+<span class='line'>136</span>  * @param {string} message An object which contain all the information regarding the message ("sent_from", "content", "id", "date")
+<span class='line'>137</span>  */</span><span class="WHIT">
+<span class='line'>138</span> </span><span class="NAME">RealTimeEngine.prototype.receiveAttack</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">message</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>139</span> </span><span class="WHIT">	</span><span class="COMM">// TODO @Joe</span><span class="WHIT">
+<span class='line'>140</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>141</span> 
+<span class='line'>142</span> 
+<span class='line'>143</span> </span><span class="COMM">/**
+<span class='line'>144</span>  * Perform an attack
+<span class='line'>145</span>  * @param {string} id_city The id of the city which is attacked
+<span class='line'>146</span>  * @memberOf RealTimeEngine.prototype
+<span class='line'>147</span>  */</span><span class="WHIT">
+<span class='line'>148</span> </span><span class="NAME">RealTimeEngine.prototype.performAttack</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">id_city</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>149</span> </span><span class="WHIT">	</span><span class="COMM">// TODO @Cristian</span><span class="WHIT">
+<span class='line'>150</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>151</span> 
+<span class='line'>152</span> </span><span class="COMM">/**
+<span class='line'>153</span>  * It is called when the game receives the statistics for a day. It includes disasters
+<span class='line'>154</span>  * @memberOf RealTimeEngine.prototype
+<span class='line'>155</span>  * @param {object} statistics The statistics for a day (people, gold, disasters)
+<span class='line'>156</span>  */</span><span class="WHIT">
+<span class='line'>157</span> </span><span class="NAME">RealTimeEngine.prototype.receiveDailyStatistics</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">statistics</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>158</span> </span><span class="WHIT">	</span><span class="COMM">// TODO @Cristian</span><span class="WHIT">
+<span class='line'>159</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>160</span> 
+<span class='line'>161</span> </span><span class="COMM">/**
+<span class='line'>162</span>  * It is called when server tells the status of the game
+<span class='line'>163</span>  * @memberOf RealTimeEngine.prototype
+<span class='line'>164</span>  * @param {object} status It contains the status of the game.
+<span class='line'>165</span>  */</span><span class="WHIT">
+<span class='line'>166</span> </span><span class="NAME">RealTimeEngine.prototype.receiveGameStatus</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">status</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>167</span> </span><span class="WHIT">	</span><span class="COMM">// TODO @Cristian</span><span class="WHIT">
+<span class='line'>168</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>169</span> </span></pre></body></html>

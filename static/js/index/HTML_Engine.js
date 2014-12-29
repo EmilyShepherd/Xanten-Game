@@ -300,7 +300,7 @@ HTML_Engine.chooser = {
 				slide: change,
 				change: change,
 				create: function(event, ui) {
-					ui.value = 1;
+					ui.value = $(this).slider("option", "min");
 					change(event, ui);
 				}
 			});
@@ -770,7 +770,38 @@ HTML_Engine.inside_trade = {
 		var html = "";
 		html += HTML_Engine.getBuilding.info("trade", true);
 		html += HTML_Engine.upgradeBuilding.content("trade", (parseInt(game.player.city.buildings["trade"].level) + 1));
-		// TODO @George
+		html += HTML_Engine.chooser.content({
+			info: "Sell your resources for gold",
+			values: [{
+				title: "Food",
+				id: "food"
+			}, {
+				title: "Wood",
+				id: "wood"
+			}, {
+				title: "Stone",
+				id: "stone"
+			}],
+			button: "Trade",
+			id: "trade_for_gold"
+		});
+		
+		html += HTML_Engine.chooser.content({
+			info: "Buy resources with gold",
+			values: [{
+				title: "Food",
+				id: "food"
+			}, {
+				title: "Wood",
+				id: "wood"
+			}, {
+				title: "Stone",
+				id: "stone"
+			}],
+			button: "Trade",
+			id: "trade_for_resources"
+		});
+		
 		return html;
 	},
 	/**
@@ -778,7 +809,81 @@ HTML_Engine.inside_trade = {
 	 */
 	enable: function() {
 		HTML_Engine.upgradeBuilding.enable("trade", (parseInt(game.player.city.buildings["trade"].level) + 1));
-		// TODO @George
+		
+		var changeValue = function(event, ui, extra, value, what) {
+			extra.html(HTML_Engine.displayResources.content(
+					game.unit.trade(parseInt(ui.value), value, what)
+				));
+			},
+			capacity = game.constructions.buildings.trade.capacity(game.player.city.buildings.trade.level);;
+			
+		HTML_Engine.chooser.enable({
+
+			id: "trade_for_gold",
+			values: [{
+				id: 'food',
+				min: 0,
+				max: (game.player.resources.food > capacity.resources.food)?capacity.resources.food:game.player.resources.food,
+				change: function(event, ui, extra){
+					changeValue(event, ui, extra, .50, "gold")
+				}
+			}, {
+				id: 'wood',
+				min: 0,
+				max: (game.player.resources.wood > capacity.resources.wood)?capacity.resources.wood:game.player.resources.wood,
+				change: function(event, ui, extra){
+					changeValue(event, ui, extra, .10, "gold")
+				}
+			}, {
+				id: 'stone',
+				min: 0,
+				max: (game.player.resources.stone > capacity.resources.stone)?capacity.resources.stone:game.player.resources.stone,
+				change: function(event, ui, extra){
+					changeValue(event, ui, extra, .20, "gold")
+				}
+			}],
+			performAction: function() {
+				game.performTask("trade", {
+					"resources": HTML_Engine.chooser.fetchAll("trade_for_gold"),
+					"what": "resources",
+					"for": "gold"
+				});
+			}
+		});
+		
+		HTML_Engine.chooser.enable({
+
+			id: "trade_for_resources",
+			values: [{
+				id: 'food',
+				min: 0,
+				max: (game.player.resources.gold > capacity.resources.gold)?capacity.resources.gold:game.player.resources.gold,
+				change: function(event, ui, extra){
+					changeValue(event, ui, extra, 25, "food")
+				}
+			}, {
+				id: 'wood',
+				min: 0,
+				max: (game.player.resources.gold > capacity.resources.gold)?capacity.resources.gold:game.player.resources.gold,
+				change: function(event, ui, extra){
+					changeValue(event, ui, extra, 5, "wood")
+				}
+			}, {
+				id: 'stone',
+				min: 0,
+				max: (game.player.resources.gold > capacity.resources.gold)?capacity.resources.gold:game.player.resources.gold,
+				change: function(event, ui, extra){
+					changeValue(event, ui, extra, 10, "stone")
+				}
+			}],
+			performAction: function() {
+				game.performTask("trade", {
+					"resources": HTML_Engine.chooser.fetchAll("trade_for_gold"),
+					"for": "resources",
+					"what": "gold"
+				});
+			}
+		});
 	},
 	/**
 	 * It disables the functionality for the building
@@ -1056,7 +1161,6 @@ HTML_Engine.selectCity = {
 			"<div class='heading'>Do you want to help him. <br /><input class='action_bt' id='send_units' value='Send units' /></div>" +
 			"<div class='heading'>Your imperial forces can bring new resources. <br /><input class='action_bt' id='start_attack' value='Perform an attack' /></div>" +
 			"<div class='heading'>Do you have something important to tell to this king ? <br /><input class='action_bt' id='send_message' value='Send message' /></div>" +
-			"<div class='heading'>Do you want to have a fair trade with this city ?<br /><input class='action_bt' id='trade_resources' value='Trade resources' /></div>" +
 			"" +
 			"</div>";
 
@@ -1078,15 +1182,12 @@ HTML_Engine.selectCity = {
 		$("#send_message").click(function() {
 			game.performAction("sendMessage", id_selected_city);
 		});
-		$("#trade_resources").click(function() {
-			game.performAction("tradeResources", id_selected_city);
-		});
 	},
 	/**
 	 * It disables the functionality
 	 */
 	disable: function() {
-		$(".action_bt, #start_attack, #send_message, #trade_resources").off();
+		$(".action_bt, #start_attack, #send_message").off();
 	}
 };
 
@@ -1364,32 +1465,3 @@ HTML_Engine.seeMessage = {
 		return "This is the message nr <b>" + args.id + "<b>:<br/ ><i>" + args.content + '</i>. ';
 	}
 }
-
-/**
- * @namespace Trade resources
- * @memberOf HTML_Engine
- */
-HTML_Engine.trade = {
-
-	/**
-	 * It generates the content for the trade
-	 * @return {string} The HTML code for generating the trade 
-	 */
-	content: function() {
-		// TODO @George
-		var html = "Its HTML_Engine content should be implemented @George";
-		return html;
-	},
-	/**
-	 * It enables the functionality for the trade
-	 */
-	enable: function() {
-
-	},
-	/**
-	 * It disables the functionality
-	 */
-	disable: function() {
-		
-	}
-};

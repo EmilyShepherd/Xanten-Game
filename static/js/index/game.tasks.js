@@ -7,8 +7,9 @@ game.tasks = {
 		/**
 		 * It represents the task for moving military units from city (attack or movement)
 		 * @param {object} data It contains: from, to, number
-		 *  
-		 */
+		 *  		 */
+
+		// move units to or from a enemy city
 		"move_military_units": function(data) {	
 			return new Task(data,
 				'Move <span class="bold">' + data.options.element_units + '</span> military units<br />'+"<span class='bold'>" +  HTML_Engine.worldPath.getCityName(data.from) + "</span> --> <span class='bold'>" + HTML_Engine.worldPath.getCityName(data.to) + "</span>", {
@@ -24,9 +25,47 @@ game.tasks = {
 						game.player.city.buildings.military.people -= task.data.options.element_units;
 						game.player.consumeResources(resources);
 						game.cityMap.update();
+						
 					} else {
 						// Other ---> Your_city 
-						//nothing
+						task.response = {
+								friends : {
+									resources: {
+										"military": 45,
+										"food": 20001
+									}
+								},
+								enemies : {
+									resources: {
+										"military": 40,
+										"food": 200
+									}
+								},
+								status : "won",
+								carring : {
+									resources: {
+										"food": 200,
+										"wood": 4000,
+										"gold": 2000,
+										"military": 10
+									}
+								}								
+							};
+						
+						if(task.response.status === 'won' && task.response.carring.resources.military) {						
+							task.data.options.element_units = task.response.carring.resources.military;
+							task.title = 'Returning <span class="bold">' + data.options.element_units + '</span> military units<br />'+"<span class='bold'>" +  HTML_Engine.worldPath.getCityName(data.from) + "</span> --> <span class='bold'>" + HTML_Engine.worldPath.getCityName(data.to) + "</span>"
+							// report
+							Window.newsBoard.add(
+								HTML_Engine.attackCity.report(task.data, task.response)
+							);
+						} else {
+							// report
+							Window.newsBoard.add(
+								HTML_Engine.attackCity.report(task.data, task.response)
+								);
+							task.forceStop();
+						}				
 					}
 				},
 				undefined,
@@ -37,19 +76,12 @@ game.tasks = {
 						
 						// TODO remove this
 						// an example of possible response
-						task.response = {
-							carring : {
-								resources: {
-									"food": 200,
-									"wood": 4000,
-									"gold": 2000,
-									"military": 10
-								}
-							}
-							
-						};
+						
 						task.response.carring = new Resources(task.response.carring);
 						game.player.giveResources(task.response.carring);
+			
+					
+						
 					} else {
 						
 						// It reached the destination. Now it comes back to city
@@ -60,9 +92,32 @@ game.tasks = {
 						data.from		= task.data.to;
 						data.to			= temp;
 						
-						game.performTask("move_military_units", data);						
+						game.performTask("move_military_units", data);
+						
 					}					
 				},
+				"static/img/game/resource/military.png");
+		},
+		
+		// move units to or from a friend city
+		"send_units": function(data) {	
+			return new Task(data,
+				'Sending <span class="bold">' + data.options.element_units + '</span> military units'+ " to </span><span class='bold'>" + HTML_Engine.worldPath.getCityName(data.to) + "</span>", {
+					// TODO change url 
+					"url": '/me/building/' + data["building"] + '/build',
+					"data": data,
+					"type": 'GET'
+				},
+				function(task) {
+					var resources = game.unit.military.send(task.data.options.element_units);
+					game.player.city.buildings.military.people -= task.data.options.element_units;
+					game.player.consumeResources(resources);
+					game.cityMap.update();							
+					// TODO @Cristian send websocket notification
+				},
+				undefined,
+				undefined,
+				undefined,
 				"static/img/game/resource/military.png");
 		},
 		"update_building": function(data) {	

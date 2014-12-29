@@ -30,6 +30,14 @@ game.unit = {
 				},
 				interval: "one day"
 			});
+		},
+		"send": function(number) {
+			return new Resources({
+				resources: {
+					gold: number * 15.4,
+					food: number * 9.5
+				}
+			});
 		}
 	},
 	"miner": {

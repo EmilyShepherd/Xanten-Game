@@ -141,8 +141,11 @@ Task.prototype.forceStop = function(){
 	// remove 
 	clearInterval(this.progressTasks.thread);
 	$("#task_" + this.id).slideUp();
-	game.removeTask(this);
+	this.beforeStarting = function(){
+		// force to stop
+	};
 	game.update();	
+	game.removeTask(this);
 }
 
 /**

@@ -1,10 +1,44 @@
 import random
+import json
 
 # Represents a map
 #
 # Contains static methods used for parsing the map string created by the
 # JavaScript map generator
 class Map:
+
+    TILE_TYPES = {
+        "g" : {
+            "img"       : "",
+            "allowCity" : True,
+            "time"      : 30
+        },
+        "m0" : {
+            "img"       : "",
+            "allowCity" : False,
+            "time"      : 210
+        },
+        "m1" : {
+            "img"       : "",
+            "allowCity" : False,
+            "time"      : 210
+        },
+        "t0" : {
+            "img"       : "",
+            "allowCity" : False,
+            "time"      : 180
+        },
+        "t1" : {
+            "img"       : "",
+            "allowCity" : False,
+            "time"      : 180
+        },
+        "o" : {
+            "img"       : "",
+            "allowCity" : False,
+            "time"      : 300
+        }
+    }
 
     # Reads a map string and counts the number of tiles that can take
     # a player's settlement
@@ -29,16 +63,80 @@ class Map:
 
     # Parses a map string and saves the tiles
     def __init__(self, mapStr):
-        self.tiles = mapStr.split(',')
+        self.mapArr = json.loads(mapStr)
 
     # Picks a random inhabital / free tile, marks it as taken and
     # returns its id
-    def pickRandomTile(self):
+    def pickRandomTile(self, forUser):
         while True:
-            place = random.randrange(0, len(self.tiles))
-            if Map.tileInhabital(self.tiles[place]):
-                self.tiles[place] = 'taken'
+            place = random.randrange(0, len(self.mapArr) ** 2)
+            tile  = self.getTileAt(place)
+            if self.isTileHabitable(tile):
+                tile['id_city'] = forUser.uid
+                self.saveTileAt(place, tile)
                 return place
+
+    def getTileAt(self, pos):
+        y = pos / len(self.mapArr)
+        x = pos % len(self.mapArr)
+
+        return self.mapArr[y][x]
+
+    def saveTileAt(self, pos, tile):
+        y = pos / len(self.mapArr)
+        x = pos % len(self.mapArr)
+
+        self.mapArr[y][x] = tile
+
+    def isTileHabitable(self, tile):
+        return tile['id_background'].split('-')[0] in ['g', 'oa', 'oc']
+
+    def countHabitable(self):
+        num = 0
+
+        for y in range(0, len(this.mapArr)):
+            for x in range(0, len(this.mapArr)):
+                if self.isTileHabitable(self.mapArr[y][x]):
+                    num += 1
+
+        return num
+
+    def toDict(self):
+        return {
+            "array"       : self.mapArr,
+            "backgrounds" : self.TILE_TYPES
+        }
+
+    @staticmethod
+    def convertToWorldMap(mapStr):
+        x = 0
+        y = 0
+        wMap = [ ]
+
+        for tile in mapStr.split(','):
+            if x == 0:
+                wMap.append([ ])
+
+            #tile  = tile.split('-')
+            wTile = {
+                "id_background" : tile,
+                "id_city"       : None
+            }
+
+            wMap[y].append(wTile)
+
+            x += 1
+            if x == 7:
+                y += 1
+                x = 0
+
+        mapO        = Map('{}')
+        mapO.mapArr = wMap
+
+        return mapO
+
+    def toString(self):
+        return json.dumps(self.mapArr)
 
     @staticmethod
     def generateCityMap():

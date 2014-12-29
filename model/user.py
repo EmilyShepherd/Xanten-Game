@@ -38,7 +38,7 @@ class User(ndb.Model):
     gid  = ndb.StringProperty()
 
     # Map of their city
-    homeMap = ndb.StringProperty()
+    homeMap = ndb.StringProperty(indexed = False)
 
     # Which tile their settlement is on
     positionOnMap = ndb.IntegerProperty()

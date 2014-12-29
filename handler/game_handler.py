@@ -17,17 +17,16 @@ class GameHandler(DefaultHandler):
     #
     # Creates a game
     def create(self):
+        gMap            = Map.convertToWorldMap(self.request.POST['game_map'])
         game            = Game(gid = uuid.uuid4().hex)
         game.name       = self.getPOSTorRandom('game_name', Game)
-        game.gmap       = self.request.POST['game_map']
+        game.gmap       = gMap.toString()
         game.maxPlayers = Map.countInhabitalSpace(game.gmap);
         game.private    = False if self.request.POST['game_type'] == 'public' else True
         game.owner      = self.join_game(game, self.getPOSTorRandom('game_user', User))
         game.put()
 
         self.json    = game.toDict()
-
-        return game
 
     # GET /game/
     #
@@ -114,19 +113,24 @@ class GameHandler(DefaultHandler):
                 self.stderr('You are not authorised to start this game')
             else:
                 game.running = True
-                game.put()
 
                 # Pick places for each of the players and set their
                 # lastUpdated value to the start of the game so they can
                 # load resources
                 mapObj = Map(game.gmap)
                 for user in User.query(User.gid == game.gid).fetch():
-                    user.positionOnMap = mapObj.pickRandomTile()
+                    user.positionOnMap = mapObj.pickRandomTile(user)
                     user.lastUpdated   = datetime.datetime.now()
                     user.put()
 
+                game.gmap = mapObj.toString()
+                game.put()
+
                 self.json['status'] = 'started'
                 self.json['player'] = self.user.toDict()
+                self.json['maps']   = {
+                    "world" : mapObj.toDict()
+                }
 
     # Used by join() and create() to create a new User session and sign
     # them up to the given game

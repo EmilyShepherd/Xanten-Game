@@ -68,8 +68,6 @@ game.tasks = {
 						}				
 					}
 				},
-				undefined,
-				undefined,
 				function(task) {
 					if(task.data.to === game.player.id){
 						// It reached your city. Finished the attack
@@ -116,8 +114,6 @@ game.tasks = {
 					// TODO @Cristian send websocket notification
 				},
 				undefined,
-				undefined,
-				undefined,
 				"static/img/game/resource/military.png");
 		},
 		"update_building": function(data) {	
@@ -135,8 +131,6 @@ game.tasks = {
 					game.player.consumeResources(resources);
 					game.cityMap.update();					
 				},
-				undefined,
-				undefined,
 				function(task) {
 					game.player.city.buildings[task.data.building].level++;
 					game.player.city.buildings[task.data.building].status = 'Done';
@@ -156,8 +150,6 @@ game.tasks = {
 				function(task) {					
 					game.player.consumeResources(game.unit.military.attack(task.data.number));
 				},
-				undefined,
-				undefined,
 				function(task) {
 					game.player.city.buildings.military.people 	= parseInt(task.data.number) + parseInt(game.player.city.buildings.military.people);
 				},
@@ -172,8 +164,6 @@ game.tasks = {
 					"data": data,
 					"type": 'GET'
 				},
-				undefined,
-				undefined,
 				undefined,
 				function(task) {
 					game.player.city.buildings.military.people 	= parseInt(game.player.city.buildings.military.people) - parseInt(task.data.number);
@@ -203,8 +193,6 @@ game.tasks = {
 					game.cityMap.update(); // change the status of the city map
 					game.player.consumeResources(resources);
 				},
-				undefined,
-				undefined,
 				function(task) {
 					game.player.city.buildings[task.data.building].num++;
 					game.player.city.buildings[task.data.building].status = 'Done';

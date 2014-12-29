@@ -12,8 +12,6 @@
  * @param {string} title The title which will be seen in the current tasks
  * @param {object} serverDetails An object with the information regarding the url, type, data to be sent to the server for confirmation
  * @param {function} afterConfirmation A function which is executed after the task is confirmed by server. It use the information from server by using this.confirmationDetails
- * @param {function} beforeStarting A function to be executed before the task starts
- * @param {function} duringPerforming A function to be executed during the execution of task
  * @param {function} afterEnds A function to be executed after the task is completed
  * @param {string} imgSource The image of the task
  * @property {object} response An object which holds information from server
@@ -24,7 +22,7 @@
  * @property {object} title The title of the task
  * 
  */
-function Task(data, title, serverDetails, afterConfirmation, beforeStarting, duringPerforming, afterEnds, imgSource){
+function Task(data, title, serverDetails, afterConfirmation, afterEnds, imgSource){
 	
 	var instance = this;
 	
@@ -40,10 +38,8 @@ function Task(data, title, serverDetails, afterConfirmation, beforeStarting, dur
 	 */
 	this.imgSource				= (imgSource?imgSource:"http://clipart.nicubunu.ro/svg/rpg_map/statue.svg");
 	
-	this._beforeStarting 		= (beforeStarting?beforeStarting:this._beforeStarting);
 	this._afterEnds 			= (afterEnds?afterEnds:this._afterEnds);
 	this._afterConfirmation		= (afterConfirmation?afterConfirmation:this._afterConfirmation);		
-	this._duringPerforming		= (duringPerforming?duringPerforming:this._duringPerforming);
 	
 	this._activate();
 }
@@ -79,12 +75,6 @@ Task.prototype.duringPerforming = function(){
 	this._duringPerforming(this);
 }
 
-/**
- * @private
- * @memberOf Task.prototype 
- */
-Task.prototype._beforeStarting = function(){	
-};
 
 /**
  * @private
@@ -100,24 +90,6 @@ Task.prototype._afterEnds = function(){
 Task.prototype._afterConfirmation = function(){
 };
 
-/**
- * @private
- * @memberOf Task.prototype 
- */
-Task.prototype._duringPerforming = function(){	
-};
-
-/**
- * It is the default function for beforeStarting. It creates the progress bar for this task
- * @memberOf Task.prototype
- */
-Task.prototype.beforeStarting = function(){
-	this._beforeStarting(this);
-	this.progressTasks.start();
-	if(game.currentAction){
-		game.currentAction.update();
-	}
-};
 
 /**
  * It is the default function for afterConfirmation. It checks if the server confirmed the task. Else, it stops it
@@ -129,8 +101,21 @@ Task.prototype.afterConfirmation = function(){
 		this.forceStop();
 	} else {		
 		this._afterConfirmation(this);
-		this.beforeStarting();
+		this.progressTasks.start();
+		if(game.currentAction){
+			game.currentAction.update();
+		}
 	}
+};
+
+/**
+ * It is the default function for afterEnds. Then, it calls its forceStop method
+ * @memberOf Task.prototype 
+ */
+Task.prototype.afterEnds = function(){	
+	Window.newsBoard.add("<span class='news_done'>Done</span>: " + this.title);
+	this._afterEnds(this);
+	this.forceStop();
 };
 
 /**
@@ -147,13 +132,3 @@ Task.prototype.forceStop = function(){
 	game.update();	
 	game.removeTask(this);
 }
-
-/**
- * It is the default function for afterEnds. Then, it calls its forceStop method
- * @memberOf Task.prototype 
- */
-Task.prototype.afterEnds = function(){	
-	Window.newsBoard.add("<span class='news_done'>Done</span>: " + this.title);
-	this._afterEnds(this);
-	this.forceStop();
-};

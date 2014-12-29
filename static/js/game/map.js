@@ -7,7 +7,7 @@
 	 * @author Joe
 	 *
 	 */
-
+var imgArray = [[], [], [], [], [], [], []];
 	function check(y_coord, x_coord) {
 		// Checks the value of a space in the map array, returning the empty string for co-ordinates that don't exist.
 		// (This avoids nasty array index errors when we get close to the edges.)
@@ -52,7 +52,7 @@
 		var x = 0;
 		var y = 0;
 		var r = 0;
-		var imgArray = [[], [], [], [], [], [], []];
+		
 		while (y < 7) {
 			while (x < 7) {
 				r = Math.random();

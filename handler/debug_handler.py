@@ -8,6 +8,7 @@ from game_handler import GameHandler
 from model.game import Game
 from model.user import User
 from model.map import Map
+from model.queue import Queue
 
 # Handles /debug/* requests
 #
@@ -26,6 +27,8 @@ class DebugHandler(DefaultHandler):
             ndb.delete_multi(User.query().fetch(keys_only=True))
         elif table.lower() == 'game':
             ndb.delete_multi(Game.query().fetch(keys_only=True))
+        elif table.lower() == 'queue':
+            ndb.delete_multi(Queue.query().fetch(keys_only=True))
 
         self.json['status'] = 'Deleted'
 
@@ -35,6 +38,7 @@ class DebugHandler(DefaultHandler):
     def purgeAll(self):
         self.purge('user')
         self.purge('game')
+        self.purge('queue')
 
     # GET /debug/me
     #

@@ -7,7 +7,7 @@ import json
 # JavaScript map generator
 class Map:
 
-    TILE_TYPES = {
+    WORLD_TILE_TYPES = {
         "g" : {
             "img"       : "",
             "allowCity" : True,
@@ -40,6 +40,19 @@ class Map:
         }
     }
 
+    CITY_TILE_TYPES = {
+        1: {
+            "allowBuildings"     : True,
+            "allowConstructions" : False,
+            "img"                : "1.png"
+        },
+        2: {
+            "allowBuildings"     : False,
+            "allowConstructions" : False,
+            "img"                : "2.png"
+        }
+    }
+
     # Reads a map string and counts the number of tiles that can take
     # a player's settlement
     @staticmethod
@@ -63,7 +76,8 @@ class Map:
 
     # Parses a map string and saves the tiles
     def __init__(self, mapStr):
-        self.mapArr = json.loads(mapStr)
+        self.mode   = mapStr[0]
+        self.mapArr = json.loads(mapStr[1:])
 
     # Picks a random inhabital / free tile, marks it as taken and
     # returns its id
@@ -102,9 +116,14 @@ class Map:
         return num
 
     def toDict(self):
+        if self.mode == 'w':
+            tiles = self.WORLD_TILE_TYPES
+        else:
+            tiles = self.CITY_TILE_TYPES
+
         return {
             "array"       : self.mapArr,
-            "backgrounds" : self.TILE_TYPES
+            "backgrounds" : tiles
         }
 
     @staticmethod
@@ -130,13 +149,13 @@ class Map:
                 y += 1
                 x = 0
 
-        mapO        = Map('{}')
+        mapO        = Map('w{}')
         mapO.mapArr = wMap
 
         return mapO
 
     def toString(self):
-        return json.dumps(self.mapArr)
+        return self.mode + json.dumps(self.mapArr)
 
     @staticmethod
     def generateCityMap():
@@ -188,4 +207,7 @@ class Map:
                         cMap[y][x]['type_construction'] = 'element'
                         cMap[y][x]['id_construction']   = random.randrange(1, 3)
 
-        return cMap
+        mapO        = Map('c{}')
+        mapO.mapArr = cMap
+
+        return mapO

@@ -113,23 +113,32 @@ class GameHandler(DefaultHandler):
                 self.stderr('You are not authorised to start this game')
             else:
                 game.running = True
+                savedCMap    = None
 
                 # Pick places for each of the players and set their
                 # lastUpdated value to the start of the game so they can
                 # load resources
                 mapObj = Map(game.gmap)
                 for user in User.query(User.gid == game.gid).fetch():
+                    cMap               = Map.generateCityMap()
                     user.positionOnMap = mapObj.pickRandomTile(user)
                     user.lastUpdated   = datetime.datetime.now()
+                    user.homeMap       = cMap.toString()
                     user.put()
+                    if user.uid == self.user.uid:
+                        savedCMap = cMap
 
                 game.gmap = mapObj.toString()
                 game.put()
 
-                self.json['status'] = 'started'
+                self.json['data'] = {
+                    "status" : 'started',
+                    "token"  : game.gid
+                }
                 self.json['player'] = self.user.toDict()
                 self.json['maps']   = {
-                    "world" : mapObj.toDict()
+                    "world" : mapObj.toDict(),
+                    "city"  : cMap.toDict()
                 }
 
     # Used by join() and create() to create a new User session and sign

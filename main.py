@@ -14,6 +14,7 @@ from handler.me_handler   import MeHandler
 gameClass     = 'handler.game_handler.GameHandler'
 meClass       = 'handler.me_handler.MeHandler'
 militaryClass = 'handler.military_handler.MilitaryHandler'
+tradeClass    = 'handler.trade_handler.TradeHandler'
 
 # REMOVE IN MAIN RELEASE
 from handler.debug_handler import DebugHandler
@@ -49,6 +50,12 @@ app = w.WSGIApplication([
         '/military/send/<city>/<num>',
         militaryClass + ':send',
         methods=['GET']
+    ),
+
+    w.Route(
+        '/trade/perform/<tid>',
+        tradeClass + ':perform',
+        methods=['POST']
     ),
 
     # REMOVE IN MAIN RELEASE 

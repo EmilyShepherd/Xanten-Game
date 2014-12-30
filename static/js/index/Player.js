@@ -47,6 +47,7 @@ Player.prototype.consumeResources = function(resourcesToConsume){
 		this.city.buildings.administration.people -= resourcesToConsume.people;
 	}
 	Window.updateResources();
+	Window.updateStatistics();
 };
 
 /**
@@ -69,4 +70,5 @@ Player.prototype.giveResources = function(resourcesToAdd){
 		this.city.buildings.administration.people =  parseInt(this.city.buildings.administration.people) + parseInt(resourcesToAdd.people);
 	}
 	Window.updateResources();
+	Window.updateStatistics();
 };

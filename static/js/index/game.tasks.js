@@ -24,7 +24,7 @@ game.tasks = {
 						var resources = game.unit.military.attack(task.data.options.element_units);
 						game.player.city.buildings.military.people -= task.data.options.element_units;
 						game.player.consumeResources(resources);
-						game.cityMap.update();
+						game.update();
 						
 					} else {
 						// Other ---> Your_city 
@@ -77,7 +77,7 @@ game.tasks = {
 						
 						task.response.carring = new Resources(task.response.carring);
 						game.player.giveResources(task.response.carring);
-			
+						
 					
 						
 					} else {
@@ -129,10 +129,7 @@ game.tasks = {
 														+ parseInt(task.data.resources.element_food); 
 						task.data.give.people 			= task.data.receive.people;
 					}
-					console.log(task.data.give)
-					console.log(task.data.receive)
 					game.player.consumeResources(task.data.give);
-					game.cityMap.update();							
 				},
 				function(task){
 					game.player.giveResources(task.data.receive);

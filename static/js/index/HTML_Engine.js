@@ -878,7 +878,7 @@ HTML_Engine.inside_trade = {
 			}],
 			performAction: function() {
 				game.performTask("trade", {
-					"resources": HTML_Engine.chooser.fetchAll("trade_for_gold"),
+					"resources": HTML_Engine.chooser.fetchAll("trade_for_resources"),
 					"for": "resources",
 					"what": "gold"
 				});

@@ -11,8 +11,9 @@ from handler.me_handler   import MeHandler
 
 # The name for the classes are quite long, so put them into a variable
 # so the list of routes doesn't go over the desired line length
-gameClass = 'handler.game_handler.GameHandler'
-meClass   = 'handler.me_handler.MeHandler'
+gameClass     = 'handler.game_handler.GameHandler'
+meClass       = 'handler.me_handler.MeHandler'
+militaryClass = 'handler.military_handler.MilitaryHandler'
 
 # REMOVE IN MAIN RELEASE
 from handler.debug_handler import DebugHandler
@@ -36,6 +37,17 @@ app = w.WSGIApplication([
     w.Route(
         '/me/building/<bname>/<queue>',
         meClass + ':addBuildingToQueue',
+        methods=['GET']
+    ),
+
+    w.Route(
+        '/military/attack/<city>/<num>',
+        militaryClass + ':attack',
+        methods=['GET']
+    ),    
+    w.Route(
+        '/military/send/<city>/<num>',
+        militaryClass + ':send',
         methods=['GET']
     ),
 

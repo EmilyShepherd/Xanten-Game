@@ -60,7 +60,12 @@ class GameHandler(DefaultHandler):
             self.json['users']  = game.members
 
             if game.running and self.checkLogin(False):
-                self.json['player'] = self.user.toDict()
+                self.json['game']           = { }
+                self.json['player']         = self.user.toDict()
+                self.json['game']['maps']   = {
+                    "world" : Map(game.gmap).toDict(),
+                    "city"  : Map(self.user.homeMap).toDict()
+                }
 
     # POST /game/<gid>/join
     #
@@ -131,12 +136,13 @@ class GameHandler(DefaultHandler):
                 game.gmap = mapObj.toString()
                 game.put()
 
-                self.json['data'] = {
+                self.json['game'] = { }
+                self.json['game']['data'] = {
                     "status" : 'started',
                     "token"  : game.gid
                 }
                 self.json['player'] = self.user.toDict()
-                self.json['maps']   = {
+                self.json['game']['maps']   = {
                     "world" : mapObj.toDict(),
                     "city"  : cMap.toDict()
                 }

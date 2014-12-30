@@ -24,7 +24,7 @@ game.tasks = {
 						var resources = game.unit.military.attack(task.data.options.element_units);
 						game.player.city.buildings.military.people -= task.data.options.element_units;
 						game.player.consumeResources(resources);
-						game.cityMap.update();
+						game.update();
 						
 					} else {
 						// Other ---> Your_city 
@@ -68,8 +68,6 @@ game.tasks = {
 						}				
 					}
 				},
-				undefined,
-				undefined,
 				function(task) {
 					if(task.data.to === game.player.id){
 						// It reached your city. Finished the attack
@@ -79,7 +77,7 @@ game.tasks = {
 						
 						task.response.carring = new Resources(task.response.carring);
 						game.player.giveResources(task.response.carring);
-			
+						
 					
 						
 					} else {
@@ -98,7 +96,46 @@ game.tasks = {
 				},
 				"static/img/game/resource/military.png");
 		},
-		
+		// move units to or from a friend city
+		"trade": function(data) {	
+			return new Task(data,
+				'Trade ' + data.what + ' for <span class="bold">'+ data["for"] + "</span>", {
+					// TODO change url 
+					"url": '/me/building/' + data["building"] + '/build',
+					"data": data,
+					"type": 'GET'
+				},
+				function(task) {
+					task.data.receive = new Resources({
+						resources: {}
+					});
+					task.data.give 	= new Resources({
+						resources: {}
+					});
+					if(data['for'] === 'gold'){
+						task.data.receive 		= Resources.combine(task.data.receive, game.unit.trade(task.data.resources.element_wood, .10, "gold"));
+						task.data.receive 		= Resources.combine(task.data.receive, game.unit.trade(task.data.resources.element_food, .50, "gold"));
+						task.data.receive 		= Resources.combine(task.data.receive, game.unit.trade(task.data.resources.element_stone, .20, "gold"));
+						task.data.give.people = task.data.receive.people;
+						task.data.give.resources.wood 	= task.data.resources.element_wood; 
+						task.data.give.resources.food 	= task.data.resources.element_food; 
+						task.data.give.resources.stone 	= task.data.resources.element_stone; 
+					} else {
+						task.data.receive 		= Resources.combine(task.data.receive, game.unit.trade(task.data.resources.element_wood, 5, "wood"));
+						task.data.receive 		= Resources.combine(task.data.receive, game.unit.trade(task.data.resources.element_food, 25, "food"));
+						task.data.receive 		= Resources.combine(task.data.receive, game.unit.trade(task.data.resources.element_stone, 10, "stone"));
+						task.data.give.resources.gold 	= parseInt(task.data.resources.element_wood)
+														+ parseInt(task.data.resources.element_stone) 
+														+ parseInt(task.data.resources.element_food); 
+						task.data.give.people 			= task.data.receive.people;
+					}
+					game.player.consumeResources(task.data.give);
+				},
+				function(task){
+					game.player.giveResources(task.data.receive);
+				},
+				"static/img/game/buildings/trade.png");
+		},
 		// move units to or from a friend city
 		"send_units": function(data) {	
 			return new Task(data,
@@ -115,8 +152,6 @@ game.tasks = {
 					game.cityMap.update();							
 					// TODO @Cristian send websocket notification
 				},
-				undefined,
-				undefined,
 				undefined,
 				"static/img/game/resource/military.png");
 		},
@@ -135,8 +170,6 @@ game.tasks = {
 					game.player.consumeResources(resources);
 					game.cityMap.update();					
 				},
-				undefined,
-				undefined,
 				function(task) {
 					game.player.city.buildings[task.data.building].level++;
 					game.player.city.buildings[task.data.building].status = 'Done';
@@ -156,8 +189,6 @@ game.tasks = {
 				function(task) {					
 					game.player.consumeResources(game.unit.military.attack(task.data.number));
 				},
-				undefined,
-				undefined,
 				function(task) {
 					game.player.city.buildings.military.people 	= parseInt(task.data.number) + parseInt(game.player.city.buildings.military.people);
 				},
@@ -172,8 +203,6 @@ game.tasks = {
 					"data": data,
 					"type": 'GET'
 				},
-				undefined,
-				undefined,
 				undefined,
 				function(task) {
 					game.player.city.buildings.military.people 	= parseInt(game.player.city.buildings.military.people) - parseInt(task.data.number);
@@ -203,8 +232,6 @@ game.tasks = {
 					game.cityMap.update(); // change the status of the city map
 					game.player.consumeResources(resources);
 				},
-				undefined,
-				undefined,
 				function(task) {
 					game.player.city.buildings[task.data.building].num++;
 					game.player.city.buildings[task.data.building].status = 'Done';

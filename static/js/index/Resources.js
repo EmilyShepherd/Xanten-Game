@@ -35,8 +35,7 @@ var Resources = function(obj){
  *  @memberOf Resources
  */
 Resources.combine = function(r1, r2){
-	var r = r1;
-	
+
 	if(r1.interval !== r2.interval){
 		console.log('Impossible');
 		return;
@@ -45,16 +44,20 @@ Resources.combine = function(r1, r2){
 	for (var prop in r2) {
 		if(prop !== "resources"){
 			if(r1[prop]){
-				r1[prop] += r2[prop];
+				r1[prop] = parseInt(r1[prop]) + parseInt(r2[prop]);
 			} else {
 				r1[prop] = r2[prop];
 			}		
 		}
 	}
 	
+	if(!r1.resources){
+		r1.resources = {};
+	}
+	
 	for (var prop in r2.resources) {
 		if(r1.resources[prop]){
-			r1.resources[prop] += r2.resources[prop];
+			r1.resources[prop] = parseInt(r1.resources[prop]) + parseInt(r2.resources[prop]);
 		} else {
 			r1.resources[prop] = r2.resources[prop];
 		}

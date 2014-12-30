@@ -47,7 +47,7 @@ function ProgressBar(task){
  *  @memberOf ProgressBar.prototype
  */
 ProgressBar.prototype.finish = function() {	
-	this.task.afterEnds();
+	this.task.beforeEnds();
 };
 
 /**

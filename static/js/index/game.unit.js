@@ -46,5 +46,13 @@ game.unit = {
 				
 			});
 		}
+	},
+	"trade": function(number, value, what){
+		var r = {
+			"people": Math.ceil(number/10),
+			resources: {}
+		}
+		r.resources[what] = number * value;
+		return new Resources(r);		
 	}
 };

@@ -227,19 +227,16 @@ class User(ndb.Model):
               (self.peopleAtGrapevine * self.level)      \
             * secs / 60.0
         self.wood +=                                     \
-              (random.randrange(1, 19) / 10.0) * 0.3     \
             * self.lumberjackLvl                         \
             * self.peopleAtLumberjack                    \
             * self.lumberjacks                           \
             * secs / 60.0
         self.stone +=                                    \
-              (random.randrange(1, 19) / 10.0) * 0.3     \
             * self.mineLvl                               \
             * self.peopleAtMine                          \
             * self.mines                                 \
             * secs / 60.0
         self.gold +=                                     \
-              (random.randrange(1, 19) / 10.0) * 0.3     \
             * self.mineLvl                               \
             * self.peopleAtMine                          \
             * self.goldMines                             \

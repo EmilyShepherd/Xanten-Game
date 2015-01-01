@@ -142,6 +142,11 @@ class Map:
                 "id_city"       : None
             }
 
+            Map.WORLD_TILE_TYPES[tile] = {
+                "allowCity" : True,
+                "img"       : tile
+            }
+
             wMap[y].append(wTile)
 
             x += 1

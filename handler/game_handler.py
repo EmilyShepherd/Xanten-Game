@@ -66,6 +66,14 @@ class GameHandler(DefaultHandler):
                     "world" : Map(game.gmap).toDict(),
                     "city"  : Map(self.user.homeMap).toDict()
                 }
+                self.json['game']['maps']['world']['players'] = { }
+
+                for user in User.query(User.gid == game.gid).fetch():
+                    self.json['game']['maps']['world']['players'][user.uid] = {
+                        "id"    : user.uid,
+                        "name"  : user.name,
+                        "level" : user.level
+                    }
 
     # POST /game/<gid>/join
     #

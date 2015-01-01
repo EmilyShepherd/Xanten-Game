@@ -116,15 +116,15 @@ class Map:
         return num
 
     def toDict(self):
-        if self.mode == 'w':
-            tiles = self.WORLD_TILE_TYPES
-        else:
-            tiles = self.CITY_TILE_TYPES
+        ret = { }
+        ret["array"] = self.mapArr
 
-        return {
-            "array"       : self.mapArr,
-            "backgrounds" : tiles
-        }
+        if self.mode == 'w':
+            ret["backgrounds"] = self.WORLD_TILE_TYPES
+        else:
+            ret["backgrounds"] = self.CITY_TILE_TYPES
+
+        return ret
 
     @staticmethod
     def convertToWorldMap(mapStr):

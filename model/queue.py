@@ -13,6 +13,8 @@ class Queue(ndb.Model):
     TYPE_LEVEL  = 'level';
     TYPE_BUILD  = 'build';
     TYPE_PEOPLE = 'people';
+    TYPE_SEND   = 'send';
+    TYPE_ATTACK = 'attack';
 
     uid = ndb.StringProperty()
 

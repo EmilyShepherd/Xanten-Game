@@ -196,7 +196,9 @@ class User(ndb.Model):
 
         queues = Queue.query(
             Queue.uid == self.uid,
-            Queue.finish <= datetime.datetime.now()
+            Queue.finish <= datetime.datetime.now(),
+            Queue.queueType != Queue.TYPE_SEND,
+            Queue.queueType != Queue.TYPE_ATTACK
         )
 
         for queue in queues.order(Queue.finish).fetch():
@@ -281,7 +283,7 @@ class User(ndb.Model):
                 "stone" : math.floor(self.stone)
             },
             "buildings" : {
-                "home"        : {
+                "administration"        : {
                     "num"    : 1,
                     "level"  : self.homeLvl,
                     "people" : self.peopleAtHome

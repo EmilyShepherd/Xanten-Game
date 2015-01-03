@@ -30,51 +30,36 @@ class MeHandler(DefaultHandler):
             # Update the user's resouces & clear the building queue if
             # it has finished
             self.user.updateValues()
-
-            building = Building.buildings[bname][queue]
-            cost     = building['cost']
-
-            realCost = { }
+            level = 1
 
             if queue == 'level':
-                if bname == 'administration':
-                    newLevel = self.user.homeLvl + 1
-                else:
-                    newLevel = int(getattr(self.user, bname + 'Lvl')) + 1
-                realCost['gold']  = cost['gold']  * newLevel
-                realCost['wood']  = cost['wood']  * (1.35 ** newLevel)
-                realCost['stone'] = cost['stone'] * (1.35 ** newLevel)
-                time              = building['time'] * newLevel
-            else:
-                blah = Building.buildings[bname]['level']
-                realCost['gold']  = blah['cost']['gold']
-                realCost['wood']  = blah['cost']['wood']  * (1.35)
-                realCost['stone'] = blah['cost']['stone'] * (1.35)
-                time     = blah['time']
+                level = int(getattr(self.user, bname + 'Lvl')) + 1
+
+            cost = Building.levelUpCost(bname, level)
 
             # You need to pay for what you build!
-            if         self.user.gold  < realCost['gold']    \
-                    or self.user.wood  < realCost['wood']    \
-                    or self.user.stone < realCost['stone']:
+            if         self.user.gold  < cost['cost']['gold']    \
+                    or self.user.wood  < cost['cost']['wood']    \
+                    or self.user.stone < cost['cost']['stone']:
                 self.stderr('Not enough resources!')
             # All checks successful, take the resources from the user
             # and put this into the building queue
             else:
-                self.user.gold  -= realCost['gold']
-                self.user.wood  -= realCost['wood']
-                self.user.stone -= realCost['stone']
+                self.user.gold  -= cost['cost']['gold']
+                self.user.wood  -= cost['cost']['wood']
+                self.user.stone -= cost['cost']['stone']
 
                 # Special case
                 # There's a chance mines will infact be Gold Mines :)
                 if queue == 'build' and bname == 'mine':
-                    chance = building['goldMineChance']
+                    chance = Building.buildings['mine']['goldMineChance']
                     if random.randrange(0, 99) < chance:
                         bname = 'goldMine'
 
                 queueO           = Queue()
                 queueO.queueType = queue
                 queueO.name      = bname
-                self.user.addQueue(queueO, time)
+                self.user.addQueue(queueO, cost['time'])
                 queueO.put()
 
                 self.json['status'] = 'Started'

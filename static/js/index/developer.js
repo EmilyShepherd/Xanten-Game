@@ -493,25 +493,25 @@ developer.game = {
 		}
 	},
 	"tasks": {
-
-	},
-	"militaryMovements": {
-		1: {
-			path: [
-				[0, 1],
-				[0, 4],
-				[4, 5]
-			],
-			from: 1,
-			to: 1,
-			resources: {
+		"militaryMovements": {
+			1: {
+				path: [
+					[0, 1],
+					[0, 4],
+					[4, 5]
+				],
+				from: 1,
+				to: 1,
 				resources: {
-					"food": 100,
-					wood: 2220,
-					military: 100
-				},
-				time: 20
+					resources: {
+						"food": 100,
+						wood: 2220,
+						military: 100
+					},
+					time: 20
+				}
 			}
 		}
-	}
+	},
+	
 }

@@ -142,11 +142,11 @@ RealTimeEngine.prototype.receiveAttack = function(message){
 
 /**
  * Perform an attack
- * @param {string} id_city The id of the city which is attacked
+ * @param {object} data Information regarding the attack
  * @memberOf RealTimeEngine.prototype
  */
-RealTimeEngine.prototype.performAttack = function(id_city){
-	// TODO @Cristian
+RealTimeEngine.prototype.performAttack = function(data){
+	// TODO @Cristian send socket
 };
 
 /**

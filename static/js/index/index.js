@@ -36,8 +36,8 @@ $(document).ready(function() {
         	var	cityMap  	= new CityMap(response.game.maps.city),
     		 	worldMap 	= new WorldMap(response.game.maps.world),
     		 	player		= new Player(response.player);
-        		
-    		game = new Game(response.game.data, player, cityMap, worldMap);
+        	
+    		game = new Game(response.game.data, player, cityMap, worldMap, response.game.tasks);
     		
     		var path = "/static/js/index/";
     		// load libraries

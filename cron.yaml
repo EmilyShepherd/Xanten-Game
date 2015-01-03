@@ -1,0 +1,4 @@
+cron:
+- description: daily immingration
+  url: /game/cron
+  schedule: every 5 minutes

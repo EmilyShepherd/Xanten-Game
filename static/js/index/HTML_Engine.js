@@ -183,7 +183,7 @@ HTML_Engine.failAction = {
 	 * @return {string} It returns the string
 	 */
 	content: function() {
-		$("#actions_board .inside").html("Sir, there was a problem for your people to get that information... Try to find better ones and then tell them <span class='link' id='action-try-again'>to try again</span>");
+		$("#actions_board .inside").html("Sir, there was a problem retrieving that information... Perhaps try again. <span class='link' id='action-try-again'>to try again</span>");
 	},
 	/**
 	 * It adds a listener for the button 'try again'
@@ -206,7 +206,7 @@ HTML_Engine.failTask = {
 	 * @param {string} reason The reason of the task
 	 */
 	content: function(task_title, reason) {
-		Window.newsBoard.add("<span class='news_problem'>Problem</span>:" +task_title + "<br /> <span class='bold'>Reason:</span> was no possible because " + reason);
+		Window.newsBoard.add("<span class='news_problem'>Problem</span>:" +task_title + "<br /> <span class='bold'>Reason:</span> was not possible because " + reason);
 	}
 };
 
@@ -220,7 +220,7 @@ HTML_Engine.loadAction = {
 	 * @return {string} The string for loading an action
 	 */
 	content: function() {
-		$("#actions_board .inside").html("<div class='center'><img src='static/img/game/loading.gif' width='32px' height='32px'/></div> Sir, please wait to check this...");
+		$("#actions_board .inside").html("<div class='center'><img src='static/img/game/loading.gif' width='32px' height='32px'/></div> Sir, please wait while this is checked...");
 	}
 };
 
@@ -385,7 +385,7 @@ HTML_Engine.cityMapSelected = {
 	 * @return {string} Returns a general description of the city
 	 */
 	content: function() {
-		return "<br /><img src='http://clipart.nicubunu.ro/svg/rpg_map/statue.svg' /><div><span class='bold'>Aloha there, </span><br />This is your glorious city, with brave and nice people who have a wonderfull life. Be carefull to mantain in this state...</div>";
+		return "<br /><img src='http://clipart.nicubunu.ro/svg/rpg_map/statue.svg' /><div><span class='bold'>Hello there, </span><br />This is your glorious city, with brave citizens who have a wonderful life. Be careful to keep your city happy and prosperous...</div>";
 	}
 }
 
@@ -400,7 +400,7 @@ HTML_Engine.getAvailableBuildings = {
 	 * @returns {string} A list of all the buildings and the resources to be created
 	 */
 	content: function() {
-		var text = "<span class='bold'>Buildings available to build there: </span><br />",
+		var text = "<span class='bold'>Buildings available to build here: </span><br />",
 			b	 = 0;
 		
 		for (building in game.player.city.buildings) {
@@ -419,7 +419,7 @@ HTML_Engine.getAvailableBuildings = {
 			}
 		}
 		if(b === 0){
-			text += "It seems there are no buildings to be done...";
+			text += "It seems there are no buildings to be built...";
 		}
 		return text;
 	},
@@ -499,7 +499,7 @@ HTML_Engine.inside_military = {
 		html += HTML_Engine.upgradeBuilding.content("military", (parseInt(game.player.city.buildings["military"].level) + 1));
 		html += "<div class='heading'>";
 		if (nr_of_active_units === 0) {
-			html += "Sir, no military units :(";
+			html += "Sir, we have no military!";
 		} else {
 			html += "The number of active units:";
 			html += HTML_Engine.displayResources.content({
@@ -508,7 +508,7 @@ HTML_Engine.inside_military = {
 				}
 			}) + "</div>";
 
-			html += "<div class='heading'> The daily cost of military is: " +
+			html += "<div class='heading'> The daily cost of the military is: " +
 				HTML_Engine.displayResources.content(
 					game.unit.military.idle(parseInt(nr_of_active_units))				
 				) + "</div>";
@@ -517,7 +517,7 @@ HTML_Engine.inside_military = {
 
 		if (nr_of_active_units < capacity) {
 			html += HTML_Engine.chooser.content({
-				info: "The military plays an important role for your city. You can increase your military power and became a local or imperial power. The first step is to train free people in order to became military units. ",
+				info: "The military plays an important role for your city. You can increase your military power and became a local or imperial power. The first step is to train free people into hardened military units. ",
 				values: [{
 					title: "Train new military units",
 					id: "units"
@@ -526,12 +526,12 @@ HTML_Engine.inside_military = {
 				id: "military_train"
 			});
 		} else {
-			html += "Unfortunately, you riched the max. capacity. You can train more units after you upgrade the building."
+			html += "Unfortunately, you have reached the max capacity. You can train more units after you upgrade the building."
 		}
 		
 		if (nr_of_active_units !== 0) {
 			html += HTML_Engine.chooser.content({
-				info: "You can reduce the cost of military by reducing the number of military people. Unfortuntly this does not give back the resources.",
+				info: "You can reduce the cost of military by reducing the number of military units. Unfortunately this does not give back the resources.",
 				values: [{
 					title: "Reduce military units",
 					id: "units"
@@ -1014,9 +1014,13 @@ HTML_Engine.getBuilding = {
 	description: function(name) {
 		switch (name.toLowerCase()) {
 			case "mine":
-				return "Your brave workers can bring you stone. This building increases the level of stone which is so needed for you";
+				return "Your hard workers can bring you stone. This building increases your income of stone.";
 			case "storage":
 				return "This building keeps some of your resources safe, in case of an attack.";
+			case "military":
+				return "This building is where you can train/retire people for the military.";
+			case "house":
+				return "This building increases the population of your city.";
 			default:
 				return "This building has no description yet :( (@Joe)";
 		}

@@ -28,29 +28,29 @@ function Connection() {
 			type: "PUT",
 			data: $('[name=game_create_form]').serialize(),
 			success: function (response) {
-			waiting_players(response);
-		}
+				connection.waitingPlayers(response);
+			}
 		});
 	});
 
 	$("#join_button").click(function() {
-		join_game();
+		connection.joinGame();
 	});
 
 	$("#create_button").click(function() {
-		create_game();
+		connection.createGame();
 	});
 
 	$("#generate_map").click(function() {
-		generate_general_map($("#map_size").val());
+		connection.generateGeneralMap($("#map_size").val());
 	});
 
 	$("#map_size").change(function() {
-		generate_general_map($(this).val());
+		connection.generateGeneralMap($(this).val());
 	});
 
 	$("#connect_private_game").click(function() {
-		join_game_now($("#private_token").val());
+		connection.joinGameNow($("#private_token").val());
 	});
 
 	$("#game_start").click(function() {
@@ -61,19 +61,19 @@ function Connection() {
 			type: "PUT"
 		}).done(function(response)
 				{
-			if (response['status'] == 'started')
-			{
-				$("#cover").fadeIn(1000, function(){
-					start_game(response);
-				});
-			}
+					if (response['status'] == 'started')
+					{
+						$("#cover").fadeIn(1000, function(){
+							connection.startGame(response);
+						});
+					}
 				})
 	});
 
 	if(DEVELOPER_MODE === true){
 		this.startGame(developer.game);
 		$("#before_game").hide();
-		//$("#cover").hide();
+		$("#cover").hide();
 		$("#game").show();
 	}
 };
@@ -153,6 +153,7 @@ Connection.prototype.startGame = function(response) {
 
 	$("#before_game").hide();
 	$('#game').show();
+	$('body').removeAttr('style');
 
 	// Remove old stylesheet
 	$("#style").remove();
@@ -183,7 +184,7 @@ Connection.prototype.getUpdateGame = function() {
 				if(response["status"] === 'running')
 				{	
 					$("#cover").fadeIn(1000, function(){
-						this.startGame(response);
+						connection.startGame(response);
 					});
 				} else {		
 					var text = "";
@@ -207,9 +208,9 @@ Connection.prototype.getUpdateGame = function() {
  */
 Connection.prototype.generateGeneralMap = function(size) {	
 	$("#map_image").fadeOut(300, function() {		
-		var map_values = this.generateAbstractGeneralMap(size);
+		var map_values = connection.generateAbstractGeneralMap(size);
 		$("#game_map").val(map_values); 
-		$("#map_image").html(this.generateHTMLMap(map_values));			
+		$("#map_image").html(connection.generateHTMLMap(map_values));			
 		$("#map_image").fadeIn(300, function() {	
 			$("#game_user").focus();
 		});		
@@ -240,10 +241,11 @@ Connection.prototype.createGame = function() {
 	$("#create_game").closest('form').find("input[type=text], textarea").val("");
 	$("#join_game").hide();
 	$("#start_game").hide();
+	$('body').css('background-image','none');
 	$("#create_game").show(500, function() {
 		$("#game_user").focus();
 		window.scrollTo(0,170);		
-		this.generateGeneralMap('medium');
+		connection.generateGeneralMap('medium');
 	});
 };
 
@@ -252,7 +254,7 @@ Connection.prototype.createGame = function() {
  * @param {object} response The object from database which contain the information to identify the user and the game
  * @memberOf Connection.prototype
  */
-Connection.prototype.waitingPlayer = function(response) {
+Connection.prototype.waitingPlayers = function(response) {
 	$.cookie('token', response['token']);
 	$("#game_token").val(response['token']);
 	$("#start_game").show();	   		
@@ -260,7 +262,7 @@ Connection.prototype.waitingPlayer = function(response) {
 	$("#create_game_form").hide();
 	$("#generate_map").hide();
 	$("#map_size").hide();
-	this.threadUsers = setInterval(this.getUpdateGame, 2000);	
+	this.threadUsers = setInterval(connection.getUpdateGame, 2000);	
 	this.getUpdateGame();
 };
 
@@ -282,8 +284,8 @@ Connection.prototype.joinGameNow = function(token) {
 		data: {"username":name},
 		success: function (response) {
 			if(response['status'] === "error") {
-				alert(response['msg']);
-				this.threadGames = setInterval(this.getGames, 2000);
+				alert(response['message']);
+				connection.threadGames = setInterval(connection.getGames, 2000);
 			}
 			else {
 				$("#game_start").hide();
@@ -291,7 +293,7 @@ Connection.prototype.joinGameNow = function(token) {
 				$("#join_game").hide();
 				$("#start_game").hide();
 				$("#create_game").show(500, function() {
-					this.waitingPlayers(response);					
+					connection.waitingPlayers(response);					
 				})
 			}
 		}
@@ -326,8 +328,8 @@ Connection.prototype.getGames = function(){
 /**
  *  It generates and returns a random map for the world
  *
- * @param {string} The size of the map (small, medium, large)
- * @returns {string} The map for the world
+ * @param {string} size The size of the map (small, medium, large)
+ * @returns {array} The world map
  * @author Joe
  * @memberOf Connection.prototype
  *

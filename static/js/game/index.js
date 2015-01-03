@@ -15,13 +15,21 @@
  */
 var game 			= null,
 /**
- * If switched to true, it loads the settings of developers.
+ * If switched to true, it loads the settings of developers. When set to true, it should be provided a file developer.js which indicates the structure of the game
  * @field
  * @type boolean 
  * @default false
  */
-	DEVELOPER_MODE 	= true;
+	DEVELOPER_MODE 	= false,
+	/**
+	 * A reference to the connection to the server. It is created after the page loads
+	 * @field
+	 * @type Connection 
+	 * @see Connection
+	 * @default null
+	 */
+	connection = {};
 
 $(document).ready(function(){
-	new Connection();
+	connection = new Connection();
 });

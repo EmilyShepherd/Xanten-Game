@@ -512,6 +512,5 @@ developer.game = {
 				}
 			}
 		}
-	},
-	
+	}
 }

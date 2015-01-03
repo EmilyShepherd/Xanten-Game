@@ -367,7 +367,7 @@ body {
 	top: 79px;
 	left: 16px;
 	margin: 0px;
-	height: 18px;
+	min-height: 18px;
 	font-size: 13px;
 	color: rgb(103, 11, 8);
 	border: 1px solid rgb(159, 121, 72);

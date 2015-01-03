@@ -182,7 +182,7 @@ game.tasks = {
 				'Training <span class="bold">' + data.number + "</span> military units" , {
 					"url": '/me/people/move',
 					"data": data,
-					"type": 'PUT'
+					"type": 'POST'
 				},
 				function(task) {					
 					game.player.consumeResources(game.unit.military.attack(task.data.number));
@@ -197,7 +197,7 @@ game.tasks = {
 				'Reduce <span class="bold">' + data.number + "</span> military units" , {
 					"url": '/me/people/move',
 					"data": data,
-					"type": 'PUT'
+					"type": 'POST'
 				},
 				undefined,
 				function(task) {
@@ -210,7 +210,7 @@ game.tasks = {
 				'Training <span class="bold">' + data.number + "</span> miners" , {
 					"url": '/me/people/move',
 					"data": data,
-					"type": 'PUT'
+					"type": 'POST'
 				},
 				function(task) {					
 					game.player.consumeResources(game.unit.miner.create(task.data.number));
@@ -225,7 +225,7 @@ game.tasks = {
 				'Reduce <span class="bold">' + data.number + "</span> miners" , {
 					"url": '/me/people/move',
 					"data": data,
-					"type": 'PUT'
+					"type": 'POST'
 				},
 				undefined,
 				function(task) {
@@ -238,7 +238,7 @@ game.tasks = {
 				'Training <span class="bold">' + data.number + "</span> lumberjacks" , {
 					"url": '/me/people/move',
 					"data": data,
-					"type": 'PUT'
+					"type": 'POST'
 				},
 				function(task) {					
 					game.player.consumeResources(game.unit.lumberjack.create(task.data.number));
@@ -253,7 +253,7 @@ game.tasks = {
 				'Reduce <span class="bold">' + data.number + "</span> lumberjacks" , {
 					"url": '/me/people/move',
 					"data": data,
-					"type": 'PUT'
+					"type": 'POST'
 				},
 				undefined,
 				function(task) {
@@ -266,7 +266,7 @@ game.tasks = {
 				'Training <span class="bold">' + data.number + "</span> farmers" , {
 					"url": '/me/people/move',
 					"data": data,
-					"type": 'PUT'
+					"type": 'POST'
 				},
 				function(task) {					
 					game.player.consumeResources(game.unit.farmer.create(task.data.number));
@@ -281,7 +281,7 @@ game.tasks = {
 				'Reduce <span class="bold">' + data.number + "</span> farmers" , {
 					"url": '/me/people/move',
 					"data": data,
-					"type": 'PUT'
+					"type": 'POST'
 				},
 				undefined,
 				function(task) {

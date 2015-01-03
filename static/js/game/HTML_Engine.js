@@ -573,7 +573,7 @@ HTML_Engine.inside_military = {
 				}],
 				performAction: function() {
 					game.performTask("train_military", {
-						from: "free",
+						from: "administration",
 						to: "military",
 						number: HTML_Engine.chooser.fetch("military_train", "units")
 					});
@@ -602,7 +602,7 @@ HTML_Engine.inside_military = {
 				performAction: function() {
 					game.performTask("untrain_military", {
 						from: "military",
-						to: "free",
+						to: "administration",
 						number: HTML_Engine.chooser.fetch("military_untrain", "units")
 					});
 				}
@@ -782,8 +782,8 @@ HTML_Engine.inside_mine = {
 				}],
 				performAction: function() {
 					game.performTask("train_miner", {
-						from: "free",
-						to: "miner",
+						from: "administration",
+						to: "mine",
 						number: HTML_Engine.chooser.fetch("mine_train", "units")
 					});
 				}
@@ -810,8 +810,8 @@ HTML_Engine.inside_mine = {
 				}],
 				performAction: function() {
 					game.performTask("untrain_miner", {
-						from: "miner",
-						to: "free",
+						from: "mine",
+						to: "administration",
 						number: HTML_Engine.chooser.fetch("mine_untrain", "units")
 					});
 				}
@@ -1097,7 +1097,7 @@ HTML_Engine.inside_lumberjack = {
 				}],
 				performAction: function() {
 					game.performTask("train_lumberjack", {
-						from: "free",
+						from: "administration",
 						to: "lumberjack",
 						number: HTML_Engine.chooser.fetch("lumberjack_train", "units")
 					});
@@ -1126,7 +1126,7 @@ HTML_Engine.inside_lumberjack = {
 				performAction: function() {
 					game.performTask("untrain_lumberjack", {
 						from: "lumberjack",
-						to: "free",
+						to: "administration",
 						number: HTML_Engine.chooser.fetch("lumberjack_untrain", "units")
 					});
 				}
@@ -1240,7 +1240,7 @@ HTML_Engine.inside_farm = {
 				}],
 				performAction: function() {
 					game.performTask("train_farmer", {
-						from: "free",
+						from: "administration",
 						to: "farmer",
 						number: HTML_Engine.chooser.fetch("farm_train", "units")
 					});
@@ -1269,7 +1269,7 @@ HTML_Engine.inside_farm = {
 				performAction: function() {
 					game.performTask("untrain_farmer", {
 						from: "farmer",
-						to: "free",
+						to: "administration",
 						number: HTML_Engine.chooser.fetch("farm_untrain", "units")
 					});
 				}

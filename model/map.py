@@ -9,32 +9,102 @@ class Map:
 
     WORLD_TILE_TYPES = {
         "g" : {
-            "img"       : "",
+            "img"       : "g.png",
             "allowCity" : True,
             "time"      : 30
         },
         "m0" : {
-            "img"       : "",
+            "img"       : "m0.png",
             "allowCity" : False,
             "time"      : 210
         },
         "m1" : {
-            "img"       : "",
+            "img"       : "m1.png",
             "allowCity" : False,
             "time"      : 210
         },
         "t0" : {
-            "img"       : "",
+            "img"       : "t0.png",
             "allowCity" : False,
             "time"      : 180
         },
         "t1" : {
-            "img"       : "",
+            "img"       : "t1.png",
             "allowCity" : False,
             "time"      : 180
         },
         "o" : {
-            "img"       : "",
+            "img"       : "o.png",
+            "allowCity" : False,
+            "time"      : 300
+        },
+        "oa-ne" : {
+            "img"       : "oa-ne.png",
+            "allowCity" : False,
+            "time"      : 300
+        },
+        "oa-nw" : {
+            "img"       : "oa-nw.png",
+            "allowCity" : False,
+            "time"      : 300
+        },
+        "ob-ne" : {
+            "img"       : "ob-ne.png",
+            "allowCity" : False,
+            "time"      : 300
+        },
+        "ob-nw" : {
+            "img"       : "ob-nw.png",
+            "allowCity" : False,
+            "time"      : 300
+        },
+        "ob-se" : {
+            "img"       : "ob-se.png",
+            "allowCity" : False,
+            "time"      : 300
+        },
+        "ob-sw" : {
+            "img"       : "ob-sw.png",
+            "allowCity" : False,
+            "time"      : 300
+        },
+        "oc-ne" : {
+            "img"       : "oc-ne.png",
+            "allowCity" : False,
+            "time"      : 300
+        },
+        "oc-nw" : {
+            "img"       : "oc-nw.png",
+            "allowCity" : False,
+            "time"      : 300
+        },
+        "oc-se" : {
+            "img"       : "oc-se.png",
+            "allowCity" : False,
+            "time"      : 300
+        },
+        "oc-sw" : {
+            "img"       : "oc-sw.png",
+            "allowCity" : False,
+            "time"      : 300
+        },
+        "o-e" : {
+            "img"       : "o-e.png",
+            "allowCity" : False,
+            "time"      : 300
+        },
+        "o-n" : {
+            "img"       : "o-n.png",
+            "allowCity" : False,
+            "time"      : 300
+        },
+        "o-s" : {
+            "img"       : "o-s.png",
+            "allowCity" : False,
+            "time"      : 300
+        },
+        "o-w" : {
+            "img"       : "o-w.png",
             "allowCity" : False,
             "time"      : 300
         }
@@ -136,7 +206,7 @@ class Map:
             if x == 0:
                 wMap.append([ ])
 
-            tile  = tile.split('-')[0]
+            #tile  = tile.split('-')[0]
             wTile = {
                 "id_background" : tile,
                 "id_city"       : None
@@ -144,7 +214,7 @@ class Map:
 
             Map.WORLD_TILE_TYPES[tile] = {
                 "allowCity" : True,
-                "img"       : tile
+                "img"       : tile + ".png"
             }
 
             wMap[y].append(wTile)

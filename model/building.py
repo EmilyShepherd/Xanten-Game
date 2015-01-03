@@ -4,6 +4,23 @@ class Building:
 
     # The actual store
     buildings = {
+        "administration" : {
+            "build" : {
+                "cost" : {
+                    "gold" : 100000000000,
+                    "wood" : 100000000000,
+                    "stone" : 100000000000
+                }
+            },
+            "level" : {
+                "cost" : {
+                    "gold" : 10,
+                    "wood" : 0,
+                    "stone" : 0
+                },
+                "time" : 600
+            }
+        },
         # Docks produce food! :)
         "trade" : {
             "build" : {
@@ -70,9 +87,9 @@ class Building:
             },
             "level" : {
                 "cost" : {
-                    "gold" : 10,
-                    "wood" : 0,
-                    "stone" : 0
+                    "gold" : 0,
+                    "wood" : 5,
+                    "stone" : 5
                 },
                 "time" : 600
             },
@@ -96,11 +113,11 @@ class Building:
             },
             "level" : {
                 "cost" : {
-                    "gold" : 10,
-                    "wood" : 0,
-                    "stone" : 0
+                    "gold" : 0,
+                    "wood" : 10,
+                    "stone" : 10
                 },
-                "time" : 600
+                "time" : 10
             },
             "train" : {
                 "cost" : {

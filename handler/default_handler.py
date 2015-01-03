@@ -76,9 +76,12 @@ class DefaultHandler(webapp2.RequestHandler):
         return arr[random.randrange(0, len(arr))]
 
     def sendMessage(self, call, data):
+        self.sendMessageTo(self.user, call, data)
+
+    def sendMessageTo(self, user, call, data):
         msg = {
             "call" : call,
             "data" : data
         }
 
-        channel.send_message(self.user.uid, json.dumps(msg))
+        channel.send_message(user.uid, json.dumps(msg))

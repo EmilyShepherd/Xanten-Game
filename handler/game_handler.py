@@ -1,6 +1,7 @@
 import webapp2
 import uuid
 import datetime
+import random
 from google.appengine.api import channel
 
 from default_handler import DefaultHandler
@@ -179,3 +180,20 @@ class GameHandler(DefaultHandler):
 
         # The userid
         return sess.uid
+
+    def cron(self):
+        for user in User.query(User.positionOnMap != None).fetch():
+            user.updateValues()
+
+            immigrants = \
+                  random.randrange(-2.0, 2.0) / 10.0 \
+                + user.satisfactionRate()
+            immigrants = int(immigrants)
+            
+            if immigrants < -1 * user.peopleAtHome:
+                immigrants = -1 * user.peopleAtHome
+
+            user.peopleAtHome += immigrants
+            user.put()
+
+            self.sendMessageTo(user, 'receiveDailyStatistics', {"gold":user.gold, "people":user.peopleAtHome})

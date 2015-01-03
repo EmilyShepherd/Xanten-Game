@@ -21,6 +21,8 @@ from handler.debug_handler import DebugHandler
 
 # Setup routes
 app = w.WSGIApplication([
+    w.Route('/game/cron',        gameClass + ':cron'),
+
     # End points relating to creating / joining / starting games
     w.Route('/game/',            gameClass,             methods=['GET']),
     w.Route('/game/',            gameClass + ':create', methods=['PUT']),

@@ -247,6 +247,25 @@ class User(ndb.Model):
               self.peopleAtHome                          \
             * 0.1 * (secs / 60.0)
 
+    def totalPeople(self):
+        return \
+              self.peopleAtHome        \
+            + self.peopleAtMine        \
+            + self.peopleAtLumberjack  \
+            + self.peopleAtDock        \
+            + self.peopleAtGrapevine   \
+            + self.peopleAtTrade       \
+            + self.peopleAtMilitary
+
+    def satisfactionRate(self):
+        people = self.totalPeople()
+        rate   = \
+              self.food - 10 * people \
+            + self.houses * 200 - people \
+            + 0 - 0
+
+        return 0.0001 * rate
+
     # The Queue Finished time is stored in the database as a timestamp.
     # This takes a value in seconds and creates a timestamp from it,
     # x seconds away from now

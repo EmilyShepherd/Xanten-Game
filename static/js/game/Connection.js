@@ -90,7 +90,7 @@ Connection.prototype.startGame = function(response) {
 	clearTimeout(this.threadUsers);
 
 	
-	var path 		= "/static/js/index/",
+	var path 		= "/static/js/game/",
 		/**
 		 * It loads a JavaScript file
 		 */

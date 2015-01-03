@@ -20,7 +20,7 @@ var game 			= null,
  * @type boolean 
  * @default false
  */
-	DEVELOPER_MODE 	= false;
+	DEVELOPER_MODE 	= true;
 
 $(document).ready(function(){
 	new Connection();

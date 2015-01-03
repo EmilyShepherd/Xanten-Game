@@ -1,12 +1,12 @@
 /**
- * @file Represents an action object
+ * @file An action object is a model (MCV) object which performs an action of the user.
  * @author Cristian Sima
  * @version 30.12.2014
  */
  
 
 /**
- *  An action object is a model (MCV) object which performs an action of the user.
+ *  An action is an object which holds the information regarding the HTML to be displayed, the function to be called when the action is changed.
  *  @constructor
  *  @param {HTML_Engine} HTML_Engine_Reference The function which generates the content (usually a HTML_Engine object) 
  *  @param {function} beforeRemove A function to be called before the Action is done (or removed by the game)

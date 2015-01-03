@@ -1,13 +1,13 @@
 /**
- * @file Represents a player object.
+ * @file It contains the object Player 
  * @author Cristian Sima
  * @version 30.12.2014
  */
 
 /**
- * It creates a player. The player holds information regarding the city, name, level id
+ * A player contains information regarding the current player: resources, city, name and id
  * @constructor
- * @param (object) info 		The information object	
+ * @param (object) info 		The object which holds information regarding the player (it must have id, name, resources, and buildings).	
  * @returns (object) Player		The player
  */
 var Player = function(info){
@@ -19,8 +19,8 @@ var Player = function(info){
 };
 
 /**
- * It returns the level of player (same as level of city)
- * @return {number} level The level of city
+ * It returns the level of player. The level of player is the same as the level of city (the level of city is given by the level of administration building)
+ * @return {number} level The level of the player
  * @memberOf Player.prototype
  */
 Player.prototype.getLevel = function(){
@@ -28,8 +28,8 @@ Player.prototype.getLevel = function(){
 };
 
 /**
- * It consumes the given resources (also people from administration and military from military). Then, it updates the window
- * @param {object} resourcesToConsume An Resources object to consume
+ * It consumes the given resources: gold, food, stone and wood, people from administration (free people) and people from military. Then, it updates the window
+ * @param {Resources} resourcesToConsume An Resources object which holds the resources to be consumed
  * @see Resources
  * @memberOf Player.prototype
  */
@@ -51,8 +51,8 @@ Player.prototype.consumeResources = function(resourcesToConsume){
 };
 
 /**
- * It adds the resources to the player
- * @param {object} resourcesToConsume An Resources object to add
+ * It adds the given resources: gold, food, stone and wood, people from administration (free people) and people from military. Then, it updates the window
+ * @param {Resources} resourcesToConsume An Resources object which holds the resources to be added
  * @see Resources
  * @memberOf Player.prototype
  */

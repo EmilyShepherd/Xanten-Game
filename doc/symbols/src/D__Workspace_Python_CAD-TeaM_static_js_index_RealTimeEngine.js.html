@@ -149,28 +149,32 @@
 <span class='line'>142</span> 
 <span class='line'>143</span> </span><span class="COMM">/**
 <span class='line'>144</span>  * Perform an attack
-<span class='line'>145</span>  * @param {string} id_city The id of the city which is attacked
+<span class='line'>145</span>  * @param {object} data Information regarding the attack
 <span class='line'>146</span>  * @memberOf RealTimeEngine.prototype
 <span class='line'>147</span>  */</span><span class="WHIT">
-<span class='line'>148</span> </span><span class="NAME">RealTimeEngine.prototype.performAttack</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">id_city</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>149</span> </span><span class="WHIT">	</span><span class="COMM">// TODO @Cristian</span><span class="WHIT">
+<span class='line'>148</span> </span><span class="NAME">RealTimeEngine.prototype.performAttack</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">data</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>149</span> </span><span class="WHIT">	</span><span class="COMM">// TODO @Cristian send socket</span><span class="WHIT">
 <span class='line'>150</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>151</span> 
 <span class='line'>152</span> </span><span class="COMM">/**
 <span class='line'>153</span>  * It is called when the game receives the statistics for a day. It includes disasters
 <span class='line'>154</span>  * @memberOf RealTimeEngine.prototype
-<span class='line'>155</span>  * @param {object} statistics The statistics for a day (people, gold, disasters)
+<span class='line'>155</span>  * @param {object} statistics The statistics for a day (number of free people, gold)
 <span class='line'>156</span>  */</span><span class="WHIT">
 <span class='line'>157</span> </span><span class="NAME">RealTimeEngine.prototype.receiveDailyStatistics</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">statistics</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>158</span> </span><span class="WHIT">	</span><span class="COMM">// TODO @Cristian</span><span class="WHIT">
-<span class='line'>159</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>160</span> 
-<span class='line'>161</span> </span><span class="COMM">/**
-<span class='line'>162</span>  * It is called when server tells the status of the game
-<span class='line'>163</span>  * @memberOf RealTimeEngine.prototype
-<span class='line'>164</span>  * @param {object} status It contains the status of the game.
-<span class='line'>165</span>  */</span><span class="WHIT">
-<span class='line'>166</span> </span><span class="NAME">RealTimeEngine.prototype.receiveGameStatus</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">status</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>167</span> </span><span class="WHIT">	</span><span class="COMM">// TODO @Cristian</span><span class="WHIT">
-<span class='line'>168</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>169</span> </span></pre></body></html>
+<span class='line'>158</span> </span><span class="WHIT">	</span><span class="NAME">game.player.resources.gold</span><span class="WHIT"> 							</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">statistics.gold</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>159</span> </span><span class="WHIT">	</span><span class="NAME">game.player.city.buildings.administration.people</span><span class="WHIT"> 	</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">statistics.people</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>160</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>161</span> 
+<span class='line'>162</span> </span><span class="COMM">/**
+<span class='line'>163</span>  * It is called when server tells the status of the game
+<span class='line'>164</span>  * @memberOf RealTimeEngine.prototype
+<span class='line'>165</span>  * @param {string} status It contains the status of the game. If it is lost, it stops the game
+<span class='line'>166</span>  */</span><span class="WHIT">
+<span class='line'>167</span> </span><span class="NAME">RealTimeEngine.prototype.receiveGameStatus</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">status</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>168</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">status</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">'lost'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>169</span> </span><span class="WHIT">		</span><span class="NAME">game.performAction</span><span class="PUNC">(</span><span class="STRN">"game_over"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>170</span> </span><span class="WHIT">		</span><span class="NAME">game.freeze</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>171</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>172</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>173</span> </span></pre></body></html>

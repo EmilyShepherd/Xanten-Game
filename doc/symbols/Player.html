@@ -257,8 +257,6 @@ ul.inheritsList
 	
 	<li><a href="../symbols/HTML_Engine.table.html">HTML_Engine.table</a></li>
 	
-	<li><a href="../symbols/HTML_Engine.trade.html">HTML_Engine.trade</a></li>
-	
 	<li><a href="../symbols/HTML_Engine.upgradeBuilding.html">HTML_Engine.upgradeBuilding</a></li>
 	
 	<li><a href="../symbols/HTML_Engine.worldMapSelected.html">HTML_Engine.worldMapSelected</a></li>
@@ -322,7 +320,7 @@ ul.inheritsList
 							<div class="fixedFont">
 								<b><a href="../symbols/Player.html#constructor">Player</a></b>((object))
 							</div>
-							<div class="description">It creates a player.</div>
+							<div class="description">A player contains information regarding the current player: resources, city, name and id</div>
 						</td>
 					</tr>
 				</tbody>
@@ -351,7 +349,7 @@ ul.inheritsList
 							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/Player.html#consumeResources">consumeResources</a></b>(resourcesToConsume)
 								</div>
-								<div class="description">It consumes the given resources (also people from administration and military from military).</div>
+								<div class="description">It consumes the given resources: gold, food, stone and wood, people from administration (free people) and people from military.</div>
 							</td>
 						</tr>
 					
@@ -360,7 +358,7 @@ ul.inheritsList
 							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/Player.html#getLevel">getLevel</a></b>()
 								</div>
-								<div class="description">It returns the level of player (same as level of city)</div>
+								<div class="description">It returns the level of player.</div>
 							</td>
 						</tr>
 					
@@ -369,7 +367,7 @@ ul.inheritsList
 							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/Player.html#giveResources">giveResources</a></b>(resourcesToConsume)
 								</div>
-								<div class="description">It adds the resources to the player</div>
+								<div class="description">It adds the given resources: gold, food, stone and wood, people from administration (free people) and people from military.</div>
 							</td>
 						</tr>
 					
@@ -394,7 +392,7 @@ ul.inheritsList
 				</div>
 				
 				<div class="description">
-					It creates a player. The player holds information regarding the city, name, level id
+					A player contains information regarding the current player: resources, city, name and id
 					
 				</div>
 				
@@ -409,7 +407,7 @@ ul.inheritsList
 								 <b>(object)</b>
 								
 							</dt>
-								<dd>info 		The information object</dd>
+								<dd>info 		The object which holds information regarding the player (it must have id, name, resources, and buildings).</dd>
 						
 						</dl>
 					
@@ -447,7 +445,7 @@ ul.inheritsList
 					
 					</div>
 					<div class="description">
-						It consumes the given resources (also people from administration and military from military). Then, it updates the window
+						It consumes the given resources: gold, food, stone and wood, people from administration (free people) and people from military. Then, it updates the window
 						
 						
 					</div>
@@ -459,10 +457,10 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{object}</span> <b>resourcesToConsume</b>
+									<span class="light fixedFont">{<a href="../symbols/Resources.html">Resources</a>}</span> <b>resourcesToConsume</b>
 									
 								</dt>
-								<dd>An Resources object to consume</dd>
+								<dd>An Resources object which holds the resources to be consumed</dd>
 							
 							</dl>
 						
@@ -490,7 +488,7 @@ ul.inheritsList
 					
 					</div>
 					<div class="description">
-						It returns the level of player (same as level of city)
+						It returns the level of player. The level of player is the same as the level of city (the level of city is given by the level of administration building)
 						
 						
 					</div>
@@ -505,7 +503,7 @@ ul.inheritsList
 							<dl class="detailList">
 							<dt class="heading">Returns:</dt>
 							
-								<dd><span class="light fixedFont">{number}</span> level The level of city</dd>
+								<dd><span class="light fixedFont">{number}</span> level The level of the player</dd>
 							
 							</dl>
 						
@@ -522,7 +520,7 @@ ul.inheritsList
 					
 					</div>
 					<div class="description">
-						It adds the resources to the player
+						It adds the given resources: gold, food, stone and wood, people from administration (free people) and people from military. Then, it updates the window
 						
 						
 					</div>
@@ -534,10 +532,10 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{object}</span> <b>resourcesToConsume</b>
+									<span class="light fixedFont">{<a href="../symbols/Resources.html">Resources</a>}</span> <b>resourcesToConsume</b>
 									
 								</dt>
-								<dd>An Resources object to add</dd>
+								<dd>An Resources object which holds the resources to be added</dd>
 							
 							</dl>
 						
@@ -569,7 +567,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Mon Dec 29 2014 22:49:30 GMT+0200 (EET)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Sat Jan 03 2015 16:09:14 GMT+0200 (EET)
 		</div>
 	</body>
 </html>

@@ -19,10 +19,12 @@
  * @param {Player} player The current player
  * @param {CityMap} cityMap A reference to the city map object
  * @param {WorldMap} worldMap A reference to the world map object      
+ * @param {object} tasks A list of tasks which are being performed      
  */
-function Game(data, player, cityMap, worldMap) {
+function Game(data, player, cityMap, worldMap, tasks) {
 	
-	this.data 	= data;
+	this.data 			= data;
+	this.data.tasks 	= tasks;
 
 	this.player = player;
 

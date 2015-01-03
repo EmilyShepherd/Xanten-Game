@@ -292,10 +292,6 @@ class User(ndb.Model):
                     "num"    : 1 if self.trade else 0,
                     "people" : self.peopleAtTrade
                 },
-                "grapevine"   : {
-                    "num"    : 1 if self.grapevine else 0,
-                    "people" : self.peopleAtGrapevine
-                },
                 "storage"    : {
                     "num"   : 1 if self.storage else 0,
                     "level" : self.storageLvl

@@ -196,9 +196,9 @@ class User(ndb.Model):
 
         queues = Queue.query(
             Queue.uid == self.uid,
-            Queue.finish <= datetime.datetime.now(),
-            Queue.queueType != Queue.TYPE_SEND,
-            Queue.queueType != Queue.TYPE_ATTACK
+            Queue.finish <= datetime.datetime.now()#,
+            #Queue.queueType != Queue.TYPE_SEND,
+            #Queue.queueType != Queue.TYPE_ATTACK
         )
 
         for queue in queues.order(Queue.finish).fetch():

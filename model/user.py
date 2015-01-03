@@ -227,17 +227,17 @@ class User(ndb.Model):
               (self.peopleAtGrapevine * self.level)      \
             * secs / 60.0
         self.wood +=                                     \
-            * self.lumberjackLvl                         \
+              self.lumberjackLvl                         \
             * self.peopleAtLumberjack                    \
             * self.lumberjacks                           \
             * secs / 60.0
         self.stone +=                                    \
-            * self.mineLvl                               \
+              self.mineLvl                               \
             * self.peopleAtMine                          \
             * self.mines                                 \
             * secs / 60.0
         self.gold +=                                     \
-            * self.mineLvl                               \
+              self.mineLvl                               \
             * self.peopleAtMine                          \
             * self.goldMines                             \
             * secs / 60.0

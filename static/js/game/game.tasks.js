@@ -180,11 +180,9 @@ game.tasks = {
 		"train_military": function(data) {
 			return new Task(data,
 				'Training <span class="bold">' + data.number + "</span> military units" , {
-					// TODO url should be changed to /me/people/move
-					// TODO type changed to PUT
-					"url": '/me/building/military/build',
+					"url": '/me/people/move',
 					"data": data,
-					"type": 'GET'
+					"type": 'PUT'
 				},
 				function(task) {					
 					game.player.consumeResources(game.unit.military.attack(task.data.number));
@@ -197,11 +195,9 @@ game.tasks = {
 		"untrain_military": function(data) {
 			return new Task(data,
 				'Reduce <span class="bold">' + data.number + "</span> military units" , {
-					// TODO url should be changed to /me/people/move
-					// TODO type changed to PUT
-					"url": '/me/building/military/build',
+					"url": '/me/people/move',
 					"data": data,
-					"type": 'GET'
+					"type": 'PUT'
 				},
 				undefined,
 				function(task) {
@@ -212,11 +208,9 @@ game.tasks = {
 		"train_miner": function(data) {
 			return new Task(data,
 				'Training <span class="bold">' + data.number + "</span> miners" , {
-					// TODO url should be changed to /me/people/move
-					// TODO type changed to PUT
-					"url": '/me/building/mine/build',
+					"url": '/me/people/move',
 					"data": data,
-					"type": 'GET'
+					"type": 'PUT'
 				},
 				function(task) {					
 					game.player.consumeResources(game.unit.miner.create(task.data.number));
@@ -229,11 +223,9 @@ game.tasks = {
 		"untrain_miner": function(data) {
 			return new Task(data,
 				'Reduce <span class="bold">' + data.number + "</span> miners" , {
-					// TODO url should be changed to /me/people/move
-					// TODO type changed to PUT
-					"url": '/me/building/mine/build',
+					"url": '/me/people/move',
 					"data": data,
-					"type": 'GET'
+					"type": 'PUT'
 				},
 				undefined,
 				function(task) {
@@ -244,11 +236,9 @@ game.tasks = {
 		"train_lumberjack": function(data) {
 			return new Task(data,
 				'Training <span class="bold">' + data.number + "</span> lumberjacks" , {
-					// TODO url should be changed to /me/people/move
-					// TODO type changed to PUT
-					"url": '/me/building/lumberjack/build',
+					"url": '/me/people/move',
 					"data": data,
-					"type": 'GET'
+					"type": 'PUT'
 				},
 				function(task) {					
 					game.player.consumeResources(game.unit.lumberjack.create(task.data.number));
@@ -261,11 +251,9 @@ game.tasks = {
 		"untrain_lumberjack": function(data) {
 			return new Task(data,
 				'Reduce <span class="bold">' + data.number + "</span> lumberjacks" , {
-					// TODO url should be changed to /me/people/move
-					// TODO type changed to PUT
-					"url": '/me/building/lumberjack/build',
+					"url": '/me/people/move',
 					"data": data,
-					"type": 'GET'
+					"type": 'PUT'
 				},
 				undefined,
 				function(task) {
@@ -276,11 +264,9 @@ game.tasks = {
 		"train_farmer": function(data) {
 			return new Task(data,
 				'Training <span class="bold">' + data.number + "</span> farmers" , {
-					// TODO url should be changed to /me/people/move
-					// TODO type changed to PUT
-					"url": '/me/building/farm/build',
+					"url": '/me/people/move',
 					"data": data,
-					"type": 'GET'
+					"type": 'PUT'
 				},
 				function(task) {					
 					game.player.consumeResources(game.unit.farmer.create(task.data.number));
@@ -293,11 +279,9 @@ game.tasks = {
 		"untrain_farmer": function(data) {
 			return new Task(data,
 				'Reduce <span class="bold">' + data.number + "</span> farmers" , {
-					// TODO url should be changed to /me/people/move
-					// TODO type changed to PUT
-					"url": '/me/building/farm/build',
+					"url": '/me/people/move',
 					"data": data,
-					"type": 'GET'
+					"type": 'PUT'
 				},
 				undefined,
 				function(task) {

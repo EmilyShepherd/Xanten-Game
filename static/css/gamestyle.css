@@ -147,6 +147,7 @@ body {
 	background-color: #F6EBBA;
 	border: 3px solid rgb(199, 135, 51);
 	position: relative;
+	display: block;
 }
 
 
@@ -247,7 +248,8 @@ body {
 
 #city_details div {
 	border-radius: 2px;
-	text-align: right;
+	text-align: center;
+	vertical-align:center;
 	height: 20px;
 	color: white;
 	padding-top: 5px;
@@ -275,71 +277,80 @@ body {
 
 /* Maps */
 
+
 .map {
-	display: none;
-	border: 0px;
-	cellspacing: 0px;	
+	display: none;    
+     border-collapse: collapse;
+	background: rgb(181, 181, 181);
 }
 
-.map td.selected,.map td.selected:hover {
-	border: 1px solid white;
+.map .row{  
+     display:table-row;
+     text-align: center;
+}
+.map .row > div{
+	float:left;
+	width: 100px;
+	height: 100px;
+	position: relative;
+}
+
+
+.map .row > div.selected, .map .row > div.selected:hover {
 	-webkit-filter: opacity(0.7);
-	margin-top: -1px;
 }
 
-.map td.selected {
+.map .row > div.selected {
 	transition-duration: 0.5s;
-	border: 1px solid white;
-	margin-top: -1px;
+	outline: 1px solid white;
+	z-index: 29;
+	
 }
 
-.map .allow_construction:hover {
-	cursor: url("../img/cursor/build_cursor_1.png"), auto;
-	-webkit-filter: opacity(0.9);
-	border: 1px solid rgb(181, 181, 181);
-	padding: -1px;
+.map .row > div.allow_construction:hover {
+	cursor: url("../img/cursor/build_cursor_1.png"), pointer;
+	outline: 1px solid white;
+	z-index: 29;
 }
 
-.map .allow_construction:active {
-	cursor: url("../img/cursor/build_cursor_2.png"), auto;
+.map .row >div.allow_construction:active {
+	cursor: url("../img/cursor/build_cursor_2.png"), pointer;
 }
 
-.map img.small {
+.map .row >div img.small {
 	width: 60px;
 	height: 60px;
 }
 
-.map tr td {
-	text-align: center;
-	vertical-align: middle;
-	position: relative;
-	border:1px solid transparent;
-}
 
-.map img {
+.map .row >div img {
 	z-index:3;
-	height: 98px;
-	width: 98px;
-	transition-duration: 0.5s;
-	position: relative;
-	top:0px;
+	height: 80px;
+	width: 80px;
+	transition-duration: 0.2s;
+	position: absolute;
+	left:15px;
+	top:15px;
 	transition-timing-function: linear;
 }
 
-.map td .hasAction:hover {
+.map .row >div.hasAction:hover {
 	z-index: 2 !important;
-	cursor: url("../img/cursor/hand_cursor.png"), auto;
+	cursor: url("../img/cursor/hand_cursor.png"), pointer;
 	-webkit-filter: sepia(1) drop-shadow(-12px 0px 17px rgba(255,255,5,0.7));
 	filter: url("data:image/svg+xml;utf8,<svg height='0' xmlns='http://www.w3.org/2000/svg'><filter id='drop-shadow'><feGaussianBlur in='SourceAlpha' stdDeviation='4'/><feOffset dx='12' dy='12' result='offsetblur'/><feFlood flood-color='rgba(0,0,0,0.5)'/><feComposite in2='offsetblur' operator='in'/><feMerge><feMergeNode/><feMergeNode in='SourceGraphic'/></feMerge></filter></svg>#drop-shadow");
 	-ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
 	filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=12, OffY=12, Color='#444')";
-	
 	margin-top: -7px;
 }
 
-.map td img.selected, .map td img.selected:hover {
+.map .row >div img.selected, .map .row >div img.selected:hover {
 	-webkit-filter: sepia(1) grayscale(1) opacity(0.7);
-	margin-top: -7px;
+	margin-top: -7px;	
+	width: 90px;
+	height: 90px;
+	left:5px;
+	top:5px;
 }
 
 .map .level, .building_info .level, .level_upgrading {
@@ -378,6 +389,9 @@ body {
 	border-radius: 4px;
 	z-index:3;
 }
+
+
+
 
 /* Progress Bar */
 

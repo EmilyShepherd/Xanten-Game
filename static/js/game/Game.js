@@ -82,6 +82,7 @@ Game.prototype.start = function() {
 
 	$("#cover").fadeOut(((DEVELOPER_MODE) ? 10 : 1000), function() {
 		// game is ready
+		connection = undefined;
 	});
 };
 

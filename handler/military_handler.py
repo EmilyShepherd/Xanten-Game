@@ -45,6 +45,9 @@ class MilitaryHandler(DefaultHandler):
             user.food -=  food
             user.stone -= stone
 
+            self.user.put()
+            user.put()
+
     def send(self, city, num):
         self.json = {
             "action" : "send",
@@ -59,5 +62,7 @@ class MilitaryHandler(DefaultHandler):
             user = User.query(User.uid==city).fetch()[0]
             user.peopleAtMilitary += num
             self.user.peopleAtMilitary -= num
+            self.user.put()
+            user.put()
 
 

@@ -51,7 +51,7 @@ XantenMap.prototype.getSelectedCell = function(){
  * @memberOf XantenMap.prototype
  */
 XantenMap.prototype.deselect = function(){
-	$(this.HTML_element+" td").removeClass('selected');
+	$(this.HTML_element+" div").removeClass('selected');
 	$(this.HTML_element+" img").removeClass('selected');
 	this.selectedCell = null;
 }
@@ -110,20 +110,20 @@ XantenMap.prototype.init = function(){
 	var table    = '';
 	var div 	 = '';
 	
-	table = "<table id='map-board-" + this.name + "' class='map' border='0' cellspacing='0'><tbody>";
+	table = "<div id='map-board-" + this.name + "' class='map' >";
 	
 	for(vertical = 1; vertical <= this.getSize(); vertical++){
-		table += '<tr>';
+		table += '<div class="row">';
 		for(horizontal = 1; horizontal <= this.getSize(); horizontal++){
-			table += '<td id="cel_' + vertical + '_' + horizontal + '"></td>';
+			table += '<div id="cel_' + vertical + '_' + horizontal + '"></div>';
 		}
-		table += '</tr>';
+		table += '</div>';
 	}
 	
-	table 	+= "</tbody></table>";
+	table 	+= "</div>";
 	div 	= "<div id='map-window-" + this.name + "' class='map-window'>" + table + "</div>";
 	$("#map-window").append(div);
-	$("#map-board-"+this.name+" td").click(function(){
+	$("#map-board-"+this.name+" .row > div").click(function(){
 		var id = $(this).attr("id");
 		var array = id.substring(4, id.length);
 		var elements = array.split("_");
@@ -168,6 +168,7 @@ XantenMap.prototype.hide = function(){
  * @param {number} y The y coordinate
  */
 XantenMap.prototype._selectCell = function(x, y){
+	
 	this.deselect();
 	this.selectCell(x, y);
 	this.selectedCell = {"x": x, "y": y};

@@ -159,7 +159,7 @@ game.tasks = {
 			return new Task(data,
 				'Level up <span class="bold">' + data["building"] + "</span> to " + data.toLevel , {
 					// TODO change url 
-					"url": '/me/building/' + data["building"] + '/build',
+					"url": '/me/building/' + data["building"] + '/level',
 					"data": data,
 					"type": 'GET'
 				},

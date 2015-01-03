@@ -34,17 +34,30 @@ class MeHandler(DefaultHandler):
             building = Building.buildings[bname][queue]
             cost     = building['cost']
 
+            realCost = { }
+
+            if queue == 'level':
+                if bname == 'administration':
+                    newLevel = self.user.homeLvl + 1
+                else:
+                    newLevel = int(getattr(self.user, bname + 'Lvl')) + 1
+                realCost['gold'] = cost['gold']   * newLevel
+                realCost['wood'] = cost['wood']   * (1.35 ** newLevel)
+                realCost['stone'] = cost['stone'] * (1.35 ** newLevel)
+            else:
+                realCost = cost
+
             # You need to pay for what you build!
-            if         self.user.gold  < cost['gold']    \
-                    or self.user.wood  < cost['wood']    \
-                    or self.user.stone < cost['stone']:
+            if         self.user.gold  < realCost['gold']    \
+                    or self.user.wood  < realCost['wood']    \
+                    or self.user.stone < realCost['stone']:
                 self.stderr('Not enough resources!')
             # All checks successful, take the resources from the user
             # and put this into the building queue
             else:
-                self.user.gold  -= cost['gold']
-                self.user.wood  -= cost['wood']
-                self.user.stone -= cost['stone']
+                self.user.gold  -= realCost['gold']
+                self.user.wood  -= realCost['wood']
+                self.user.stone -= realCost['stone']
 
                 # Special case
                 # There's a chance mines will infact be Gold Mines :)

@@ -15,8 +15,8 @@ class Building:
             "level" : {
                 "cost" : {
                     "gold" : 10,
-                    "wood" : 0,
-                    "stone" : 0
+                    "wood" : 100,
+                    "stone" : 100
                 },
                 "time" : 600
             }

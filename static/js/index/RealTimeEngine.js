@@ -152,17 +152,21 @@ RealTimeEngine.prototype.performAttack = function(id_city){
 /**
  * It is called when the game receives the statistics for a day. It includes disasters
  * @memberOf RealTimeEngine.prototype
- * @param {object} statistics The statistics for a day (people, gold, disasters)
+ * @param {object} statistics The statistics for a day (number of free people, gold)
  */
 RealTimeEngine.prototype.receiveDailyStatistics = function(statistics){
-	// TODO @Cristian
+	game.player.resources.gold 							= statistics.gold;
+	game.player.city.buildings.administration.people 	= statistics.people;
 };
 
 /**
  * It is called when server tells the status of the game
  * @memberOf RealTimeEngine.prototype
- * @param {object} status It contains the status of the game.
+ * @param {string} status It contains the status of the game. If it is lost, it stops the game
  */
 RealTimeEngine.prototype.receiveGameStatus = function(status){
-	// TODO @Cristian
+	if(status === 'lost') {
+		game.performAction("game_over");
+		game.freeze();
+	}
 };

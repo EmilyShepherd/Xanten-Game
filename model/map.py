@@ -41,12 +41,12 @@ class Map:
         },
         "oa-ne" : {
             "img"       : "oa-ne.png",
-            "allowCity" : False,
+            "allowCity" : True,
             "time"      : 300
         },
         "oa-nw" : {
             "img"       : "oa-nw.png",
-            "allowCity" : False,
+            "allowCity" : True,
             "time"      : 300
         },
         "ob-ne" : {
@@ -71,22 +71,22 @@ class Map:
         },
         "oc-ne" : {
             "img"       : "oc-ne.png",
-            "allowCity" : False,
+            "allowCity" : True,
             "time"      : 300
         },
         "oc-nw" : {
             "img"       : "oc-nw.png",
-            "allowCity" : False,
+            "allowCity" : True,
             "time"      : 300
         },
         "oc-se" : {
             "img"       : "oc-se.png",
-            "allowCity" : False,
+            "allowCity" : True,
             "time"      : 300
         },
         "oc-sw" : {
             "img"       : "oc-sw.png",
-            "allowCity" : False,
+            "allowCity" : True,
             "time"      : 300
         },
         "o-e" : {
@@ -274,7 +274,7 @@ class Map:
 
     # Returns true if the given tile can have a settlement on it
     def isTileHabitable(self, tile):
-        return tile['id_background'].split('-')[0] in ['g', 'oa', 'oc']
+        return tile['id_background'].split('-')[0] in ['g', 'oa', 'oc'] and tile['id_city'] == None 
 
     # Count the habital spaces on the world map
     def countHabitable(self):

@@ -14,7 +14,9 @@ function RealTimeEngine(token){
 	this.isRunning 	= false;
 	this.threads 	= {};
 	this.websocket  = undefined;
-	this.init(token);
+
+    if (token)
+	   this.init(token);
 }
 
 

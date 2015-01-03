@@ -701,25 +701,135 @@ HTML_Engine.inside_mine = {
 	 * @return {string} HTML code for mine building
 	 */
 	content: function() {
-		var html = "";
+		var nr_of_active_units = game.player.city.buildings.mine.people,
+			html = "",
+			capacity = game.constructions.buildings.mine.capacity(game.player.city.buildings.mine.level).resources.miner;
 		html += HTML_Engine.getBuilding.info("mine", true);
 		html += HTML_Engine.upgradeBuilding.content("mine", (parseInt(game.player.city.buildings["mine"].level) + 1));
-		// TODO @George
+		html += "<div class='heading'>";
+		if (nr_of_active_units === 0) {
+			html += "Sir, we have no miners!";
+		} else {
+			html += "The number of active miners:";
+			html += HTML_Engine.displayResources.content({
+				resources: {
+					"miner": nr_of_active_units
+				}
+			}) + "</div>";
+
+			html += "<div class='heading'> The daily income of stone is: " +
+				HTML_Engine.displayResources.content(
+					game.unit.miner.mining(parseInt(nr_of_active_units))				
+				) + "</div>";
+		}
+		html += "</div>";
+		
+		if (nr_of_active_units < capacity) {
+			html += HTML_Engine.chooser.content({
+				info: "Create Miners to generate higher income of stone.",
+				values: [{
+					title: "Train new miners",
+					id: "units"
+				}],
+				button: "Train!",
+				id: "mine_train"
+			});
+		} else {
+			html += "Unfortunately, you have reached the max capacity. You can train more units after you upgrade the building."
+		}
+		
+		if (nr_of_active_units !== 0) {
+			html += HTML_Engine.chooser.content({
+				info: "Reducing the amount of miners decreases stone income but frees people for different tasks. Unfortunately this does not give back the resources.",
+				values: [{
+					title: "Reduce miners",
+					id: "units"
+				}],
+				button: "Reduce units!",
+				id: "mine_untrain"	
+			});
+		}
 		return html;
 	},
+	
 	/**
 	 * It enables the functionality for the building
 	 */
 	enable: function() {
+		var nr_of_active_units = game.player.city.buildings.mine.people,
+			capacity = game.constructions.buildings.mine.capacity(game.player.city.buildings.mine.level).resources.miner;
+			
 		HTML_Engine.upgradeBuilding.enable("mine", (parseInt(game.player.city.buildings["mine"].level) + 1));
-		// TODO @George
+		
+		/*
+		 * It creates the chooser to let the user to choose how many utits to create
+		 */
+		if (nr_of_active_units < capacity) {
+			HTML_Engine.chooser.enable({
+				id: "mine_train",
+				values: [{
+					id: 'units',
+					min: 1,
+					max: capacity - nr_of_active_units,
+					change: function(event, ui, extra) {
+						extra.html(HTML_Engine.displayResources.content(
+								game.unit.miner.create(parseInt(ui.value))
+							) + "<div> Daily income: </div>" +
+							HTML_Engine.displayResources.content(
+									game.unit.miner.mining(parseInt(ui.value))
+							));
+					}
+				}],
+				performAction: function() {
+					game.performTask("train_miner", {
+						from: "free",
+						to: "miner",
+						number: HTML_Engine.chooser.fetch("mine_train", "units")
+					});
+				}
+			});
+		}
+
+		if (nr_of_active_units !== 0) {
+			/*
+			 * It creates the chooser to let the user to choose how many units to create
+			 */
+			HTML_Engine.chooser.enable({
+
+				id: "mine_untrain",
+				values: [{
+					id: 'units',
+					min: 1,
+					max: nr_of_active_units,
+					/* TODO @Cristian the number of free people*/
+					change: function(event, ui, extra) {
+						extra.html(HTML_Engine.displayResources.content({
+							time: parseInt(ui.value) * 5 /* TODO @George real resources */
+						}));
+					}
+				}],
+				performAction: function() {
+					game.performTask("untrain_miner", {
+						from: "miner",
+						to: "free",
+						number: HTML_Engine.chooser.fetch("mine_untrain", "units")
+					});
+				}
+			});
+		}
 	},
+	
 	/**
 	 * It disables the functionality for the building
 	 */
 	disable: function() {
+		HTML_Engine.chooser.disable({
+			id: "mine_train"
+		});
+		HTML_Engine.chooser.disable({
+			id: "mine_untrain"
+		});
 		HTML_Engine.upgradeBuilding.disable("mine");
-		// TODO @George
 	}
 };
 
@@ -1026,7 +1136,7 @@ HTML_Engine.getBuilding = {
 		}
 	},
 	/**
-	 * It returs a general info regarding the building. It includes the image and the description of the building
+	 * It returns a general info regarding the building. It includes the image and the description of the building
 	 * @param {string} building The name of the building
 	 * @return {string} A general info about the building
 	 */
@@ -1305,7 +1415,7 @@ HTML_Engine.attackCity = {
 
 		if (nr_of_active_units !== 0 && game.player.city.buildings.military.level !== 0) {
 			html += HTML_Engine.chooser.content({
-				info: "Decide very wize how many units you want to send. The daily cost is an addition cost to the one from military for the units.",
+				info: "Decide wisely how many units you want to send. The daily cost is an addition cost to the one from military for the units.",
 				values: [{
 					title: "Military units",
 					id: "units"

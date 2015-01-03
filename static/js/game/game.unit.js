@@ -41,9 +41,20 @@ game.unit = {
 		}
 	},
 	"miner": {
-		"create": function (){
+		"create": function (number){
 			return new Resources({
-				
+				resources: {
+					"food": 15 * number
+				},
+				time: 10 * number
+			});
+		},
+		"mining": function(number) {
+			return Resources({
+				resources: {
+					stone: 20 * number
+				},
+				interval: "one day"
 			});
 		}
 	},

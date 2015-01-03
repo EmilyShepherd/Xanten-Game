@@ -165,7 +165,7 @@ game.constructions.buildings = {
 		capacity: function(level) {
 			return new Resources({
 				"resources": {
-					"stone": 0.5 * level * game.player.city.buildings.mine.num * game.player.city.buildings.mine.people
+					"miner": Math.pow(4, level)
 				}
 			})
 		},

@@ -1,12 +1,23 @@
 /**
  * Functions for starting or joining a game
- *
+ * @file 
  * @author Cristian Sima & George Salter
  * @version 21.11.2014
  */
  
 
+/**
+ * It is the reference for the current game.
+ * @field
+ * @type Game 
+ * @see Game
+ */
 var game 			= null,
+/**
+ * If switched to true, it loads the settings of developers.
+ * @field
+ * @type boolean 
+ */
 	DEVELOPER_MODE 	= true;
 
 var thread_games,
@@ -14,8 +25,7 @@ var thread_games,
 
  
 $(document).ready(function() {
-
-
+	
 	if(DEVELOPER_MODE === true){
 		start_game(developer.game);
 		$("#before_game").hide();

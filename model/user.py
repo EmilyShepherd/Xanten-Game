@@ -315,10 +315,15 @@ class User(ndb.Model):
                     "level"  : self.lumberjackLvl,
                     "people" : self.peopleAtLumberjack
                 },
-                "dock"        : {
+                "farm"        : {
                     "num"    : self.docks,
                     "level"  : self.dockLvl,
                     "people" : self.peopleAtDock
+                },
+                "mill"        : {
+                    "num"    : 0,
+                    "level"  : 0,
+                    "people" : 0
                 }
             }
         }

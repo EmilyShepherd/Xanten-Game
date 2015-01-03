@@ -224,7 +224,7 @@ game.tasks = {
 				function(task) {
 					game.player.city.buildings.mine.people 	= parseInt(task.data.number) + parseInt(game.player.city.buildings.mine.people);
 				},
-				"static/img/game/resource/miner.png");
+				"static/img/game/resource/people.png");
 		},
 		"untrain_miner": function(data) {
 			return new Task(data,
@@ -239,7 +239,39 @@ game.tasks = {
 				function(task) {
 					game.player.city.buildings.mine.people 	= parseInt(game.player.city.buildings.mine.people) - parseInt(task.data.number);
 				},
-				"static/img/game/resource/miner.png");
+				"static/img/game/resource/people.png");
+		},
+		"train_farmer": function(data) {
+			return new Task(data,
+				'Training <span class="bold">' + data.number + "</span> farmers" , {
+					// TODO url should be changed to /me/people/move
+					// TODO type changed to PUT
+					"url": '/me/building/farm/build',
+					"data": data,
+					"type": 'GET'
+				},
+				function(task) {					
+					game.player.consumeResources(game.unit.farmer.create(task.data.number));
+				},
+				function(task) {
+					game.player.city.buildings.farm.people 	= parseInt(task.data.number) + parseInt(game.player.city.buildings.farm.people);
+				},
+				"static/img/game/resource/people.png");
+		},
+		"untrain_farmer": function(data) {
+			return new Task(data,
+				'Reduce <span class="bold">' + data.number + "</span> farmers" , {
+					// TODO url should be changed to /me/people/move
+					// TODO type changed to PUT
+					"url": '/me/building/farm/build',
+					"data": data,
+					"type": 'GET'
+				},
+				undefined,
+				function(task) {
+					game.player.city.buildings.farm.people 	= parseInt(game.player.city.buildings.farm.people) - parseInt(task.data.number);
+				},
+				"static/img/game/resource/people.png");
 		},
 		"create_building": function(args) {
 			var data = {};

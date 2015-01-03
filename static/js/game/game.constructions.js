@@ -165,7 +165,8 @@ game.constructions.buildings = {
 		capacity: function(level) {
 			return new Resources({
 				"resources": {
-					"miner": Math.pow(4, level)
+					"stone": 0.5 * level * game.player.city.buildings.mine.num * game.player.city.buildings.mine.people,
+					"people": Math.pow(4, level)
 				}
 			})
 		},
@@ -271,7 +272,8 @@ game.constructions.buildings = {
 		capacity: function(level) {
 			return new Resources({
 				"resources": {
-					"wood": 0.3 * level * game.player.city.buildings.lumberjack.num * game.player.city.buildings.lumberjack.people
+					"wood": 0.3 * level * game.player.city.buildings.lumberjack.num * game.player.city.buildings.lumberjack.people,
+					"people": Math.pow(4, level)
 				}
 			});
 		},
@@ -306,7 +308,8 @@ game.constructions.buildings = {
 		capacity: function(level) {
 			return new Resources({
 				"resources": {
-					"food": 0.3 * level * game.player.city.buildings.farm.num * game.player.city.buildings.farm.people
+					"food": 0.3 * level * game.player.city.buildings.farm.num * game.player.city.buildings.farm.people,
+					"people": Math.pow(4, level)
 				}
 			});
 		},

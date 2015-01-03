@@ -703,7 +703,7 @@ HTML_Engine.inside_mine = {
 	content: function() {
 		var nr_of_active_units = game.player.city.buildings.mine.people,
 			html = "",
-			capacity = game.constructions.buildings.mine.capacity(game.player.city.buildings.mine.level).resources.miner;
+			capacity = game.constructions.buildings.mine.capacity(game.player.city.buildings.mine.level).resources.people;
 		html += HTML_Engine.getBuilding.info("mine", true);
 		html += HTML_Engine.upgradeBuilding.content("mine", (parseInt(game.player.city.buildings["mine"].level) + 1));
 		html += "<div class='heading'>";
@@ -713,7 +713,7 @@ HTML_Engine.inside_mine = {
 			html += "The number of active miners:";
 			html += HTML_Engine.displayResources.content({
 				resources: {
-					"miner": nr_of_active_units
+					"people": nr_of_active_units
 				}
 			}) + "</div>";
 
@@ -757,7 +757,7 @@ HTML_Engine.inside_mine = {
 	 */
 	enable: function() {
 		var nr_of_active_units = game.player.city.buildings.mine.people,
-			capacity = game.constructions.buildings.mine.capacity(game.player.city.buildings.mine.level).resources.miner;
+			capacity = game.constructions.buildings.mine.capacity(game.player.city.buildings.mine.level).resources.people;
 			
 		HTML_Engine.upgradeBuilding.enable("mine", (parseInt(game.player.city.buildings["mine"].level) + 1));
 		
@@ -1045,29 +1045,139 @@ HTML_Engine.inside_lumberjack = {
 HTML_Engine.inside_farm = {
 
 	/**
-	 * It generates the content for the lumberjack building
-	 * @return {string} HTML code for the lumberjack building
+	 * It generates the content for the mine building
+	 * @return {string} HTML code for mine building
 	 */
 	content: function() {
-		var html = "";
+		var nr_of_active_units = game.player.city.buildings.farm.people,
+			html = "",
+			capacity = game.constructions.buildings.farm.capacity(game.player.city.buildings.farm.level).resources.people;
 		html += HTML_Engine.getBuilding.info("farm", true);
 		html += HTML_Engine.upgradeBuilding.content("farm", (parseInt(game.player.city.buildings["farm"].level) + 1));
-		// TODO @George
+		html += "<div class='heading'>";
+		if (nr_of_active_units === 0) {
+			html += "Sir, we have no farmers!";
+		} else {
+			html += "The number of active farmers:";
+			html += HTML_Engine.displayResources.content({
+				resources: {
+					"people": nr_of_active_units
+				}
+			}) + "</div>";
+
+			html += "<div class='heading'> The daily income of food is: " +
+				HTML_Engine.displayResources.content(
+					game.unit.farmer.farming(parseInt(nr_of_active_units))				
+				) + "</div>";
+		}
+		html += "</div>";
+		
+		if (nr_of_active_units < capacity) {
+			html += HTML_Engine.chooser.content({
+				info: "Create farmers to generate higher income of food.",
+				values: [{
+					title: "Train new farmers",
+					id: "units"
+				}],
+				button: "Train!",
+				id: "farm_train"
+			});
+		} else {
+			html += "Unfortunately, you have reached the max capacity. You can train more units after you upgrade the building."
+		}
+		
+		if (nr_of_active_units !== 0) {
+			html += HTML_Engine.chooser.content({
+				info: "Reducing the amount of farmers decreases food income but frees people for different tasks. Unfortunately this does not give back the resources.",
+				values: [{
+					title: "Reduce farmers",
+					id: "units"
+				}],
+				button: "Reduce units!",
+				id: "farm_untrain"	
+			});
+		}
 		return html;
 	},
+	
 	/**
 	 * It enables the functionality for the building
 	 */
 	enable: function() {
+		var nr_of_active_units = game.player.city.buildings.farm.people,
+			capacity = game.constructions.buildings.farm.capacity(game.player.city.buildings.farm.level).resources.people;
+			
 		HTML_Engine.upgradeBuilding.enable("farm", (parseInt(game.player.city.buildings["farm"].level) + 1));
-		// TODO @George
+		
+		/*
+		 * It creates the chooser to let the user to choose how many utits to create
+		 */
+		if (nr_of_active_units < capacity) {
+			HTML_Engine.chooser.enable({
+				id: "farm_train",
+				values: [{
+					id: 'units',
+					min: 1,
+					max: capacity - nr_of_active_units,
+					change: function(event, ui, extra) {
+						extra.html(HTML_Engine.displayResources.content(
+								game.unit.farmer.create(parseInt(ui.value))
+							) + "<div> Daily income: </div>" +
+							HTML_Engine.displayResources.content(
+									game.unit.farmer.farming(parseInt(ui.value))
+							));
+					}
+				}],
+				performAction: function() {
+					game.performTask("train_farmer", {
+						from: "free",
+						to: "farmer",
+						number: HTML_Engine.chooser.fetch("farm_train", "units")
+					});
+				}
+			});
+		}
+
+		if (nr_of_active_units !== 0) {
+			/*
+			 * It creates the chooser to let the user to choose how many units to create
+			 */
+			HTML_Engine.chooser.enable({
+
+				id: "farm_untrain",
+				values: [{
+					id: 'units',
+					min: 1,
+					max: nr_of_active_units,
+					/* TODO @Cristian the number of free people*/
+					change: function(event, ui, extra) {
+						extra.html(HTML_Engine.displayResources.content({
+							time: parseInt(ui.value) * 5 /* TODO @George real resources */
+						}));
+					}
+				}],
+				performAction: function() {
+					game.performTask("untrain_farmer", {
+						from: "farmer",
+						to: "free",
+						number: HTML_Engine.chooser.fetch("farm_untrain", "units")
+					});
+				}
+			});
+		}
 	},
+	
 	/**
 	 * It disables the functionality for the building
 	 */
 	disable: function() {
+		HTML_Engine.chooser.disable({
+			id: "farm_train"
+		});
+		HTML_Engine.chooser.disable({
+			id: "farm_untrain"
+		});
 		HTML_Engine.upgradeBuilding.disable("farm");
-		// TODO @George
 	}
 };
 
@@ -1131,6 +1241,8 @@ HTML_Engine.getBuilding = {
 				return "This building is where you can train/retire people for the military.";
 			case "house":
 				return "This building increases the population of your city.";
+			case "farm":
+				return "Train people into farmers here who will generate food for you."
 			default:
 				return "This building has no description yet :( (@Joe)";
 		}

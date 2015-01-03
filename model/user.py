@@ -74,7 +74,7 @@ class User(ndb.Model):
     homeLvl = ndb.IntegerProperty(default=1)
 
     # The number of people at the home
-    peopleAtHome = ndb.IntegerProperty(default=50)
+    peopleAtAdministration = ndb.IntegerProperty(default=50)
 
     # How many houses the player has
     houses = ndb.IntegerProperty(default=1)
@@ -234,13 +234,13 @@ class User(ndb.Model):
             * self.goldMines                             \
             * secs / 60.0
         self.gold +=                                     \
-              self.peopleAtHome                          \
+              self.peopleAtAdministration                          \
             * 0.1 * (secs / 60.0)
 
     # Calculates the total number of people this player has
     def totalPeople(self):
         return                                           \
-              self.peopleAtHome                          \
+              self.peopleAtAdministration                 \
             + self.peopleAtMine                          \
             + self.peopleAtLumberjack                    \
             + self.peopleAtFarm                          \
@@ -261,7 +261,7 @@ class User(ndb.Model):
     # Returns true / false depending on whether the user has the given
     # type of building
     def hasBuilding(self, building):
-        if building == 'home':
+        if building == 'administration' or building == 'home':
             return True
         elif building in ['trade', 'storage', 'military']:
             return getattr(self, building)
@@ -285,7 +285,7 @@ class User(ndb.Model):
                 "administration"        : {
                     "num"    : 1,
                     "level"  : self.homeLvl,
-                    "people" : self.peopleAtHome
+                    "people" : self.peopleAtAdministration
                 },
                 "house"       : {
                     "num" : self.houses

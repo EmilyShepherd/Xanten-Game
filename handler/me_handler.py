@@ -85,6 +85,7 @@ class MeHandler(DefaultHandler):
     # Moves the specified number of people from one location to another
     def movePeople(self):
         self.checkLogin()
+        self.user.updateValues()
 
         moveFrom = self.request.POST['from']
         moveTo   = self.request.POST['to']

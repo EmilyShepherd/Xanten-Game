@@ -1,6 +1,7 @@
 import webapp2
 import json
 import random
+from google.appengine.api import channel
 
 # Model
 from model.user import User
@@ -73,3 +74,11 @@ class DefaultHandler(webapp2.RequestHandler):
     # This function returns a random value out of the given array
     def getRand(self, arr):
         return arr[random.randrange(0, len(arr))]
+
+    def sendMessage(self, call, data):
+        msg = {
+            "call" : call,
+            "data" : data
+        }
+
+        channel.send_message(self.user.uid, json.dumps(msg))

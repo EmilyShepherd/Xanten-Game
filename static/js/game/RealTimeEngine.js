@@ -10,11 +10,11 @@
  * @property {boolean} isRunning If true, the RTE is running, false otherwise
  * @property {object} websocket The reference to the websocket object
  */
-function RealTimeEngine(){
+function RealTimeEngine(token){
 	this.isRunning 	= false;
 	this.threads 	= {};
 	this.websocket  = undefined;
-	this.init();
+	this.init(token);
 }
 
 
@@ -23,9 +23,39 @@ function RealTimeEngine(){
  * @private
  * @memberOf RealTimeEngine.prototype
  */
-RealTimeEngine.prototype.init = function(){
-    // this.channel   = new goog.appengine.Channel('{{ channel_id }}');
+RealTimeEngine.prototype.init = function(token){
+    this.channel   = new goog.appengine.Channel(token);
+    this.socket    = this.channel.open();
+    this.socket.RTE = this;
+    this.socket.onopen = this.onopen;
+    this.socket.onmessage = this.onmessage;
+    this.socket.onerror = this.onerror;
+    this.socket.onclose = this.onclose;
 };
+
+RealTimeEngine.prototype.onmessage = function(data)
+{
+    data = JSON.parse(data.data);
+
+    this.RTE[data.call](data.data);
+};
+
+RealTimeEngine.prototype.onopen = function()
+{
+    this.RTE.connected = true;
+};
+
+RealTimeEngine.prototype.onerror = function(error)
+{
+    console.error(error.description);
+};
+
+RealTimeEngine.prototype.onclose = function()
+{
+    this.RTE.connected = false;
+};
+
+
 
 /**
  * It stats the thread for resources, starts the channel for websocket and assigns the listeners

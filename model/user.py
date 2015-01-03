@@ -34,6 +34,8 @@ class User(ndb.Model):
     # The user's name (human readable)
     name = ndb.StringProperty()
 
+    secret = ndb.StringProperty()
+
     # The game this user is a member of
     gid  = ndb.StringProperty()
 

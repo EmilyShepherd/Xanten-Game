@@ -33,7 +33,7 @@ function Game(data, player, cityMap, worldMap, tasks) {
 	this.cityMap 	= cityMap;
 	this.worldMap 	= worldMap;
 
-	this.RTE = new RealTimeEngine();
+	this.RTE = new RealTimeEngine(data.secret);
 
 	this.tasks 			= {};
 	this.actions 		= {};

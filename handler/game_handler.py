@@ -1,6 +1,7 @@
 import webapp2
 import uuid
 import datetime
+from google.appengine.api import channel
 
 from default_handler import DefaultHandler
 
@@ -63,7 +64,8 @@ class GameHandler(DefaultHandler):
                 self.json['game']           = { }
                 self.json['game']['data']   = {
                     'status' : 'running' if game.running else 'waiting',
-                    'token'  : game.gid
+                    'token'  : game.gid,
+                    'secret' : self.user.secret
                 }
                 self.json['player']         = self.user.toDict()
                 self.json['game']['maps']   = {
@@ -163,6 +165,7 @@ class GameHandler(DefaultHandler):
     # them up to the given game
     def join_game(self, game, name):
         sess      = User(uid = uuid.uuid4().hex)
+        sess.secret = channel.create_channel(sess.uid)
         sess.gid  = game.gid;
         sess.name = name
         sess.put()
@@ -171,6 +174,8 @@ class GameHandler(DefaultHandler):
 
         # We don't need to save this as create() has more stuff to add
         game.members.append(sess.name)
+
+        self.user = sess
 
         # The userid
         return sess.uid

@@ -241,6 +241,9 @@ class User(ndb.Model):
             * self.peopleAtMine                          \
             * self.goldMines                             \
             * secs / 60.0
+        self.gold +=                                     \
+              self.peopleAtHome                          \
+            * 0.1 * (secs / 60.0)
 
     # The Queue Finished time is stored in the database as a timestamp.
     # This takes a value in seconds and creates a timestamp from it,

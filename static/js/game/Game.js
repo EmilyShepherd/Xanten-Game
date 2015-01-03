@@ -35,6 +35,7 @@ function Game(data, player, cityMap, worldMap, tasks) {
 
 	this.RTE = new RealTimeEngine(data.secret);
 
+	this.tasksCounter	= 0;
 	this.tasks 			= {};
 	this.actions 		= {};
 	this.currentTasks 	= [];
@@ -182,8 +183,7 @@ Game.prototype.performTask = function(name, args) {
 
 	var args = args ? args : undefined,
 		task = game.tasks[name](args);
-
-	task.args = args;
+	task.args 	= args;
 	game.currentTasks.push(task);
 };
 

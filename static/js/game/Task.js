@@ -24,15 +24,16 @@
  */
 function Task(data, title, serverDetails, afterConfirmation, beforeEnds, imgSource){
 	
-	var instance = this;
-	
-	this.id					= Math.round(Math.random() * (133333 - 10) + 133333);
+	this.id					= game.tasksCounter;
+
 	this.title        		= title;
 	this.data		 		= data;
 	this.response			= null;
 	this.serverDetails		= serverDetails;
 	this.imgSource			= (imgSource?imgSource:"http://clipart.nicubunu.ro/svg/rpg_map/statue.svg");
 		
+	game.tasksCounter++;
+	
 	/*
 	 * If there is exists an override of the method, call it after it calls the default
 	 * If not call the default
@@ -95,7 +96,7 @@ Task.prototype._afterConfirmation = function(){
  * @memberOf Task.prototype
  */
 Task.prototype.afterConfirmation = function(){
-	if(this.response.status === "erro2r" ){ // TODO should be changed to error
+	if(this.response.status === "error" ){ // TODO should be changed to error
 		HTML_Engine.failTask.content(this.title, this.response.message);
 		this.forceStop();
 	} else {		

@@ -735,19 +735,21 @@ Connection.prototype.generateHTMLMap = function(imgArray) {
 	var x = 0,
 		y = 0,
 		size = imgArray.length,
-		map = "  <table class='map' border='0' cellspacing='0'><tr>";
+		map = "  <div class='map' border='0' cellspacing='0'>";
 
 	while (y < size) {
+		map += "<div class='row'>";
 		while (x < size) {
-			map += "<td style=\"background-image: url('static/img/map/general/"+ imgArray[y][x]+ ".png');\"></td>";
+			map += "<div style=\"background-image: url('static/img/map/general/"+ imgArray[y][x]+ ".png');\"></div>";
 			x++;
 		}
 		if (y < size-1) {
-			map += "</tr><tr>";
+			map += "</div><div>";
 		}
 		x = 0;
 		y++;
+		map += "</div>";
 	}
-	map += "</tr></table>";
+	map += "</div>";
 	return map;
 }

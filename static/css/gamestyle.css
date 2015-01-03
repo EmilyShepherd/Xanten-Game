@@ -355,7 +355,7 @@ body {
 
 .map .level, .building_info .level, .level_upgrading {
 	position: absolute;
-	top: 3px;
+	top: 9px;
 	left: 60px;
 	margin: 0px;
 	width: 17px;

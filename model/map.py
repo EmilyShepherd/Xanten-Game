@@ -136,7 +136,7 @@ class Map:
             if x == 0:
                 wMap.append([ ])
 
-            #tile  = tile.split('-')
+            tile  = tile.split('-')[0]
             wTile = {
                 "id_background" : tile,
                 "id_city"       : None
@@ -166,6 +166,7 @@ class Map:
     def generateCityMap():
         cMap = [ ]
         treesInColoum = [0] * 7
+        doneHome = False
 
         for y in range(0, 6):
             cMap.append([ ])
@@ -208,6 +209,10 @@ class Map:
                     #treesInColoum[x] = 0
                     cMap[y][x]['id_background'] = 1
 
+                    if not doneHome:
+                        cMap[y][x]['type_construction'] = 'building'
+                        cMap[y][x]['id_construction']   = 1
+                        doneHome                        = True
                     if random.randrange(0, 100) < 10:
                         cMap[y][x]['type_construction'] = 'element'
                         cMap[y][x]['id_construction']   = random.randrange(1, 3)

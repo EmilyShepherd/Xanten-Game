@@ -46,8 +46,11 @@ class MeHandler(DefaultHandler):
                 realCost['stone'] = cost['stone'] * (1.35 ** newLevel)
                 time              = building['time'] * newLevel
             else:
-                realCost = cost
-                time     = building['time']
+                blah = Building.buildings[bname]['level']
+                realCost['gold']  = blah['cost']['gold']
+                realCost['wood']  = blah['cost']['wood']  * (1.35)
+                realCost['stone'] = blah['cost']['stone'] * (1.35)
+                time     = blah['time']
 
             # You need to pay for what you build!
             if         self.user.gold  < realCost['gold']    \

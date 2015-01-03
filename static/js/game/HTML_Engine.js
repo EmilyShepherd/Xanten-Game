@@ -1013,28 +1013,138 @@ HTML_Engine.inside_lumberjack = {
 
 	/**
 	 * It generates the content for the lumberjack building
-	 * @return {string} The HTML content for the lumberjack building
+	 * @return {string} HTML code for lumberjack building
 	 */
 	content: function() {
-		var html = "";
+		var nr_of_active_units = game.player.city.buildings.lumberjack.people,
+			html = "",
+			capacity = game.constructions.buildings.lumberjack.capacity(game.player.city.buildings.lumberjack.level).resources.people;
 		html += HTML_Engine.getBuilding.info("lumberjack", true);
 		html += HTML_Engine.upgradeBuilding.content("lumberjack", (parseInt(game.player.city.buildings["lumberjack"].level) + 1));
-		// TODO @George
+		html += "<div class='heading'>";
+		if (nr_of_active_units === 0) {
+			html += "Sir, we have no lumberjacks!";
+		} else {
+			html += "The number of active lumberjacks:";
+			html += HTML_Engine.displayResources.content({
+				resources: {
+					"people": nr_of_active_units
+				}
+			}) + "</div>";
+
+			html += "<div class='heading'> The daily income of lumber is: " +
+				HTML_Engine.displayResources.content(
+					game.unit.lumberjack.cutting(parseInt(nr_of_active_units))				
+				) + "</div>";
+		}
+		html += "</div>";
+		
+		if (nr_of_active_units < capacity) {
+			html += HTML_Engine.chooser.content({
+				info: "Create lumberjacks to generate higher income of lumber.",
+				values: [{
+					title: "Train new lumberjacks",
+					id: "units"
+				}],
+				button: "Train!",
+				id: "lumberjack_train"
+			});
+		} else {
+			html += "Unfortunately, you have reached the max capacity. You can train more units after you upgrade the building."
+		}
+		
+		if (nr_of_active_units !== 0) {
+			html += HTML_Engine.chooser.content({
+				info: "Reducing the amount of lumberjacks decreases lumber income but frees people for different tasks. Unfortunately this does not give back the resources.",
+				values: [{
+					title: "Reduce lumberjacks",
+					id: "units"
+				}],
+				button: "Reduce units!",
+				id: "lumberjack_untrain"	
+			});
+		}
 		return html;
 	},
+	
 	/**
 	 * It enables the functionality for the building
 	 */
 	enable: function() {
+		var nr_of_active_units = game.player.city.buildings.lumberjack.people,
+			capacity = game.constructions.buildings.lumberjack.capacity(game.player.city.buildings.lumberjack.level).resources.people;
+			
 		HTML_Engine.upgradeBuilding.enable("lumberjack", (parseInt(game.player.city.buildings["lumberjack"].level) + 1));
-		// TODO @George
+		
+		/*
+		 * It creates the chooser to let the user to choose how many utits to create
+		 */
+		if (nr_of_active_units < capacity) {
+			HTML_Engine.chooser.enable({
+				id: "lumberjack_train",
+				values: [{
+					id: 'units',
+					min: 1,
+					max: capacity - nr_of_active_units,
+					change: function(event, ui, extra) {
+						extra.html(HTML_Engine.displayResources.content(
+								game.unit.lumberjack.create(parseInt(ui.value))
+							) + "<div> Daily income: </div>" +
+							HTML_Engine.displayResources.content(
+									game.unit.lumberjack.cutting(parseInt(ui.value))
+							));
+					}
+				}],
+				performAction: function() {
+					game.performTask("train_lumberjack", {
+						from: "free",
+						to: "lumberjack",
+						number: HTML_Engine.chooser.fetch("lumberjack_train", "units")
+					});
+				}
+			});
+		}
+
+		if (nr_of_active_units !== 0) {
+			/*
+			 * It creates the chooser to let the user to choose how many units to create
+			 */
+			HTML_Engine.chooser.enable({
+
+				id: "lumberjack_untrain",
+				values: [{
+					id: 'units',
+					min: 1,
+					max: nr_of_active_units,
+					/* TODO @Cristian the number of free people*/
+					change: function(event, ui, extra) {
+						extra.html(HTML_Engine.displayResources.content({
+							time: parseInt(ui.value) * 5 /* TODO @George real resources */
+						}));
+					}
+				}],
+				performAction: function() {
+					game.performTask("untrain_lumberjack", {
+						from: "lumberjack",
+						to: "free",
+						number: HTML_Engine.chooser.fetch("lumberjack_untrain", "units")
+					});
+				}
+			});
+		}
 	},
+	
 	/**
 	 * It disables the functionality for the building
 	 */
 	disable: function() {
+		HTML_Engine.chooser.disable({
+			id: "lumberjack_train"
+		});
+		HTML_Engine.chooser.disable({
+			id: "lumberjack_untrain"
+		});
 		HTML_Engine.upgradeBuilding.disable("lumberjack");
-		// TODO @George
 	}
 };
 
@@ -1233,6 +1343,8 @@ HTML_Engine.getBuilding = {
 	 */
 	description: function(name) {
 		switch (name.toLowerCase()) {
+			case "administration":
+				return "This is the heart of your great city, here you can level up your city and view your gold income.";
 			case "mine":
 				return "Your hard workers can bring you stone. This building increases your income of stone.";
 			case "storage":
@@ -1243,6 +1355,8 @@ HTML_Engine.getBuilding = {
 				return "This building increases the population of your city.";
 			case "farm":
 				return "Train people into farmers here who will generate food for you."
+			case "lumberjack":
+				return "Train people into strong lumberjacks who can generate wood for you."
 			default:
 				return "This building has no description yet :( (@Joe)";
 		}

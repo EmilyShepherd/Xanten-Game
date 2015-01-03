@@ -58,6 +58,24 @@ game.unit = {
 			});
 		}
 	},
+	"lumberjack": {
+		"create": function (number){
+			return new Resources({
+				resources: {
+					"food": 15 * number
+				},
+				time: 10 * number
+			});
+		},
+		"cutting": function(number) {
+			return new Resources({
+				resources: {
+					wood: 20 * number
+				},
+				interval: "one day"
+			});
+		}
+	},
 	"farmer": {
 		"create": function (number){
 			return new Resources({

@@ -50,7 +50,7 @@ class Building:
         },
         # Mines produce stone, but there's a chance they will be
         # goldMines
-        "grapevine" : {
+        "mill" : {
             "build" : {
                 "cost" : {
                     "gold" : 10,
@@ -61,11 +61,11 @@ class Building:
             },
             "level" : {
                 "cost" : {
-                    "gold" : 10,
-                    "wood" : 0,
+                    "gold" : 8,
+                    "wood" : 8,
                     "stone" : 0
                 },
-                "time" : 600
+                "time" : 10
             },
             "train" : {
                 "cost" : {
@@ -91,7 +91,7 @@ class Building:
                     "wood" : 5,
                     "stone" : 5
                 },
-                "time" : 600
+                "time" : 10
             },
             "train" : {
                 "cost" : {
@@ -140,9 +140,9 @@ class Building:
             },
             "level" : {
                 "cost" : {
-                    "gold" : 10,
-                    "wood" : 0,
-                    "stone" : 0
+                    "gold" : 0,
+                    "wood" : 12,
+                    "stone" : 1
                 },
                 "time" : 600
             },

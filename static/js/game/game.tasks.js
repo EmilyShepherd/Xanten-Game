@@ -241,6 +241,38 @@ game.tasks = {
 				},
 				"static/img/game/resource/people.png");
 		},
+		"train_lumberjack": function(data) {
+			return new Task(data,
+				'Training <span class="bold">' + data.number + "</span> lumberjacks" , {
+					// TODO url should be changed to /me/people/move
+					// TODO type changed to PUT
+					"url": '/me/building/lumberjack/build',
+					"data": data,
+					"type": 'GET'
+				},
+				function(task) {					
+					game.player.consumeResources(game.unit.lumberjack.create(task.data.number));
+				},
+				function(task) {
+					game.player.city.buildings.lumberjack.people 	= parseInt(task.data.number) + parseInt(game.player.city.buildings.lumberjack.people);
+				},
+				"static/img/game/resource/people.png");
+		},
+		"untrain_lumberjack": function(data) {
+			return new Task(data,
+				'Reduce <span class="bold">' + data.number + "</span> lumberjacks" , {
+					// TODO url should be changed to /me/people/move
+					// TODO type changed to PUT
+					"url": '/me/building/lumberjack/build',
+					"data": data,
+					"type": 'GET'
+				},
+				undefined,
+				function(task) {
+					game.player.city.buildings.lumberjack.people 	= parseInt(game.player.city.buildings.lumberjack.people) - parseInt(task.data.number);
+				},
+				"static/img/game/resource/people.png");
+		},
 		"train_farmer": function(data) {
 			return new Task(data,
 				'Training <span class="bold">' + data.number + "</span> farmers" , {

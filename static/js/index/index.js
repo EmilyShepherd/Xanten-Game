@@ -18,7 +18,7 @@ var game 			= null,
  * @field
  * @type boolean 
  */
-	DEVELOPER_MODE 	= true;
+	DEVELOPER_MODE 	= false;
 
 var thread_games,
 	thread_users;

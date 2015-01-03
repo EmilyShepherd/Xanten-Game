@@ -41,11 +41,13 @@ class MeHandler(DefaultHandler):
                     newLevel = self.user.homeLvl + 1
                 else:
                     newLevel = int(getattr(self.user, bname + 'Lvl')) + 1
-                realCost['gold'] = cost['gold']   * newLevel
-                realCost['wood'] = cost['wood']   * (1.35 ** newLevel)
+                realCost['gold']  = cost['gold']  * newLevel
+                realCost['wood']  = cost['wood']  * (1.35 ** newLevel)
                 realCost['stone'] = cost['stone'] * (1.35 ** newLevel)
+                time              = building['time'] * newLevel
             else:
                 realCost = cost
+                time     = building['time']
 
             # You need to pay for what you build!
             if         self.user.gold  < realCost['gold']    \
@@ -69,7 +71,7 @@ class MeHandler(DefaultHandler):
                 queueO           = Queue()
                 queueO.queueType = queue
                 queueO.name      = bname
-                self.user.addQueue(queueO, building['time'])
+                self.user.addQueue(queueO, time)
                 queueO.put()
 
                 self.json['status'] = 'Started'

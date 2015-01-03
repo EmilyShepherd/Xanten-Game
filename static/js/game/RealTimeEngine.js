@@ -182,10 +182,11 @@ RealTimeEngine.prototype.performAttack = function(data){
 /**
  * It is called when the game receives the statistics for a day. It includes disasters
  * @memberOf RealTimeEngine.prototype
- * @param {object} statistics The statistics for a day (number of free people, gold)
+ * @param {object} statistics The statistics for a day (number of free people, resources.gold)
  */
 RealTimeEngine.prototype.receiveDailyStatistics = function(statistics){
-	game.player.resources.gold 							= statistics.gold;
+	Window.newsBoard.add("<span class='news_done'>Done</span>:  Daily statistics: <br />" + HTML_Engine.content.displaysResources(statistics));
+	game.player.resources.gold 							= statistics.resources.gold;
 	game.player.city.buildings.administration.people 	= statistics.people;
 };
 

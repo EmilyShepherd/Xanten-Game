@@ -226,6 +226,7 @@ Connection.prototype.joinGame = function() {
 	clearInterval(this.threadUsers);
 	$("#available_games").html();
 	$("#create_game").hide();
+	$('body').css('background-image','none');
 	$("#join_game").show(500);
 	this.threadGames = setInterval(this.getGames, 2000);
 	this.getGames();

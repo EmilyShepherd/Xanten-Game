@@ -20,13 +20,13 @@ var game 			= null,
  * @type boolean 
  * @default false
  */
-	DEVELOPER_MODE 	= false,
+	DEVELOPER_MODE 	= true,
 	/**
-	 * A reference to the connection to the server. It is created after the page loads
+	 * A reference to the connection to the server. It is created after the page loads. It is deleted after the game starts, because there is no need for it anymore
 	 * @field
 	 * @type Connection 
 	 * @see Connection
-	 * @default null
+	 * @default object
 	 */
 	connection = {};
 

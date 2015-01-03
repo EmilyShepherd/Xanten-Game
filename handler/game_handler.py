@@ -23,7 +23,7 @@ class GameHandler(DefaultHandler):
         game            = Game(gid = uuid.uuid4().hex)
         game.name       = self.getPOSTorRandom('game_name', Game)
         game.gmap       = gMap.toString()
-        game.maxPlayers = Map.countInhabitalSpace(game.gmap);
+        game.maxPlayers = gMap.countHabitable()
         game.private    = False if self.request.POST['game_type'] == 'public' else True
         game.owner      = self.join_game(game, self.getPOSTorRandom('game_user', User))
         game.put()
@@ -181,6 +181,7 @@ class GameHandler(DefaultHandler):
         # The userid
         return sess.uid
 
+    # Calculates the immigration for all playing users evey 5 minutes
     def cron(self):
         for user in User.query(User.positionOnMap != None).fetch():
             user.updateValues()

@@ -34,6 +34,7 @@ class User(ndb.Model):
     # The user's name (human readable)
     name = ndb.StringProperty()
 
+    # The token which is used by the GAE channel
     secret = ndb.StringProperty()
 
     # The game this user is a member of
@@ -47,18 +48,6 @@ class User(ndb.Model):
 
     # The last time their values were updated
     lastUpdated = ndb.DateTimeProperty(auto_now_add=True)
-
-    # If a building is being built at the moment, its name will be here
-    buildingQueue = ndb.StringProperty()
-
-    # The time that the building will have completed
-    buildingFinish = ndb.DateTimeProperty()
-
-    # If a building is being built at the moment, its name will be here
-    levelingQueue = ndb.StringProperty()
-
-    # The time that the building will have completed
-    levelingFinish = ndb.DateTimeProperty()
 
     # What level their city has reached:
     #   0 = Hamlet
@@ -96,12 +85,13 @@ class User(ndb.Model):
     # The number of people at the trade centre
     peopleAtTrade = ndb.IntegerProperty(default=0)
 
-    # Has this player got a grapevine?
+    # The number of mills this player has
     mills = ndb.IntegerProperty(default=0)
 
-    # The number of people at the grapevine
+    # The number of people at the mill
     peopleAtMill = ndb.IntegerProperty(default=0)
 
+    # The level of the mills
     millLvl = ndb.IntegerProperty(default=0)
 
     # Has this player got storage?
@@ -141,19 +131,24 @@ class User(ndb.Model):
     # Number of people at the lumberjacks
     peopleAtLumberjack = ndb.IntegerProperty(default=0)
 
-    # How many docks has this player got?
+    # How many farms has this player got?
     farms = ndb.IntegerProperty(default=0)
 
-    # The level of the docks
+    # The level of the farm
     farmLvl = ndb.IntegerProperty(default=1)
 
-    # Number of people at the docks
+    # Number of people at the farm
     peopleAtFarm = ndb.IntegerProperty(default=0)
 
+    # Adds a given queue to this user, and sets its finish time based on
+    # this user's lastUpdated time and the given number of seconds
     def addQueue(self, queue, secs):
         queue.finish = self.lastUpdated + datetime.timedelta(seconds = secs)
         queue.uid    = self.uid
 
+    # Calculates the resources up to the finishing point of the given
+    # queue, then credits the user with the result of that completed
+    # queue
     def finishQueue(self, queue):
 
         timeDelta = queue.finish - self.lastUpdated
@@ -200,9 +195,7 @@ class User(ndb.Model):
 
         queues = Queue.query(
             Queue.uid == self.uid,
-            Queue.finish <= datetime.datetime.now()#,
-            #Queue.queueType != Queue.TYPE_SEND,
-            #Queue.queueType != Queue.TYPE_ATTACK
+            Queue.finish <= datetime.datetime.now()
         )
 
         for queue in queues.order(Queue.finish).fetch():
@@ -215,11 +208,6 @@ class User(ndb.Model):
         self.runUpdate((dt - self.lastUpdated).total_seconds())
 
         self.lastUpdated = dt
-
-    # Checks if a queue exists and has finished
-    def queueFinished(self, queue):
-        return getattr(self, queue + 'ingQueue') \
-            and self.getQueueFinished(queue) <= 0
 
     # Calculates the resource gains in the given amount of time and adds
     # these to the user's account
@@ -249,45 +237,33 @@ class User(ndb.Model):
               self.peopleAtHome                          \
             * 0.1 * (secs / 60.0)
 
+    # Calculates the total number of people this player has
     def totalPeople(self):
-        return \
-              self.peopleAtHome        \
-            + self.peopleAtMine        \
-            + self.peopleAtLumberjack  \
-            + self.peopleAtFarm        \
-            + self.peopleAtMill        \
-            + self.peopleAtTrade       \
+        return                                           \
+              self.peopleAtHome                          \
+            + self.peopleAtMine                          \
+            + self.peopleAtLumberjack                    \
+            + self.peopleAtFarm                          \
+            + self.peopleAtMill                          \
+            + self.peopleAtTrade                         \
             + self.peopleAtMilitary
 
+    # Calculates the satisfaction rate of this user's city
     def satisfactionRate(self):
         people = self.totalPeople()
-        rate   = \
-              self.food - 10 * people \
-            + self.houses * 200 - people \
+        rate   =                                         \
+              self.food - 10 * people                    \
+            + self.houses * 200 - people                 \
             + 0 - 0
 
         return 0.0001 * rate
-
-    # The Queue Finished time is stored in the database as a timestamp.
-    # This takes a value in seconds and creates a timestamp from it,
-    # x seconds away from now
-    def setQueueFinished(self, queue, secs):
-        setattr(self, queue + 'ingFinish',
-            self.lastUpdated + datetime.timedelta(seconds = secs)
-        )
-
-    # Returns the number of seconds until the building in the given
-    # queue is complete
-    def getQueueFinished(self, queue):
-        dt = datetime.datetime.now()
-        return (getattr(self, queue + 'ingFinish') - dt).total_seconds()
 
     # Returns true / false depending on whether the user has the given
     # type of building
     def hasBuilding(self, building):
         if building == 'home':
             return True
-        elif building in ['trade', 'storage', 'military', 'grapevine']:
+        elif building in ['trade', 'storage', 'military']:
             return getattr(self, building)
         else:
             return bool(getattr(self, building + 's'))

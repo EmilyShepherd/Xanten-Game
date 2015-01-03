@@ -75,9 +75,11 @@ class DefaultHandler(webapp2.RequestHandler):
     def getRand(self, arr):
         return arr[random.randrange(0, len(arr))]
 
+    # Sends a message to the current user, using the GAE channel API
     def sendMessage(self, call, data):
         self.sendMessageTo(self.user, call, data)
 
+    # Sends a message to the given user, using the GAE channel API
     def sendMessageTo(self, user, call, data):
         msg = {
             "call" : call,

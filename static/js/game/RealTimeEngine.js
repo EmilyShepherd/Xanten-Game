@@ -178,7 +178,7 @@ RealTimeEngine.prototype.receiveAttack = function(message){
  * @memberOf RealTimeEngine.prototype
  */
 RealTimeEngine.prototype.performAttack = function(data){
-	// TODO @Cristian send socket
+	// TODO send socket
 };
 
 /**

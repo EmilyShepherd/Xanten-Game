@@ -592,7 +592,6 @@ HTML_Engine.inside_military = {
 					id: 'units',
 					min: 1,
 					max: nr_of_active_units,
-					/* TODO @Cristian the number of free people*/
 					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content({
 							time: parseInt(ui.value) * 5 /* TODO @George real resources */
@@ -801,10 +800,9 @@ HTML_Engine.inside_mine = {
 					id: 'units',
 					min: 1,
 					max: nr_of_active_units,
-					/* TODO @Cristian the number of free people*/
 					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content({
-							time: parseInt(ui.value) * 5 /* TODO @George real resources */
+							time: parseInt(ui.value) * 5
 						}));
 					}
 				}],
@@ -1116,10 +1114,9 @@ HTML_Engine.inside_lumberjack = {
 					id: 'units',
 					min: 1,
 					max: nr_of_active_units,
-					/* TODO @Cristian the number of free people*/
 					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content({
-							time: parseInt(ui.value) * 5 /* TODO @George real resources */
+							time: parseInt(ui.value) * 5 
 						}));
 					}
 				}],
@@ -1259,10 +1256,9 @@ HTML_Engine.inside_farm = {
 					id: 'units',
 					min: 1,
 					max: nr_of_active_units,
-					/* TODO @Cristian the number of free people*/
 					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content({
-							time: parseInt(ui.value) * 5 /* TODO @George real resources */
+							time: parseInt(ui.value) * 5
 						}));
 					}
 				}],
@@ -1589,7 +1585,6 @@ HTML_Engine.sendUnits = {
 					id: 'units',
 					min: 1,
 					max: nr_of_active_units,
-					/* TODO @Cristian the number of free people*/
 					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content(
 							game.unit.military.send(parseInt(ui.value))
@@ -1677,7 +1672,6 @@ HTML_Engine.attackCity = {
 					id: 'units',
 					min: 1,
 					max: nr_of_active_units,
-					/* TODO @Cristian the number of free people*/
 					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content(
 							game.unit.military.attack(parseInt(ui.value))
@@ -1686,8 +1680,7 @@ HTML_Engine.attackCity = {
 				}, {
 					id: 'wine',
 					mine: 1,
-					max: 900,
-					/* TODO @Cristian */
+					max: game.player.resources.food,
 					change: function(event, ui, extra) {
 						extra.html("Incresed by " + Math.round(parseInt(ui.value) / 900 * 25) + "%");
 					}

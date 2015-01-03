@@ -61,6 +61,10 @@ class GameHandler(DefaultHandler):
 
             if game.running and self.checkLogin(False):
                 self.json['game']           = { }
+                self.json['game']['data']   = {
+                    'status' : 'running' if game.running else 'waiting',
+                    'token'  : game.gid
+                }
                 self.json['player']         = self.user.toDict()
                 self.json['game']['maps']   = {
                     "world" : Map(game.gmap).toDict(),

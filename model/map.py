@@ -238,10 +238,10 @@ class Map:
         treesInColoum = [0] * 7
         doneHome = False
 
-        for y in range(0, 6):
+        for y in range(0, 7):
             cMap.append([ ])
             treesInRow = 0
-            for x in range(0, 6):
+            for x in range(0, 7):
                 cMap[y].append({
                     "type_construction" : None,
                     "id_construction"   : None

@@ -5,7 +5,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="generator" content="JsDoc Toolkit" />
 		
-		<title>JsDoc Reference - RealTimeEngine</title>
+		<title>JsDoc Reference - Connection</title>
 
 		<style type="text/css">
 			/* default.css */
@@ -290,7 +290,7 @@ ul.inheritsList
 <!-- ============================== class title ============================ -->
 			<h1 class="classTitle">
 				
-				Class RealTimeEngine
+				Class Connection
 			</h1>
 
 <!-- ============================== class summary ========================== -->			
@@ -301,13 +301,13 @@ ul.inheritsList
 				
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/D__Workspace_Python_CAD-TeaM_static_js_index_RealTimeEngine.js.html">RealTimeEngine.js</a>.
+					<br /><i>Defined in: </i> <a href="../symbols/src/D__Workspace_Python_CAD-TeaM_static_js_index_Connection.js.html">Connection.js</a>.
 				
 			</p>
 
 <!-- ============================== constructor summary ==================== -->			
 			
-			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class RealTimeEngine.">
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class Connection.">
 				<caption>Class Summary</caption>
 				<thead>
 					<tr>
@@ -320,9 +320,9 @@ ul.inheritsList
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/RealTimeEngine.html#constructor">RealTimeEngine</a></b>()
+								<b><a href="../symbols/Connection.html#constructor">Connection</a></b>()
 							</div>
-							<div class="description">It does the magic of the game.</div>
+							<div class="description">It has functions for creating or joining a game</div>
 						</td>
 					</tr>
 				</tbody>
@@ -333,7 +333,7 @@ ul.inheritsList
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class RealTimeEngine.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class Connection.">
 					<caption>Field Summary</caption>
 					<thead>
 						<tr>
@@ -347,9 +347,9 @@ ul.inheritsList
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/RealTimeEngine.html#isRunning">isRunning</a></b>
+								<b><a href="../symbols/Connection.html#threadGames">threadGames</a></b>
 								</div>
-								<div class="description">If true, the RTE is running, false otherwise</div>
+								<div class="description">It represents the thread for receiving the available games</div>
 							</td>
 						</tr>
 					
@@ -357,9 +357,9 @@ ul.inheritsList
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/RealTimeEngine.html#websocket">websocket</a></b>
+								<b><a href="../symbols/Connection.html#threadUsers">threadUsers</a></b>
 								</div>
-								<div class="description">The reference to the websocket object</div>
+								<div class="description">It represents the thread for receiving the available players for a given game</div>
 							</td>
 						</tr>
 					
@@ -374,7 +374,7 @@ ul.inheritsList
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class RealTimeEngine.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class Connection.">
 					<caption>Method Summary</caption>
 					<thead>
 						<tr>
@@ -387,72 +387,90 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/RealTimeEngine.html#freeze">freeze</a></b>()
+								<div class="fixedFont"><b><a href="../symbols/Connection.html#createGame">createGame</a></b>()
 								</div>
-								<div class="description">It stops the calculation of resources.</div>
+								<div class="description">It displays the form to create a new game (with the random medium map)</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/RealTimeEngine.html#performAttack">performAttack</a></b>(data)
+								<div class="fixedFont"><b><a href="../symbols/Connection.html#generateAbstractGeneralMap">generateAbstractGeneralMap</a></b>(The)
 								</div>
-								<div class="description">Perform an attack</div>
+								<div class="description">It generates and returns a random map for the world</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/RealTimeEngine.html#receiveAttack">receiveAttack</a></b>(message)
+								<div class="fixedFont"><b><a href="../symbols/Connection.html#generateGeneralMap">generateGeneralMap</a></b>(size)
 								</div>
-								<div class="description">It is called when a message is received for this user</div>
+								<div class="description">It generates an displays a new random map for the world.</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/RealTimeEngine.html#receiveDailyStatistics">receiveDailyStatistics</a></b>(statistics)
+								<div class="fixedFont"><b><a href="../symbols/Connection.html#generateHTMLMap">generateHTMLMap</a></b>(imgArray)
 								</div>
-								<div class="description">It is called when the game receives the statistics for a day.</div>
+								<div class="description">It returns the html representation of the map</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/RealTimeEngine.html#receiveGameStatus">receiveGameStatus</a></b>(status)
+								<div class="fixedFont"><b><a href="../symbols/Connection.html#getGames">getGames</a></b>()
 								</div>
-								<div class="description">It is called when server tells the status of the game</div>
+								<div class="description">It gets all the public non-started games and displays them</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/RealTimeEngine.html#receiveMessage">receiveMessage</a></b>(message)
+								<div class="fixedFont"><b><a href="../symbols/Connection.html#getUpdateGame">getUpdateGame</a></b>()
 								</div>
-								<div class="description">It is called when a message is received for this user</div>
+								<div class="description">It gets the last updates (users, status) of the game.</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/RealTimeEngine.html#run">run</a></b>()
+								<div class="fixedFont"><b><a href="../symbols/Connection.html#joinGame">joinGame</a></b>()
 								</div>
-								<div class="description">It stats the thread for resources, starts the channel for websocket and assigns the listeners</div>
+								<div class="description">It displays the div with the public games which are available</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/RealTimeEngine.html#sendMessage">sendMessage</a></b>(message, player_id)
+								<div class="fixedFont"><b><a href="../symbols/Connection.html#joinGameNow">joinGameNow</a></b>(token)
 								</div>
-								<div class="description">it is called in order to send a message to another player</div>
+								<div class="description">It helps a user to join a game based on the token.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/Connection.html#startGame">startGame</a></b>(response)
+								</div>
+								<div class="description">It loads the necesarry javascript and css resources and then it starts the game by creating a new game.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/Connection.html#waitingPlayer">waitingPlayer</a></b>(response)
+								</div>
+								<div class="description">It saves the session and token of the user and sets an interval for getting the last updates of the game</div>
 							</td>
 						</tr>
 					
@@ -473,11 +491,11 @@ ul.inheritsList
 				</div>
 				
 				<div class="fixedFont">
-						<b>RealTimeEngine</b>()
+						<b>Connection</b>()
 				</div>
 				
 				<div class="description">
-					It does the magic of the game. It maintain the connection with the server, it progress any websockets and it progress the resources.
+					It has functions for creating or joining a game
 					
 				</div>
 				
@@ -501,15 +519,15 @@ ul.inheritsList
 					Field Detail
 				</div>
 				
-					<a name="isRunning"> </a>
+					<a name="threadGames"> </a>
 					<div class="fixedFont">
 					
-					<span class="light">{boolean}</span>
-					<b>isRunning</b>
+					<span class="light">{reference}</span>
+					<b>threadGames</b>
 					
 					</div>
 					<div class="description">
-						If true, the RTE is running, false otherwise
+						It represents the thread for receiving the available games
 						
 						
 					</div>
@@ -523,15 +541,15 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name="websocket"> </a>
+					<a name="threadUsers"> </a>
 					<div class="fixedFont">
 					
-					<span class="light">{object}</span>
-					<b>websocket</b>
+					<span class="light">{reference}</span>
+					<b>threadUsers</b>
 					
 					</div>
 					<div class="description">
-						The reference to the websocket object
+						It represents the thread for receiving the available players for a given game
 						
 						
 					</div>
@@ -553,15 +571,15 @@ ul.inheritsList
 					Method Detail
 				</div>
 				
-					<a name="freeze"> </a>
+					<a name="createGame"> </a>
 					<div class="fixedFont">
 					
 					
-					<b>freeze</b>()
+					<b>createGame</b>()
 					
 					</div>
 					<div class="description">
-						It stops the calculation of resources. It stops the connection with the websocket and removes the listeners
+						It displays the form to create a new game (with the random medium map)
 						
 						
 					</div>
@@ -578,15 +596,58 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name="performAttack"> </a>
+					<a name="generateAbstractGeneralMap"> </a>
 					<div class="fixedFont">
 					
-					
-					<b>performAttack</b>(data)
+					<span class="light">{string}</span>
+					<b>generateAbstractGeneralMap</b>(The)
 					
 					</div>
 					<div class="description">
-						Perform an attack
+						It generates and returns a random map for the world
+						
+						<br /><i>Author: </i>Joe.
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{string}</span> <b>The</b>
+									
+								</dt>
+								<dd>size of the map (small, medium, large)</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{string}</span> The map for the world</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="generateGeneralMap"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>generateGeneralMap</b>(size)
+					
+					</div>
+					<div class="description">
+						It generates an displays a new random map for the world. Also, it stores it in a variable and focus the field "name of user"
 						
 						
 					</div>
@@ -598,10 +659,10 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{object}</span> <b>data</b>
+									<span class="light fixedFont">{string}</span> <b>size</b>
 									
 								</dt>
-								<dd>Information regarding the attack</dd>
+								<dd>The size of the map. It can be: small, medium, large</dd>
 							
 							</dl>
 						
@@ -614,15 +675,133 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name="receiveAttack"> </a>
+					<a name="generateHTMLMap"> </a>
 					<div class="fixedFont">
 					
-					
-					<b>receiveAttack</b>(message)
+					<span class="light">{string}</span>
+					<b>generateHTMLMap</b>(imgArray)
 					
 					</div>
 					<div class="description">
-						It is called when a message is received for this user
+						It returns the html representation of the map
+						
+						<br /><i>Author: </i>Joe and Cristian.
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>imgArray</b>
+									
+								</dt>
+								<dd>{array} An array with the map</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{string}</span> A string representing the HTML map</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="getGames"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>getGames</b>()
+					
+					</div>
+					<div class="description">
+						It gets all the public non-started games and displays them
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="getUpdateGame"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>getUpdateGame</b>()
+					
+					</div>
+					<div class="description">
+						It gets the last updates (users, status) of the game. If the game is started, it sents the user to /game
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="joinGame"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>joinGame</b>()
+					
+					</div>
+					<div class="description">
+						It displays the div with the public games which are available
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="joinGameNow"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>joinGameNow</b>(token)
+					
+					</div>
+					<div class="description">
+						It helps a user to join a game based on the token. If there are problems it displays a message
 						
 						
 					</div>
@@ -634,10 +813,10 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{string}</span> <b>message</b>
+									<span class="light fixedFont">{string}</span> <b>token</b>
 									
 								</dt>
-								<dd>An object which contain all the information regarding the message ("sent_from", "content", "id", "date")</dd>
+								<dd>The token of the game</dd>
 							
 							</dl>
 						
@@ -650,15 +829,15 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name="receiveDailyStatistics"> </a>
+					<a name="startGame"> </a>
 					<div class="fixedFont">
 					
 					
-					<b>receiveDailyStatistics</b>(statistics)
+					<b>startGame</b>(response)
 					
 					</div>
 					<div class="description">
-						It is called when the game receives the statistics for a day. It includes disasters
+						It loads the necesarry javascript and css resources and then it starts the game by creating a new game.
 						
 						
 					</div>
@@ -670,10 +849,10 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{object}</span> <b>statistics</b>
+									<span class="light fixedFont">{object}</span> <b>response</b>
 									
 								</dt>
-								<dd>The statistics for a day (number of free people, gold)</dd>
+								<dd>The object which contain information regarding the game.</dd>
 							
 							</dl>
 						
@@ -686,15 +865,15 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name="receiveGameStatus"> </a>
+					<a name="waitingPlayer"> </a>
 					<div class="fixedFont">
 					
 					
-					<b>receiveGameStatus</b>(status)
+					<b>waitingPlayer</b>(response)
 					
 					</div>
 					<div class="description">
-						It is called when server tells the status of the game
+						It saves the session and token of the user and sets an interval for getting the last updates of the game
 						
 						
 					</div>
@@ -706,113 +885,10 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{string}</span> <b>status</b>
+									<span class="light fixedFont">{object}</span> <b>response</b>
 									
 								</dt>
-								<dd>It contains the status of the game. If it is lost, it stops the game</dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="receiveMessage"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>receiveMessage</b>(message)
-					
-					</div>
-					<div class="description">
-						It is called when a message is received for this user
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<span class="light fixedFont">{string}</span> <b>message</b>
-									
-								</dt>
-								<dd>An object which contain all the information regarding the message ("sent_from", "content", "id", "date")</dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="run"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>run</b>()
-					
-					</div>
-					<div class="description">
-						It stats the thread for resources, starts the channel for websocket and assigns the listeners
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="sendMessage"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>sendMessage</b>(message, player_id)
-					
-					</div>
-					<div class="description">
-						it is called in order to send a message to another player
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<span class="light fixedFont">{string}</span> <b>message</b>
-									
-								</dt>
-								<dd>The message to be sent</dd>
-							
-								<dt>
-									<span class="light fixedFont">{number}</span> <b>player_id</b>
-									
-								</dt>
-								<dd>The id of the player</dd>
+								<dd>The object from database which contain the information to identify the user and the game</dd>
 							
 							</dl>
 						

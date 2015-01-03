@@ -4,13 +4,15 @@
  * @version 30.12.2014
  */
 
+
+
 /**
  * A player contains information regarding the current player: resources, city, name and id
  * @constructor
  * @param (object) info 		The object which holds information regarding the player (it must have id, name, resources, and buildings).	
  * @returns (object) Player		The player
  */
-var Player = function(info){
+function Player(info){
 	
 	this.id			= info.id; 
 	this.name		= info.name;

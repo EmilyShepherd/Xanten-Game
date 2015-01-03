@@ -5,6 +5,7 @@
  */
  
 
+
 /**
  *  An action is an object which holds the information regarding the HTML to be displayed, the function to be called when the action is changed.
  *  @constructor

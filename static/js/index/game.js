@@ -1,15 +1,15 @@
 /**
- * @file Represents Game object.
+ * @file Represents Game object
  * @author JavaScript Team. Team M
- * @version 30.12.2014
+ * @version 3.1.2015
  */
 
 /**
- * The game object. Just one object of this type
+ * The game object. It contains information regarding the maps, current player and map, realTimeEngine. It can perform a task and a action. It stores the tasks
  * @constructor
- * @author Cristian Sima && others
- * @version 30.12.2014
- * @property {object} data Information about game. eg(token)
+ * @version 3.1.2015
+ * @author Cristian Sima && George Salter && Joe Buckingham
+ * @property {object} data Information about game. Please see the response.data object {@link Connection.startGame}
  * @property {Player} player The current player of the game
  * @property {XantenMap} currentMap The current map
  * @property {CityMap} cityMap The city map object
@@ -24,6 +24,7 @@
 function Game(data, player, cityMap, worldMap, tasks) {
 	
 	this.data 			= data;
+	this.started		= false;
 	this.data.tasks 	= tasks;
 
 	this.player = player;
@@ -41,7 +42,7 @@ function Game(data, player, cityMap, worldMap, tasks) {
 }
 
 /**
- * It loads, inits and creates the game. Should be called ones, else it gives an error
+ * It loads, inits and creates the game. Should be called ones, else it gives an error. It calls the init method of the maps, the Window. Then, it calls the start method
  * @memberOf Game.prototype
  */
 Game.prototype.init = function() {

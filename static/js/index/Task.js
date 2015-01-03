@@ -1,6 +1,6 @@
 /**
  * @file Represents performing task. It is a model object (MCV)
- * @author Cristian Sima
+ * @author Cristian Sima and George Salter
  * @version 30.11.2014
  */
 

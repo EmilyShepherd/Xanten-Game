@@ -199,6 +199,8 @@ ul.inheritsList
 	
 	<li><a href="../symbols/CityMap.html">CityMap</a></li>
 	
+	<li><a href="../symbols/Connection.html">Connection</a></li>
+	
 	<li><a href="../symbols/Game.html">Game</a></li>
 	
 	<li><a href="../symbols/HTML_Engine.html">HTML_Engine</a></li>
@@ -347,6 +349,60 @@ ul.inheritsList
 
 <!-- ============================== methods summary ======================== -->
 			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class _global_.">
+					<caption>Method Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Method Attributes</th>
+							<th scope="col">Method Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/_global_.html#check">check</a></b>(y_coord, x_coord)
+								</div>
+								<div class="description">Checks the value of a space in the map array, returning the empty string for co-ordinates that don't exist.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/_global_.html#createGame">createGame</a></b>()
+								</div>
+								<div class="description">It creates the cityMap, worldMap, player and game objects.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/_global_.html#loadJS">loadJS</a></b>()
+								</div>
+								<div class="description">It loads the JavaScript objects for game</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/_global_.html#loadJsFile">loadJsFile</a></b>(file)
+								</div>
+								<div class="description">It loads a JavaScript file</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+			
 <!-- ============================== events summary ======================== -->
 			
 
@@ -381,6 +437,13 @@ ul.inheritsList
 						
 						
 						
+							<dl class="detailList">
+							<dt class="heading">Default Value:</dt>
+							<dd>
+								false
+							</dd>
+							</dl>
+						
 
 					<hr />
 				
@@ -392,7 +455,7 @@ ul.inheritsList
 					
 					</div>
 					<div class="description">
-						It is the reference for the current game.
+						It is the reference for the current game. The game object is created ones the player who started the game decides to start playing
 						
 							<br />
 							<i>Defined in: </i> <a href="../symbols/src/D__Workspace_Python_CAD-TeaM_static_js_index_index.js.html">index.js</a>.
@@ -413,12 +476,171 @@ ul.inheritsList
 							</dl>
 						
 						
+							<dl class="detailList">
+							<dt class="heading">Default Value:</dt>
+							<dd>
+								null
+							</dd>
+							</dl>
+						
 
 					
 				
 			
 
 <!-- ============================== method details ========================= -->		
+			
+				<div class="sectionTitle">
+					Method Detail
+				</div>
+				
+					<a name="check"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{boolean}</span>
+					<b>check</b>(y_coord, x_coord)
+					
+					</div>
+					<div class="description">
+						Checks the value of a space in the map array, returning the empty string for co-ordinates that don't exist.(This avoids nasty array index errors when we get close to the edges.)
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/D__Workspace_Python_CAD-TeaM_static_js_index_Connection.js.html">Connection.js</a>.
+						
+						<br /><i>Author: </i>Joe.
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{string}</span> <b>y_coord</b>
+									
+								</dt>
+								<dd>The y co-ordonate</dd>
+							
+								<dt>
+									<span class="light fixedFont">{string}</span> <b>x_coord</b>
+									
+								</dt>
+								<dd>The x co-ordonate</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{boolean}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="createGame"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>createGame</b>()
+					
+					</div>
+					<div class="description">
+						It creates the cityMap, worldMap, player and game objects. Then it calls the game.init() method
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/D__Workspace_Python_CAD-TeaM_static_js_index_Connection.js.html">Connection.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="loadJS"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>loadJS</b>()
+					
+					</div>
+					<div class="description">
+						It loads the JavaScript objects for game
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/D__Workspace_Python_CAD-TeaM_static_js_index_Connection.js.html">Connection.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="loadJsFile"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>loadJsFile</b>(file)
+					
+					</div>
+					<div class="description">
+						It loads a JavaScript file
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/D__Workspace_Python_CAD-TeaM_static_js_index_Connection.js.html">Connection.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>file</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					
+				
 			
 			
 <!-- ============================== event details ========================= -->		
@@ -431,7 +653,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Sat Jan 03 2015 16:09:14 GMT+0200 (EET)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Sat Jan 03 2015 18:05:26 GMT+0200 (EET)
 		</div>
 	</body>
 </html>

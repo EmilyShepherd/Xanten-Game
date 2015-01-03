@@ -18,7 +18,7 @@ class Building:
                     "wood" : 100,
                     "stone" : 100
                 },
-                "time" : 600
+                "time" : 10
             }
         },
         # Docks produce food! :)
@@ -29,7 +29,7 @@ class Building:
                     "wood" : 0,
                     "stone" : 0
                 },
-                "time" : 600
+                "time" : 10
             },
             "level" : {
                 "cost" : {
@@ -37,7 +37,7 @@ class Building:
                     "wood" : 0,
                     "stone" : 0
                 },
-                "time" : 600
+                "time" : 10
             },
             "train" : {
                 "cost" : {
@@ -57,7 +57,7 @@ class Building:
                     "wood" : 0,
                     "stone" : 0
                 },
-                "time" : 600
+                "time" : 10
             },
             "level" : {
                 "cost" : {
@@ -83,7 +83,7 @@ class Building:
                     "wood" : 0,
                     "stone" : 0
                 },
-                "time" : 600
+                "time" : 10
             },
             "level" : {
                 "cost" : {
@@ -109,7 +109,7 @@ class Building:
                     "wood" : 0,
                     "stone" : 0
                 },
-                "time" : 600
+                "time" : 10
             },
             "level" : {
                 "cost" : {
@@ -135,7 +135,7 @@ class Building:
                     "wood" : 0,
                     "stone" : 0
                 },
-                "time" : 600,
+                "time" : 10,
                 "goldMineChance" : 10
             },
             "level" : {
@@ -144,7 +144,7 @@ class Building:
                     "wood" : 12,
                     "stone" : 1
                 },
-                "time" : 600
+                "time" : 10
             },
             "train" : {
                 "cost" : {
@@ -162,7 +162,7 @@ class Building:
                     "wood" : 0,
                     "stone" : 0
                 },
-                "time" : 600
+                "time" : 10
             },
             "level" : {
                 "cost" : {
@@ -170,7 +170,59 @@ class Building:
                     "wood" : 0,
                     "stone" : 0
                 },
-                "time" : 600
+                "time" : 10
+            },
+            "train" : {
+                "cost" : {
+                    "gold" : 10,
+                    "wood" : 0,
+                    "stone" : 0
+                },
+                "time" : 6
+            }
+        },
+        "farm" : {
+            "build" : {
+                "cost" : {
+                    "gold" : 10,
+                    "wood" : 0,
+                    "stone" : 0
+                },
+                "time" : 10
+            },
+            "level" : {
+                "cost" : {
+                    "gold" : 10,
+                    "wood" : 0,
+                    "stone" : 0
+                },
+                "time" : 10
+            },
+            "train" : {
+                "cost" : {
+                    "gold" : 10,
+                    "wood" : 0,
+                    "stone" : 0
+                },
+                "time" : 6
+            }
+        },
+        "house" : {
+            "build" : {
+                "cost" : {
+                    "gold" : 10,
+                    "wood" : 0,
+                    "stone" : 0
+                },
+                "time" : 10
+            },
+            "level" : {
+                "cost" : {
+                    "gold" : 1000000000000,
+                    "wood" : 1000000000000,
+                    "stone" : 1000000000000
+                },
+                "time" : 10
             },
             "train" : {
                 "cost" : {

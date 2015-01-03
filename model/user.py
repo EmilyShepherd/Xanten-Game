@@ -97,10 +97,12 @@ class User(ndb.Model):
     peopleAtTrade = ndb.IntegerProperty(default=0)
 
     # Has this player got a grapevine?
-    grapevine = ndb.BooleanProperty(default=False)
+    mills = ndb.IntegerProperty(default=0)
 
     # The number of people at the grapevine
-    peopleAtGrapevine = ndb.IntegerProperty(default=0)
+    peopleAtMill = ndb.IntegerProperty(default=0)
+
+    millLvl = ndb.IntegerProperty(default=0)
 
     # Has this player got storage?
     storage = ndb.BooleanProperty(default=False)
@@ -140,13 +142,13 @@ class User(ndb.Model):
     peopleAtLumberjack = ndb.IntegerProperty(default=0)
 
     # How many docks has this player got?
-    docks = ndb.IntegerProperty(default=0)
+    farms = ndb.IntegerProperty(default=0)
 
     # The level of the docks
-    dockLvl = ndb.IntegerProperty(default=1)
+    farmLvl = ndb.IntegerProperty(default=1)
 
     # Number of people at the docks
-    peopleAtDock = ndb.IntegerProperty(default=0)
+    peopleAtFarm = ndb.IntegerProperty(default=0)
 
     def addQueue(self, queue, secs):
         queue.finish = self.lastUpdated + datetime.timedelta(seconds = secs)
@@ -223,10 +225,10 @@ class User(ndb.Model):
     # these to the user's account
     def runUpdate(self, secs):
         self.food +=                                     \
-              (self.peopleAtDock * self.level)           \
+              (self.peopleAtFarm * self.level)           \
             * secs / 60.0
         self.food +=                                     \
-              (self.peopleAtGrapevine * self.level)      \
+              (self.peopleAtMill * self.level)           \
             * secs / 60.0
         self.wood +=                                     \
               self.lumberjackLvl                         \
@@ -252,8 +254,8 @@ class User(ndb.Model):
               self.peopleAtHome        \
             + self.peopleAtMine        \
             + self.peopleAtLumberjack  \
-            + self.peopleAtDock        \
-            + self.peopleAtGrapevine   \
+            + self.peopleAtFarm        \
+            + self.peopleAtMill        \
             + self.peopleAtTrade       \
             + self.peopleAtMilitary
 
@@ -336,14 +338,14 @@ class User(ndb.Model):
                     "people" : self.peopleAtLumberjack
                 },
                 "farm"        : {
-                    "num"    : self.docks,
-                    "level"  : self.dockLvl,
-                    "people" : self.peopleAtDock
+                    "num"    : self.farms,
+                    "level"  : self.farmLvl,
+                    "people" : self.peopleAtFarm
                 },
                 "mill"        : {
-                    "num"    : 0,
-                    "level"  : 0,
-                    "people" : 0
+                    "num"    : self.mills,
+                    "level"  : self.millLvl,
+                    "people" : self.peopleAtMill
                 }
             }
         }

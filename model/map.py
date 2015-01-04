@@ -230,7 +230,7 @@ class Map:
                     # plant
                     elif random.randrange(0, 100) < 10:
                         cMap[y][x]['type_construction'] = 'element'
-                        cMap[y][x]['id_construction']   = random.randrange(1, 3)
+                        cMap[y][x]['id_construction']   = random.randrange(1, 9)
 
         # Wrap it up and return
         mapO        = Map('c{}')

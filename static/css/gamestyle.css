@@ -47,6 +47,7 @@ body {
 }
 
 #central-side {
+	width: 567px;
 	text-align: center;
 }
 
@@ -141,7 +142,7 @@ body {
 }
 
 #map-window {
-	min-width: 705px;
+	min-width: 567px;
 	border-bottom-left-radius: 6px;
 	border-bottom-right-radius: 6px;
 	background-color: #F6EBBA;

@@ -3,7 +3,6 @@
  * @author JavaScript Team. Team M
  * @version 30.12.2014
  */
-
 /**
  * @namespace The HTML_Engine generates the HTML for the game. represents the View object (MCV). It  It generates the code, it adds the necessary listeners. Then it can disable the listeners
  * @constructor
@@ -16,7 +15,7 @@ var HTML_Engine = {
 		img_world_background: '/static/img/game/world/building/',
 		img_resource: '/static/img/game/resource/'
 	}
-}
+};
 
 /**
  * It returns a short representation of the resource.
@@ -45,7 +44,7 @@ HTML_Engine.shortResourceRepresentation = function(input) {
 		text = ((input / 1000000000 * 100) / 100).toFixed(2) + 'b';
 
 	return "<span title='" + input.formatNumber(0) + "'>" + text + "</span>";
-}
+};
 
 /**
  * It returns a short representation of time in this format: {hours} h, {minutes} h, {seconds} sec OR "Instant" (if time is 0)
@@ -75,7 +74,7 @@ HTML_Engine.shortTimeRepresentation = function(sec_num) {
 	}
 
 	return elements.join(", ");
-}
+};
 
 /**
  * @namespace It generates a table
@@ -92,14 +91,14 @@ HTML_Engine.table = {
 	content: function(data, boldFirst) {
 		var html = "<table width='100%'>";
 		for (var i = 0; i <= data.length - 1; i++) {
-			column = data[i];
+			var column = data[i];
 			html += "<tr>";
 			for (var j = 0; j <= column.length - 1; j++) {
-				html += "<td " + (boldFirst ? "class='bold'" : "") + " style='color:" + (j % 2 == 0 ? "rgb(142, 142, 142)" : "rgb(0, 71, 187)") + "'>" + data[i][j] + "</td>";
+				html += "<td " + (boldFirst ? "class='bold'" : "") + " style='color:" + (j % 2 === 0 ? "rgb(142, 142, 142)" : "rgb(0, 71, 187)") + "'>" + data[i][j] + "</td>";
 			}
 			html += "</tr>";
 		}
-		html += "</table>"
+		html += "</table>";
 		return html;
 	}
 };
@@ -117,10 +116,10 @@ HTML_Engine.getImage = {
 	 * @return {string} The HTML code for the image
 	 */
 	content: function(path, image, title, type) {
-		var type = (type) ? type : "png";
+		type = typeof type !== 'undefined' ? type : "png";
 		return "<img " + (title ? ("title='" + image.capitalize() + "'") : "") + " src='" + HTML_Engine.path[path] + image + "." + type + "' align='absmiddle' />";
 	}
-}
+};
 
 /**
  * @namespace It displays the resources (gold, wood, stone, food, people and the time)  in HTML format
@@ -141,8 +140,10 @@ HTML_Engine.displayResources = {
 		var interval = resources.interval ? ("<span style='font-weight:italic;color:#969696'> for " + resources.interval) + "</span>" : "";
 		var unit = resources.unit ? ("<span style='font-weight:italic;color:#969696'>" + resources.unit) + "</span>" : "";
 
-		for (resource in resources.resources) {
-			things.push(HTML_Engine.getImage.content("img_resource", resource, resource) + " <span class='bold resource_format_" + resource + "'>" + HTML_Engine.shortResourceRepresentation(resources.resources[resource]) + " </span>" + interval + unit);
+		for (var resource in resources.resources) {
+			if (resources.resources.hasOwnProperty(resource)) {
+				things.push(HTML_Engine.getImage.content("img_resource", resource, resource) + " <span class='bold resource_format_" + resource + "'>" + HTML_Engine.shortResourceRepresentation(resources.resources[resource]) + " </span>" + interval + unit);
+			}
 		}
 
 		if (resources.people) {
@@ -157,7 +158,7 @@ HTML_Engine.displayResources = {
 
 		return text;
 	}
-}
+};
 
 /**
  * @namespace It returns the string for no action for a string
@@ -171,7 +172,7 @@ HTML_Engine.noAction = {
 	content: function() {
 		return "No action for now";
 	}
-}
+};
 
 /**
  * @namespace It returns the string when an action which needs information from server fail. It allows the user to perform again it
@@ -206,7 +207,7 @@ HTML_Engine.failTask = {
 	 * @param {string} reason The reason of the task
 	 */
 	content: function(task_title, reason) {
-		Window.newsBoard.add("<span class='news_problem'>Problem</span>:" +task_title + "<br /> <span class='bold'>Reason:</span> was not possible because " + reason);
+		Window.newsBoard.add("<span class='news_problem'>Problem</span>:" + task_title + "<br /> <span class='bold'>Reason:</span> was not possible because " + reason);
 	}
 };
 
@@ -273,8 +274,9 @@ HTML_Engine.chooser = {
 
 		$.each(args.values, function(index, value) {
 
+			value = args.values[index];
+
 			var id = args.id,
-				value = args.values[index],
 				div = $("#" + id + "_chooser #element_" + value.id),
 				input = div.find("#input_value"),
 				slider = div.find("#slider"),
@@ -307,8 +309,8 @@ HTML_Engine.chooser = {
 
 			input.on("change keyup paste", function() {
 				if ($(this).val() !== '' && (parseInt($(this).val()) || $(this).val() === '0')) {
-					slider.slider("value", parseInt($(this).val()))
-				};
+					slider.slider("value", parseInt($(this).val()));
+				}
 			});
 
 
@@ -326,8 +328,8 @@ HTML_Engine.chooser = {
 
 		var divs = $("#" + args.id + "_chooser div.element");
 
-		for (i = 0; i < divs.length; i++) {
-			div = divs[i];
+		for (var i = 0; i < divs.length; i++) {
+			var div = divs[i];
 			$(div).find("#slider").slider("destroy");
 			$(div).find("#input_value").off();
 		}
@@ -340,7 +342,7 @@ HTML_Engine.chooser = {
 	 * @return {number} The value of the element inside that chooser
 	 */
 	fetch: function(chooser, element) {
-		return $("#" + chooser + "_chooser #element_" + element + " #input_value").val()
+		return $("#" + chooser + "_chooser #element_" + element + " #input_value").val();
 	},
 
 	/**
@@ -352,7 +354,7 @@ HTML_Engine.chooser = {
 		var all = $("#" + chooser + "_chooser").find(".element"),
 			values = {};
 
-		for (i = 0; i <= all.length - 1; i++) {
+		for (var i = 0; i <= all.length - 1; i++) {
 			values[$(all[i]).attr("id")] = $(all[i]).find("#input_value").val();
 		}
 		return values;
@@ -371,7 +373,7 @@ HTML_Engine.gameOver = {
 	content: function() {
 		return "The game is over";
 	}
-}
+};
 
 /* ------------------------------ City Map  ------------------------------ */
 
@@ -387,7 +389,7 @@ HTML_Engine.cityMapSelected = {
 	content: function() {
 		return "<br /><img src='http://clipart.nicubunu.ro/svg/rpg_map/statue.svg' /><div><span class='bold'>Hello there, </span><br />This is your glorious city, with brave citizens who have a wonderful life. Be careful to keep your city happy and prosperous...</div>";
 	}
-}
+};
 
 /**
  * @namespace Returns the list of all the building which can be created and the resources for them
@@ -401,24 +403,26 @@ HTML_Engine.getAvailableBuildings = {
 	 */
 	content: function() {
 		var text = "<span class='bold'>Buildings available to build here: </span><br />",
-			b	 = 0;
-		
-		for (building in game.player.city.buildings) {
-			var data = game.constructions.buildings[building],
-				b_obj = game.player.city.buildings[building];
-			
-			if ((!data.maxLevel || (data.maxLevel && b_obj.level < data.maxLevel)) &&
-				(!data.maxNumber || (data.maxNumber && b_obj.num < data.maxNumber)) &&
-				b_obj.status !== 'under_construction') {
-				var resources = game.constructions.buildings[building].levelUp(1);
-				text += "<div class='board_list hover' building_name='" + building + "' id='action_build_" + building + "' >" +
-					HTML_Engine.getBuilding.info(building);
-				text += HTML_Engine.displayResources.content(resources);
-				text += "</div><br />";
-				b++;
+			b = 0;
+
+		for (var building in game.player.city.buildings) {
+			if (game.player.city.buildings.hasOwnProperty(building)) {
+				var data = game.constructions.buildings[building],
+					b_obj = game.player.city.buildings[building];
+
+				if ((!data.maxLevel || (data.maxLevel && b_obj.level < data.maxLevel)) &&
+					(!data.maxNumber || (data.maxNumber && b_obj.num < data.maxNumber)) &&
+					b_obj.status !== 'under_construction') {
+					var resources = game.constructions.buildings[building].levelUp(1);
+					text += "<div class='board_list hover' building_name='" + building + "' id='action_build_" + building + "' >" +
+						HTML_Engine.getBuilding.info(building);
+					text += HTML_Engine.displayResources.content(resources);
+					text += "</div><br />";
+					b++;
+				}
 			}
 		}
-		if(b === 0){
+		if (b === 0) {
 			text += "It seems there are no buildings to be built...";
 		}
 		return text;
@@ -455,7 +459,7 @@ HTML_Engine.inside_administration = {
 			html = "";
 
 		html += HTML_Engine.getBuilding.info("administration", true);
-		html += HTML_Engine.upgradeBuilding.content("administration", (parseInt(game.player.city.buildings["administration"].level) + 1));
+		html += HTML_Engine.upgradeBuilding.content("administration", (parseInt(game.player.city.buildings.administration.level) + 1));
 		html += "<div class='heading'> The number of free people:";
 		html += HTML_Engine.displayResources.content({
 			resources: {
@@ -471,7 +475,7 @@ HTML_Engine.inside_administration = {
 		return html;
 	},
 	enable: function() {
-		HTML_Engine.upgradeBuilding.enable("administration", (parseInt(game.player.city.buildings["administration"].level) + 1));
+		HTML_Engine.upgradeBuilding.enable("administration", (parseInt(game.player.city.buildings.administration.level) + 1));
 	},
 	disable: function() {
 		HTML_Engine.upgradeBuilding.disable("administration");
@@ -493,7 +497,7 @@ HTML_Engine.inside_military = {
 			html = "",
 			capacity = game.constructions.buildings.military.capacity(game.player.city.buildings.military.level).resources.military;
 		html += HTML_Engine.getBuilding.info("military", true);
-		html += HTML_Engine.upgradeBuilding.content("military", (parseInt(game.player.city.buildings["military"].level) + 1));
+		html += HTML_Engine.upgradeBuilding.content("military", (parseInt(game.player.city.buildings.military.level) + 1));
 		html += "<div class='heading'>";
 		if (nr_of_active_units === 0) {
 			html += "Sir, we have no military!";
@@ -507,7 +511,7 @@ HTML_Engine.inside_military = {
 
 			html += "<div class='heading'> The daily cost of the military is: " +
 				HTML_Engine.displayResources.content(
-					game.unit.military.idle(parseInt(nr_of_active_units))				
+					game.unit.military.idle(parseInt(nr_of_active_units))
 				) + "</div>";
 		}
 		html += "</div>";
@@ -523,9 +527,9 @@ HTML_Engine.inside_military = {
 				id: "military_train"
 			});
 		} else {
-			html += "Unfortunately, you have reached the max capacity. You can train more units after you upgrade the building."
+			html += "Unfortunately, you have reached the max capacity. You can train more units after you upgrade the building.";
 		}
-		
+
 		if (nr_of_active_units !== 0) {
 			html += HTML_Engine.chooser.content({
 				info: "You can reduce the cost of military by reducing the number of military units. Unfortunately this does not give back the resources.",
@@ -546,14 +550,14 @@ HTML_Engine.inside_military = {
 		var nr_of_active_units = game.player.city.buildings.military.people,
 			capacity = game.constructions.buildings.military.capacity(game.player.city.buildings.military.level).resources.military;
 
-		HTML_Engine.upgradeBuilding.enable("military", (parseInt(game.player.city.buildings["military"].level) + 1));
+		HTML_Engine.upgradeBuilding.enable("military", (parseInt(game.player.city.buildings.military.level) + 1));
 
 		/*
 		 * It creates the chooser to let the user to choose how many utits to create
 		 */
 		if (nr_of_active_units < capacity) {
 			HTML_Engine.chooser.enable({
-	
+
 				id: "military_train",
 				values: [{
 					id: 'units',
@@ -564,7 +568,7 @@ HTML_Engine.inside_military = {
 								game.unit.military.create(parseInt(ui.value))
 							) + "<div> Daily cost: </div>" +
 							HTML_Engine.displayResources.content(
-									game.unit.military.idle(parseInt(ui.value))
+								game.unit.military.idle(parseInt(ui.value))
 							));
 					}
 				}],
@@ -591,7 +595,7 @@ HTML_Engine.inside_military = {
 					max: nr_of_active_units,
 					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content({
-							time: parseInt(ui.value) * 5 
+							time: parseInt(ui.value) * 5
 						}));
 					}
 				}],
@@ -632,14 +636,14 @@ HTML_Engine.inside_storage = {
 	content: function() {
 		var html = "";
 		html += HTML_Engine.getBuilding.info("storage", true);
-		html += HTML_Engine.upgradeBuilding.content("storage", (parseInt(game.player.city.buildings["storage"].level) + 1));
+		html += HTML_Engine.upgradeBuilding.content("storage", (parseInt(game.player.city.buildings.storage.level) + 1));
 		return html;
 	},
 	/**
 	 * It enables the functionality for the building
 	 */
 	enable: function() {
-		HTML_Engine.upgradeBuilding.enable("storage", (parseInt(game.player.city.buildings["storage"].level) + 1));
+		HTML_Engine.upgradeBuilding.enable("storage", (parseInt(game.player.city.buildings.storage.level) + 1));
 	},
 	/**
 	 * It disables the functionality for the building
@@ -665,7 +669,7 @@ HTML_Engine.inside_mill = {
 			html = "",
 			capacity = game.constructions.buildings.mill.capacity(game.player.city.buildings.mill.level).resources.people;
 		html += HTML_Engine.getBuilding.info("mill", true);
-		html += HTML_Engine.upgradeBuilding.content("mill", (parseInt(game.player.city.buildings["mill"].level) + 1));
+		html += HTML_Engine.upgradeBuilding.content("mill", (parseInt(game.player.city.buildings.mill.level) + 1));
 		html += "<div class='heading'>";
 		if (nr_of_active_units === 0) {
 			html += "Sir, we have no millers!";
@@ -679,11 +683,11 @@ HTML_Engine.inside_mill = {
 
 			html += "<div class='heading'> The daily increase in satisfaction is: " +
 				HTML_Engine.displayResources.content(
-					game.unit.miller.work(parseInt(nr_of_active_units))				
+					game.unit.miller.work(parseInt(nr_of_active_units))
 				) + "</div>";
 		}
 		html += "</div>";
-		
+
 		if (nr_of_active_units < capacity) {
 			html += HTML_Engine.chooser.content({
 				info: "Create millers to generate higher satisfaction.",
@@ -695,9 +699,9 @@ HTML_Engine.inside_mill = {
 				id: "miller_train"
 			});
 		} else {
-			html += "Unfortunately, you have reached the max capacity. You can train more units after you upgrade the building."
+			html += "Unfortunately, you have reached the max capacity. You can train more units after you upgrade the building.";
 		}
-		
+
 		if (nr_of_active_units !== 0) {
 			html += HTML_Engine.chooser.content({
 				info: "Reducing the amount of millers decreases satisfaction but frees people for different tasks. Unfortunately this does not give back the resources.",
@@ -706,21 +710,21 @@ HTML_Engine.inside_mill = {
 					id: "units"
 				}],
 				button: "Reduce units!",
-				id: "miller_untrain"	
+				id: "miller_untrain"
 			});
 		}
 		return html;
 	},
-	
+
 	/**
 	 * It enables the functionality for the building
 	 */
 	enable: function() {
 		var nr_of_active_units = game.player.city.buildings.mill.people,
 			capacity = game.constructions.buildings.mill.capacity(game.player.city.buildings.mill.level).resources.people;
-			
-		HTML_Engine.upgradeBuilding.enable("mill", (parseInt(game.player.city.buildings["mill"].level) + 1));
-		
+
+		HTML_Engine.upgradeBuilding.enable("mill", (parseInt(game.player.city.buildings.mill.level) + 1));
+
 		/*
 		 * It creates the chooser to let the user to choose how many utits to create
 		 */
@@ -736,7 +740,7 @@ HTML_Engine.inside_mill = {
 								game.unit.miller.create(parseInt(ui.value))
 							) + "<div> Daily income: </div>" +
 							HTML_Engine.displayResources.content(
-									game.unit.miller.work(parseInt(ui.value))
+								game.unit.miller.work(parseInt(ui.value))
 							));
 					}
 				}],
@@ -763,7 +767,7 @@ HTML_Engine.inside_mill = {
 					max: nr_of_active_units,
 					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content({
-							time: parseInt(ui.value) * 5 
+							time: parseInt(ui.value) * 5
 						}));
 					}
 				}],
@@ -777,7 +781,7 @@ HTML_Engine.inside_mill = {
 			});
 		}
 	},
-	
+
 	/**
 	 * It disables the functionality for the building
 	 */
@@ -794,7 +798,7 @@ HTML_Engine.inside_mill = {
 
 /**
  * @namespace The mine building(5)
- * @memberOf HTML_Engine 
+ * @memberOf HTML_Engine
  */
 HTML_Engine.inside_mine = {
 
@@ -807,7 +811,7 @@ HTML_Engine.inside_mine = {
 			html = "",
 			capacity = game.constructions.buildings.mine.capacity(game.player.city.buildings.mine.level).resources.people;
 		html += HTML_Engine.getBuilding.info("mine", true);
-		html += HTML_Engine.upgradeBuilding.content("mine", (parseInt(game.player.city.buildings["mine"].level) + 1));
+		html += HTML_Engine.upgradeBuilding.content("mine", (parseInt(game.player.city.buildings.mine.level) + 1));
 		html += "<div class='heading'>";
 		if (nr_of_active_units === 0) {
 			html += "Sir, we have no miners!";
@@ -821,11 +825,11 @@ HTML_Engine.inside_mine = {
 
 			html += "<div class='heading'> The daily income of stone is: " +
 				HTML_Engine.displayResources.content(
-					game.unit.miner.work(parseInt(nr_of_active_units))				
+					game.unit.miner.work(parseInt(nr_of_active_units))
 				) + "</div>";
 		}
 		html += "</div>";
-		
+
 		if (nr_of_active_units < capacity) {
 			html += HTML_Engine.chooser.content({
 				info: "Create Miners to generate higher income of stone.",
@@ -837,9 +841,9 @@ HTML_Engine.inside_mine = {
 				id: "mine_train"
 			});
 		} else {
-			html += "Unfortunately, you have reached the max capacity. You can train more units after you upgrade the building."
+			html += "Unfortunately, you have reached the max capacity. You can train more units after you upgrade the building.";
 		}
-		
+
 		if (nr_of_active_units !== 0) {
 			html += HTML_Engine.chooser.content({
 				info: "Reducing the amount of miners decreases stone income but frees people for different tasks. Unfortunately this does not give back the resources.",
@@ -848,21 +852,21 @@ HTML_Engine.inside_mine = {
 					id: "units"
 				}],
 				button: "Reduce units!",
-				id: "mine_untrain"	
+				id: "mine_untrain"
 			});
 		}
 		return html;
 	},
-	
+
 	/**
 	 * It enables the functionality for the building
 	 */
 	enable: function() {
 		var nr_of_active_units = game.player.city.buildings.mine.people,
 			capacity = game.constructions.buildings.mine.capacity(game.player.city.buildings.mine.level).resources.people;
-			
-		HTML_Engine.upgradeBuilding.enable("mine", (parseInt(game.player.city.buildings["mine"].level) + 1));
-		
+
+		HTML_Engine.upgradeBuilding.enable("mine", (parseInt(game.player.city.buildings.mine.level) + 1));
+
 		/*
 		 * It creates the chooser to let the user to choose how many utits to create
 		 */
@@ -878,7 +882,7 @@ HTML_Engine.inside_mine = {
 								game.unit.miner.create(parseInt(ui.value))
 							) + "<div> Daily income: </div>" +
 							HTML_Engine.displayResources.content(
-									game.unit.miner.work(parseInt(ui.value))
+								game.unit.miner.work(parseInt(ui.value))
 							));
 					}
 				}],
@@ -919,7 +923,7 @@ HTML_Engine.inside_mine = {
 			});
 		}
 	},
-	
+
 	/**
 	 * It disables the functionality for the building
 	 */
@@ -954,7 +958,7 @@ HTML_Engine.inside_house = {
 	 * It enables the functionality for the building
 	 */
 	enable: function() {
-		HTML_Engine.upgradeBuilding.enable("house", (parseInt(game.player.city.buildings["administration"].level) + 1));
+		HTML_Engine.upgradeBuilding.enable("house", (parseInt(game.player.city.buildings.administration.level) + 1));
 	},
 	/**
 	 * It disables the functionality for the building
@@ -977,7 +981,7 @@ HTML_Engine.inside_trade = {
 	content: function() {
 		var html = "";
 		html += HTML_Engine.getBuilding.info("trade", true);
-		html += HTML_Engine.upgradeBuilding.content("trade", (parseInt(game.player.city.buildings["trade"].level) + 1));
+		html += HTML_Engine.upgradeBuilding.content("trade", (parseInt(game.player.city.buildings.trade.level) + 1));
 		html += HTML_Engine.chooser.content({
 			info: "Sell your resources for gold",
 			values: [{
@@ -993,7 +997,7 @@ HTML_Engine.inside_trade = {
 			button: "Trade",
 			id: "trade_for_gold"
 		});
-		
+
 		html += HTML_Engine.chooser.content({
 			info: "Buy resources with gold",
 			values: [{
@@ -1009,45 +1013,45 @@ HTML_Engine.inside_trade = {
 			button: "Trade",
 			id: "trade_for_resources"
 		});
-		
+
 		return html;
 	},
 	/**
 	 * It enables the functionality for the building
 	 */
 	enable: function() {
-		HTML_Engine.upgradeBuilding.enable("trade", (parseInt(game.player.city.buildings["trade"].level) + 1));
-		
+		HTML_Engine.upgradeBuilding.enable("trade", (parseInt(game.player.city.buildings.trade.level) + 1));
+
 		var changeValue = function(event, ui, extra, value, what) {
-			extra.html(HTML_Engine.displayResources.content(
+				extra.html(HTML_Engine.displayResources.content(
 					game.unit.trade(parseInt(ui.value), value, what)
 				));
 			},
-			capacity = game.constructions.buildings.trade.capacity(game.player.city.buildings.trade.level);;
-			
+			capacity = game.constructions.buildings.trade.capacity(game.player.city.buildings.trade.level);
+
 		HTML_Engine.chooser.enable({
 
 			id: "trade_for_gold",
 			values: [{
 				id: 'food',
 				min: 0,
-				max: (game.player.resources.food > capacity.resources.food)?capacity.resources.food:game.player.resources.food,
-				change: function(event, ui, extra){
-					changeValue(event, ui, extra, .50, "gold")
+				max: (game.player.resources.food > capacity.resources.food) ? capacity.resources.food : game.player.resources.food,
+				change: function(event, ui, extra) {
+					changeValue(event, ui, extra, 0.50, "gold");
 				}
 			}, {
 				id: 'wood',
 				min: 0,
-				max: (game.player.resources.wood > capacity.resources.wood)?capacity.resources.wood:game.player.resources.wood,
-				change: function(event, ui, extra){
-					changeValue(event, ui, extra, .10, "gold")
+				max: (game.player.resources.wood > capacity.resources.wood) ? capacity.resources.wood : game.player.resources.wood,
+				change: function(event, ui, extra) {
+					changeValue(event, ui, extra, 0.10, "gold");
 				}
 			}, {
 				id: 'stone',
 				min: 0,
-				max: (game.player.resources.stone > capacity.resources.stone)?capacity.resources.stone:game.player.resources.stone,
-				change: function(event, ui, extra){
-					changeValue(event, ui, extra, .20, "gold")
+				max: (game.player.resources.stone > capacity.resources.stone) ? capacity.resources.stone : game.player.resources.stone,
+				change: function(event, ui, extra) {
+					changeValue(event, ui, extra, 0.20, "gold");
 				}
 			}],
 			performAction: function() {
@@ -1058,30 +1062,30 @@ HTML_Engine.inside_trade = {
 				});
 			}
 		});
-		
+
 		HTML_Engine.chooser.enable({
 
 			id: "trade_for_resources",
 			values: [{
 				id: 'food',
 				min: 0,
-				max: (game.player.resources.gold > capacity.resources.gold)?capacity.resources.gold:game.player.resources.gold,
-				change: function(event, ui, extra){
-					changeValue(event, ui, extra, 25, "food")
+				max: (game.player.resources.gold > capacity.resources.gold) ? capacity.resources.gold : game.player.resources.gold,
+				change: function(event, ui, extra) {
+					changeValue(event, ui, extra, 25, "food");
 				}
 			}, {
 				id: 'wood',
 				min: 0,
-				max: (game.player.resources.gold > capacity.resources.gold)?capacity.resources.gold:game.player.resources.gold,
-				change: function(event, ui, extra){
-					changeValue(event, ui, extra, 5, "wood")
+				max: (game.player.resources.gold > capacity.resources.gold) ? capacity.resources.gold : game.player.resources.gold,
+				change: function(event, ui, extra) {
+					changeValue(event, ui, extra, 5, "wood");
 				}
 			}, {
 				id: 'stone',
 				min: 0,
-				max: (game.player.resources.gold > capacity.resources.gold)?capacity.resources.gold:game.player.resources.gold,
-				change: function(event, ui, extra){
-					changeValue(event, ui, extra, 10, "stone")
+				max: (game.player.resources.gold > capacity.resources.gold) ? capacity.resources.gold : game.player.resources.gold,
+				change: function(event, ui, extra) {
+					changeValue(event, ui, extra, 10, "stone");
 				}
 			}],
 			performAction: function() {
@@ -1117,7 +1121,7 @@ HTML_Engine.inside_lumberjack = {
 			html = "",
 			capacity = game.constructions.buildings.lumberjack.capacity(game.player.city.buildings.lumberjack.level).resources.people;
 		html += HTML_Engine.getBuilding.info("lumberjack", true);
-		html += HTML_Engine.upgradeBuilding.content("lumberjack", (parseInt(game.player.city.buildings["lumberjack"].level) + 1));
+		html += HTML_Engine.upgradeBuilding.content("lumberjack", (parseInt(game.player.city.buildings.lumberjack.level) + 1));
 		html += "<div class='heading'>";
 		if (nr_of_active_units === 0) {
 			html += "Sir, we have no lumberjacks!";
@@ -1131,11 +1135,11 @@ HTML_Engine.inside_lumberjack = {
 
 			html += "<div class='heading'> The daily income of lumber is: " +
 				HTML_Engine.displayResources.content(
-					game.unit.lumberjack.work(parseInt(nr_of_active_units))				
+					game.unit.lumberjack.work(parseInt(nr_of_active_units))
 				) + "</div>";
 		}
 		html += "</div>";
-		
+
 		if (nr_of_active_units < capacity) {
 			html += HTML_Engine.chooser.content({
 				info: "Create lumberjacks to generate higher income of lumber.",
@@ -1147,9 +1151,9 @@ HTML_Engine.inside_lumberjack = {
 				id: "lumberjack_train"
 			});
 		} else {
-			html += "Unfortunately, you have reached the max capacity. You can train more units after you upgrade the building."
+			html += "Unfortunately, you have reached the max capacity. You can train more units after you upgrade the building.";
 		}
-		
+
 		if (nr_of_active_units !== 0) {
 			html += HTML_Engine.chooser.content({
 				info: "Reducing the amount of lumberjacks decreases lumber income but frees people for different tasks. Unfortunately this does not give back the resources.",
@@ -1158,21 +1162,21 @@ HTML_Engine.inside_lumberjack = {
 					id: "units"
 				}],
 				button: "Reduce units!",
-				id: "lumberjack_untrain"	
+				id: "lumberjack_untrain"
 			});
 		}
 		return html;
 	},
-	
+
 	/**
 	 * It enables the functionality for the building
 	 */
 	enable: function() {
 		var nr_of_active_units = game.player.city.buildings.lumberjack.people,
 			capacity = game.constructions.buildings.lumberjack.capacity(game.player.city.buildings.lumberjack.level).resources.people;
-			
-		HTML_Engine.upgradeBuilding.enable("lumberjack", (parseInt(game.player.city.buildings["lumberjack"].level) + 1));
-		
+
+		HTML_Engine.upgradeBuilding.enable("lumberjack", (parseInt(game.player.city.buildings.lumberjack.level) + 1));
+
 		/*
 		 * It creates the chooser to let the user to choose how many utits to create
 		 */
@@ -1188,7 +1192,7 @@ HTML_Engine.inside_lumberjack = {
 								game.unit.lumberjack.create(parseInt(ui.value))
 							) + "<div> Daily income: </div>" +
 							HTML_Engine.displayResources.content(
-									game.unit.lumberjack.work(parseInt(ui.value))
+								game.unit.lumberjack.work(parseInt(ui.value))
 							));
 					}
 				}],
@@ -1215,7 +1219,7 @@ HTML_Engine.inside_lumberjack = {
 					max: nr_of_active_units,
 					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content({
-							time: parseInt(ui.value) * 5 
+							time: parseInt(ui.value) * 5
 						}));
 					}
 				}],
@@ -1229,7 +1233,7 @@ HTML_Engine.inside_lumberjack = {
 			});
 		}
 	},
-	
+
 	/**
 	 * It disables the functionality for the building
 	 */
@@ -1259,7 +1263,7 @@ HTML_Engine.inside_farm = {
 			html = "",
 			capacity = game.constructions.buildings.farm.capacity(game.player.city.buildings.farm.level).resources.people;
 		html += HTML_Engine.getBuilding.info("farm", true);
-		html += HTML_Engine.upgradeBuilding.content("farm", (parseInt(game.player.city.buildings["farm"].level) + 1));
+		html += HTML_Engine.upgradeBuilding.content("farm", (parseInt(game.player.city.buildings.farm.level) + 1));
 		html += "<div class='heading'>";
 		if (nr_of_active_units === 0) {
 			html += "Sir, we have no farmers!";
@@ -1273,11 +1277,11 @@ HTML_Engine.inside_farm = {
 
 			html += "<div class='heading'> The daily income of food is: " +
 				HTML_Engine.displayResources.content(
-					game.unit.farmer.work(parseInt(nr_of_active_units))				
+					game.unit.farmer.work(parseInt(nr_of_active_units))
 				) + "</div>";
 		}
 		html += "</div>";
-		
+
 		if (nr_of_active_units < capacity) {
 			html += HTML_Engine.chooser.content({
 				info: "Create farmers to generate higher income of food.",
@@ -1289,9 +1293,9 @@ HTML_Engine.inside_farm = {
 				id: "farm_train"
 			});
 		} else {
-			html += "Unfortunately, you have reached the max capacity. You can train more units after you upgrade the building."
+			html += "Unfortunately, you have reached the max capacity. You can train more units after you upgrade the building.";
 		}
-		
+
 		if (nr_of_active_units !== 0) {
 			html += HTML_Engine.chooser.content({
 				info: "Reducing the amount of farmers decreases food income but frees people for different tasks. Unfortunately this does not give back the resources.",
@@ -1300,21 +1304,21 @@ HTML_Engine.inside_farm = {
 					id: "units"
 				}],
 				button: "Reduce units!",
-				id: "farm_untrain"	
+				id: "farm_untrain"
 			});
 		}
 		return html;
 	},
-	
+
 	/**
 	 * It enables the functionality for the building
 	 */
 	enable: function() {
 		var nr_of_active_units = game.player.city.buildings.farm.people,
 			capacity = game.constructions.buildings.farm.capacity(game.player.city.buildings.farm.level).resources.people;
-			
-		HTML_Engine.upgradeBuilding.enable("farm", (parseInt(game.player.city.buildings["farm"].level) + 1));
-		
+
+		HTML_Engine.upgradeBuilding.enable("farm", (parseInt(game.player.city.buildings.farm.level) + 1));
+
 		/*
 		 * It creates the chooser to let the user to choose how many utits to create
 		 */
@@ -1330,7 +1334,7 @@ HTML_Engine.inside_farm = {
 								game.unit.farmer.create(parseInt(ui.value))
 							) + "<div> Daily income: </div>" +
 							HTML_Engine.displayResources.content(
-									game.unit.farmer.work(parseInt(ui.value))
+								game.unit.farmer.work(parseInt(ui.value))
 							));
 					}
 				}],
@@ -1371,7 +1375,7 @@ HTML_Engine.inside_farm = {
 			});
 		}
 	},
-	
+
 	/**
 	 * It disables the functionality for the building
 	 */
@@ -1398,7 +1402,7 @@ HTML_Engine.getBuilding = {
 	 *  @return {string} The name of the building capitalized
 	 */
 	name: function(name, level) {
-		var name = name ? name : "";
+		name = typeof name !== 'undefined' ? name : "";
 		if (name === "house") {
 			name = game.organization.getByLevel("house", level);
 		} else if (name === "administration") {
@@ -1415,9 +1419,10 @@ HTML_Engine.getBuilding = {
 	 */
 	image: function(name, level, dim) {
 
-		var name = HTML_Engine.getBuilding.name(name, level);
+		var src = name.replaceAll(" ", "_"),
+			title = "";
 
-		var title = "";
+		name = HTML_Engine.getBuilding.name(name, level);
 
 		if (name === "administration") {
 			title = game.organization.getByLevel("administration", level);
@@ -1426,8 +1431,6 @@ HTML_Engine.getBuilding = {
 		if (title) {
 			name += "-" + title;
 		}
-
-		var src = name.replaceAll(" ", "_");
 
 		return "<img align='absmiddle' width='" + dim + "px' height='" + dim + "px' src='/static/img/game/buildings/" + src + ".png' />";
 	},
@@ -1449,11 +1452,11 @@ HTML_Engine.getBuilding = {
 			case "house":
 				return "This building increases the population of your city.";
 			case "farm":
-				return "Train people into farmers here who will generate food for you."
+				return "Train people into farmers here who will generate food for you.";
 			case "lumberjack":
-				return "Train people into strong lumberjacks who can generate wood for you."
+				return "Train people into strong lumberjacks who can generate wood for you.";
 			case "mill":
-				return "Send people to work in the mill to refine your food and keep your citizens happy."
+				return "Send people to work in the mill to refine your food and keep your citizens happy.";
 			case "trade":
 				return "The trade building helps your city to sell or buy resources";
 		}
@@ -1465,8 +1468,8 @@ HTML_Engine.getBuilding = {
 	 */
 	info: function(building, full) {
 		var data = game.constructions.buildings[building],
-			level = game.player.city.buildings[building].level;
-		html = "<div class='building_info'>";
+			level = game.player.city.buildings[building].level,
+			html = "<div class='building_info'>";
 		html += "<div class='title'> " + HTML_Engine.getBuilding.image(building, game.player.getLevel(), 60) + "<span class='bold'>" + HTML_Engine.getBuilding.name(building, game.player.getLevel()) + "</span>";
 		if (level && full) {
 			html += "<div class='level'>" + game.player.city.buildings[building].level + "</div>";
@@ -1476,10 +1479,10 @@ HTML_Engine.getBuilding = {
 			html += "<div class='capacity'> Capacity: <br />" + HTML_Engine.displayResources.content(data.capacity(level)) + "</div>";
 		}
 		html += "<div class='description'>" + HTML_Engine.getBuilding.description(building) + "</div>";
-		html += "</div>"
+		html += "</div>";
 		return html;
 	}
-}
+};
 
 /**
  * @namespace The HTML Engine object for showing that a building is under consturction
@@ -1494,7 +1497,7 @@ HTML_Engine.buildingUnderConstruction = {
 		// image from http://www.iconarchive.com/show/construction-icons-by-proycontec/document-construction-icon.html
 		return "This building is under construction. <br /> <div class='center'><img src='/static/img/game/buildings/building_construction.png' /></div>";
 	}
-}
+};
 
 /**
  * @namespace HTML content for the upgrading a building
@@ -1529,15 +1532,18 @@ HTML_Engine.upgradeBuilding = {
 	 * It enables the panel
 	 */
 	enable: function(building_name, next_level) {
-		
-		if(building_name !== 'house' && building_name !== 'administration') {
+
+		if (building_name !== 'house' && building_name !== 'administration') {
 			$("#upgrade_building img").qtip({
 				content: "Capacity for level " + next_level + "<br />" + (HTML_Engine.displayResources.content(game.constructions.buildings[building_name].capacity(next_level))),
 				position: {
 					target: 'mouse', // Track the mouse as the positioning target
-					adjust: { x: 5, y: 5 } // Offset it slightly from under the mouse
+					adjust: {
+						x: 5,
+						y: 5
+					} // Offset it slightly from under the mouse
 				}
-				
+
 			});
 		}
 		$("#upgrade_building").click(function() {
@@ -1570,7 +1576,7 @@ HTML_Engine.worldMapSelected = {
 	content: function() {
 		return "<img align='middle' src='http://clipart.nicubunu.ro/png/events/graduation03.svg.png' /> <div>Hmmm... It seems you can see the world map. It contains the other cities. Click on a city to see the options.</div>";
 	}
-}
+};
 
 /**
  * @namespace The HTML_Engine when a city is selected
@@ -1579,7 +1585,7 @@ HTML_Engine.worldMapSelected = {
 HTML_Engine.selectCity = {
 	/**
 	 * It returns the content
-	 * @param {number} id The id of the selected city 
+	 * @param {number} id The id of the selected city
 	 * @return {string} The HTML content
 	 */
 	content: function(id) {
@@ -1807,21 +1813,21 @@ HTML_Engine.attackCity = {
 			id: "military_attack"
 		});
 	},
-	
+
 	/**
 	 * It generates a report regarding the battle
 	 * @param {object} response The response from the server about the attack
 	 * @param {object} data The data of task
 	 */
 	report: function(data, response) {
-		var html = 	"<span class='bold'>Attack report</span> at " + HTML_Engine.worldPath.getCityName(data.from) + "<br />" + 
-					"<span class='bold'>Your military and friends:</span> " +
-					HTML_Engine.displayResources.content(response.friends) +
-					"<span class='bold'>Your enemies:</span> " +
-					HTML_Engine.displayResources.content(response.enemies);
-		if(response.status === 'won'){
+		var html = "<span class='bold'>Attack report</span> at " + HTML_Engine.worldPath.getCityName(data.from) + "<br />" +
+			"<span class='bold'>Your military and friends:</span> " +
+			HTML_Engine.displayResources.content(response.friends) +
+			"<span class='bold'>Your enemies:</span> " +
+			HTML_Engine.displayResources.content(response.enemies);
+		if (response.status === 'won') {
 			html += "You won the battle! <br />";
-			html += "<span class='bold'>Returning home with:</span>"; 
+			html += "<span class='bold'>Returning home with:</span>";
 			html += HTML_Engine.displayResources.content(response.carring);
 		} else {
 			html += "You lost all the units.";
@@ -1847,7 +1853,7 @@ HTML_Engine.worldPath = {
 	 * It returns the string for a description of moving military units
 	 * @param {number} c1 The id of the "from" city
 	 * @param {number} c2 The id of the "to" city
-	 * @param {Resources} resources An object to describe the resources which are being carried 
+	 * @param {Resources} resources An object to describe the resources which are being carried
 	 * @return {string} The HMTL code for describing the moving of military units
 	 */
 	moveMilitaryUnits: function(c1, c2, resources) {
@@ -1865,7 +1871,7 @@ HTML_Engine.sendMessage = {
 	 * It generates the content for the message
 	 * @return {string} The HTML code for sending a message
 	 */
-	content: function(args) {
+	content: function() {
 		// TODO @Joe
 		var html = "Its HTML_Engine content should be implemented @Joe";
 		return html;
@@ -1886,9 +1892,9 @@ HTML_Engine.sendMessage = {
 
 
 /**
-* @namespace The HTML_Engine object for displaying a message
-* @memberOf HTML_Engine
-*/
+ * @namespace The HTML_Engine object for displaying a message
+ * @memberOf HTML_Engine
+ */
 HTML_Engine.seeMessage = {
 	/**
 	 * It displays the content of the message
@@ -1898,4 +1904,4 @@ HTML_Engine.seeMessage = {
 	content: function(args) {
 		return "This is the message nr <b>" + args.id + "<b>:<br/ ><i>" + args.content + '</i>. ';
 	}
-}
+};

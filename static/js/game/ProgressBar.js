@@ -48,13 +48,13 @@ ProgressBar.prototype.finish = function() {
  */
 ProgressBar.prototype.start = function(){
     var instance			= this,
-    seconds 			= this.task.response.queue.secondsLeft;
- 	step 				= seconds * 10,
- 	progress			= (function(){ var i = instance; 
-							 	return function(){
-						    		val = i.p.progressbar( "value" ) || 0;
-						    		i.p.progressbar( "value", val + 1 );	
-						    	}; })(instance);
+	    seconds 			= (DEVELOPER_MODE === true && developer.settings.speedUp)?1:this.task.response.queue.secondsLeft;
+	 	step 				= seconds * 10,
+	 	progress			= (function(){ var i = instance; 
+								 	return function(){
+							    		val = i.p.progressbar( "value" ) || 0;
+							    		i.p.progressbar( "value", val + 1 );	
+							    	}; })(instance);
 
 
 	this.thread = setInterval(progress, step);

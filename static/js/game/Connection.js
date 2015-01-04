@@ -70,7 +70,7 @@ function Connection() {
 				})
 	});
 
-	if(DEVELOPER_MODE === true){
+	if(DEVELOPER_MODE === true && developer.settings.loadDeveloperGame) {
 		this.startGame(developer.game);
 		$("#before_game").hide();
 		$("#cover").hide();

@@ -5,8 +5,9 @@
 var developer = {};
 
 developer.settings = {
-	"developerMode": true,
-	"defaultMap": "city" // avoid the connection and effects
+	"loadDeveloperGame"	: false,	// it loads a pre-defined game (below)
+	"defaultMap"		: "city", 	// it selects the default city map
+	"speedUp"			: true		// it speedUp all the tasks
 };
 
 developer.game = {

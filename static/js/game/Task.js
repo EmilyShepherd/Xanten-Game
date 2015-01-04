@@ -63,7 +63,7 @@ Task.prototype._activate = function(){
 							instance.response = response;
 							instance.afterConfirmation();
 						},
-			"error": function(){HTML_Engine.failTask.content(instance.title, " your people are not now able.");}
+			"error": function(){HTML_Engine.failTask.content(instance.title, " your people are not now able."); instance.forceStop();}
 	});
 };
 

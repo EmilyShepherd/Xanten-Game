@@ -10,19 +10,19 @@
  * @extends XantenMap
  * @param {array} obj The array of the map
  */
-var CityMap = function(obj){
+function CityMap(obj) {
 		
-	var CityMap 						= new XantenMap(obj.array, 'city');
-	CityMap.__proto__                 	= "CityMap";	
-	CityMap.backgrounds					= obj.backgrounds;
+	var cityMap 						= new XantenMap(obj.array, 'city');
+	cityMap.backgrounds					= obj.backgrounds;
 	
 	/**
-	 * It is called when a cell is selected. It 
+	 * It is called when a cell is selected. 
+	 * @name selectCell
 	 * @memberOf CityMap.prototype
 	 * @param (number) x The x coordinate
 	 * @param (number) y The y coordinate
 	 */
-	CityMap.selectCell = function(x, y){
+	cityMap.selectCell = function(x, y){
 
 		if($(this.HTML_element + " #cel_"+x+"_"+y).hasClass('allow_construction')){
 			game.performAction('available_buildings');
@@ -39,11 +39,12 @@ var CityMap = function(obj){
 		
 	/**
 	 * It renders the information of the array in the images
+	 * @name render
 	 * @memberOf CityMap.prototype
 	 */
-	CityMap.render = function(){		
-		for(i=1; i <= this.array.length; i++){
-			for(j=1; j <= this.array.length; j++){
+	cityMap.render = function(){		
+		for(var i=1; i <= this.array.length; i++){
+			for(var j=1; j <= this.array.length; j++){
 				var cell 		= $(this.HTML_element + " #cel_"+i+"_"+j),
 					background 	= this.backgrounds[this.array[(i-1)][(j-1)].id_background];				
 				
@@ -78,5 +79,5 @@ var CityMap = function(obj){
 			}
 		}
 	};	
-	return CityMap;
+	return cityMap;
 }

@@ -24,7 +24,7 @@ Board.prototype.add = function(message){
  */
 Board.prototype.clear = function(){
 	var divs 	= $("#"+this.id+"_board").find("div"),
-      f			=  function(t) { $(t).remove(); };
+      f			= function(t) { $(t).remove();};
 	for(var i=0; i<divs.length; i++){
 		var div = divs[i];
 		$(div).fadeOut(i*10, f(this));	

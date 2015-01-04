@@ -5,7 +5,6 @@
  */
 
 
-
 /**
  * It represents a WorldMap object. It extends the XantenMap object
  * @constructor
@@ -14,18 +13,18 @@
 */
 function WorldMap(obj){
 	
-	var WorldMap	 		= new XantenMap(obj.array, 'world');
-	WorldMap.__proto__ 		= "WorldMap";
-	WorldMap.players		= obj.players;
-	WorldMap.backgrounds	= obj.backgrounds;
+	var worldMap	 		= new XantenMap(obj.array, 'world');
+	worldMap.players		= obj.players;
+	worldMap.backgrounds	= obj.backgrounds;
 	
 	/**
-	 * 
+	 * It is called when a cell is selected. It perform the selectCity or city-map-selected actions (or clear)
 	 * @memberOf WorldMap.prototype 
+	 * @name selectCell
 	 * @param x The x coordinate
 	 * @param y The y coordinate
 	 */
-	WorldMap.selectCell = function(x, y){
+	worldMap.selectCell = function(x, y){
 		
 		var id_selected_city = this.getCityByPosition(x, y);
 		if(id_selected_city){
@@ -45,11 +44,12 @@ function WorldMap(obj){
 
 	/**
 	 * It renders the information of the array into Graphical form
+	 * @name render
 	 * @memberOf WorldMap.prototype 
 	 */
-	WorldMap.render = function(){
-		for(i=1; i <= this.array.length; i++){
-			for(j=1; j <= this.array.length; j++){
+	worldMap.render = function(){
+		for(var i=1; i <= this.array.length; i++){
+			for(var j=1; j <= this.array.length; j++){
 				var cell 		= $(this.HTML_element + " #cel_"+i+"_"+j),
 					array_bg	= this.array[(i-1)][(j-1)],
 					background 	= this.backgrounds[array_bg.id_background];
@@ -73,6 +73,7 @@ function WorldMap(obj){
 	 
  	/** 
  	 * It returns the city using the id
+ 	 * @name getCityById
  	 * @param id The id of the city
 	 * @return (object) An object with information regarding the city
 	 * @memberOf WorldMap.prototype
@@ -88,24 +89,25 @@ function WorldMap(obj){
 	 * @return (number) The id of the city or null if nothing is there
 	 * @memberOf WorldMap.prototype
 	 */
-	WorldMap.getCityByPosition = function(x, y){
+	worldMap.getCityByPosition = function(x, y){
 		return this.array[(x-1)][(y-1)].id_city;
 	};
 	
 	/**
 	 * It returns the position of a city on the map
+	 * @name getCityPositionById
 	 * @param (number) id The id of the city
 	 * @return (object) An object with the x and y position
 	 * @memberOf WorldMap.prototype
 	 */
-	WorldMap.getCityPositionById = function(id){
-		for(i=0; i<=this.array.length-1; i++){
-			for(j=0; j<=this.array.length-1; j++){
-				if(array[i][j].id_city === id){
+	worldMap.getCityPositionById = function(id){
+		for(var i=0; i<=this.array.length-1; i++){
+			for(var j=0; j<=this.array.length-1; j++){
+				if(this.array[i][j].id_city === id){
 					return {
 						"x" : i,
 						"y" : j
-					}
+					};
 				}
 			}
 		}
@@ -113,10 +115,11 @@ function WorldMap(obj){
 		
 	/**
 	 * It deletes all the paths and stops the ticker listener
+	 * @name _freeze
 	 * @memberOf WorldMap.prototype
 	 */
-	WorldMap._freeze = function(){
-	}
+	worldMap._freeze = function(){
+	};
 	
-	return WorldMap;
+	return worldMap;
  }

@@ -40,7 +40,19 @@ game.unit = {
 			});
 		}
 	},
-	"miner": {
+	"trade": function(number, value, what){
+		var r = {
+			"people": Math.ceil(number/10),
+			resources: {}
+		}
+		r.resources[what] = number * value;
+		return new Resources(r);		
+	},
+	
+	/*
+	 * Workers
+	 */
+	"mine": {
 		"create": function (number){
 			return new Resources({
 				resources: {
@@ -49,7 +61,7 @@ game.unit = {
 				time: 10 * number
 			});
 		},
-		"mining": function(number) {
+		"work": function(number) {
 			return new Resources({
 				resources: {
 					stone: 20 * number
@@ -67,7 +79,7 @@ game.unit = {
 				time: 10 * number
 			});
 		},
-		"cutting": function(number) {
+		"work": function(number) {
 			return new Resources({
 				resources: {
 					wood: 20 * number
@@ -76,7 +88,7 @@ game.unit = {
 			});
 		}
 	},
-	"farmer": {
+	"farm": {
 		"create": function (number){
 			return new Resources({
 				resources: {
@@ -85,7 +97,7 @@ game.unit = {
 				time: 10 * number
 			});
 		},
-		"farming": function(number) {
+		"work": function(number) {
 			return new Resources({
 				resources: {
 					food: 20 * number
@@ -93,13 +105,5 @@ game.unit = {
 				interval: "one day"
 			});
 		}
-	},
-	"trade": function(number, value, what){
-		var r = {
-			"people": Math.ceil(number/10),
-			resources: {}
-		}
-		r.resources[what] = number * value;
-		return new Resources(r);		
 	}
 };

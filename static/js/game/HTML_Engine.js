@@ -718,7 +718,7 @@ HTML_Engine.inside_mine = {
 
 			html += "<div class='heading'> The daily income of stone is: " +
 				HTML_Engine.displayResources.content(
-					game.unit.miner.mining(parseInt(nr_of_active_units))				
+					game.unit.mine.work(parseInt(nr_of_active_units))				
 				) + "</div>";
 		}
 		html += "</div>";
@@ -772,18 +772,18 @@ HTML_Engine.inside_mine = {
 					max: capacity - nr_of_active_units,
 					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content(
-								game.unit.miner.create(parseInt(ui.value))
+								game.unit.mine.create(parseInt(ui.value))
 							) + "<div> Daily income: </div>" +
 							HTML_Engine.displayResources.content(
-									game.unit.miner.mining(parseInt(ui.value))
+									game.unit.mine.work(parseInt(ui.value))
 							));
 					}
 				}],
 				performAction: function() {
-					game.performTask("train_miner", {
-						from: "administration",
-						to: "mine",
-						number: HTML_Engine.chooser.fetch("mine_train", "units")
+					game.performTask("train_workers", {
+						from: 		"administration",
+						to: 		"mine",
+						number: 	HTML_Engine.chooser.fetch("mine_train", "units")
 					});
 				}
 			});
@@ -807,10 +807,10 @@ HTML_Engine.inside_mine = {
 					}
 				}],
 				performAction: function() {
-					game.performTask("untrain_miner", {
-						from: "mine",
-						to: "administration",
-						number: HTML_Engine.chooser.fetch("mine_untrain", "units")
+					game.performTask("untrain_workers", {
+						from: 		"mine",
+						to: 		"administration",
+						number:		HTML_Engine.chooser.fetch("mine_untrain", "units")
 					});
 				}
 			});
@@ -1032,7 +1032,7 @@ HTML_Engine.inside_lumberjack = {
 
 			html += "<div class='heading'> The daily income of lumber is: " +
 				HTML_Engine.displayResources.content(
-					game.unit.lumberjack.cutting(parseInt(nr_of_active_units))				
+					game.unit.lumberjack.work(parseInt(nr_of_active_units))				
 				) + "</div>";
 		}
 		html += "</div>";
@@ -1089,15 +1089,15 @@ HTML_Engine.inside_lumberjack = {
 								game.unit.lumberjack.create(parseInt(ui.value))
 							) + "<div> Daily income: </div>" +
 							HTML_Engine.displayResources.content(
-									game.unit.lumberjack.cutting(parseInt(ui.value))
+									game.unit.lumberjack.work(parseInt(ui.value))
 							));
 					}
 				}],
 				performAction: function() {
-					game.performTask("train_lumberjack", {
-						from: "administration",
-						to: "lumberjack",
-						number: HTML_Engine.chooser.fetch("lumberjack_train", "units")
+					game.performTask("train_workers", {
+						from: 		"administration",
+						to: 		"lumberjack",
+						number: 	HTML_Engine.chooser.fetch("lumberjack_train", "units")
 					});
 				}
 			});
@@ -1121,10 +1121,10 @@ HTML_Engine.inside_lumberjack = {
 					}
 				}],
 				performAction: function() {
-					game.performTask("untrain_lumberjack", {
-						from: "lumberjack",
-						to: "administration",
-						number: HTML_Engine.chooser.fetch("lumberjack_untrain", "units")
+					game.performTask("untrain_workers", {
+						from: 		"lumberjack",
+						to: 		"administration",
+						number: 	HTML_Engine.chooser.fetch("lumberjack_untrain", "units")
 					});
 				}
 			});
@@ -1174,7 +1174,7 @@ HTML_Engine.inside_farm = {
 
 			html += "<div class='heading'> The daily income of food is: " +
 				HTML_Engine.displayResources.content(
-					game.unit.farmer.farming(parseInt(nr_of_active_units))				
+					game.unit.farm.work(parseInt(nr_of_active_units))				
 				) + "</div>";
 		}
 		html += "</div>";
@@ -1228,18 +1228,18 @@ HTML_Engine.inside_farm = {
 					max: capacity - nr_of_active_units,
 					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content(
-								game.unit.farmer.create(parseInt(ui.value))
+								game.unit.farm.create(parseInt(ui.value))
 							) + "<div> Daily income: </div>" +
 							HTML_Engine.displayResources.content(
-									game.unit.farmer.farming(parseInt(ui.value))
+									game.unit.farm.work(parseInt(ui.value))
 							));
 					}
 				}],
 				performAction: function() {
-					game.performTask("train_farmer", {
-						from: "administration",
-						to: "farm",
-						number: HTML_Engine.chooser.fetch("farm_train", "units")
+					game.performTask("train_workers", {
+						from: 		"administration",
+						to: 		"farm",
+						number: 	HTML_Engine.chooser.fetch("farm_train", "units")
 					});
 				}
 			});
@@ -1263,10 +1263,10 @@ HTML_Engine.inside_farm = {
 					}
 				}],
 				performAction: function() {
-					game.performTask("untrain_farmer", {
-						from: "farm",
-						to: "administration",
-						number: HTML_Engine.chooser.fetch("farm_untrain", "units")
+					game.performTask("untrain_workers", {
+						from: 		"farm",
+						to: 		"administration",
+						number: 	HTML_Engine.chooser.fetch("farm_untrain", "units")
 					});
 				}
 			});

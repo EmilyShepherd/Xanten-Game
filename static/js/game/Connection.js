@@ -93,6 +93,7 @@ Connection.prototype.startGame = function(response) {
 	var path 		= "/static/js/game/",
 		/**
 		 * It loads a JavaScript file
+		 * @inner
 		 */
 		loadJsFile 	= function(file) {
 			var jsLink = $("<script type='text/javascript' src='" + file + "'>");
@@ -100,6 +101,7 @@ Connection.prototype.startGame = function(response) {
 		},
 		/**
 		 * It loads the JavaScript objects for game
+		 * @inner
 		 */
 		loadJS 		= function() {
 			var files 		= [				      		  
@@ -125,6 +127,7 @@ Connection.prototype.startGame = function(response) {
 		},
 		/**
 		 * It creates the cityMap, worldMap, player and game objects. Then it calls the game.init() method
+		 * @inner
 		 */
 		createGame	= function(){
 			var	cityMap  	= new CityMap(response.game.maps.city),
@@ -342,6 +345,7 @@ Connection.prototype.generateAbstractGeneralMap = function(size){
 	/**
 	 *  Checks the value of a space in the map array, returning the empty string for co-ordinates that don't exist.
 	 * (This avoids nasty array index errors when we get close to the edges.)
+	 * @inner
 	 * @param {string} y_coord The y co-ordonate
 	 * @param {string}x_coord The x co-ordonate
 	 * @returns {boolean}

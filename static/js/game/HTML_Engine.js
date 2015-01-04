@@ -466,18 +466,15 @@ HTML_Engine.inside_administration = {
 			HTML_Engine.displayResources.content({
 				resources: {
 					"gold": nr_of_free_units * 0.1,
-					/* TODO @George real resources */
 				}
 			}) + "</div>";
 		return html;
 	},
 	enable: function() {
 		HTML_Engine.upgradeBuilding.enable("administration", (parseInt(game.player.city.buildings["administration"].level) + 1));
-		// TODO @George
 	},
 	disable: function() {
 		HTML_Engine.upgradeBuilding.disable("administration");
-		// TODO @George
 	}
 };
 
@@ -594,7 +591,7 @@ HTML_Engine.inside_military = {
 					max: nr_of_active_units,
 					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content({
-							time: parseInt(ui.value) * 5 /* TODO @George real resources */
+							time: parseInt(ui.value) * 5 
 						}));
 					}
 				}],
@@ -636,7 +633,6 @@ HTML_Engine.inside_storage = {
 		var html = "";
 		html += HTML_Engine.getBuilding.info("storage", true);
 		html += HTML_Engine.upgradeBuilding.content("storage", (parseInt(game.player.city.buildings["storage"].level) + 1));
-		// TODO @George
 		return html;
 	},
 	/**
@@ -644,14 +640,12 @@ HTML_Engine.inside_storage = {
 	 */
 	enable: function() {
 		HTML_Engine.upgradeBuilding.enable("storage", (parseInt(game.player.city.buildings["storage"].level) + 1));
-		// TODO @George
 	},
 	/**
 	 * It disables the functionality for the building
 	 */
 	disable: function() {
 		HTML_Engine.upgradeBuilding.disable("storage");
-		// TODO @George
 	}
 };
 
@@ -954,7 +948,6 @@ HTML_Engine.inside_house = {
 	content: function() {
 		var html = "";
 		html += HTML_Engine.getBuilding.info("house", true);
-		// TODO @George
 		return html;
 	},
 	/**
@@ -962,14 +955,12 @@ HTML_Engine.inside_house = {
 	 */
 	enable: function() {
 		HTML_Engine.upgradeBuilding.enable("house", (parseInt(game.player.city.buildings["administration"].level) + 1));
-		// TODO @George
 	},
 	/**
 	 * It disables the functionality for the building
 	 */
 	disable: function() {
 		HTML_Engine.upgradeBuilding.disable("house");
-		// TODO @George
 	}
 };
 
@@ -1107,7 +1098,6 @@ HTML_Engine.inside_trade = {
 	 */
 	disable: function() {
 		HTML_Engine.upgradeBuilding.disable("trade");
-		// TODO @George
 	}
 };
 

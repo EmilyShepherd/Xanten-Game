@@ -346,7 +346,37 @@ game.constructions.elements = {
 		id: 2,
 		name: "Plant",
 		img: "plant.png"
-	}
+	},
+	"Sign Crossroad": {
+		id: 3,
+		name: "Sign Crossroad",
+		img: "sign_crossroad.png"
+	},
+	"Statue": {
+		id: 4,
+		name: "Statue",
+		img: "statue.png"
+	},
+	"Tower": {
+		id: 5,
+		name: "Tower",
+		img: "tower.png"
+	},
+	"Post": {
+		id: 6,
+		name: "Post",
+		img: "post.png"
+	},
+	"Totem": {
+		id: 7,
+		name: "Totem",
+		img: "totem.png"
+	},
+	"Obelisk": {
+		id: 8,
+		name: "Obelisk",
+		img: "obelisk.png"
+	}	
 };
 
 /**

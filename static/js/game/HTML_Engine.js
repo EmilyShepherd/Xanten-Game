@@ -1464,8 +1464,8 @@ HTML_Engine.getBuilding = {
 				return "Train people into strong lumberjacks who can generate wood for you."
 			case "mill":
 				return "Send people to work in the mill to refine your food and keep your citizens happy."
-			default:
-				return "This building has no description yet :( (@Joe)";
+			case "trade":
+				return "The trade building helps your city to sell or buy resources";
 		}
 	},
 	/**

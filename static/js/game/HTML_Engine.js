@@ -287,10 +287,10 @@ HTML_Engine.chooser = {
 				change = function(event, ui) {
 					input.val(ui.value);
 					if (action) {
-						action(ui, extra);
+						action(event, ui, extra);
 					}
 					if (gen_act) {
-						gen_act(ui, extra);
+						gen_act(event, ui, extra);
 					}
 				};
 
@@ -304,7 +304,7 @@ HTML_Engine.chooser = {
 				change: change,
 				create: function(event, ui) {
 					ui.value = $(this).slider("option", "min");
-					change(ui);
+					change(event, ui);
 				}
 			});
 
@@ -567,7 +567,7 @@ HTML_Engine.inside_military = {
 					id: 'units',
 					min: 1,
 					max: capacity - nr_of_active_units,
-					change: function(ui, extra) {
+					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content(
 								game.unit.military.create(parseInt(ui.value))
 							) + "<div> Daily cost: </div>" +
@@ -597,7 +597,7 @@ HTML_Engine.inside_military = {
 					id: 'units',
 					min: 1,
 					max: nr_of_active_units,
-					change: function(ui, extra) {
+					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content({
 							time: parseInt(ui.value) * 5 /* TODO @George real resources */
 						}));
@@ -775,7 +775,7 @@ HTML_Engine.inside_mine = {
 					id: 'units',
 					min: 1,
 					max: capacity - nr_of_active_units,
-					change: function(ui, extra) {
+					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content(
 								game.unit.mine.create(parseInt(ui.value))
 							) + "<div> Daily income: </div>" +
@@ -805,7 +805,7 @@ HTML_Engine.inside_mine = {
 					id: 'units',
 					min: 1,
 					max: nr_of_active_units,
-					change: function(ui, extra) {
+					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content({
 							time: parseInt(ui.value) * 5
 						}));
@@ -923,7 +923,7 @@ HTML_Engine.inside_trade = {
 	enable: function() {
 		HTML_Engine.upgradeBuilding.enable("trade", (parseInt(game.player.city.buildings.trade.level) + 1));
 
-		var changeValue = function(ui, extra, value, what) {
+		var changeValue = function(event, ui, extra, value, what) {
 				extra.html(HTML_Engine.displayResources.content(
 					game.unit.trade(parseInt(ui.value), value, what)
 				));
@@ -1089,7 +1089,7 @@ HTML_Engine.inside_lumberjack = {
 					id: 'units',
 					min: 1,
 					max: capacity - nr_of_active_units,
-					change: function(ui, extra) {
+					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content(
 								game.unit.lumberjack.create(parseInt(ui.value))
 							) + "<div> Daily income: </div>" +
@@ -1119,7 +1119,7 @@ HTML_Engine.inside_lumberjack = {
 					id: 'units',
 					min: 1,
 					max: nr_of_active_units,
-					change: function(ui, extra) {
+					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content({
 							time: parseInt(ui.value) * 5
 						}));
@@ -1231,7 +1231,7 @@ HTML_Engine.inside_farm = {
 					id: 'units',
 					min: 1,
 					max: capacity - nr_of_active_units,
-					change: function(ui, extra) {
+					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content(
 								game.unit.farm.create(parseInt(ui.value))
 							) + "<div> Daily income: </div>" +
@@ -1261,7 +1261,7 @@ HTML_Engine.inside_farm = {
 					id: 'units',
 					min: 1,
 					max: nr_of_active_units,
-					change: function(ui, extra) {
+					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content({
 							time: parseInt(ui.value) * 5
 						}));
@@ -1320,6 +1320,7 @@ HTML_Engine.getBuilding = {
 	 *  @return {string} The image of the building
 	 */
 	image: function(name, level, dim) {
+
 		var src = name.replaceAll(" ", "_"),
 			title = "";
 
@@ -1591,7 +1592,7 @@ HTML_Engine.sendUnits = {
 					id: 'units',
 					min: 1,
 					max: nr_of_active_units,
-					change: function(ui, extra) {
+					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content(
 							game.unit.military.send(parseInt(ui.value))
 						));
@@ -1678,7 +1679,7 @@ HTML_Engine.attackCity = {
 					id: 'units',
 					min: 1,
 					max: nr_of_active_units,
-					change: function(ui, extra) {
+					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content(
 							game.unit.military.attack(parseInt(ui.value))
 						));
@@ -1687,7 +1688,7 @@ HTML_Engine.attackCity = {
 					id: 'wine',
 					mine: 1,
 					max: game.player.resources.food,
-					change: function(ui, extra) {
+					change: function(event, ui, extra) {
 						extra.html("Incresed by " + Math.round(parseInt(ui.value) / 900 * 25) + "%");
 					}
 

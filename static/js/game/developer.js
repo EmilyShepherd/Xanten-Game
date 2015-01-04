@@ -524,4 +524,4 @@ developer.game = {
 			}
 		}
 	}
-}
+};

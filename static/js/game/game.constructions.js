@@ -21,7 +21,7 @@ game.constructions.buildings = {
 		 * @return {Resource} A Resources object which describe the capacity of the building
 		 * @inner 
 		 */
-		capacity: function(level) {
+		capacity: function() {
 			return {};
 			// TODO @George
 		},
@@ -84,7 +84,7 @@ game.constructions.buildings = {
 				},
 				people: 10 * level,
 				time: 10 * level
-			})
+			});
 		},
 		/**
 		 * It returns the name of the workers of this building
@@ -198,7 +198,7 @@ game.constructions.buildings = {
 					"stone": 0.5 * level * game.player.city.buildings.mine.num * game.player.city.buildings.mine.people,
 					"people": Math.pow(4, level)
 				}
-			})
+			});
 		},
 		/**
 		 * It returns the necessary resources in order to level up the building to a given level
@@ -237,7 +237,7 @@ game.constructions.buildings = {
 		 * @return {Resource} A Resources object which describe the capacity of the building
 		 * @inner  
 		 */
-		capacity: function(level) {
+		capacity: function() {
 			return new Resources({
 				"people": (1000 * Math.pow(1.1, game.player.getLevel()) * game.player.city.buildings.house.num)
 			});
@@ -449,7 +449,7 @@ game.constructions.elements = {
  * @memberOf Game.prototype
  */
 game.constructions.getBuildingById = function(id) {
-	for (b in game.constructions.buildings) {
+	for (var b in game.constructions.buildings) {
 		if (game.constructions.buildings[b].id === id) {
 			return game.constructions.buildings[b];
 		}
@@ -463,7 +463,7 @@ game.constructions.getBuildingById = function(id) {
  * @memberOf Game.prototype
  */
 game.constructions.getElementById = function(id) {
-	for (e in game.constructions.elements) {
+	for (var e in game.constructions.elements) {
 		if (game.constructions.elements[e].id === id) {
 			return game.constructions.elements[e];
 		}

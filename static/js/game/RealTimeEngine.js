@@ -10,9 +10,9 @@
  * @property {object} websocket The reference to the websocket object
  */
 function RealTimeEngine(token) {
-	this.isRunning 		= false;
-	this.threads 		= {};
-	this.websocket 		= undefined;
+	this.isRunning = false;
+	this.threads = {};
+	this.websocket = undefined;
 
 	if (token)
 		this.init(token);
@@ -25,13 +25,13 @@ function RealTimeEngine(token) {
  * @memberOf RealTimeEngine.prototype
  */
 RealTimeEngine.prototype.init = function(token) {
-	this.channel          = new goog.appengine.Channel(token);
-	this.socket           = this.channel.open();
-	this.socket.RTE       = this;
-	this.socket.onopen    = this.onopen;
+	this.channel = new goog.appengine.Channel(token);
+	this.socket = this.channel.open();
+	this.socket.RTE = this;
+	this.socket.onopen = this.onopen;
 	this.socket.onmessage = this.onmessage;
-	this.socket.onerror   = this.onerror;
-	this.socket.onclose   = this.onclose;
+	this.socket.onerror = this.onerror;
+	this.socket.onclose = this.onclose;
 };
 
 RealTimeEngine.prototype.onmessage = function(data) {
@@ -168,10 +168,13 @@ RealTimeEngine.prototype.receiveAttack = function(message) {
 	// TODO @Joe
 };
 
-RealTimeEngine.prototype.attackResult = function (msg)
-{
-    alert(msg.text);
-}
+/**
+ * It gives the result regarding an attack
+ * @param {object} msg Result about the attack
+ */
+RealTimeEngine.prototype.attackResult = function(msg) {
+	alert(msg.text);
+};
 
 /**
  * It is called when the game receives the statistics for a day. It includes disasters

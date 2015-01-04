@@ -11,7 +11,7 @@ game.unit = {
 					"food": 10 * number
 				},
 				time: 20 * number
-			})
+			});
 		},
 		"idle": function(number) {
 			return Resources({
@@ -41,7 +41,7 @@ game.unit = {
 		}
 	},
 	"miller": {
-		"create": function (number){
+		"create": function(number) {
 			return new Resources({
 				resources: {
 					"food": 15 * number
@@ -59,7 +59,7 @@ game.unit = {
 		}
 	},
 	"miner": {
-		"create": function (number){
+		"create": function(number) {
 			return new Resources({
 				resources: {
 					"food": 15 * number
@@ -77,7 +77,7 @@ game.unit = {
 		}
 	},
 	"lumberjack": {
-		"create": function (number){
+		"create": function(number) {
 			return new Resources({
 				resources: {
 					"food": 15 * number
@@ -95,7 +95,7 @@ game.unit = {
 		}
 	},
 	"farmer": {
-		"create": function (number){
+		"create": function(number) {
 			return new Resources({
 				resources: {
 					"food": 15 * number
@@ -112,12 +112,12 @@ game.unit = {
 			});
 		}
 	},
-	"trade": function(number, value, what){
+	"trade": function(number, value, what) {
 		var r = {
-			"people": Math.ceil(number/10),
+			"people": Math.ceil(number / 10),
 			resources: {}
-		}
+		};
 		r.resources[what] = number * value;
-		return new Resources(r);		
+		return new Resources(r);
 	}
 };

@@ -273,6 +273,7 @@ class User(ndb.Model):
     # added
     def toDict(self):
         return {
+            "id"    : self.uid,
             "level" : User.LEVEL_NAMES[self.level - 1],
             "position" : self.positionOnMap,
             "resources" : {

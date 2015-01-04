@@ -228,7 +228,7 @@ class Map:
                     # There is also a 10% chance that this space will
                     # have some other feature in it, such as a tower or
                     # plant
-                    if random.randrange(0, 100) < 10:
+                    elif random.randrange(0, 100) < 10:
                         cMap[y][x]['type_construction'] = 'element'
                         cMap[y][x]['id_construction']   = random.randrange(1, 3)
 

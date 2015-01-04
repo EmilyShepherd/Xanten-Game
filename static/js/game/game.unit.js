@@ -11,7 +11,7 @@ game.unit = {
 					"food": 10 * number
 				},
 				time: 20 * number
-			})
+			});
 		},
 		"idle": function(number) {
 			return Resources({
@@ -44,7 +44,7 @@ game.unit = {
 		var r = {
 			"people": Math.ceil(number/10),
 			resources: {}
-		}
+		};
 		r.resources[what] = number * value;
 		return new Resources(r);		
 	},

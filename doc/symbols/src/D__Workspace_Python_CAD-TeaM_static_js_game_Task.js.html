@@ -27,27 +27,27 @@
 <span class='line'> 20</span>  * @property {object} serverDetails Information regarding the confirmation from the server
 <span class='line'> 21</span>  * @property {object} imgSource The image of the task
 <span class='line'> 22</span>  * @property {object} title The title of the task
-<span class='line'> 23</span>  * 
+<span class='line'> 23</span>  *
 <span class='line'> 24</span>  */</span><span class="WHIT">
-<span class='line'> 25</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">Task</span><span class="PUNC">(</span><span class="NAME">data</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">title</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">serverDetails</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">afterConfirmation</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">beforeEnds</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">imgSource</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 26</span> </span><span class="WHIT">	</span><span class="WHIT">
-<span class='line'> 27</span> </span><span class="WHIT">	</span><span class="NAME">this.id</span><span class="WHIT">					</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">game.tasksCounter</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">Task</span><span class="PUNC">(</span><span class="NAME">data</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">title</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">serverDetails</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">afterConfirmation</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">beforeEnds</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">imgSource</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 26</span> 
+<span class='line'> 27</span> </span><span class="WHIT">	</span><span class="NAME">this.id</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">game.tasksCounter</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 28</span> 
-<span class='line'> 29</span> </span><span class="WHIT">	</span><span class="NAME">this.title</span><span class="WHIT">        		</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">title</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 30</span> </span><span class="WHIT">	</span><span class="NAME">this.data</span><span class="WHIT">		 		</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">data</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 31</span> </span><span class="WHIT">	</span><span class="NAME">this.response</span><span class="WHIT">			</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 32</span> </span><span class="WHIT">	</span><span class="NAME">this.serverDetails</span><span class="WHIT">		</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">serverDetails</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 33</span> </span><span class="WHIT">	</span><span class="NAME">this.imgSource</span><span class="WHIT">			</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">imgSource</span><span class="PUNC">?</span><span class="NAME">imgSource</span><span class="PUNC">:</span><span class="STRN">"http://clipart.nicubunu.ro/svg/rpg_map/statue.svg"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 34</span> </span><span class="WHIT">		</span><span class="WHIT">
+<span class='line'> 29</span> </span><span class="WHIT">	</span><span class="NAME">this.title</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">title</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="WHIT">	</span><span class="NAME">this.data</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">data</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="WHIT">	</span><span class="NAME">this.response</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 32</span> </span><span class="WHIT">	</span><span class="NAME">this.serverDetails</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">serverDetails</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="WHIT">	</span><span class="NAME">this.imgSource</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">imgSource</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">imgSource</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"http://clipart.nicubunu.ro/svg/rpg_map/statue.svg"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 34</span> 
 <span class='line'> 35</span> </span><span class="WHIT">	</span><span class="NAME">game.tasksCounter</span><span class="PUNC">++</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 36</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 36</span> 
 <span class='line'> 37</span> </span><span class="WHIT">	</span><span class="COMM">/*
 <span class='line'> 38</span> 	 * If there is exists an override of the method, call it after it calls the default
 <span class='line'> 39</span> 	 * If not call the default
 <span class='line'> 40</span> 	 */</span><span class="WHIT">
-<span class='line'> 41</span> </span><span class="WHIT">	</span><span class="NAME">this._beforeEnds</span><span class="WHIT"> 			</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">beforeEnds</span><span class="PUNC">?</span><span class="NAME">beforeEnds</span><span class="PUNC">:</span><span class="NAME">this._beforeEnds</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 42</span> </span><span class="WHIT">	</span><span class="NAME">this._afterConfirmation</span><span class="WHIT">		</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">afterConfirmation</span><span class="PUNC">?</span><span class="NAME">afterConfirmation</span><span class="PUNC">:</span><span class="NAME">this._afterConfirmation</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">		</span><span class="WHIT">
-<span class='line'> 43</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 41</span> </span><span class="WHIT">	</span><span class="NAME">this._beforeEnds</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">beforeEnds</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">beforeEnds</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">this._beforeEnds</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="WHIT">	</span><span class="NAME">this._afterConfirmation</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">afterConfirmation</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NAME">afterConfirmation</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">this._afterConfirmation</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 43</span> 
 <span class='line'> 44</span> </span><span class="WHIT">	</span><span class="NAME">this._activate</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 45</span> </span><span class="PUNC">}</span><span class="WHIT">
 <span class='line'> 46</span> 
@@ -56,86 +56,87 @@
 <span class='line'> 49</span>  * @private
 <span class='line'> 50</span>  * @memberOf Task.prototype
 <span class='line'> 51</span>  */</span><span class="WHIT">
-<span class='line'> 52</span> </span><span class="NAME">Task.prototype._activate</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 53</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 52</span> </span><span class="NAME">Task.prototype._activate</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 53</span> 
 <span class='line'> 54</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">instance</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 55</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 55</span> 
 <span class='line'> 56</span> </span><span class="WHIT">	</span><span class="NAME">this.progressTasks</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ProgressBar</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 57</span> </span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 57</span> 
 <span class='line'> 58</span> </span><span class="WHIT">	</span><span class="NAME">$.ajax</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 59</span> </span><span class="WHIT">			</span><span class="STRN">"url"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">this.serverDetails.url</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'> 60</span> </span><span class="WHIT">			</span><span class="STRN">"type"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">this.serverDetails.type</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'> 61</span> </span><span class="WHIT">			</span><span class="STRN">"data"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">this.serverDetails.data</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'> 62</span> </span><span class="WHIT">			</span><span class="STRN">"success"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">response</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 63</span> </span><span class="WHIT">							</span><span class="NAME">instance.response</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">response</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 64</span> </span><span class="WHIT">							</span><span class="NAME">instance.afterConfirmation</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 65</span> </span><span class="WHIT">						</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'> 66</span> </span><span class="WHIT">			</span><span class="STRN">"error"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="NAME">HTML_Engine.failTask.content</span><span class="PUNC">(</span><span class="NAME">instance.title</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">" your people are not now able."</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">instance.forceStop</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'> 67</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 68</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 69</span> 
-<span class='line'> 70</span> </span><span class="COMM">/**
-<span class='line'> 71</span>  * It is the default function for duringPerforming. It just shows the progress of the
-<span class='line'> 72</span>  * @memberOf Task.prototype 
-<span class='line'> 73</span>  */</span><span class="WHIT">
-<span class='line'> 74</span> </span><span class="NAME">Task.prototype.duringPerforming</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 75</span> </span><span class="WHIT">	</span><span class="NAME">this._duringPerforming</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 76</span> </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'> 77</span> 
-<span class='line'> 78</span> 
-<span class='line'> 79</span> </span><span class="COMM">/**
-<span class='line'> 80</span>  * @private
-<span class='line'> 81</span>  * @memberOf Task.prototype 
-<span class='line'> 82</span>  */</span><span class="WHIT">
-<span class='line'> 83</span> </span><span class="NAME">Task.prototype._beforeEnds</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">	</span><span class="WHIT">
-<span class='line'> 84</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 85</span> 
-<span class='line'> 86</span> </span><span class="COMM">/**
-<span class='line'> 87</span>  * @private
-<span class='line'> 88</span>  * @memberOf Task.prototype 
-<span class='line'> 89</span>  */</span><span class="WHIT">
-<span class='line'> 90</span> </span><span class="NAME">Task.prototype._afterConfirmation</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 91</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 92</span> 
+<span class='line'> 59</span> </span><span class="WHIT">		</span><span class="STRN">"url"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">this.serverDetails.url</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 60</span> </span><span class="WHIT">		</span><span class="STRN">"type"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">this.serverDetails.type</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 61</span> </span><span class="WHIT">		</span><span class="STRN">"data"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">this.serverDetails.data</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 62</span> </span><span class="WHIT">		</span><span class="STRN">"success"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">response</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 63</span> </span><span class="WHIT">			</span><span class="NAME">instance.response</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">response</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 64</span> </span><span class="WHIT">			</span><span class="NAME">instance.afterConfirmation</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 65</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 66</span> </span><span class="WHIT">		</span><span class="STRN">"error"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 67</span> </span><span class="WHIT">			</span><span class="NAME">HTML_Engine.failTask.content</span><span class="PUNC">(</span><span class="NAME">instance.title</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">" your people are not now able."</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 68</span> </span><span class="WHIT">			</span><span class="NAME">instance.forceStop</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 69</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 70</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 71</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 72</span> 
+<span class='line'> 73</span> </span><span class="COMM">/**
+<span class='line'> 74</span>  * It is the default function for duringPerforming. It just shows the progress of the
+<span class='line'> 75</span>  * @memberOf Task.prototype
+<span class='line'> 76</span>  */</span><span class="WHIT">
+<span class='line'> 77</span> </span><span class="NAME">Task.prototype.duringPerforming</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 78</span> </span><span class="WHIT">	</span><span class="NAME">this._duringPerforming</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 79</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 80</span> 
+<span class='line'> 81</span> 
+<span class='line'> 82</span> </span><span class="COMM">/**
+<span class='line'> 83</span>  * @private
+<span class='line'> 84</span>  * @memberOf Task.prototype
+<span class='line'> 85</span>  */</span><span class="WHIT">
+<span class='line'> 86</span> </span><span class="NAME">Task.prototype._beforeEnds</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 87</span> 
+<span class='line'> 88</span> </span><span class="COMM">/**
+<span class='line'> 89</span>  * @private
+<span class='line'> 90</span>  * @memberOf Task.prototype
+<span class='line'> 91</span>  */</span><span class="WHIT">
+<span class='line'> 92</span> </span><span class="NAME">Task.prototype._afterConfirmation</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 93</span> 
-<span class='line'> 94</span> </span><span class="COMM">/**
-<span class='line'> 95</span>  * It is the default function for afterConfirmation. It checks if the server confirmed the task. Else, it stops it
-<span class='line'> 96</span>  * @memberOf Task.prototype
-<span class='line'> 97</span>  */</span><span class="WHIT">
-<span class='line'> 98</span> </span><span class="NAME">Task.prototype.afterConfirmation</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 99</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">this.response.status</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">"error"</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="COMM">// TODO should be changed to error</span><span class="WHIT">
-<span class='line'>100</span> </span><span class="WHIT">		</span><span class="NAME">HTML_Engine.failTask.content</span><span class="PUNC">(</span><span class="NAME">this.title</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.response.message</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>101</span> </span><span class="WHIT">		</span><span class="NAME">this.forceStop</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>102</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">		</span><span class="WHIT">
-<span class='line'>103</span> </span><span class="WHIT">		</span><span class="NAME">this._afterConfirmation</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>104</span> </span><span class="WHIT">		</span><span class="NAME">this.progressTasks.start</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>105</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">game.currentAction</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>106</span> </span><span class="WHIT">			</span><span class="NAME">game.currentAction.update</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>107</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>108</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>109</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>110</span> 
-<span class='line'>111</span> </span><span class="COMM">/**
-<span class='line'>112</span>  * It is the default function for beforeEnds. Then, it calls its forceStop method
-<span class='line'>113</span>  * @memberOf Task.prototype 
-<span class='line'>114</span>  */</span><span class="WHIT">
-<span class='line'>115</span> </span><span class="NAME">Task.prototype.beforeEnds</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">	</span><span class="WHIT">
-<span class='line'>116</span> </span><span class="WHIT">	</span><span class="NAME">Window.newsBoard.add</span><span class="PUNC">(</span><span class="STRN">"&lt;span class='news_done'>Done&lt;/span>: "</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">this.title</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>117</span> </span><span class="WHIT">	</span><span class="NAME">this._beforeEnds</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>118</span> </span><span class="WHIT">	</span><span class="NAME">this.forceStop</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>119</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>120</span> 
-<span class='line'>121</span> </span><span class="COMM">/**
-<span class='line'>122</span>  * It stops the progress bar, removes the task from the game and update the game
-<span class='line'>123</span>  * @memberOf Task.prototype 
-<span class='line'>124</span>  */</span><span class="WHIT">
-<span class='line'>125</span> </span><span class="NAME">Task.prototype.forceStop</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>126</span> </span><span class="WHIT">	</span><span class="COMM">// remove </span><span class="WHIT">
-<span class='line'>127</span> </span><span class="WHIT">	</span><span class="NAME">clearInterval</span><span class="PUNC">(</span><span class="NAME">this.progressTasks.thread</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>128</span> </span><span class="WHIT">	</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"#task_"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">this.id</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">slideUp</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>129</span> </span><span class="WHIT">	</span><span class="NAME">this.beforeStarting</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>130</span> </span><span class="WHIT">		</span><span class="COMM">// force to stop</span><span class="WHIT">
-<span class='line'>131</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>132</span> </span><span class="WHIT">	</span><span class="NAME">game.update</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">	</span><span class="WHIT">
-<span class='line'>133</span> </span><span class="WHIT">	</span><span class="NAME">game.removeTask</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>134</span> </span><span class="PUNC">}</span></pre></body></html>
+<span class='line'> 94</span> 
+<span class='line'> 95</span> </span><span class="COMM">/**
+<span class='line'> 96</span>  * It is the default function for afterConfirmation. It checks if the server confirmed the task. Else, it stops it
+<span class='line'> 97</span>  * @memberOf Task.prototype
+<span class='line'> 98</span>  */</span><span class="WHIT">
+<span class='line'> 99</span> </span><span class="NAME">Task.prototype.afterConfirmation</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>100</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">this.response.status</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">"error"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT"> </span><span class="COMM">// TODO should be changed to error</span><span class="WHIT">
+<span class='line'>101</span> </span><span class="WHIT">		</span><span class="NAME">HTML_Engine.failTask.content</span><span class="PUNC">(</span><span class="NAME">this.title</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.response.message</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>102</span> </span><span class="WHIT">		</span><span class="NAME">this.forceStop</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>103</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>104</span> </span><span class="WHIT">		</span><span class="NAME">this._afterConfirmation</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>105</span> </span><span class="WHIT">		</span><span class="NAME">this.progressTasks.start</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>106</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">game.currentAction</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>107</span> </span><span class="WHIT">			</span><span class="NAME">game.currentAction.update</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>108</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>109</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>110</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>111</span> 
+<span class='line'>112</span> </span><span class="COMM">/**
+<span class='line'>113</span>  * It is the default function for beforeEnds. Then, it calls its forceStop method
+<span class='line'>114</span>  * @memberOf Task.prototype
+<span class='line'>115</span>  */</span><span class="WHIT">
+<span class='line'>116</span> </span><span class="NAME">Task.prototype.beforeEnds</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>117</span> </span><span class="WHIT">	</span><span class="NAME">Window.newsBoard.add</span><span class="PUNC">(</span><span class="STRN">"&lt;span class='news_done'>Done&lt;/span>: "</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">this.title</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>118</span> </span><span class="WHIT">	</span><span class="NAME">this._beforeEnds</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>119</span> </span><span class="WHIT">	</span><span class="NAME">this.forceStop</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>120</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>121</span> 
+<span class='line'>122</span> </span><span class="COMM">/**
+<span class='line'>123</span>  * It stops the progress bar, removes the task from the game and update the game
+<span class='line'>124</span>  * @memberOf Task.prototype
+<span class='line'>125</span>  */</span><span class="WHIT">
+<span class='line'>126</span> </span><span class="NAME">Task.prototype.forceStop</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>127</span> </span><span class="WHIT">	</span><span class="COMM">// remove </span><span class="WHIT">
+<span class='line'>128</span> </span><span class="WHIT">	</span><span class="NAME">clearInterval</span><span class="PUNC">(</span><span class="NAME">this.progressTasks.thread</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>129</span> </span><span class="WHIT">	</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"#task_"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">this.id</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">slideUp</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>130</span> </span><span class="WHIT">	</span><span class="NAME">this.beforeStarting</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>131</span> </span><span class="WHIT">		</span><span class="COMM">// force to stop</span><span class="WHIT">
+<span class='line'>132</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>133</span> </span><span class="WHIT">	</span><span class="NAME">game.update</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>134</span> </span><span class="WHIT">	</span><span class="NAME">game.removeTask</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>135</span> </span><span class="PUNC">}</span><span class="PUNC">;</span></pre></body></html>

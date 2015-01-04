@@ -32,7 +32,7 @@
 <span class='line'> 25</span>  */</span><span class="WHIT">
 <span class='line'> 26</span> </span><span class="NAME">XantenMap.prototype.getArray</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'> 27</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.array</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 28</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 28</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 29</span> 
 <span class='line'> 30</span> </span><span class="COMM">/**
 <span class='line'> 31</span>  * It returns the array
@@ -41,7 +41,7 @@
 <span class='line'> 34</span>  */</span><span class="WHIT">
 <span class='line'> 35</span> </span><span class="NAME">XantenMap.prototype.getSize</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'> 36</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.array.length</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 37</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 37</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 38</span> 
 <span class='line'> 39</span> </span><span class="COMM">/**
 <span class='line'> 40</span>  * It returns an array with the position for the selected cell (x,y)
@@ -50,7 +50,7 @@
 <span class='line'> 43</span>  */</span><span class="WHIT">
 <span class='line'> 44</span> </span><span class="NAME">XantenMap.prototype.getSelectedCell</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'> 45</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.selectedCell</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 46</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 46</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 47</span> 
 <span class='line'> 48</span> 
 <span class='line'> 49</span> </span><span class="COMM">/**
@@ -61,7 +61,7 @@
 <span class='line'> 54</span> </span><span class="WHIT">	</span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">this.HTML_element</span><span class="PUNC">+</span><span class="STRN">" div"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">removeClass</span><span class="PUNC">(</span><span class="STRN">'selected'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 55</span> </span><span class="WHIT">	</span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">this.HTML_element</span><span class="PUNC">+</span><span class="STRN">" img"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">removeClass</span><span class="PUNC">(</span><span class="STRN">'selected'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 56</span> </span><span class="WHIT">	</span><span class="NAME">this.selectedCell</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 57</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 57</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 58</span> 
 <span class='line'> 59</span> </span><span class="COMM">/**
 <span class='line'> 60</span>  * It selects an image from the map
@@ -104,7 +104,7 @@
 <span class='line'> 97</span>  * @private
 <span class='line'> 98</span>  */</span><span class="WHIT">
 <span class='line'> 99</span> </span><span class="NAME">XantenMap.prototype.selectCell</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">x</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">y</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>100</span> </span><span class="WHIT">	</span><span class="NAME">alert</span><span class="PUNC">(</span><span class="STRN">'The selectCell method for '</span><span class="PUNC">+</span><span class="NAME">this.name</span><span class="PUNC">+</span><span class="STRN">' map must be overriden.'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>100</span> </span><span class="WHIT">	</span><span class="NAME">alert</span><span class="PUNC">(</span><span class="STRN">'The selectCell method for '</span><span class="PUNC">+</span><span class="NAME">this.name</span><span class="PUNC">+</span><span class="STRN">' map must be overriden. It was selected  '</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">x</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">" "</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT">  </span><span class="NAME">y</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>101</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>102</span> 
 <span class='line'>103</span> </span><span class="COMM">/**
@@ -119,9 +119,9 @@
 <span class='line'>112</span> </span><span class="WHIT">	</span><span class="WHIT">
 <span class='line'>113</span> </span><span class="WHIT">	</span><span class="NAME">table</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"&lt;div id='map-board-"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">this.name</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"' class='map' >"</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>114</span> </span><span class="WHIT">	</span><span class="WHIT">
-<span class='line'>115</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="PUNC">(</span><span class="NAME">vertical</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">vertical</span><span class="WHIT"> </span><span class="PUNC">&lt;=</span><span class="WHIT"> </span><span class="NAME">this.getSize</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">vertical</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>115</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">vertical</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">vertical</span><span class="WHIT"> </span><span class="PUNC">&lt;=</span><span class="WHIT"> </span><span class="NAME">this.getSize</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">vertical</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'>116</span> </span><span class="WHIT">		</span><span class="NAME">table</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'&lt;div class="row">'</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>117</span> </span><span class="WHIT">		</span><span class="KEYW">for</span><span class="PUNC">(</span><span class="NAME">horizontal</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">horizontal</span><span class="WHIT"> </span><span class="PUNC">&lt;=</span><span class="WHIT"> </span><span class="NAME">this.getSize</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">horizontal</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>117</span> </span><span class="WHIT">		</span><span class="KEYW">for</span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">horizontal</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">horizontal</span><span class="WHIT"> </span><span class="PUNC">&lt;=</span><span class="WHIT"> </span><span class="NAME">this.getSize</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">horizontal</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'>118</span> </span><span class="WHIT">			</span><span class="NAME">table</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'&lt;div id="cel_'</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">vertical</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">'_'</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">horizontal</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">'">&lt;/div>'</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>119</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
 <span class='line'>120</span> </span><span class="WHIT">		</span><span class="NAME">table</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'&lt;/div>'</span><span class="PUNC">;</span><span class="WHIT">
@@ -179,7 +179,7 @@
 <span class='line'>172</span> </span><span class="WHIT">	</span><span class="NAME">this.deselect</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>173</span> </span><span class="WHIT">	</span><span class="NAME">this.selectCell</span><span class="PUNC">(</span><span class="NAME">x</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">y</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>174</span> </span><span class="WHIT">	</span><span class="NAME">this.selectedCell</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="STRN">"x"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">x</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"y"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">y</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>175</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>175</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>176</span> 
 <span class='line'>177</span> </span><span class="COMM">/**
 <span class='line'>178</span>  * It changes the map backgrounds and images.

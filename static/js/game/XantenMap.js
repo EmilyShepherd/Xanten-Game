@@ -25,7 +25,7 @@ function XantenMap(array, name){
  */
 XantenMap.prototype.getArray = function(){
 	return this.array;
-}
+};
 
 /**
  * It returns the array
@@ -34,7 +34,7 @@ XantenMap.prototype.getArray = function(){
  */
 XantenMap.prototype.getSize = function(){
 	return this.array.length;
-}
+};
 
 /**
  * It returns an array with the position for the selected cell (x,y)
@@ -43,7 +43,7 @@ XantenMap.prototype.getSize = function(){
  */
 XantenMap.prototype.getSelectedCell = function(){
 	return this.selectedCell;
-}
+};
 
 
 /**
@@ -54,7 +54,7 @@ XantenMap.prototype.deselect = function(){
 	$(this.HTML_element+" div").removeClass('selected');
 	$(this.HTML_element+" img").removeClass('selected');
 	this.selectedCell = null;
-}
+};
 
 /**
  * It selects an image from the map
@@ -97,7 +97,7 @@ XantenMap.prototype.selectBackground = function(x,y){
  * @private
  */
 XantenMap.prototype.selectCell = function(x, y){
-	alert('The selectCell method for '+this.name+' map must be overriden.');
+	alert('The selectCell method for '+this.name+' map must be overriden. It was selected  ' + x + " " +  y);
 };
 
 /**
@@ -112,9 +112,9 @@ XantenMap.prototype.init = function(){
 	
 	table = "<div id='map-board-" + this.name + "' class='map' >";
 	
-	for(vertical = 1; vertical <= this.getSize(); vertical++){
+	for(var vertical = 1; vertical <= this.getSize(); vertical++){
 		table += '<div class="row">';
-		for(horizontal = 1; horizontal <= this.getSize(); horizontal++){
+		for(var horizontal = 1; horizontal <= this.getSize(); horizontal++){
 			table += '<div id="cel_' + vertical + '_' + horizontal + '"></div>';
 		}
 		table += '</div>';
@@ -172,7 +172,7 @@ XantenMap.prototype._selectCell = function(x, y){
 	this.deselect();
 	this.selectCell(x, y);
 	this.selectedCell = {"x": x, "y": y};
-}
+};
 
 /**
  * It changes the map backgrounds and images.

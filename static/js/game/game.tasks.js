@@ -19,6 +19,8 @@ game.tasks = {
 				},
 				function(task) {
 					if(task.data.to !== game.player.id) {
+						// Attack - Stage 1
+						//
 						// Your_city ---> Other
 						var resources = game.unit.military.attack(task.data.options.element_units);
 						game.player.city.buildings.military.people -= task.data.options.element_units;
@@ -26,6 +28,8 @@ game.tasks = {
 						game.update();
 						
 					} else {
+						// Attack - Stage 3
+						//
 						// Other ---> Your_city 
 						task.response = {
 								friends : {
@@ -69,10 +73,9 @@ game.tasks = {
 				},
 				function(task) {
 					if(task.data.to === game.player.id){
+						// Attack - Stage 2
+						//					
 						// It reached your city. Finished the attack
-						
-						// TODO remove this
-						// an example of possible response
 						
 						task.response.carring = new Resources(task.response.carring);
 						game.player.giveResources(task.response.carring);
@@ -80,7 +83,8 @@ game.tasks = {
 					
 						
 					} else {
-						
+						// Attack - Stage 4
+						//
 						// It reached the destination. Now it comes back to city
 						var data 		= task.data,
 							temp		= task.data.from;

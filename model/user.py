@@ -71,7 +71,7 @@ class User(ndb.Model):
     stone = ndb.FloatProperty(default=200)
 
     # The level of their home
-    homeLvl = ndb.IntegerProperty(default=1)
+    administrationLvl = ndb.IntegerProperty(default=1)
 
     # The number of people at the home
     peopleAtAdministration = ndb.IntegerProperty(default=50)

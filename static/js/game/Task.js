@@ -20,27 +20,27 @@
  * @property {object} serverDetails Information regarding the confirmation from the server
  * @property {object} imgSource The image of the task
  * @property {object} title The title of the task
- * 
+ *
  */
-function Task(data, title, serverDetails, afterConfirmation, beforeEnds, imgSource){
-	
-	this.id					= game.tasksCounter;
+function Task(data, title, serverDetails, afterConfirmation, beforeEnds, imgSource) {
 
-	this.title        		= title;
-	this.data		 		= data;
-	this.response			= null;
-	this.serverDetails		= serverDetails;
-	this.imgSource			= (imgSource?imgSource:"http://clipart.nicubunu.ro/svg/rpg_map/statue.svg");
-		
+	this.id = game.tasksCounter;
+
+	this.title = title;
+	this.data = data;
+	this.response = null;
+	this.serverDetails = serverDetails;
+	this.imgSource = (imgSource ? imgSource : "http://clipart.nicubunu.ro/svg/rpg_map/statue.svg");
+
 	game.tasksCounter++;
-	
+
 	/*
 	 * If there is exists an override of the method, call it after it calls the default
 	 * If not call the default
 	 */
-	this._beforeEnds 			= (beforeEnds?beforeEnds:this._beforeEnds);
-	this._afterConfirmation		= (afterConfirmation?afterConfirmation:this._afterConfirmation);		
-	
+	this._beforeEnds = (beforeEnds ? beforeEnds : this._beforeEnds);
+	this._afterConfirmation = (afterConfirmation ? afterConfirmation : this._afterConfirmation);
+
 	this._activate();
 }
 
@@ -49,60 +49,61 @@ function Task(data, title, serverDetails, afterConfirmation, beforeEnds, imgSour
  * @private
  * @memberOf Task.prototype
  */
-Task.prototype._activate = function(){
-	
+Task.prototype._activate = function() {
+
 	var instance = this;
-	
+
 	this.progressTasks = new ProgressBar(this);
-	
+
 	$.ajax({
-			"url": this.serverDetails.url,
-			"type": this.serverDetails.type,
-			"data": this.serverDetails.data,
-			"success": function(response){
-							instance.response = response;
-							instance.afterConfirmation();
-						},
-			"error": function(){HTML_Engine.failTask.content(instance.title, " your people are not now able."); instance.forceStop();}
+		"url": this.serverDetails.url,
+		"type": this.serverDetails.type,
+		"data": this.serverDetails.data,
+		"success": function(response) {
+			instance.response = response;
+			instance.afterConfirmation();
+		},
+		"error": function() {
+			HTML_Engine.failTask.content(instance.title, " your people are not now able.");
+			instance.forceStop();
+		}
 	});
 };
 
 /**
  * It is the default function for duringPerforming. It just shows the progress of the
- * @memberOf Task.prototype 
+ * @memberOf Task.prototype
  */
-Task.prototype.duringPerforming = function(){
+Task.prototype.duringPerforming = function() {
 	this._duringPerforming(this);
-}
+};
 
 
 /**
  * @private
- * @memberOf Task.prototype 
+ * @memberOf Task.prototype
  */
-Task.prototype._beforeEnds = function(){	
-};
+Task.prototype._beforeEnds = function() {};
 
 /**
  * @private
- * @memberOf Task.prototype 
+ * @memberOf Task.prototype
  */
-Task.prototype._afterConfirmation = function(){
-};
+Task.prototype._afterConfirmation = function() {};
 
 
 /**
  * It is the default function for afterConfirmation. It checks if the server confirmed the task. Else, it stops it
  * @memberOf Task.prototype
  */
-Task.prototype.afterConfirmation = function(){
-	if(this.response.status === "error" ){ // TODO should be changed to error
+Task.prototype.afterConfirmation = function() {
+	if (this.response.status === "error") { // TODO should be changed to error
 		HTML_Engine.failTask.content(this.title, this.response.message);
 		this.forceStop();
-	} else {		
+	} else {
 		this._afterConfirmation(this);
 		this.progressTasks.start();
-		if(game.currentAction){
+		if (game.currentAction) {
 			game.currentAction.update();
 		}
 	}
@@ -110,9 +111,9 @@ Task.prototype.afterConfirmation = function(){
 
 /**
  * It is the default function for beforeEnds. Then, it calls its forceStop method
- * @memberOf Task.prototype 
+ * @memberOf Task.prototype
  */
-Task.prototype.beforeEnds = function(){	
+Task.prototype.beforeEnds = function() {
 	Window.newsBoard.add("<span class='news_done'>Done</span>: " + this.title);
 	this._beforeEnds(this);
 	this.forceStop();
@@ -120,15 +121,15 @@ Task.prototype.beforeEnds = function(){
 
 /**
  * It stops the progress bar, removes the task from the game and update the game
- * @memberOf Task.prototype 
+ * @memberOf Task.prototype
  */
-Task.prototype.forceStop = function(){
+Task.prototype.forceStop = function() {
 	// remove 
 	clearInterval(this.progressTasks.thread);
 	$("#task_" + this.id).slideUp();
-	this.beforeStarting = function(){
+	this.beforeStarting = function() {
 		// force to stop
 	};
-	game.update();	
+	game.update();
 	game.removeTask(this);
-}
+};

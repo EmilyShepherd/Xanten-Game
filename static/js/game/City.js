@@ -22,7 +22,7 @@ var City = function(buildings){
  */
 City.prototype.getNumberOfPeople = function() {
 	var people = 0;
-	for(building in this.buildings){
+	for(var building in this.buildings){
 		if(this.buildings[building].people) {
 			people = parseInt(people) + parseInt(this.buildings[building].people);
 		}

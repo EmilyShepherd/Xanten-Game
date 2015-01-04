@@ -98,7 +98,7 @@ Game.prototype.freeze = function() {
 	game.cityMap.freeze();
 	// TODO @George	 freeze all tasks
 	game.performAction('game_over');
-}
+};
 
 /**
  * It updates the game. It updates the current action content (by calling the action 'update' method), the content maps
@@ -148,7 +148,7 @@ Game.prototype.selectMap = function(map) {
  * @see Action
  */
 Game.prototype.performAction = function(name, args) {
-	var args = args ? args : undefined;
+  
 	if (game.currentAction) {
 		game.currentAction.remove(); // execute the code before it is gone
 	}
@@ -156,7 +156,7 @@ Game.prototype.performAction = function(name, args) {
 	action.setArguments(args);
 	game.currentAction = action;
 	action.update();
-}
+};
 
 /**
  * It removes the current action and clears the actions board
@@ -169,7 +169,7 @@ Game.prototype.removeCurrentAction = function() {
 	}
 	game.currentAction = undefined;
 	$("#actions_board .inside").html("");
-}
+};
 
 /**
  * It loads and activates a task. It removes a possible current action
@@ -179,12 +179,10 @@ Game.prototype.removeCurrentAction = function() {
  * @see Task
  * @see Action
  */
-Game.prototype.performTask = function(name, args) {
-
-	var args = args ? args : undefined,
-		task = game.tasks[name](args);
-	task.args 	= args;
-	game.currentTasks.push(task);
+Game.prototype.performTask = function(name, args) {   
+		var task = game.tasks[name](args);
+		task.args 	= args;
+		game.currentTasks.push(task);
 };
 
 /**
@@ -195,4 +193,4 @@ Game.prototype.performTask = function(name, args) {
  */
 Game.prototype.removeTask = function(task) {
 	delete game.currentTasks[task];
-}
+};

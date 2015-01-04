@@ -53,7 +53,7 @@ game.tasks = {
 						
 						if(task.response.status === 'won' && task.response.carring.resources.military) {						
 							task.data.options.element_units = task.response.carring.resources.military;
-							task.title = 'Returning <span class="bold">' + data.options.element_units + '</span> military units<br />'+"<span class='bold'>" +  HTML_Engine.worldPath.getCityName(data.from) + "</span> --> <span class='bold'>" + HTML_Engine.worldPath.getCityName(data.to) + "</span>"
+							task.title = 'Returning <span class="bold">' + data.options.element_units + '</span> military units<br />'+"<span class='bold'>" +  HTML_Engine.worldPath.getCityName(data.from) + "</span> --> <span class='bold'>" + HTML_Engine.worldPath.getCityName(data.to) + "</span>";
 							// report
 							Window.newsBoard.add(
 								HTML_Engine.attackCity.report(task.data, task.response)
@@ -100,7 +100,7 @@ game.tasks = {
 			return new Task(data,
 				'Trade ' + data.what + ' for <span class="bold">'+ data["for"] + "</span>", {
 					// TODO change url 
-					"url": '/me/building/' + data["building"] + '/build',
+					"url": '/me/building/' + data.building + '/build',
 					"data": data,
 					"type": 'GET'
 				},
@@ -112,9 +112,9 @@ game.tasks = {
 						resources: {}
 					});
 					if(data['for'] === 'gold'){
-						task.data.receive 		= Resources.combine(task.data.receive, game.unit.trade(task.data.resources.element_wood, .10, "gold"));
-						task.data.receive 		= Resources.combine(task.data.receive, game.unit.trade(task.data.resources.element_food, .50, "gold"));
-						task.data.receive 		= Resources.combine(task.data.receive, game.unit.trade(task.data.resources.element_stone, .20, "gold"));
+						task.data.receive 		= Resources.combine(task.data.receive, game.unit.trade(task.data.resources.element_wood, 0.10, "gold"));
+						task.data.receive 		= Resources.combine(task.data.receive, game.unit.trade(task.data.resources.element_food, 0.50, "gold"));
+						task.data.receive 		= Resources.combine(task.data.receive, game.unit.trade(task.data.resources.element_stone, 0.20, "gold"));
 						task.data.give.people = task.data.receive.people;
 						task.data.give.resources.wood 	= task.data.resources.element_wood; 
 						task.data.give.resources.food 	= task.data.resources.element_food; 
@@ -123,9 +123,7 @@ game.tasks = {
 						task.data.receive 		= Resources.combine(task.data.receive, game.unit.trade(task.data.resources.element_wood, 5, "wood"));
 						task.data.receive 		= Resources.combine(task.data.receive, game.unit.trade(task.data.resources.element_food, 25, "food"));
 						task.data.receive 		= Resources.combine(task.data.receive, game.unit.trade(task.data.resources.element_stone, 10, "stone"));
-						task.data.give.resources.gold 	= parseInt(task.data.resources.element_wood)
-														+ parseInt(task.data.resources.element_stone) 
-														+ parseInt(task.data.resources.element_food); 
+						task.data.give.resources.gold 	= parseInt(task.data.resources.element_wood) + parseInt(task.data.resources.element_stone) + parseInt(task.data.resources.element_food); 
 						task.data.give.people 			= task.data.receive.people;
 					}
 					game.player.consumeResources(task.data.give);
@@ -140,7 +138,7 @@ game.tasks = {
 			return new Task(data,
 				'Sending <span class="bold">' + data.options.element_units + '</span> military units'+ " to </span><span class='bold'>" + HTML_Engine.worldPath.getCityName(data.to) + "</span>", {
 					// TODO change url 
-					"url": '/me/building/' + data["building"] + '/build',
+					"url": '/me/building/' + data.building + '/build',
 					"data": data,
 					"type": 'GET'
 				},
@@ -156,13 +154,13 @@ game.tasks = {
 		},
 		"update_building": function(data) {	
 			return new Task(data,
-				'Level up <span class="bold">' + data["building"] + "</span> to " + data.toLevel , {
-					"url": '/me/building/' + data["building"] + '/level',
+				'Level up <span class="bold">' + data.building + "</span> to " + data.toLevel , {
+					"url": '/me/building/' + data.building + '/level',
 					"data": data,
 					"type": 'GET'
 				},
 				function(task) {
-					var resources = game.constructions.buildings[task.data["building"]].levelUp(data.toLevel);
+					var resources = game.constructions.buildings[task.data.building].levelUp(data.toLevel);
 					task.data.peopleBack = resources.people;
 					game.player.city.buildings[task.data.building].status = 'upgrading';
 					game.player.consumeResources(resources);
@@ -203,98 +201,79 @@ game.tasks = {
 				},
 				"static/img/game/resource/military.png");
 		},
-		"train_miner": function(data) {
+		
+		/*
+		 * Training workers
+		 */
+		
+		/**
+		 * It trains workers
+		 * @param {object} data It contain from, to and number. The field 'data.to' represents the building
+		 * @example In order to train 2 farmers: data.from = administration, data.to = farm, data.number = 2
+		 * @example In order to train 1 miner: data.from = administration, data.to = mine, data.number = 1
+		 * 
+		 */
+		"train_workers": function(data) {
 			return new Task(data,
-				'Training <span class="bold">' + data.number + "</span> miners" , {
+				'Training <span class="bold">' + data.number + "</span> " + game.constructions.buildings[data.to].worker(parseInt(data.number)), {
 					"url": '/me/people/move',
 					"data": data,
 					"type": 'POST'
 				},
-				function(task) {					
-					game.player.consumeResources(game.unit.miner.create(task.data.number));
-				},
+				/**
+				 * It is called after the confirmation
+				 * @param {Task} task The current task
+				 */
 				function(task) {
-					game.player.city.buildings.mine.people 	= parseInt(task.data.number) + parseInt(game.player.city.buildings.mine.people);
+					/*
+					 * Consume resources for that type of worker 
+					 */
+					game.player.consumeResources(game.unit[task.data.to].create(task.data.number));
+				},
+				/**
+				 * It is called before the task is removed
+				 * @param {Task} task The current task
+				 */
+				function(task) {
+					/*
+					 * Adds the number of workers back to that building 
+					 */
+					game.player.city.buildings[task.data.to].people 	= parseInt(task.data.number) + parseInt(game.player.city.buildings[task.data.to].people);
 				},
 				"static/img/game/resource/people.png");
 		},
-		"untrain_miner": function(data) {
+		/**
+		 * It untrains workers
+		 * @param {object} data It contain from, to and number. The field 'data.from' represents the building
+		 * @example In order to untrain 2 farmers:data. from = farm, data.to = administration, data.number = 2
+		 * @example In order to untrain 1 miner: data.from = mine, data.to = administration, data.number = 1
+		 * 
+		 */
+		"untrain_workers": function(data) {
 			return new Task(data,
-				'Reduce <span class="bold">' + data.number + "</span> miners" , {
+				'Reduce <span class="bold">' + data.number + "</span> " + game.constructions.buildings[data.to].worker(parseInt(data.number)), {
 					"url": '/me/people/move',
 					"data": data,
 					"type": 'POST'
 				},
 				undefined,
+				/**
+				 * It is called before the task is removed
+				 * @param {Task} task The current task
+				 */
 				function(task) {
-					game.player.city.buildings.mine.people 	= parseInt(game.player.city.buildings.mine.people) - parseInt(task.data.number);
-				},
-				"static/img/game/resource/people.png");
-		},
-		"train_lumberjack": function(data) {
-			return new Task(data,
-				'Training <span class="bold">' + data.number + "</span> lumberjacks" , {
-					"url": '/me/people/move',
-					"data": data,
-					"type": 'POST'
-				},
-				function(task) {					
-					game.player.consumeResources(game.unit.lumberjack.create(task.data.number));
-				},
-				function(task) {
-					game.player.city.buildings.lumberjack.people 	= parseInt(task.data.number) + parseInt(game.player.city.buildings.lumberjack.people);
-				},
-				"static/img/game/resource/people.png");
-		},
-		"untrain_lumberjack": function(data) {
-			return new Task(data,
-				'Reduce <span class="bold">' + data.number + "</span> lumberjacks" , {
-					"url": '/me/people/move',
-					"data": data,
-					"type": 'POST'
-				},
-				undefined,
-				function(task) {
-					game.player.city.buildings.lumberjack.people 	= parseInt(game.player.city.buildings.lumberjack.people) - parseInt(task.data.number);
-				},
-				"static/img/game/resource/people.png");
-		},
-		"train_farmer": function(data) {
-			return new Task(data,
-				'Training <span class="bold">' + data.number + "</span> farmers" , {
-					"url": '/me/people/move',
-					"data": data,
-					"type": 'POST'
-				},
-				function(task) {					
-					game.player.consumeResources(game.unit.farmer.create(task.data.number));
-				},
-				function(task) {
-					game.player.city.buildings.farm.people 	= parseInt(task.data.number) + parseInt(game.player.city.buildings.farm.people);
-				},
-				"static/img/game/resource/people.png");
-		},
-		"untrain_farmer": function(data) {
-			return new Task(data,
-				'Reduce <span class="bold">' + data.number + "</span> farmers" , {
-					"url": '/me/people/move',
-					"data": data,
-					"type": 'POST'
-				},
-				undefined,
-				function(task) {
-					game.player.city.buildings.farm.people 	= parseInt(game.player.city.buildings.farm.people) - parseInt(task.data.number);
+					game.player.city.buildings[task.data.from].people 	= parseInt(game.player.city.buildings[task.data.from].people) - parseInt(task.data.number);
 				},
 				"static/img/game/resource/people.png");
 		},
 		"create_building": function(args) {
 			var data = {};
-			data["cell"] 		= game.cityMap.getSelectedCell();
-			data["building"] 	= $(args).attr("building_name");
+			data.cell 		= game.cityMap.getSelectedCell();
+			data.building 	= $(args).attr("building_name");
 	
 			return new Task(data,
-				'Create building ' + data["building"], {
-					"url": '/me/building/' + data["building"] + '/build',
+				'Create building ' + data.building, {
+					"url": '/me/building/' + data.building + '/build',
 					"type": 'GET'
 				},
 				function(task) {
@@ -302,7 +281,7 @@ game.tasks = {
 					if (task.data.building !== "house") {
 						game.player.city.buildings[task.data.building].level = 1;
 					}
-					var resources = game.constructions.buildings[task.data["building"]].levelUp(1);
+					var resources = game.constructions.buildings[task.data.building].levelUp(1);
 					task.data.peopleBack = resources.people;
 					game.player.city.buildings[task.data.building].status = 'under_construction';
 					game.cityMap.array[data.cell.x-1][data.cell.y-1].type_construction = "building";

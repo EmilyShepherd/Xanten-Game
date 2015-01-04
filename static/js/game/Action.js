@@ -41,7 +41,7 @@ Action.prototype.setArguments = function(args){
  */
 Action.prototype.update = function(){
 	this.perform(false);
-}
+};
 
 
 /**
@@ -52,9 +52,8 @@ Action.prototype.update = function(){
 Action.prototype.perform = function(fade){
 	var instance = this;
 	$("#action_window div.before_window").html(this.name);
-	var instance   = this;
 	if(this.serverCall){
-		HTML_Engine.loadAction.content()
+		HTML_Engine.loadAction.content();
 		this.ajaxCall = $.ajax({"url": this.serverCall.url,
 				"type": this.serverCall.type,
 				"data": this.serverCall.data,

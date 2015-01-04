@@ -456,6 +456,7 @@ HTML_Engine.inside_administration = {
 	 */
 	content: function() {
 		var nr_of_free_units = game.player.city.buildings.administration.people,
+		capacity = game.constructions.buildings.administration.capacity(game.player.city.buildings.military.level).people;
 			html = "";
 
 		html += HTML_Engine.getBuilding.info("administration", true);
@@ -472,13 +473,60 @@ HTML_Engine.inside_administration = {
 					"gold": nr_of_free_units * 0.1,
 				}
 			}) + "</div>";
+
+		if (nr_of_free_units < capacity) {
+			html += HTML_Engine.chooser.content({
+				info: "You can create more free people here using food. ",
+				values: [{
+					title: "Create new people",
+					id: "units"
+				}],
+				button: "Create",
+				id: "free_train"
+			});
+		} else {
+			html += "Unfortunately, you have reached the max capacity. You can train more units after you upgrade the building.";
+		}
 		return html;
 	},
 	enable: function() {
 		HTML_Engine.upgradeBuilding.enable("administration", (parseInt(game.player.city.buildings.administration.level) + 1));
+		
+		var nr_of_free_units = game.player.city.buildings.administration.people,
+			capacity = game.constructions.buildings.administration.capacity(game.player.city.buildings.military.level).people;
+
+		/*
+		 * It creates the chooser to let the user to choose how many units to create
+		 */
+		if (nr_of_free_units < capacity) {
+			HTML_Engine.chooser.enable({
+
+				id: "free_train",
+				values: [{
+					id: 'units',
+					min: 1,
+					max: capacity - nr_of_free_units,
+					change: function(event, ui, extra) {
+						extra.html(HTML_Engine.displayResources.content(
+								game.unit.free.create(parseInt(ui.value))
+							)
+						)
+					}
+				}],
+				performAction: function() {
+					game.performTask("train_free", {
+						to: "administration",
+						number: HTML_Engine.chooser.fetch("free_train", "units")
+					});
+				}
+			});
+		}
 	},
 	disable: function() {
 		HTML_Engine.upgradeBuilding.disable("administration");
+		HTML_Engine.chooser.disable({
+			id: "free_train"
+		});
 	}
 };
 
@@ -667,7 +715,7 @@ HTML_Engine.inside_mill = {
 	content: function() {
 		var nr_of_active_units = game.player.city.buildings.mill.people,
 			html = "",
-			capacity = game.constructions.buildings.mill.capacity(game.player.city.buildings.mill.level).resources.people;
+			capacity = game.constructions.buildings.mill.capacity(game.player.city.buildings.mill.level).people;
 		html += HTML_Engine.getBuilding.info("mill", true);
 		html += HTML_Engine.upgradeBuilding.content("mill", (parseInt(game.player.city.buildings.mill.level) + 1));
 		html += "<div class='heading'>";
@@ -721,7 +769,7 @@ HTML_Engine.inside_mill = {
 	 */
 	enable: function() {
 		var nr_of_active_units = game.player.city.buildings.mill.people,
-			capacity = game.constructions.buildings.mill.capacity(game.player.city.buildings.mill.level).resources.people;
+			capacity = game.constructions.buildings.mill.capacity(game.player.city.buildings.mill.level).people;
 
 		HTML_Engine.upgradeBuilding.enable("mill", (parseInt(game.player.city.buildings.mill.level) + 1));
 
@@ -809,7 +857,7 @@ HTML_Engine.inside_mine = {
 	content: function() {
 		var nr_of_active_units = game.player.city.buildings.mine.people,
 			html = "",
-			capacity = game.constructions.buildings.mine.capacity(game.player.city.buildings.mine.level).resources.people;
+			capacity = game.constructions.buildings.mine.capacity(game.player.city.buildings.mine.level).people;
 		html += HTML_Engine.getBuilding.info("mine", true);
 		html += HTML_Engine.upgradeBuilding.content("mine", (parseInt(game.player.city.buildings.mine.level) + 1));
 		html += "<div class='heading'>";
@@ -863,7 +911,7 @@ HTML_Engine.inside_mine = {
 	 */
 	enable: function() {
 		var nr_of_active_units = game.player.city.buildings.mine.people,
-			capacity = game.constructions.buildings.mine.capacity(game.player.city.buildings.mine.level).resources.people;
+			capacity = game.constructions.buildings.mine.capacity(game.player.city.buildings.mine.level).people;
 
 		HTML_Engine.upgradeBuilding.enable("mine", (parseInt(game.player.city.buildings.mine.level) + 1));
 
@@ -1119,7 +1167,7 @@ HTML_Engine.inside_lumberjack = {
 	content: function() {
 		var nr_of_active_units = game.player.city.buildings.lumberjack.people,
 			html = "",
-			capacity = game.constructions.buildings.lumberjack.capacity(game.player.city.buildings.lumberjack.level).resources.people;
+			capacity = game.constructions.buildings.lumberjack.capacity(game.player.city.buildings.lumberjack.level).people;
 		html += HTML_Engine.getBuilding.info("lumberjack", true);
 		html += HTML_Engine.upgradeBuilding.content("lumberjack", (parseInt(game.player.city.buildings.lumberjack.level) + 1));
 		html += "<div class='heading'>";
@@ -1173,7 +1221,7 @@ HTML_Engine.inside_lumberjack = {
 	 */
 	enable: function() {
 		var nr_of_active_units = game.player.city.buildings.lumberjack.people,
-			capacity = game.constructions.buildings.lumberjack.capacity(game.player.city.buildings.lumberjack.level).resources.people;
+			capacity = game.constructions.buildings.lumberjack.capacity(game.player.city.buildings.lumberjack.level).people;
 
 		HTML_Engine.upgradeBuilding.enable("lumberjack", (parseInt(game.player.city.buildings.lumberjack.level) + 1));
 
@@ -1261,7 +1309,7 @@ HTML_Engine.inside_farm = {
 	content: function() {
 		var nr_of_active_units = game.player.city.buildings.farm.people,
 			html = "",
-			capacity = game.constructions.buildings.farm.capacity(game.player.city.buildings.farm.level).resources.people;
+			capacity = game.constructions.buildings.farm.capacity(game.player.city.buildings.farm.level).people;
 		html += HTML_Engine.getBuilding.info("farm", true);
 		html += HTML_Engine.upgradeBuilding.content("farm", (parseInt(game.player.city.buildings.farm.level) + 1));
 		html += "<div class='heading'>";
@@ -1315,7 +1363,7 @@ HTML_Engine.inside_farm = {
 	 */
 	enable: function() {
 		var nr_of_active_units = game.player.city.buildings.farm.people,
-			capacity = game.constructions.buildings.farm.capacity(game.player.city.buildings.farm.level).resources.people;
+			capacity = game.constructions.buildings.farm.capacity(game.player.city.buildings.farm.level).people;
 
 		HTML_Engine.upgradeBuilding.enable("farm", (parseInt(game.player.city.buildings.farm.level) + 1));
 

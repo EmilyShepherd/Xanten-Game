@@ -40,6 +40,16 @@ game.unit = {
 			});
 		}
 	},
+	"free" : {
+		"create": function(number) {
+			return new Resources({
+				resources: {
+					"food": 15 * number
+				},
+				time: 10 * number
+			});
+		}
+	},
 	"miller": {
 		"create": function(number) {
 			return new Resources({

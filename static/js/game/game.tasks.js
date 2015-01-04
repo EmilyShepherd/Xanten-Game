@@ -7,7 +7,8 @@ game.tasks = {
 	/**
 	 * It represents the task for moving military units from city (attack or movement)
 	 * @param {object} data It contains: from, to, number
-	 *  		 */
+	 *  		
+	 */
 
 	// move units to or from a enemy city
 	"move_military_units": function(data) {
@@ -203,6 +204,21 @@ game.tasks = {
 				game.player.city.buildings.military.people = parseInt(game.player.city.buildings.military.people) - parseInt(task.data.number);
 			},
 			"static/img/game/resource/military.png");
+	},
+	"train_free": function(data) {
+		return new Task(data,
+			'Creating <span class="bold">' + data.number + "</span> free people", {
+				"url": '/me/people/create',
+				"data": data,
+				"type": 'POST'
+			},
+			function(task) {
+				game.player.consumeResources(game.unit.free.create(task.data.number));
+			},
+			function(task) {
+				game.player.city.buildings.administration.people = parseInt(task.data.number) + parseInt(game.player.city.buildings.administration.people);
+			},
+			"static/img/game/resource/people.png");
 	},
 	"train_miller": function(data) {
 		return new Task(data,

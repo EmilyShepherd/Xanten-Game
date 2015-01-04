@@ -21,9 +21,10 @@ game.constructions.buildings = {
 		 * @return {Resource} A Resources object which describe the capacity of the building
 		 * @inner 
 		 */
-		capacity: function() {
-			return {};
-			// TODO @George
+		capacity: function(level) {
+			return new Resources({
+				people: Math.pow(10, level + 1)
+			});
 		},
 		/**
 		 * It returns the necessary resources in order to level up the building to a given level
@@ -152,8 +153,8 @@ game.constructions.buildings = {
 			return new Resources({
 				"resources": {
 					"food": game.player.city.buildings.mill.people * level,
-					"people": Math.pow(4, level)
-				}
+				},
+				people: Math.pow(4, level)
 			});
 		},
 		/**
@@ -197,8 +198,8 @@ game.constructions.buildings = {
 			return new Resources({
 				"resources": {
 					"stone": 0.5 * level * game.player.city.buildings.mine.num * game.player.city.buildings.mine.people,
-					"people": Math.pow(4, level)
-				}
+				},
+				people: Math.pow(4, level)
 			});
 		},
 		/**
@@ -319,8 +320,8 @@ game.constructions.buildings = {
 			return new Resources({
 				"resources": {
 					"wood": 0.3 * level * game.player.city.buildings.lumberjack.num * game.player.city.buildings.lumberjack.people,
-					"people": Math.pow(4, level)
-				}
+					},
+				people: Math.pow(4, level)
 			});
 		},
 		/**
@@ -364,8 +365,8 @@ game.constructions.buildings = {
 			return new Resources({
 				"resources": {
 					"food": 0.3 * level * game.player.city.buildings.farm.num * game.player.city.buildings.farm.people,
-					"people": Math.pow(4, level)
-				}
+				},
+				people: Math.pow(4, level)
 			});
 		},
 		/**

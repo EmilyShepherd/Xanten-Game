@@ -86,6 +86,9 @@ class User(ndb.Model):
     # The number of people at the trade centre
     peopleAtTrade = ndb.IntegerProperty(default=0)
 
+    # The level of the trade
+    tradeLvl = ndb.IntegerProperty(default=1)
+
     # The number of mills this player has
     mills = ndb.IntegerProperty(default=0)
 
@@ -335,7 +338,8 @@ class User(ndb.Model):
                 },
                 "trade"       : {
                     "num"    : 1 if self.trade else 0,
-                    "people" : self.peopleAtTrade
+                    "people" : self.peopleAtTrade,
+                    "level"  : self.tradeLvl
                 },
                 "storage"    : {
                     "num"   : 1 if self.storage else 0,

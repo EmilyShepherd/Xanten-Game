@@ -40,24 +40,6 @@ game.unit = {
 			});
 		}
 	},
-	"miller": {
-		"create": function (number){
-			return new Resources({
-				resources: {
-					"food": 15 * number
-				},
-				time: 10 * number
-			});
-		},
-		"milling": function(number) {
-			return new Resources({
-				resources: {
-					stone: 20 * number	//TODO add satisfaction
-				},
-				interval: "one day"
-			});
-		}
-	},
 	"miner": {
 		"create": function (number){
 			return new Resources({

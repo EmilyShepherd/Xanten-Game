@@ -203,34 +203,6 @@ game.tasks = {
 				},
 				"static/img/game/resource/military.png");
 		},
-		"train_miller": function(data) {
-			return new Task(data,
-				'Training <span class="bold">' + data.number + "</span> millers" , {
-					"url": '/me/people/move',
-					"data": data,
-					"type": 'POST'
-				},
-				function(task) {					
-					game.player.consumeResources(game.unit.miller.create(task.data.number));
-				},
-				function(task) {
-					game.player.city.buildings.mill.people 	= parseInt(task.data.number) + parseInt(game.player.city.buildings.mill.people);
-				},
-				"static/img/game/resource/people.png");
-		},
-		"untrain_miller": function(data) {
-			return new Task(data,
-				'Reduce <span class="bold">' + data.number + "</span> millers" , {
-					"url": '/me/people/move',
-					"data": data,
-					"type": 'POST'
-				},
-				undefined,
-				function(task) {
-					game.player.city.buildings.mill.people 	= parseInt(game.player.city.buildings.mill.people) - parseInt(task.data.number);
-				},
-				"static/img/game/resource/people.png");
-		},
 		"train_miner": function(data) {
 			return new Task(data,
 				'Training <span class="bold">' + data.number + "</span> miners" , {

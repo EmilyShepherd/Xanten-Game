@@ -284,7 +284,7 @@ class User(ndb.Model):
             "buildings" : {
                 "administration"        : {
                     "num"    : 1,
-                    "level"  : self.homeLvl,
+                    "level"  : self.administrationLvl,
                     "people" : self.peopleAtAdministration
                 },
                 "house"       : {

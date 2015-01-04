@@ -322,7 +322,7 @@ Connection.prototype.getGames = function(){
 		}
 		$("#available_games").html(text);	
 		$(".join_game_now").click(function() {
-			this.joinGameNow($(this).attr("token"));
+			connection.joinGameNow($(this).attr("token"));
 		});
 	});		
 };

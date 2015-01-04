@@ -1,10 +1,10 @@
 import webapp2
 import json
 import random
-from google.appengine.api import channel
 
 # Model
 from model.user import User
+from model.connection import Connection
 
 # Handles all requests
 #
@@ -77,13 +77,4 @@ class DefaultHandler(webapp2.RequestHandler):
 
     # Sends a message to the current user, using the GAE channel API
     def sendMessage(self, call, data):
-        self.sendMessageTo(self.user, call, data)
-
-    # Sends a message to the given user, using the GAE channel API
-    def sendMessageTo(self, user, call, data):
-        msg = {
-            "call" : call,
-            "data" : data
-        }
-
-        channel.send_message(user.uid, json.dumps(msg))
+        Connection.sendMessageTo(self.user, call, data)

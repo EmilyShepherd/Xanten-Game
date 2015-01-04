@@ -3,6 +3,7 @@ from google.appengine.ext import ndb
 import datetime
 import random
 import math
+import json
 
 # Represents a queue
 #
@@ -16,6 +17,8 @@ class Queue(ndb.Model):
     TYPE_LEVEL  = 'level'
     TYPE_BUILD  = 'build'
     TYPE_PEOPLE = 'people'
+    TYPE_ATTACK = 'attack'
+    TYPE_RETURN = 'return'
 
     # The ID of the user that is performing this task
     uid = ndb.StringProperty()
@@ -37,6 +40,10 @@ class Queue(ndb.Model):
     # possible
     number = ndb.IntegerProperty(default=1)
 
+    attackTo = ndb.StringProperty()
+
+    resources = ndb.StringProperty()
+
     # Calculates the number of seconds until this queue will be complete
     def secsToFinish(self):
         return (self.finish - datetime.datetime.now()).total_seconds()
@@ -48,6 +55,12 @@ class Queue(ndb.Model):
     # Returns true if the queue has completed
     def isFinished(self):
         return self.finish <= datetime.datetime.now()
+
+    def saveResources(self, res):
+        self.resources = json.dumps(res)
+
+    def getResources(self):
+        return json.loads(self.resources)
 
     # Returns the queue as a dictionary, for sending via JSON to the
     # client. This contains:

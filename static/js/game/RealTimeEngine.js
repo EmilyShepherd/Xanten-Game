@@ -181,6 +181,11 @@ RealTimeEngine.prototype.performAttack = function(data){
 	// TODO send socket
 };
 
+RealTimeEngine.prototype.attackResult = function (msg)
+{
+    alert(msg.text);
+}
+
 /**
  * It is called when the game receives the statistics for a day. It includes disasters
  * @memberOf RealTimeEngine.prototype

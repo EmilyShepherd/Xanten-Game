@@ -8,6 +8,7 @@ import webapp2 as w
 # Handlers
 from handler.game_handler import GameHandler
 from handler.me_handler   import MeHandler
+#from handler.military_hander   import MilitaryHandler
 
 # The name for the classes are quite long, so put them into a variable
 # so the list of routes doesn't go over the desired line length

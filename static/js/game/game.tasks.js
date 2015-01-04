@@ -13,7 +13,7 @@ game.tasks = {
 		"move_military_units": function(data) {	
 			return new Task(data,
 				'Move <span class="bold">' + data.options.element_units + '</span> military units<br />'+"<span class='bold'>" +  HTML_Engine.worldPath.getCityName(data.from) + "</span> --> <span class='bold'>" + HTML_Engine.worldPath.getCityName(data.to) + "</span>", {
-					"url": '/me/building/' + data["building"] + '/build',
+					"url": '/military/attack/' + data.to + '/' + data.options.element_units,
 					"data": data,
 					"type": 'GET'
 				},

@@ -73,7 +73,7 @@ function WorldMap(obj){
 	 * @return (object) An object with information regarding the city
 	 * @memberOf WorldMap.prototype
 	 */
-	WorldMap.getCityById = function(id){
+	worldMap.getCityById = function(id){
 		return this.players[id];
 	};
 	

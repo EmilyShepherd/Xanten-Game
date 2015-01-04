@@ -3,24 +3,23 @@
  * @author Cristian Sima
  * @version 30.12.2014
  */
-
 /**
  * It represents the view object which updates information
- * @constructor 
+ * @constructor
  */
-function Window(){}
+function Window() {}
 
 /**
  * A reference to the bord for actions
  * @memberOf Window
  */
-Window.actionsBoard      = new Board("actions");
+Window.actionsBoard = new Board("actions");
 
 /**
  * A reference to the board for news
  * @memberOf Window
  */
-Window.newsBoard         = new Board("news");
+Window.newsBoard = new Board("news");
 
 /**
  * A reference to the board for tasks
@@ -32,36 +31,35 @@ Window.currentTasksBoard = new Board("tasks");
  * It scrools the window to top, it renders the game and sets a listener for changing the map buttons
  * @memberOf Window
  */
-Window.init = function() {	
+Window.init = function() {
 	window.scrollTo(0, 0);
-	console.log('here')
-	$(window).resize(Window.render);	
+	$(window).resize(Window.render);
 	$("#map-view").buttonset();
 	$('#map-view :radio').change(function() {
 		game.selectMap(game[$('#map-view :radio:checked').val() + "Map"]);
 	});
-	$("#news_clear").click(function(){
+	$("#news_clear").click(function() {
 		Window.newsBoard.clear();
-	})
+	});
 	Window.update();
 	Window.refresh();
-}
+};
 
 /**
  * It updates the details of city, resources, statistics
  * @memberOf Window
  */
-Window.refresh = function(){
+Window.refresh = function() {
 	Window.updateDetailsCity();
 	Window.updateResources();
 	Window.updateStatistics();
-}
+};
 
 /**
  * It updates the resources (gold, stone, wood, food)
  * @memberOf Window
  */
-Window.updateResources = function(){
+Window.updateResources = function() {
 	$("#resources #stone").html(HTML_Engine.shortResourceRepresentation(game.player.resources.stone));
 	$("#resources #wood").html(HTML_Engine.shortResourceRepresentation(game.player.resources.wood));
 	$("#resources #food").html(HTML_Engine.shortResourceRepresentation(game.player.resources.food));
@@ -82,8 +80,8 @@ Window.updateStatistics = function() {
  */
 Window.updateDetailsCity = function() {
 	$("#city_details #name").html(game.player.name);
-	$("#city_details #level").html("Level: "+game.player.getLevel());
-	$("#city_details #type").html(game.organization.getByLevel("name", game.player.getLevel()) );
+	$("#city_details #level").html("Level: " + game.player.getLevel());
+	$("#city_details #type").html(game.organization.getByLevel("name", game.player.getLevel()));
 };
 
 /**
@@ -91,16 +89,34 @@ Window.updateDetailsCity = function() {
  * @memberOf Window
  */
 Window.update = function() {
-	$("#actions_board").css({"height":1+"px", "min-height": 1+"px"});
-	$("#news_board").css({"height":1+"px", "min-height": 1+"px"});
-	$("#tasks_board").css({"height":1+"px", "min-height": 1+"px"});
-	
+	$("#actions_board").css({
+		"height": 1 + "px",
+		"min-height": 1 + "px"
+	});
+	$("#news_board").css({
+		"height": 1 + "px",
+		"min-height": 1 + "px"
+	});
+	$("#tasks_board").css({
+		"height": 1 + "px",
+		"min-height": 1 + "px"
+	});
+
 	var height = $(document).height();
-	
-	var heightForOneBoard = height-245;
-	var heightForTwoBoards = (height-(105+135*2))/2;
-	
-	$("#actions_board").css({"height":heightForOneBoard+"px", "min-height": heightForOneBoard+"px"});
-	$("#news_board").css({"height":heightForTwoBoards+"px", "min-height": heightForTwoBoards+"px"});
-	$("#tasks_board").css({"height":heightForTwoBoards+"px", "min-height": heightForTwoBoards+"px"});
-}
+
+	var heightForOneBoard = height - 245;
+	var heightForTwoBoards = (height - (105 + 135 * 2)) / 2;
+
+	$("#actions_board").css({
+		"height": heightForOneBoard + "px",
+		"min-height": heightForOneBoard + "px"
+	});
+	$("#news_board").css({
+		"height": heightForTwoBoards + "px",
+		"min-height": heightForTwoBoards + "px"
+	});
+	$("#tasks_board").css({
+		"height": heightForTwoBoards + "px",
+		"min-height": heightForTwoBoards + "px"
+	});
+};

@@ -1,13 +1,23 @@
 /*
  *
  * This starts a default game and enters the game without the create/join promt
+ * @field
  */
 var developer = {};
 
 developer.settings = {
-	"loadDeveloperGame"	: false,	// it loads a pre-defined game (below)
-	"defaultMap"		: "city", 	// it selects the default city map
-	"speedUp"			: true		// it speedUp all the tasks
+	/*
+	 * It loads a pre-defined game (below)
+	 */
+	"loadDeveloperGame"	: false,	
+	/*
+	 *  it selects the default city map
+	 */
+	"defaultMap"		: "city", 
+	/*
+	 * it speedUp all the tasks
+	 */
+	"speedUp"			: true		
 };
 
 developer.game = {

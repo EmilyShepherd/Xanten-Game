@@ -1872,21 +1872,25 @@ HTML_Engine.sendMessage = {
 	 * @return {string} The HTML code for sending a message
 	 */
 	content: function() {
-		// TODO @Joe
-		var html = "Its HTML_Engine content should be implemented @Joe";
+		var html = "<div class='heading'><span class='bold'>Message: </span><br /><textarea rows='20' cols='25' id='message'></textarea><br /></div>" + 
+			"<div class='heading'><input class='action_bt' id='confirm_send' value='Send' /></div>";
 		return html;
 	},
 	/**
 	 * It enables the functionality for the message
 	 */
-	enable: function() {
-		// TODO @Joe
+	enable: function(id) {
+		var message = $("#message").val();
+		$(".action_bt").button();
+		$("#confirm_send").click(function() {
+			RealTimeEngine.sendMessage(message, id);
+		});
 	},
 	/**
 	 * It disables the functionality
 	 */
 	disable: function() {
-		// TODO @Joe
+		$("#confirm_send").off();
 	}
 };
 

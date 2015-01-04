@@ -667,25 +667,134 @@ HTML_Engine.inside_mill = {
 	 * @return {string} HTML code for the mill building
 	 */
 	content: function() {
-		var html = "";
+		var nr_of_active_units = game.player.city.buildings.mill.people,
+			html = "",
+			capacity = game.constructions.buildings.mill.capacity(game.player.city.buildings.mill.level).resources.people;
 		html += HTML_Engine.getBuilding.info("mill", true);
 		html += HTML_Engine.upgradeBuilding.content("mill", (parseInt(game.player.city.buildings["mill"].level) + 1));
-		// TODO @George
+		html += "<div class='heading'>";
+		if (nr_of_active_units === 0) {
+			html += "Sir, we have no millers!";
+		} else {
+			html += "The number of active millers:";
+			html += HTML_Engine.displayResources.content({
+				resources: {
+					"people": nr_of_active_units
+				}
+			}) + "</div>";
+
+			html += "<div class='heading'> The daily increase in satisfaction is: " +
+				HTML_Engine.displayResources.content(
+					game.unit.miller.work(parseInt(nr_of_active_units))				
+				) + "</div>";
+		}
+		html += "</div>";
+		
+		if (nr_of_active_units < capacity) {
+			html += HTML_Engine.chooser.content({
+				info: "Create millers to generate higher satisfaction.",
+				values: [{
+					title: "Train new millers",
+					id: "units"
+				}],
+				button: "Train!",
+				id: "miller_train"
+			});
+		} else {
+			html += "Unfortunately, you have reached the max capacity. You can train more units after you upgrade the building."
+		}
+		
+		if (nr_of_active_units !== 0) {
+			html += HTML_Engine.chooser.content({
+				info: "Reducing the amount of millers decreases satisfaction but frees people for different tasks. Unfortunately this does not give back the resources.",
+				values: [{
+					title: "Reduce millers",
+					id: "units"
+				}],
+				button: "Reduce units!",
+				id: "miller_untrain"	
+			});
+		}
 		return html;
 	},
+	
 	/**
 	 * It enables the functionality for the building
 	 */
 	enable: function() {
+		var nr_of_active_units = game.player.city.buildings.mill.people,
+			capacity = game.constructions.buildings.mill.capacity(game.player.city.buildings.mill.level).resources.people;
+			
 		HTML_Engine.upgradeBuilding.enable("mill", (parseInt(game.player.city.buildings["mill"].level) + 1));
-		// TODO @George
+		
+		/*
+		 * It creates the chooser to let the user to choose how many utits to create
+		 */
+		if (nr_of_active_units < capacity) {
+			HTML_Engine.chooser.enable({
+				id: "miller_train",
+				values: [{
+					id: 'units',
+					min: 1,
+					max: capacity - nr_of_active_units,
+					change: function(event, ui, extra) {
+						extra.html(HTML_Engine.displayResources.content(
+								game.unit.miller.create(parseInt(ui.value))
+							) + "<div> Daily income: </div>" +
+							HTML_Engine.displayResources.content(
+									game.unit.miller.work(parseInt(ui.value))
+							));
+					}
+				}],
+				performAction: function() {
+					game.performTask("train_miller", {
+						from: "administration",
+						to: "mill",
+						number: HTML_Engine.chooser.fetch("miller_train", "units")
+					});
+				}
+			});
+		}
+
+		if (nr_of_active_units !== 0) {
+			/*
+			 * It creates the chooser to let the user to choose how many units to create
+			 */
+			HTML_Engine.chooser.enable({
+
+				id: "miller_untrain",
+				values: [{
+					id: 'units',
+					min: 1,
+					max: nr_of_active_units,
+					change: function(event, ui, extra) {
+						extra.html(HTML_Engine.displayResources.content({
+							time: parseInt(ui.value) * 5 
+						}));
+					}
+				}],
+				performAction: function() {
+					game.performTask("untrain_miller", {
+						from: "mill",
+						to: "administration",
+						number: HTML_Engine.chooser.fetch("miller_untrain", "units")
+					});
+				}
+			});
+		}
 	},
+	
 	/**
 	 * It disables the functionality for the building
 	 */
 	disable: function() {
+		HTML_Engine.chooser.disable({
+			id: "miller_train"
+		});
+		HTML_Engine.chooser.disable({
+			id: "miller_untrain"
+		});
 		HTML_Engine.upgradeBuilding.disable("mill");
-		// TODO @George
 	}
 };
 
@@ -718,7 +827,7 @@ HTML_Engine.inside_mine = {
 
 			html += "<div class='heading'> The daily income of stone is: " +
 				HTML_Engine.displayResources.content(
-					game.unit.miner.mining(parseInt(nr_of_active_units))				
+					game.unit.miner.work(parseInt(nr_of_active_units))				
 				) + "</div>";
 		}
 		html += "</div>";
@@ -775,7 +884,7 @@ HTML_Engine.inside_mine = {
 								game.unit.miner.create(parseInt(ui.value))
 							) + "<div> Daily income: </div>" +
 							HTML_Engine.displayResources.content(
-									game.unit.miner.mining(parseInt(ui.value))
+									game.unit.miner.work(parseInt(ui.value))
 							));
 					}
 				}],
@@ -1032,7 +1141,7 @@ HTML_Engine.inside_lumberjack = {
 
 			html += "<div class='heading'> The daily income of lumber is: " +
 				HTML_Engine.displayResources.content(
-					game.unit.lumberjack.cutting(parseInt(nr_of_active_units))				
+					game.unit.lumberjack.work(parseInt(nr_of_active_units))				
 				) + "</div>";
 		}
 		html += "</div>";
@@ -1089,7 +1198,7 @@ HTML_Engine.inside_lumberjack = {
 								game.unit.lumberjack.create(parseInt(ui.value))
 							) + "<div> Daily income: </div>" +
 							HTML_Engine.displayResources.content(
-									game.unit.lumberjack.cutting(parseInt(ui.value))
+									game.unit.lumberjack.work(parseInt(ui.value))
 							));
 					}
 				}],
@@ -1174,7 +1283,7 @@ HTML_Engine.inside_farm = {
 
 			html += "<div class='heading'> The daily income of food is: " +
 				HTML_Engine.displayResources.content(
-					game.unit.farmer.farming(parseInt(nr_of_active_units))				
+					game.unit.farmer.work(parseInt(nr_of_active_units))				
 				) + "</div>";
 		}
 		html += "</div>";
@@ -1231,7 +1340,7 @@ HTML_Engine.inside_farm = {
 								game.unit.farmer.create(parseInt(ui.value))
 							) + "<div> Daily income: </div>" +
 							HTML_Engine.displayResources.content(
-									game.unit.farmer.farming(parseInt(ui.value))
+									game.unit.farmer.work(parseInt(ui.value))
 							));
 					}
 				}],

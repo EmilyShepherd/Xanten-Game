@@ -151,7 +151,8 @@ game.constructions.buildings = {
 		capacity: function(level) {
 			return new Resources({
 				"resources": {
-					"food": game.player.city.buildings.mill.people * level
+					"food": game.player.city.buildings.mill.people * level,
+					"people": Math.pow(4, level)
 				}
 			});
 		},

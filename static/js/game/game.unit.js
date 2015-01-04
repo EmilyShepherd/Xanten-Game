@@ -49,7 +49,7 @@ game.unit = {
 				time: 10 * number
 			});
 		},
-		"milling": function(number) {
+		"work": function(number) {
 			return new Resources({
 				resources: {
 					stone: 20 * number	//TODO add satisfaction
@@ -67,7 +67,7 @@ game.unit = {
 				time: 10 * number
 			});
 		},
-		"mining": function(number) {
+		"work": function(number) {
 			return new Resources({
 				resources: {
 					stone: 20 * number
@@ -85,7 +85,7 @@ game.unit = {
 				time: 10 * number
 			});
 		},
-		"cutting": function(number) {
+		"work": function(number) {
 			return new Resources({
 				resources: {
 					wood: 20 * number
@@ -103,7 +103,7 @@ game.unit = {
 				time: 10 * number
 			});
 		},
-		"farming": function(number) {
+		"work": function(number) {
 			return new Resources({
 				resources: {
 					food: 20 * number

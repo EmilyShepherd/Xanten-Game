@@ -13,7 +13,6 @@ game.tasks = {
 		"move_military_units": function(data) {	
 			return new Task(data,
 				'Move <span class="bold">' + data.options.element_units + '</span> military units<br />'+"<span class='bold'>" +  HTML_Engine.worldPath.getCityName(data.from) + "</span> --> <span class='bold'>" + HTML_Engine.worldPath.getCityName(data.to) + "</span>", {
-					// TODO change url 
 					"url": '/me/building/' + data["building"] + '/build',
 					"data": data,
 					"type": 'GET'
@@ -158,7 +157,6 @@ game.tasks = {
 		"update_building": function(data) {	
 			return new Task(data,
 				'Level up <span class="bold">' + data["building"] + "</span> to " + data.toLevel , {
-					// TODO change url 
 					"url": '/me/building/' + data["building"] + '/level',
 					"data": data,
 					"type": 'GET'

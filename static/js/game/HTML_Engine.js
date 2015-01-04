@@ -1238,7 +1238,7 @@ HTML_Engine.inside_farm = {
 				performAction: function() {
 					game.performTask("train_farmer", {
 						from: "administration",
-						to: "farmer",
+						to: "farm",
 						number: HTML_Engine.chooser.fetch("farm_train", "units")
 					});
 				}
@@ -1264,7 +1264,7 @@ HTML_Engine.inside_farm = {
 				}],
 				performAction: function() {
 					game.performTask("untrain_farmer", {
-						from: "farmer",
+						from: "farm",
 						to: "administration",
 						number: HTML_Engine.chooser.fetch("farm_untrain", "units")
 					});

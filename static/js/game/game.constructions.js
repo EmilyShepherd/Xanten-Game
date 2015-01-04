@@ -337,14 +337,14 @@ game.constructions.buildings = {
  * @memberOf Game.prototype
  */
 game.constructions.elements = {
-	"Tower": {
+	"Wood_Tower": {
 		id: 1,
-		name: "Tower",
+		name: "Wood Tower",
 		img: "tower.png"
 	},
 	"Plant": {
 		id: 2,
-		name: "Plant",
+		name: "Swamp",
 		img: "plant.png"
 	},
 	"Sign Crossroad": {
@@ -357,9 +357,9 @@ game.constructions.elements = {
 		name: "Statue",
 		img: "statue.png"
 	},
-	"Tower": {
+	"Stone_Tower": {
 		id: 5,
-		name: "Tower",
+		name: "Stone Tower",
 		img: "tower.png"
 	},
 	"Post": {
@@ -400,6 +400,7 @@ game.constructions.getBuildingById = function(id) {
  * @memberOf Game.prototype
  */
 game.constructions.getElementById = function(id) {
+	console.log(id)
 	for (e in game.constructions.elements) {
 		if (game.constructions.elements[e].id === id) {
 			return game.constructions.elements[e];

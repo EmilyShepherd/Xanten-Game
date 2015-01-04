@@ -37,9 +37,6 @@ function WorldMap(obj){
 		} else {
 			game.performAction('clear', null);
 		}
-		
-		// alert('You hit the square '+x+' '+y+ ' from world map. This map has no selectCell method yet')
-		// TODO waiting for python team
 	};
 
 	/**
@@ -66,8 +63,6 @@ function WorldMap(obj){
 				$(this.HTML_element + " #cel_"+i+"_"+j).css('background-image', 'url(/static/img/game/background/world/' + background.img + ')');
 			}
 		}		
-		// this.renderTrades();
-		// this.renderAttacks();
 	};
 		
 	 
@@ -84,6 +79,7 @@ function WorldMap(obj){
 	
 	/**
 	 * It returns the id of the city based on the position on the world map
+	 * @name getCityByPosition
 	 * @param (number) x The x position
 	 * @param (number) y The y position
 	 * @return (number) The id of the city or null if nothing is there
@@ -111,15 +107,6 @@ function WorldMap(obj){
 				}
 			}
 		}
-	};	
-		
-	/**
-	 * It deletes all the paths and stops the ticker listener
-	 * @name _freeze
-	 * @memberOf WorldMap.prototype
-	 */
-	worldMap._freeze = function(){
-	};
-	
+	};		
 	return worldMap;
  }

@@ -12,18 +12,16 @@
  *  @property {reference} threadUsers It represents the thread for receiving the available players for a given game
  */
 function Connection() {
-
+  
 	if(game) {
 		return null;
 	}
 
-	this.threadGames = null,
-	this.threadUsers = null;
 
 	$('#game_create').click(function() {
 		$("#game_create").attr("disabled", "disabled");
 		$("#game_create").val("Your world is almost ready...");
-		request = $.ajax({
+		$.ajax({
 			url: "/game/",
 			type: "PUT",
 			data: $('[name=game_create_form]').serialize(),
@@ -56,18 +54,18 @@ function Connection() {
 	$("#game_start").click(function() {
 		$(this).val("The game is loading...");
 		$(this).attr("disabled", "disabled");
-		request = $.ajax({
+		$.ajax({
 			url: "/game/"+$.cookie("token")+"/start",
 			type: "PUT"
 		}).done(function(response)
 				{
-					if (response['status'] == 'started')
+					if (response.status === 'started')
 					{
 						$("#cover").fadeIn(1000, function(){
 							connection.startGame(response);
 						});
 					}
-				})
+				});
 	});
 
 	if(DEVELOPER_MODE === true && developer.settings.loadDeveloperGame) {
@@ -76,7 +74,7 @@ function Connection() {
 		$("#cover").hide();
 		$("#game").show();
 	}
-};
+}
 
 /**
  * It loads the necesarry javascript and css resources and then it starts the game by creating a new game.
@@ -93,6 +91,7 @@ Connection.prototype.startGame = function(response) {
 	var path 		= "/static/js/game/",
 		/**
 		 * It loads a JavaScript file
+		 * @inner
 		 */
 		loadJsFile 	= function(file) {
 			var jsLink = $("<script type='text/javascript' src='" + file + "'>");
@@ -100,6 +99,7 @@ Connection.prototype.startGame = function(response) {
 		},
 		/**
 		 * It loads the JavaScript objects for game
+		 * @inner
 		 */
 		loadJS 		= function() {
 			var files 		= [				      		  
@@ -125,6 +125,7 @@ Connection.prototype.startGame = function(response) {
 		},
 		/**
 		 * It creates the cityMap, worldMap, player and game objects. Then it calls the game.init() method
+		 * @inner
 		 */
 		createGame	= function(){
 			var	cityMap  	= new CityMap(response.game.maps.city),
@@ -172,7 +173,7 @@ Connection.prototype.startGame = function(response) {
  * @memberOf Connection.prototype
  */
 Connection.prototype.getUpdateGame = function() {
-	request = $.ajax({
+ $.ajax({
 		url: "/game/"+$("#game_token").val()+"",
 		type: "GET"
 	}).done(
@@ -181,7 +182,7 @@ Connection.prototype.getUpdateGame = function() {
 			 * @param {object} respose It has: reponse.status (could be running or started) and repsonse.users which holds information regarding the users for the game
 			 */
 			function (response) {	
-				if(response["status"] === 'running')
+				if(response.status === 'running')
 				{	
 					$("#cover").fadeIn(1000, function(){
 						connection.startGame(response);
@@ -256,8 +257,8 @@ Connection.prototype.createGame = function() {
  * @memberOf Connection.prototype
  */
 Connection.prototype.waitingPlayers = function(response) {
-	$.cookie('token', response['token']);
-	$("#game_token").val(response['token']);
+	$.cookie('token', response.token);
+	$("#game_token").val(response.token);
 	$("#start_game").show();	   		
 	$("#available_users").slideDown(500);
 	$("#create_game_form").hide();
@@ -279,13 +280,13 @@ Connection.prototype.joinGameNow = function(token) {
 	var name = prompt("Choose your name in the game...", "");
 	name = (name)?name:"";
 	clearInterval(this.threadGames);
-	request = $.ajax({
+	$.ajax({
 		url: "/game/"+token+"/join",
 		type: "PUT",
 		data: {"username":name},
 		success: function (response) {
-			if(response['status'] === "error") {
-				alert(response['message']);
+			if(response.status === "error") {
+				alert(response.message);
 				connection.threadGames = setInterval(connection.getGames, 2000);
 			}
 			else {
@@ -295,10 +296,10 @@ Connection.prototype.joinGameNow = function(token) {
 				$("#start_game").hide();
 				$("#create_game").show(500, function() {
 					connection.waitingPlayers(response);					
-				})
+				});
 			}
 		}
-	})
+	});
 };	
 
 /**
@@ -306,7 +307,7 @@ Connection.prototype.joinGameNow = function(token) {
  * @memberOf Connection.prototype
  */
 Connection.prototype.getGames = function(){
-	request = $.ajax({
+	$.ajax({
 		url: "/game/",
 		type: "GET"
 	}).done(function (response) {	
@@ -342,6 +343,7 @@ Connection.prototype.generateAbstractGeneralMap = function(size){
 	/**
 	 *  Checks the value of a space in the map array, returning the empty string for co-ordinates that don't exist.
 	 * (This avoids nasty array index errors when we get close to the edges.)
+	 * @inner
 	 * @param {string} y_coord The y co-ordonate
 	 * @param {string}x_coord The x co-ordonate
 	 * @returns {boolean}
@@ -353,7 +355,7 @@ Connection.prototype.generateAbstractGeneralMap = function(size){
 		} else {
 			return imgArray[y_coord][x_coord];
 		}
-	}
+	};
 
 
 	// Controlling amount of space on the map.
@@ -384,8 +386,6 @@ Connection.prototype.generateAbstractGeneralMap = function(size){
 	 	FOREST_EXPAND = Math.floor((Math.random() * 9) + 5)/100, // 0.05 --> 0.09
 	// Calculating probabilities:
 	 	p_ocean = 1 - OCEAN_SEED,
-	 	p_rock = p_ocean - ROCK_SEED,
-	 	p_forest = p_rock - FOREST_SEED,
 
 		 x = 0,
 		 y = 0,
@@ -752,4 +752,4 @@ Connection.prototype.generateHTMLMap = function(imgArray) {
 	}
 	map += "</div>";
 	return map;
-}
+};

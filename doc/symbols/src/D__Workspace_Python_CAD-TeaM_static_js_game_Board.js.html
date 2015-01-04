@@ -6,41 +6,34 @@
 	.REGX {color: #339;}
 	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
 	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**
-<span class='line'>  2</span>  * The board object
-<span class='line'>  3</span>  * @file Contains the board object
-<span class='line'>  4</span>  * @author Cristian Sima
-<span class='line'>  5</span>  * @version 30.11.2014
-<span class='line'>  6</span>  */</span><span class="WHIT">
-<span class='line'>  7</span> </span><span class="WHIT"> </span><span class="WHIT">
-<span class='line'>  8</span> 
-<span class='line'>  9</span> </span><span class="COMM">/**
-<span class='line'> 10</span>  * The bord object represents a HTML div where there is added content
-<span class='line'> 11</span>  * @constructor
-<span class='line'> 12</span>  * @param {string} id The id of the board. It can be 'actions', 'news' or 'tasks'
-<span class='line'> 13</span>  */</span><span class="WHIT">
-<span class='line'> 14</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">Board</span><span class="PUNC">(</span><span class="NAME">id</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 15</span> </span><span class="WHIT">	</span><span class="NAME">this.id</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">id</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 16</span> </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'> 17</span> 
-<span class='line'> 18</span> </span><span class="COMM">/**
-<span class='line'> 19</span>  * It adds a message to the board
-<span class='line'> 20</span>  * @memberOf Board.prototype
-<span class='line'> 21</span>  * @param {string} message The string to be added
-<span class='line'> 22</span>  */</span><span class="WHIT">
-<span class='line'> 23</span> </span><span class="NAME">Board.prototype.add</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">message</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 24</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">div</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"&lt;div style='display:none'>"</span><span class="PUNC">+</span><span class="NAME">message</span><span class="PUNC">+</span><span class="STRN">"&lt;/div>"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 25</span> </span><span class="WHIT">	</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"#"</span><span class="PUNC">+</span><span class="NAME">this.id</span><span class="PUNC">+</span><span class="STRN">"_board"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">prepend</span><span class="PUNC">(</span><span class="NAME">div</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 26</span> </span><span class="WHIT">	</span><span class="NAME">div.fadeIn</span><span class="PUNC">(</span><span class="NUMB">500</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 27</span> </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'> 28</span> 
-<span class='line'> 29</span> </span><span class="COMM">/**
-<span class='line'> 30</span>  * It clears the board
-<span class='line'> 31</span>  * @memberOf Board.prototype
-<span class='line'> 32</span>  */</span><span class="WHIT">
-<span class='line'> 33</span> </span><span class="NAME">Board.prototype.clear</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 34</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">divs</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"#"</span><span class="PUNC">+</span><span class="NAME">this.id</span><span class="PUNC">+</span><span class="STRN">"_board"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">find</span><span class="PUNC">(</span><span class="STRN">"div"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 35</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">&lt;</span><span class="NAME">divs.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 36</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">div</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">divs</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 37</span> </span><span class="WHIT">		</span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">div</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">fadeOut</span><span class="PUNC">(</span><span class="NAME">i</span><span class="PUNC">*</span><span class="NUMB">10</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">remove</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">	</span><span class="WHIT">
-<span class='line'> 38</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'> 39</span> </span><span class="PUNC">}</span></pre></body></html>
+<span class='line'>  2</span>  * The bord object represents a HTML div where there is added content
+<span class='line'>  3</span>  * @constructor
+<span class='line'>  4</span>  * @param {string} id The id of the board. It can be 'actions', 'news' or 'tasks'
+<span class='line'>  5</span>  */</span><span class="WHIT">
+<span class='line'>  6</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">Board</span><span class="PUNC">(</span><span class="NAME">id</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>  7</span> </span><span class="WHIT">	</span><span class="NAME">this.id</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">id</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  8</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>  9</span> 
+<span class='line'> 10</span> </span><span class="COMM">/**
+<span class='line'> 11</span>  * It adds a message to the board
+<span class='line'> 12</span>  * @memberOf Board.prototype
+<span class='line'> 13</span>  * @param {string} message The string to be added
+<span class='line'> 14</span>  */</span><span class="WHIT">
+<span class='line'> 15</span> </span><span class="NAME">Board.prototype.add</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">message</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 16</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">div</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"&lt;div style='display:none'>"</span><span class="PUNC">+</span><span class="NAME">message</span><span class="PUNC">+</span><span class="STRN">"&lt;/div>"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 17</span> </span><span class="WHIT">	</span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"#"</span><span class="PUNC">+</span><span class="NAME">this.id</span><span class="PUNC">+</span><span class="STRN">"_board"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">prepend</span><span class="PUNC">(</span><span class="NAME">div</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 18</span> </span><span class="WHIT">	</span><span class="NAME">div.fadeIn</span><span class="PUNC">(</span><span class="NUMB">500</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 19</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 20</span> 
+<span class='line'> 21</span> </span><span class="COMM">/**
+<span class='line'> 22</span>  * It clears the board
+<span class='line'> 23</span>  * @memberOf Board.prototype
+<span class='line'> 24</span>  */</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="NAME">Board.prototype.clear</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">divs</span><span class="WHIT"> 	</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="STRN">"#"</span><span class="PUNC">+</span><span class="NAME">this.id</span><span class="PUNC">+</span><span class="STRN">"_board"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">find</span><span class="PUNC">(</span><span class="STRN">"div"</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="WHIT">      </span><span class="NAME">f</span><span class="WHIT">			</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">t</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">t</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">remove</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 28</span> </span><span class="WHIT">	</span><span class="KEYW">for</span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">=</span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">&lt;</span><span class="NAME">divs.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 29</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">div</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">divs</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="WHIT">		</span><span class="NAME">$</span><span class="PUNC">(</span><span class="NAME">div</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">fadeOut</span><span class="PUNC">(</span><span class="NAME">i</span><span class="PUNC">*</span><span class="NUMB">10</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">f</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">	</span><span class="WHIT">
+<span class='line'> 31</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 32</span> </span><span class="PUNC">}</span><span class="PUNC">;</span></pre></body></html>

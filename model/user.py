@@ -5,6 +5,7 @@ import random
 import math
 
 from model.queue import Queue
+from model.connection import Connection
 
 # Represents a user session
 #
@@ -158,7 +159,12 @@ class User(ndb.Model):
 
         self.lastUpdated = queue.finish
 
-        if queue.queueType == Queue.TYPE_BUILD:
+        if queue.queueType == Queue.TYPE_ATTACK:
+            self.doAttack(queue)
+            return
+        elif queue.queueType == Queue.TYPE_RETURN:
+            return
+        elif queue.queueType == Queue.TYPE_BUILD:
             if name in ['trade', 'storage', 'military', 'grapevine']:
                 setattr(self, name, True)
                 return
@@ -172,6 +178,42 @@ class User(ndb.Model):
             name = 'peopleAt' + name.capitalize()
 
         setattr(self, name, getattr(self, name) + queue.number)
+
+
+    def doAttack(self, attackQueue):
+        enemy = User.query(User.uid == attackQueue.attackTo).fetch()[0]
+        enemy.updateValues()
+
+        enemy.peopleAtAdministration = enemy.peopleAtAdministration - ((random.randint(39, 80)/100) * enemy.peopleAtAdministration)
+        #Stolen resources
+        res = { }
+        res["wood"]  = enemy.wood  - (0.05 * enemy.storageLvl) * enemy.wood
+        res["gold"]  = enemy.gold  - (0.05 * enemy.storageLvl) * enemy.gold
+        res["food"]  = enemy.food  - (0.05 * enemy.storageLvl) * enemy.food
+        res["stone"] = enemy.stone - (0.05 * enemy.storageLvl) * enemy.stone
+
+        #Minus the attacked city
+        enemy.wood  -= res["wood"]
+        enemy.gold  -= res["gold"]
+        enemy.food  -= res["food"]
+        enemy.stone -= res["stone"]
+
+        queueO          = Queue(queueType = Queue.TYPE_RETURN)
+        queueO.attackTo = attackQueue.attackTo
+        queueO.number   = attackQueue.number
+        queueO.saveResources(res)
+        self.addQueue(queueO, 20)
+        queueO.put()
+        enemy.put()
+
+        Connection.sendMessageTo(enemy, 'attackResult', {
+            "text" : "You were attacked",
+            "lost" : res
+        })
+        Connection.sendMessageTo(self,  'attackResult', {
+            "text" : "Your attack was successful",
+            "gain" : res
+        })
 
     # Recalculates all the resouces since the last update, and sets
     # the last update timestamp to now()

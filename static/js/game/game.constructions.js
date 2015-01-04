@@ -5,7 +5,7 @@
 game.constructions = {};
 
 /**
- * Holds information regarding the buildings: name, maxLevel, maxNumber, capacity, cost to upgrade
+ * Holds information regarding the buildings: name, maxLevel, maxNumber, capacity, cost to upgrade and worker (name of the worker)
  * @memberOf Game.prototype
  */
 game.constructions.buildings = {
@@ -21,7 +21,7 @@ game.constructions.buildings = {
 		 * @return {Resource} A Resources object which describe the capacity of the building
 		 * @inner 
 		 */
-		capacity: function(level) {
+		capacity: function() {
 			return {};
 			// TODO @George
 		},
@@ -41,6 +41,15 @@ game.constructions.buildings = {
 				people: 0.05 * game.player.city.getNumberOfPeople(),
 				time: 10 * level
 			});
+		},
+		/**
+		 * It returns the name of the workers of this building
+		 * @inner
+		 * @param {number} number The number of workers
+		 * @return {string} The name of workers for this building
+		 */
+		worker: function(number){
+			return (number === 1)?"Free person":"Free people";
 		}
 	},
 	"military": {
@@ -75,7 +84,16 @@ game.constructions.buildings = {
 				},
 				people: 10 * level,
 				time: 10 * level
-			})
+			});
+		},
+		/**
+		 * It returns the name of the workers of this building
+		 * @inner
+		 * @param {number} number The number of workers
+		 * @return {string} The name of workers for this building
+		 */
+		worker: function(number){
+			return (number === 1)?"Military unit":"Military units";
 		}
 	},
 	"storage": {
@@ -115,6 +133,9 @@ game.constructions.buildings = {
 				time: 10 * level
 			});
 		}
+		/*
+		 * It does not have workers
+		 */
 	},
 	"mill": {
 		id: 4,
@@ -149,6 +170,15 @@ game.constructions.buildings = {
 				people: 10 * level,
 				time: 10 * level
 			});
+		},
+		/**
+		 * It returns the name of the workers of this building
+		 * @inner
+		 * @param {number} number The number of workers
+		 * @return {string} The name of workers for this building
+		 */
+		worker: function(number){
+			return (number === 1)?"Smallholder":"Smallholders";
 		}
 	},
 	"mine": {
@@ -168,7 +198,7 @@ game.constructions.buildings = {
 					"stone": 0.5 * level * game.player.city.buildings.mine.num * game.player.city.buildings.mine.people,
 					"people": Math.pow(4, level)
 				}
-			})
+			});
 		},
 		/**
 		 * It returns the necessary resources in order to level up the building to a given level
@@ -185,6 +215,15 @@ game.constructions.buildings = {
 				people: 10 * level,
 				time: 15 * level
 			});
+		},
+		/**
+		 * It returns the name of the workers of this building
+		 * @inner
+		 * @param {number} number The number of workers
+		 * @return {string} The name of workers for this building
+		 */
+		worker: function(number){
+			return (number === 1)?"Miner":"Miners";
 		}
 	},
 	"house": {
@@ -198,7 +237,7 @@ game.constructions.buildings = {
 		 * @return {Resource} A Resources object which describe the capacity of the building
 		 * @inner  
 		 */
-		capacity: function(level) {
+		capacity: function() {
 			return new Resources({
 				"people": (1000 * Math.pow(1.1, game.player.getLevel()) * game.player.city.buildings.house.num)
 			});
@@ -219,6 +258,9 @@ game.constructions.buildings = {
 				time: 7 * level
 			});
 		}
+		/*
+		 * It does not have workers
+		 */
 	},
 	"trade": {
 		id: 7,
@@ -257,6 +299,9 @@ game.constructions.buildings = {
 				time: 10 * level
 			});
 		}
+		/*
+		 * It does not have workers
+		 */
 	},
 	"lumberjack": {
 		id: 8,
@@ -292,6 +337,15 @@ game.constructions.buildings = {
 				people: 11 * level,
 				time: 5 * level
 			});
+		},
+		/**
+		 * It returns the name of the workers of this building
+		 * @inner
+		 * @param {number} number The number of workers
+		 * @return {string} The name of workers for this building
+		 */
+		worker: function(number){
+			return (number === 1)?"Lumberjack":"Lumberjacks";
 		}
 	},
 	"farm": {
@@ -328,6 +382,15 @@ game.constructions.buildings = {
 				people: 7 * level,
 				time: 7 * level
 			});
+		},
+		/**
+		 * It returns the name of the workers of this building
+		 * @inner
+		 * @param {number} number The number of workers
+		 * @return {string} The name of workers for this building
+		 */
+		worker: function(number){
+			return (number === 1)?"Farmer":"Farmers";
 		}
 	}
 };
@@ -386,7 +449,7 @@ game.constructions.elements = {
  * @memberOf Game.prototype
  */
 game.constructions.getBuildingById = function(id) {
-	for (b in game.constructions.buildings) {
+	for (var b in game.constructions.buildings) {
 		if (game.constructions.buildings[b].id === id) {
 			return game.constructions.buildings[b];
 		}
@@ -400,8 +463,7 @@ game.constructions.getBuildingById = function(id) {
  * @memberOf Game.prototype
  */
 game.constructions.getElementById = function(id) {
-	console.log(id)
-	for (e in game.constructions.elements) {
+	for (var e in game.constructions.elements) {
 		if (game.constructions.elements[e].id === id) {
 			return game.constructions.elements[e];
 		}

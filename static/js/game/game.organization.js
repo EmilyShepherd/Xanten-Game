@@ -11,8 +11,8 @@ game.organization = {};
  */
 game.organization.getByLevel = function(what, level) {
 
-	var info = {},
-		level = parseInt(level);
+	var info = {};
+  level = parseInt(level);
 
 	if (level <= 4) {
 		info = {
@@ -60,7 +60,7 @@ game.organization.getByLevel = function(what, level) {
 			administration: "Government",
 			house: "Region",
 			period: "Contemporary Period"
-		}
+		};
 	}
 
 	return info[what];

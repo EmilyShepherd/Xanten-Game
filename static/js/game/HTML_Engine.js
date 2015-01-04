@@ -1353,6 +1353,8 @@ HTML_Engine.getBuilding = {
 				return "Train people into farmers here who will generate food for you."
 			case "lumberjack":
 				return "Train people into strong lumberjacks who can generate wood for you."
+			case "mill":
+				return "Send people to work in the mill to refine your food and keep your citizens happy."
 			default:
 				return "This building has no description yet :( (@Joe)";
 		}

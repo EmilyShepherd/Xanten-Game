@@ -9,7 +9,7 @@ developer.settings = {
 	/*
 	 * It loads a pre-defined game (below)
 	 */
-	"loadDeveloperGame"	: false,	
+	"loadDeveloperGame"	: true,	
 	/*
 	 *  it selects the default city map
 	 */

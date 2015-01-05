@@ -278,7 +278,7 @@ game.tasks = {
 	},
 	"train_lumberjack": function(data) {
 		return new Task(data,
-			'Training <span class="bold">' + data.number + "</span> lumberjacks", {
+			'Training <span class="bold">' + data.number + "</span> lumberjack", {
 				"url": '/me/people/move',
 				"data": data,
 				"type": 'POST'
@@ -293,7 +293,7 @@ game.tasks = {
 	},
 	"untrain_lumberjack": function(data) {
 		return new Task(data,
-			'Reduce <span class="bold">' + data.number + "</span> lumberjacks", {
+			'Reduce <span class="bold">' + data.number + "</span> lumberjack", {
 				"url": '/me/people/move',
 				"data": data,
 				"type": 'POST'

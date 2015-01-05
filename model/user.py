@@ -253,6 +253,15 @@ class User(ndb.Model):
         self.runUpdate((dt - self.lastUpdated).total_seconds())
 
         self.lastUpdated = dt
+        if self.gold == 0\
+        and self.food == 0 \
+        and self.stone == 0 \
+        and self.wood == 0 \
+        or self.peopleAtMilitary == 0:
+            #send websockey "lost" here
+            return 0
+
+
 
     # Calculates the resource gains in the given amount of time and adds
     # these to the user's account

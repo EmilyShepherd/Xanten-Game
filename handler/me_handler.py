@@ -40,7 +40,8 @@ class MeHandler(DefaultHandler):
             # You need to pay for what you build!
             if         self.user.gold  < cost['cost']['gold']    \
                     or self.user.wood  < cost['cost']['wood']    \
-                    or self.user.stone < cost['cost']['stone']:
+                    or self.user.stone < cost['cost']['stone']   \
+                    or self.user.food  < cost['cost']['food']:
                 self.stderr('Not enough resources!')
             # All checks successful, take the resources from the user
             # and put this into the building queue
@@ -103,7 +104,8 @@ class MeHandler(DefaultHandler):
             # You need to pay for what you training!
             if         self.user.gold  < cost['gold']    \
                     or self.user.wood  < cost['wood']    \
-                    or self.user.stone < cost['stone']:
+                    or self.user.stone < cost['stone']   \
+                    or self.user.food < cost['food']:
                 self.stderr('Not enough resources!')
             # All checks successful, take the resources from the user
             # and put this into the building queue
@@ -111,6 +113,7 @@ class MeHandler(DefaultHandler):
                 self.user.gold  -= cost['gold']
                 self.user.wood  -= cost['wood']
                 self.user.stone -= cost['stone']
+                self.user.food  -= cost['food']
 
                 setattr(
                     self.user, fromAttr,

@@ -739,7 +739,7 @@ HTML_Engine.inside_mill = {
 
 			html += "<div class='heading'> The daily increase in satisfaction is: " +
 				HTML_Engine.displayResources.content(
-					game.unit.miller.work(parseInt(nr_of_active_units))
+					game.unit.mill.work(parseInt(nr_of_active_units))
 				) + "</div>";
 		}
 		html += "</div>";
@@ -793,15 +793,15 @@ HTML_Engine.inside_mill = {
 					max: capacity - nr_of_active_units,
 					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content(
-								game.unit.miller.create(parseInt(ui.value))
+								game.unit.mill.create(parseInt(ui.value))
 							) + "<div> Daily income: </div>" +
 							HTML_Engine.displayResources.content(
-								game.unit.miller.work(parseInt(ui.value))
+								game.unit.mill.work(parseInt(ui.value))
 							));
 					}
 				}],
 				performAction: function() {
-					game.performTask("train_miller", {
+					game.performTask("train_workers", {
 						from: "administration",
 						to: "mill",
 						number: HTML_Engine.chooser.fetch("miller_train", "units")
@@ -828,7 +828,7 @@ HTML_Engine.inside_mill = {
 					}
 				}],
 				performAction: function() {
-					game.performTask("untrain_miller", {
+					game.performTask("untrain_workers", {
 						from: "mill",
 						to: "administration",
 						number: HTML_Engine.chooser.fetch("miller_untrain", "units")
@@ -881,7 +881,7 @@ HTML_Engine.inside_mine = {
 
 			html += "<div class='heading'> The daily income of stone is: " +
 				HTML_Engine.displayResources.content(
-					game.unit.miner.work(parseInt(nr_of_active_units))
+					game.unit.mine.work(parseInt(nr_of_active_units))
 				) + "</div>";
 		}
 		html += "</div>";
@@ -935,15 +935,15 @@ HTML_Engine.inside_mine = {
 					max: capacity - nr_of_active_units,
 					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content(
-								game.unit.miner.create(parseInt(ui.value))
+								game.unit.mine.create(parseInt(ui.value))
 							) + "<div> Daily income: </div>" +
 							HTML_Engine.displayResources.content(
-								game.unit.miner.work(parseInt(ui.value))
+								game.unit.mine.work(parseInt(ui.value))
 							));
 					}
 				}],
 				performAction: function() {
-					game.performTask("train_miner", {
+					game.performTask("train_workers", {
 						from: "administration",
 						to: "mine",
 						number: HTML_Engine.chooser.fetch("mine_train", "units")
@@ -970,7 +970,7 @@ HTML_Engine.inside_mine = {
 					}
 				}],
 				performAction: function() {
-					game.performTask("untrain_miner", {
+					game.performTask("untrain_workers", {
 						from: "mine",
 						to: "administration",
 						number: HTML_Engine.chooser.fetch("mine_untrain", "units")
@@ -1253,7 +1253,7 @@ HTML_Engine.inside_lumberjack = {
 					}
 				}],
 				performAction: function() {
-					game.performTask("train_lumberjack", {
+					game.performTask("train_workers", {
 						from: "administration",
 						to: "lumberjack",
 						number: HTML_Engine.chooser.fetch("lumberjack_train", "units")
@@ -1280,7 +1280,7 @@ HTML_Engine.inside_lumberjack = {
 					}
 				}],
 				performAction: function() {
-					game.performTask("untrain_lumberjack", {
+					game.performTask("untrain_workers", {
 						from: "lumberjack",
 						to: "administration",
 						number: HTML_Engine.chooser.fetch("lumberjack_untrain", "units")
@@ -1333,7 +1333,7 @@ HTML_Engine.inside_farm = {
 
 			html += "<div class='heading'> The daily income of food is: " +
 				HTML_Engine.displayResources.content(
-					game.unit.farmer.work(parseInt(nr_of_active_units))
+					game.unit.farm.work(parseInt(nr_of_active_units))
 				) + "</div>";
 		}
 		html += "</div>";
@@ -1387,15 +1387,15 @@ HTML_Engine.inside_farm = {
 					max: capacity - nr_of_active_units,
 					change: function(event, ui, extra) {
 						extra.html(HTML_Engine.displayResources.content(
-								game.unit.farmer.create(parseInt(ui.value))
+								game.unit.farm.create(parseInt(ui.value))
 							) + "<div> Daily income: </div>" +
 							HTML_Engine.displayResources.content(
-								game.unit.farmer.work(parseInt(ui.value))
+								game.unit.farm.work(parseInt(ui.value))
 							));
 					}
 				}],
 				performAction: function() {
-					game.performTask("train_farmer", {
+					game.performTask("train_workers", {
 						from: "administration",
 						to: "farm",
 						number: HTML_Engine.chooser.fetch("farm_train", "units")
@@ -1422,7 +1422,7 @@ HTML_Engine.inside_farm = {
 					}
 				}],
 				performAction: function() {
-					game.performTask("untrain_farmer", {
+					game.performTask("untrain_workers", {
 						from: "farm",
 						to: "administration",
 						number: HTML_Engine.chooser.fetch("farm_untrain", "units")

@@ -1974,7 +1974,7 @@ HTML_Engine.messages = {
 			var msg = game.player.messages[i];
 			html += "<div class='heading'><span class='bold'>From: " + game.worldMap.getCityById(msg.from) + "</span><input msg='" + msg.id + "' class='confirm_see' value='See message' /></div>";
 		}
-		return (html === ''?"You have no message :(":html);
+		return (html === ''?"You have no message :(":html + "<div class='center'><span class='link' id='delete_messages'>Delete all messages</span></div>");
 	},
 	/**
 	 * It creates and enables the listeners
@@ -1982,6 +1982,10 @@ HTML_Engine.messages = {
 	enable: function() {
 		$(".confirm_see").button().click(function(){
 			game.performAction('seeMessage', game.player.messages[$(this).attr("msg")]);
+		});
+		$("#delete_messages").click(function(){
+			game.player.messages = [];
+			game.update();
 		});
 	},
 	/**

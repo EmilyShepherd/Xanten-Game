@@ -44,9 +44,9 @@ game.unit = {
 		"create": function(number) {
 			return new Resources({
 				resources: {
-					"food": 15 * number
+					"food": 1 * number
 				},
-				time: 10 * number
+				time: 0.1 * number
 			});
 		}
 	},
@@ -62,7 +62,7 @@ game.unit = {
 		"work": function(number) {
 			return new Resources({
 				resources: {
-					satisfaction: 20 * number
+					satisfaction: 10 * number
 				},
 				interval: "one day"
 			});

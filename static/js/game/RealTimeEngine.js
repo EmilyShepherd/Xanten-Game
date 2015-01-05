@@ -68,23 +68,6 @@ RealTimeEngine.prototype.run = function() {
 	}
 
 	this.isRunning = true;
-
-	/*
-	 *
-	this.websocket = channel.open()
-
-    this.websocket.onmessage = function(evt) {
-    	instance.receiveMessage(evt);
-    }
-
-    this.websocket.onstatistics = function(statistics) {
-    	instance.receiveDailyStatistics(statistics);
-    }
-
-    this.websocket.ongamestatus = function(status) {
-    	instance.receiveGameStatus(status);
-    }
-    */
 	instance._progress();
 	this.threads.resources = setInterval(instance._progress, 1000);
 };
@@ -96,14 +79,9 @@ RealTimeEngine.prototype.run = function() {
 RealTimeEngine.prototype.freeze = function() {
 
 	this.isRunning = false;
-
+	this.socket.close();
+	this.channel = undefined;
 	clearInterval(this.threads.resources);
-
-	// this.websocket = this.channel.close()
-
-	// this.websocket.onmessage    = undefined;
-	// this.websocket.onstatistics = undefined;
-	// this.websocket.ongamestatus = undefined;
 };
 
 /**
@@ -114,7 +92,6 @@ RealTimeEngine.prototype.freeze = function() {
 RealTimeEngine.prototype._progress = function() {
 	// food 
 	game.player.resources.food += parseInt(game.constructions.buildings.farm.capacity(game.player.city.buildings.farm.level).resources.food);
-	game.player.resources.food += parseInt(game.constructions.buildings.mill.capacity(game.player.city.buildings.mill.level).resources.food);
 	// wood
 	game.player.resources.wood += parseInt(game.constructions.buildings.lumberjack.capacity(game.player.city.buildings.lumberjack.level).resources.wood);
 	// stone
@@ -127,13 +104,13 @@ RealTimeEngine.prototype._progress = function() {
 /**
  * It is called when a message is received for this user. It saves the message. It sends a notification and it updates the window
  * @memberOf RealTimeEngine.prototype
- * @param {string} message An object which contain all the information regarding the message ("sent_from", "content", "id", "date")
+ * @param {object} message An object which contains content and from (token of the user who sent)
  */
 RealTimeEngine.prototype.receiveMessage = function(message) {
-	var msg = {	id: game.player.messages.length, content: message.message, from: message.from };
+	var msg = {	id: game.player.messages.length, content: message.content, from: message.from };
 	game.player.messages.push(msg);
-	Window.newsBoard.add("<span class='news_done'>New message</span> from " + game.worldMap.getCityById(msg.from) + ": <i>" + msg.content.substring() + "..." + "</i>");
-	Window.updateDetailsCity();
+	Window.newsBoard.add("<span class='news_done'>New message</span> from <span class='bold'>" + game.worldMap.getCityById(msg.from).name + "</span>: <i>" + ((msg.content.length > 25)?(msg.content.substring(0, 25) + "..."):msg.content) + "</i>");
+	game.update();
 };
 
 
@@ -168,11 +145,21 @@ RealTimeEngine.prototype.receiveDailyStatistics = function(statistics) {
 /**
  * It is called when server tells the status of the game
  * @memberOf RealTimeEngine.prototype
- * @param {string} status It contains the status of the game. If it is lost, it stops the game
+ * @param {string} status It contains the status of the game. If it is lost or win, it stops the game
  */
 RealTimeEngine.prototype.receiveGameStatus = function(status) {
-	if (status === 'lost') {
+	if (status === 'lost' || status === 'win') {
+		var div = $("#modal"),
+			dialog = div.dialog({
+		      modal: true
+		    });
 		game.performAction("game_over");
 		game.freeze();
+		if(status === 'lost') {
+			div.html("You lost the game ! <br /> Do not worry ! You can start a new game !");
+		} else {
+			div.html("You win the game! Congratz. !!!! It is very hard to achieve this !");
+		}
+		$("#modal").dialog( "open" );
 	}
 };

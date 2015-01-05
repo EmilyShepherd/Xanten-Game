@@ -456,7 +456,7 @@ HTML_Engine.inside_administration = {
 	 */
 	content: function() {
 		var nr_of_free_units = game.player.city.buildings.administration.people,
-		capacity = game.constructions.buildings.administration.capacity(game.player.city.buildings.military.level).people;
+		capacity = game.constructions.buildings.house.capacity().people;
 			html = "";
 
 		html += HTML_Engine.getBuilding.info("administration", true);
@@ -470,7 +470,15 @@ HTML_Engine.inside_administration = {
 		html += "<div class='heading'> Daily income from free people: " +
 			HTML_Engine.displayResources.content({
 				resources: {
-					"gold": nr_of_free_units * 0.1,
+					"gold": nr_of_free_units * 0.1
+				}
+			}) + "</div>";
+			
+		html += "<div class='heading'> Satisfaction level: " +
+			HTML_Engine.displayResources.content({
+				resources: {
+					"satisfaction": game.constructions.buildings.mill.capacity(game.player.city.buildings.mill.level).resources.satisfaction -
+											(10 * nr_of_free_units) + (game.player.city.buildings.house.num * 200) - nr_of_free_units
 				}
 			}) + "</div>";
 
@@ -485,7 +493,7 @@ HTML_Engine.inside_administration = {
 				id: "free_train"
 			});
 		} else {
-			html += "Unfortunately, you have reached the max capacity. You can train more units after you upgrade the building.";
+			html += "Unfortunately, you have reached the max capacity. You can create more free people by building more houses.";
 		}
 		return html;
 	},
@@ -493,7 +501,7 @@ HTML_Engine.inside_administration = {
 		HTML_Engine.upgradeBuilding.enable("administration", (parseInt(game.player.city.buildings.administration.level) + 1));
 		
 		var nr_of_free_units = game.player.city.buildings.administration.people,
-			capacity = game.constructions.buildings.administration.capacity(game.player.city.buildings.military.level).people;
+			capacity = game.constructions.buildings.house.capacity().people;
 
 		/*
 		 * It creates the chooser to let the user to choose how many units to create
@@ -1920,7 +1928,7 @@ HTML_Engine.sendMessage = {
 	 * @return {string} The HTML code for sending a message
 	 */
 	content: function(id) {
-		return "<div class='heading'><input type='hiden' id='message_to' value='" + id + "'/><span class='bold'>Message: </span><br /><textarea rows='20' cols='25' id='message'></textarea><br /></div><div class='heading'><input class='action_bt' id='confirm_send' value='Send message' /></div>";
+		return "<div class='heading'><input type='hidden' id='message_to' value='" + game.worldMap.getCityById(id).id + "'/><span class='bold'>To</span>: " + game.worldMap.getCityById(id).name + "<br /><span class='bold'>Message: </span><br /><textarea rows='20' cols='25' id='message'></textarea><br /></div><div class='heading'><input class='action_bt' id='confirm_send' value='Send message' /></div>";
 	},
 	/**
 	 * It enables the functionality for the message
@@ -1933,7 +1941,9 @@ HTML_Engine.sendMessage = {
 				message : $("#message").val(),
 				to		: $("#message_to").val()
 			});
+			game.performAction("city-map-selected");
 		});
+		$("#message").focus();
 	},
 	/**
 	 * It disables the functionality
@@ -1951,11 +1961,22 @@ HTML_Engine.sendMessage = {
 HTML_Engine.seeMessage = {
 	/**
 	 * It displays the content of the message
-	 * @param {object} args The object which contain information regarding the message ('id' and 'content')
+	 * @param {object} msg The object which contain information regarding the message ('id', 'content' and 'from' (the token of the player))
 	 * @return {string} The HTML content for displaying the message
 	 */
-	content: function(args) {
-		return "This is the message from <b>" + game.worldMap.getCityById(args.from) + "<b>:<br/ ><i>" + args.content + '</i>. ';
+	content: function(msg) {
+		return "<div class='heading'> <span class='link' id='back_msg'>Back to messages</span></div><br /><div>From: <span class='bold'>" + game.worldMap.getCityById(msg.from).name + "</span>:<br/ ><i>" + msg.content + '</i></div> <br /><div class="center heading"> <span class="link" id="replay_msg" from="' + msg.from + '" >Reply back</span></div>';
+	},
+	enable: function() {
+		$("#back_msg").click(function(){
+			game.performAction("messages");
+		});
+		$("#replay_msg").button().click(function(){
+			game.performAction('sendMessage', $(this).attr("from"));
+		});
+	},
+	disable: function() {
+		$("#back_msg, #replay_msg").off();
 	}
 };
 
@@ -1972,7 +1993,7 @@ HTML_Engine.messages = {
 		var html = "";
 		for(var i = 0; i < game.player.messages.length; i++) {
 			var msg = game.player.messages[i];
-			html += "<div class='heading'><span class='bold'>From: " + game.worldMap.getCityById(msg.from) + "</span><input msg='" + msg.id + "' class='confirm_see' value='See message' /></div>";
+			html += "<div class='heading'>From: <span class='bold'>" + game.worldMap.getCityById(msg.from).name + "</span><input msg='" + msg.id + "' class='confirm_see' value='See message' /></div>";
 		}
 		return (html === ''?"You have no message :(":html + "<div class='center'><span class='link' id='delete_messages'>Delete all messages</span></div>");
 	},
@@ -1992,6 +2013,6 @@ HTML_Engine.messages = {
 	 * It disables the listeners
 	 */
 	disable: function() {
-		$(".confirm_see").off();
+		$(".confirm_see, #delete_messages").off();
 	}
 };

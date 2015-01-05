@@ -5,7 +5,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="generator" content="JsDoc Toolkit" />
 		
-		<title>JsDoc Reference - HTML_Engine.attackCity</title>
+		<title>JsDoc Reference - HTML_Engine.messages</title>
 
 		<style type="text/css">
 			/* default.css */
@@ -292,7 +292,7 @@ ul.inheritsList
 <!-- ============================== class title ============================ -->
 			<h1 class="classTitle">
 				
-				Namespace HTML_Engine.attackCity
+				Namespace HTML_Engine.messages
 			</h1>
 
 <!-- ============================== class summary ========================== -->			
@@ -300,7 +300,7 @@ ul.inheritsList
 				
 				
 			
-				The HTML_Engine in order to attack a city
+				The HTML_Engine object for displaying all the messages
 				
 				
 					<br /><i>Defined in: </i> <a href="../symbols/src/D__Workspace_Python_CAD-TeaM_static_js_game_HTML_Engine.js.html">HTML_Engine.js</a>.
@@ -309,7 +309,7 @@ ul.inheritsList
 
 <!-- ============================== constructor summary ==================== -->			
 			
-			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class HTML_Engine.attackCity.">
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class HTML_Engine.messages.">
 				<caption>Namespace Summary</caption>
 				<thead>
 					<tr>
@@ -322,7 +322,7 @@ ul.inheritsList
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/HTML_Engine.attackCity.html#constructor">HTML_Engine.attackCity</a></b>
+								<b><a href="../symbols/HTML_Engine.messages.html#constructor">HTML_Engine.messages</a></b>
 							</div>
 							<div class="description"></div>
 						</td>
@@ -338,7 +338,7 @@ ul.inheritsList
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class HTML_Engine.attackCity.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class HTML_Engine.messages.">
 					<caption>Method Summary</caption>
 					<thead>
 						<tr>
@@ -351,36 +351,27 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">HTML_Engine.attackCity.<b><a href="../symbols/HTML_Engine.attackCity.html#.content">content</a></b>(idCity)
+								<div class="fixedFont">HTML_Engine.messages.<b><a href="../symbols/HTML_Engine.messages.html#.content">content</a></b>()
 								</div>
-								<div class="description">It generates the content for the military building</div>
+								<div class="description">It displays the content of the message</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">HTML_Engine.attackCity.<b><a href="../symbols/HTML_Engine.attackCity.html#.disable">disable</a></b>()
+								<div class="fixedFont">HTML_Engine.messages.<b><a href="../symbols/HTML_Engine.messages.html#.disable">disable</a></b>()
 								</div>
-								<div class="description">It calls the disable methods of the military choosers</div>
+								<div class="description">It disables the listeners</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">HTML_Engine.attackCity.<b><a href="../symbols/HTML_Engine.attackCity.html#.enable">enable</a></b>(idCity)
+								<div class="fixedFont">HTML_Engine.messages.<b><a href="../symbols/HTML_Engine.messages.html#.enable">enable</a></b>()
 								</div>
-								<div class="description">It enables the functionality for the attack</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">HTML_Engine.attackCity.<b><a href="../symbols/HTML_Engine.attackCity.html#.report">report</a></b>(response, data)
-								</div>
-								<div class="description">It generates a report regarding the battle</div>
+								<div class="description">It creates and enables the listeners</div>
 							</td>
 						</tr>
 					
@@ -401,7 +392,7 @@ ul.inheritsList
 				</div>
 				
 				<div class="fixedFont">
-						<b>HTML_Engine.attackCity</b>
+						<b>HTML_Engine.messages</b>
 				</div>
 				
 				<div class="description">
@@ -436,28 +427,17 @@ ul.inheritsList
 					<div class="fixedFont">&lt;static&gt; 
 					
 					<span class="light">{string}</span>
-					<span class="light">HTML_Engine.attackCity.</span><b>content</b>(idCity)
+					<span class="light">HTML_Engine.messages.</span><b>content</b>()
 					
 					</div>
 					<div class="description">
-						It generates the content for the military building
+						It displays the content of the message
 						
 						
 					</div>
 					
 					
 					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<span class="light fixedFont">{number}</span> <b>idCity</b>
-									
-								</dt>
-								<dd>The id of the city</dd>
-							
-							</dl>
 						
 						
 						
@@ -466,7 +446,7 @@ ul.inheritsList
 							<dl class="detailList">
 							<dt class="heading">Returns:</dt>
 							
-								<dd><span class="light fixedFont">{string}</span> The HTML content in order to perform an attack</dd>
+								<dd><span class="light fixedFont">{string}</span> The HTML content for displaying the message</dd>
 							
 							</dl>
 						
@@ -479,11 +459,11 @@ ul.inheritsList
 					<div class="fixedFont">&lt;static&gt; 
 					
 					
-					<span class="light">HTML_Engine.attackCity.</span><b>disable</b>()
+					<span class="light">HTML_Engine.messages.</span><b>disable</b>()
 					
 					</div>
 					<div class="description">
-						It calls the disable methods of the military choosers
+						It disables the listeners
 						
 						
 					</div>
@@ -504,70 +484,17 @@ ul.inheritsList
 					<div class="fixedFont">&lt;static&gt; 
 					
 					
-					<span class="light">HTML_Engine.attackCity.</span><b>enable</b>(idCity)
+					<span class="light">HTML_Engine.messages.</span><b>enable</b>()
 					
 					</div>
 					<div class="description">
-						It enables the functionality for the attack
+						It creates and enables the listeners
 						
 						
 					</div>
 					
 					
 					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<span class="light fixedFont">{number}</span> <b>idCity</b>
-									
-								</dt>
-								<dd>The id of the city</dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name=".report"> </a>
-					<div class="fixedFont">&lt;static&gt; 
-					
-					
-					<span class="light">HTML_Engine.attackCity.</span><b>report</b>(response, data)
-					
-					</div>
-					<div class="description">
-						It generates a report regarding the battle
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<span class="light fixedFont">{object}</span> <b>response</b>
-									
-								</dt>
-								<dd>The response from the server about the attack</dd>
-							
-								<dt>
-									<span class="light fixedFont">{object}</span> <b>data</b>
-									
-								</dt>
-								<dd>The data of task</dd>
-							
-							</dl>
 						
 						
 						
@@ -590,7 +517,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Mon Jan 05 2015 15:25:05 GMT+0200 (EET)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Mon Jan 05 2015 15:25:06 GMT+0200 (EET)
 		</div>
 	</body>
 </html>

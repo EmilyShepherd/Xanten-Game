@@ -269,9 +269,6 @@ class User(ndb.Model):
         self.food +=                                     \
               (self.peopleAtFarm * self.level)           \
             * secs / 60.0
-        self.food +=                                     \
-              (self.peopleAtMill * self.level)           \
-            * secs / 60.0
         self.wood +=                                     \
               self.lumberjackLvl                         \
             * self.peopleAtLumberjack                    \
@@ -306,7 +303,7 @@ class User(ndb.Model):
     def satisfactionRate(self):
         people = self.totalPeople()
         rate   =                                         \
-              self.food - 10 * people                    \
+              (self.peopleAtMill * self.millLvl * 10) - 10 * people                    \
             + self.houses * 200 - people                 \
             + 0 - 0
 

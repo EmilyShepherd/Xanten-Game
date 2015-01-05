@@ -21,11 +21,9 @@ game.constructions.buildings = {
 		 * @return {Resource} A Resources object which describe the capacity of the building
 		 * @inner 
 		 */
-		capacity: function(level) {
-			return new Resources({
-				people: Math.ceil(Math.pow(10, level + 1))
-			});
-		},
+
+		capacity: function(level) { return {} },
+		
 		/**
 		 * It returns the necessary resources in order to level up the building to a given level
 		 * @param {number} level The level of the building
@@ -152,7 +150,7 @@ game.constructions.buildings = {
 		capacity: function(level) {
 			return new Resources({
 				"resources": {
-					"food": game.player.city.buildings.mill.people * level,
+					"satisfaction": game.player.city.buildings.mill.people * level * 10,
 				},
 				people: Math.ceil(Math.pow(4, level))
 			});

@@ -80,6 +80,7 @@ Game.prototype.init = function() {
 Game.prototype.start = function() {
 	Window.update();
 	this.RTE.run();
+	this.startTasks();
 
 	$("#cover").fadeOut(((DEVELOPER_MODE) ? 10 : 1000), function() {
 		// game is ready
@@ -157,6 +158,21 @@ Game.prototype.performAction = function(name, args) {
 	game.currentAction = action;
 	action.update();
 };
+
+/**
+ * It starts all the tasks when re-connecting to a game.
+ * @memberOf Game.prototype
+ */
+Game.prototype.startTasks = function() {
+	for(t in game.data.tasks) {
+		var name = t.name,
+			task = t.task,
+			args = t.args;
+		game.tasks[name] = task;
+		
+		game.performTask(name, args);
+	}
+}
 
 /**
  * It removes the current action and clears the actions board

@@ -197,9 +197,9 @@ class Building:
         return {
             "cost" : {
                 "gold" : cost['cost']["gold"]  * level,
-                "wood" : cost['cost']["wood"]  * math.pow(exp,level),
-                "stone" : cost["cost"]["wood"] * math.pow(exp,level),
-                "food" : cost["cost"]["food"] * math.pow(exp,level)
+                "wood" : math.ceil(cost['cost']["wood"]  * math.pow(exp,level)),
+                "stone" : math.ceil(cost["cost"]["stone"] * math.pow(exp,level)),
+                "food" : math.ceil(cost["cost"]["food"] * math.pow(exp,level))
             },
             "time" : cost["time"] * level
         }

@@ -68,6 +68,8 @@ class MeHandler(DefaultHandler):
 
             self.user.put()
 
+    # def addPeople(self):
+
     # Moves the specified number of people from one location to another
     def movePeople(self):
         self.checkLogin()
@@ -131,4 +133,24 @@ class MeHandler(DefaultHandler):
                 self.json['queue']  = queue.toDict()
 
             self.user.put()
+
+    # def createPeople(self):
+    #     self.checkLogin()
+    #     self.user.updateValues()
+
+    #     moveTo   = self.request.POST['to']
+    #     number   = int(self.request.POST['number'])
+
+    #     if number <= 0:
+    #         self.stderr('Number should be a positive integer')
+    #     # Check that the from and to locations actually exist
+    #     elif not self.user.hasBuilding(moveTo):
+    #         self.stderr('You don\'t have that kind of building')
+    #     else:
+    #         # The number of people has an impact on resource
+    #         # calcuations, so update this value now before moving the
+    #         # people
+    #         self.user.updateValues()
+            
+    #     self.user.put()    
         

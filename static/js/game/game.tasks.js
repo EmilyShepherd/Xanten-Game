@@ -352,7 +352,7 @@ game.tasks = {
 				game.player.city.buildings[task.data.building].status = 'under_construction';
 				game.cityMap.array[data.cell.x - 1][data.cell.y - 1].type_construction = "building";
 				game.cityMap.array[data.cell.x - 1][data.cell.y - 1].id_construction = game.constructions.buildings[task.data.building].id;
-				game.cityMap.update(); // change the status of the city map
+				game.cityMap.update();
 				game.player.consumeResources(resources);
 			},
 			function(task) {
@@ -364,8 +364,8 @@ game.tasks = {
 	},
 	"sendMessage": function(data) {
 		return new Task(data,
-			'Sending message to <span class="bold">' + game.world.getCityById(data.to) + "</span>", {
-				// TODO change this
+			'Sending message to <span class="bold">' + game.worldMap.getCityById(data.to).name + "</span>", {
+				// TODO change this url to the right one
 				"url": '/me/send/',
 				"data": data,
 				"type": 'POST'

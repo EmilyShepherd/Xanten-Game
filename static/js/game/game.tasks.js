@@ -220,67 +220,115 @@ game.tasks = {
 			},
 			"static/img/game/resource/people.png");
 	},
-	/*
-	 * Training workers
-	 */
-	
-	/**
-	 * It trains workers
-	 * @param {object} data It contain from, to and number. The field 'data.to' represents the building
-	 * @example In order to train 2 farmers: data.from = administration, data.to = farm, data.number = 2
-	 * @example In order to train 1 miner: data.from = administration, data.to = mine, data.number = 1
-	 * 
-	 */
-	"train_workers": function(data) {
+	"train_miller": function(data) {
 		return new Task(data,
-			'Training <span class="bold">' + data.number + "</span> " + game.constructions.buildings[data.to].worker(parseInt(data.number)), {
+			'Training <span class="bold">' + data.number + "</span> millers", {
 				"url": '/me/people/move',
 				"data": data,
 				"type": 'POST'
 			},
-			/**
-			 * It is called after the confirmation
-			 * @param {Task} task The current task
-			 */
 			function(task) {
-				/*
-				 * Consume resources for that type of worker 
-				 */
-				game.player.consumeResources(game.unit[task.data.to].create(task.data.number));
+				game.player.consumeResources(game.unit.miller.create(task.data.number));
 			},
-			/**
-			 * It is called before the task is removed
-			 * @param {Task} task The current task
-			 */
 			function(task) {
-				/*
-				 * Adds the number of workers back to that building 
-				 */
-				game.player.city.buildings[task.data.to].people 	= parseInt(task.data.number) + parseInt(game.player.city.buildings[task.data.to].people);
+				game.player.city.buildings.mill.people = parseInt(task.data.number) + parseInt(game.player.city.buildings.mill.people);
 			},
 			"static/img/game/resource/people.png");
 	},
-	/**
-	 * It untrains workers
-	 * @param {object} data It contain from, to and number. The field 'data.from' represents the building
-	 * @example In order to untrain 2 farmers:data. from = farm, data.to = administration, data.number = 2
-	 * @example In order to untrain 1 miner: data.from = mine, data.to = administration, data.number = 1
-	 * 
-	 */
-	"untrain_workers": function(data) {
+	"untrain_miller": function(data) {
 		return new Task(data,
-			'Reduce <span class="bold">' + data.number + "</span> " + game.constructions.buildings[data.to].worker(parseInt(data.number)), {
+			'Reduce <span class="bold">' + data.number + "</span> millers", {
 				"url": '/me/people/move',
 				"data": data,
 				"type": 'POST'
 			},
 			undefined,
-			/**
-			 * It is called before the task is removed
-			 * @param {Task} task The current task
-			 */
 			function(task) {
-				game.player.city.buildings[task.data.from].people 	= parseInt(game.player.city.buildings[task.data.from].people) - parseInt(task.data.number);
+				game.player.city.buildings.mill.people = parseInt(game.player.city.buildings.mill.people) - parseInt(task.data.number);
+			},
+			"static/img/game/resource/people.png");
+	},
+	"train_miner": function(data) {
+		return new Task(data,
+			'Training <span class="bold">' + data.number + "</span> miners", {
+				"url": '/me/people/move',
+				"data": data,
+				"type": 'POST'
+			},
+			function(task) {
+				game.player.consumeResources(game.unit.miner.create(task.data.number));
+			},
+			function(task) {
+				game.player.city.buildings.mine.people = parseInt(task.data.number) + parseInt(game.player.city.buildings.mine.people);
+			},
+			"static/img/game/resource/people.png");
+	},
+	"untrain_miner": function(data) {
+		return new Task(data,
+			'Reduce <span class="bold">' + data.number + "</span> miners", {
+				"url": '/me/people/move',
+				"data": data,
+				"type": 'POST'
+			},
+			undefined,
+			function(task) {
+				game.player.city.buildings.mine.people = parseInt(game.player.city.buildings.mine.people) - parseInt(task.data.number);
+			},
+			"static/img/game/resource/people.png");
+	},
+	"train_lumberjack": function(data) {
+		return new Task(data,
+			'Training <span class="bold">' + data.number + "</span> lumberjack", {
+				"url": '/me/people/move',
+				"data": data,
+				"type": 'POST'
+			},
+			function(task) {
+				game.player.consumeResources(game.unit.lumberjack.create(task.data.number));
+			},
+			function(task) {
+				game.player.city.buildings.lumberjack.people = parseInt(task.data.number) + parseInt(game.player.city.buildings.lumberjack.people);
+			},
+			"static/img/game/resource/people.png");
+	},
+	"untrain_lumberjack": function(data) {
+		return new Task(data,
+			'Reduce <span class="bold">' + data.number + "</span> lumberjack", {
+				"url": '/me/people/move',
+				"data": data,
+				"type": 'POST'
+			},
+			undefined,
+			function(task) {
+				game.player.city.buildings.lumberjack.people = parseInt(game.player.city.buildings.lumberjack.people) - parseInt(task.data.number);
+			},
+			"static/img/game/resource/people.png");
+	},
+	"train_farmer": function(data) {
+		return new Task(data,
+			'Training <span class="bold">' + data.number + "</span> farmers", {
+				"url": '/me/people/move',
+				"data": data,
+				"type": 'POST'
+			},
+			function(task) {
+				game.player.consumeResources(game.unit.farmer.create(task.data.number));
+			},
+			function(task) {
+				game.player.city.buildings.farm.people = parseInt(task.data.number) + parseInt(game.player.city.buildings.farm.people);
+			},
+			"static/img/game/resource/people.png");
+	},
+	"untrain_farmer": function(data) {
+		return new Task(data,
+			'Reduce <span class="bold">' + data.number + "</span> farmers", {
+				"url": '/me/people/move',
+				"data": data,
+				"type": 'POST'
+			},
+			undefined,
+			function(task) {
+				game.player.city.buildings.farm.people = parseInt(game.player.city.buildings.farm.people) - parseInt(task.data.number);
 			},
 			"static/img/game/resource/people.png");
 	},

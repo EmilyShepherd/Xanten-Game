@@ -126,12 +126,12 @@ RealTimeEngine.prototype._progress = function() {
 /**
  * It is called when a message is received for this user. It saves the message. It sends a notification and it updates the window
  * @memberOf RealTimeEngine.prototype
- * @param {string} message An object which contain all the information regarding the message ("sent_from", "content", "id", "date")
+ * @param {object} message An object which contains content and from (token of the user who sent)
  */
 RealTimeEngine.prototype.receiveMessage = function(message) {
-	var msg = {	id: game.player.messages.length, content: message.message, from: message.from };
+	var msg = {	id: game.player.messages.length, content: message.content, from: message.from };
 	game.player.messages.push(msg);
-	Window.newsBoard.add("<span class='news_done'>New message</span> from " + game.worldMap.getCityById(msg.from) + ": <i>" + ((msg.content.length > 25)?(msg.content.substring(0, 25) + "..."):msg.content) + "</i>");
+	Window.newsBoard.add("<span class='news_done'>New message</span> from <span class='bold'>" + game.worldMap.getCityById(msg.from).name + "</span>: <i>" + ((msg.content.length > 25)?(msg.content.substring(0, 25) + "..."):msg.content) + "</i>");
 	game.update();
 };
 

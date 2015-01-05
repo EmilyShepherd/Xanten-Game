@@ -1962,7 +1962,15 @@ HTML_Engine.seeMessage = {
 	 * @return {string} The HTML content for displaying the message
 	 */
 	content: function(args) {
-		return "This is the message from <b>" + game.worldMap.getCityById(args.from) + "<b>:<br/ ><i>" + args.content + '</i>. ';
+		return "<div> <span class='link' id='back_msg'>Back to messages</span></div>This is the message from <b>" + game.worldMap.getCityById(args.from) + "<b>:<br/ ><i>" + args.content + '</i>. ';
+	},
+	enable: function() {
+		$("#back_msg").click(function(){
+			game.performAction("messages");
+		});
+	},
+	disable: function() {
+		$("#back_msg").off();
 	}
 };
 

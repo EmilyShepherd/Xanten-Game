@@ -125,37 +125,18 @@ RealTimeEngine.prototype._progress = function() {
 
 
 /**
- * it is called in order to send a message to another player
- * @memberOf RealTimeEngine.prototype
- * @param {string} message The message to be sent
- * @param {number} player_id The id of the player
- */
-RealTimeEngine.prototype.sendMessage = function(message, player_id) {
-	// TODO @Joe
-	// Censor obscenities
-	message = message.replace(/[A-Z]*(bastard|bitch|cock|cunt|dick|faggot|fuck|nigger|pussies|pussy|rape|shit|slut)[A-Z]*/ig, function(match) {
-		var returnstring = "";
-		for (var i = 0; i < match.length; i++) {
-			returnstring += '*';
-		}
-		return returnstring;
-	});
-	return {
-		sent_from: game.player.id,
-		content: message,
-		id: player_id,
-		date: new Date()
-	};
-};
-
-
-/**
  * It is called when a message is received for this user
  * @memberOf RealTimeEngine.prototype
  * @param {string} message An object which contain all the information regarding the message ("sent_from", "content", "id", "date")
  */
 RealTimeEngine.prototype.receiveMessage = function(message) {
-	// TODO @Joe 
+	var msg = {
+			id: 		game.player.messages.length,
+			message: 	message.message,
+			from: 	message.from 
+		};
+	game.player.messages.push(msg);
+	game.performAction('seeMessage', msg);
 };
 
 

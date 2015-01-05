@@ -40,7 +40,10 @@ Window.init = function() {
 	});
 	$("#news_clear").click(function() {
 		Window.newsBoard.clear();
-	});
+	}); 
+	$("#see_messages").click(function(){
+		game.performAction('messages');
+	})
 	Window.update();
 	Window.refresh();
 };

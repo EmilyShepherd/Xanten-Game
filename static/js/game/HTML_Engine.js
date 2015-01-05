@@ -1919,19 +1919,20 @@ HTML_Engine.sendMessage = {
 	 * It generates the content for the message
 	 * @return {string} The HTML code for sending a message
 	 */
-	content: function() {
-		var html = "<div class='heading'><span class='bold'>Message: </span><br /><textarea rows='20' cols='25' id='message'></textarea><br /></div>" + 
-			"<div class='heading'><input class='action_bt' id='confirm_send' value='Send' /></div>";
-		return html;
+	content: function(id) {
+		return "<div class='heading'><input type='hiden' id='message_to' value='" + id + "'/><span class='bold'>Message: </span><br /><textarea rows='20' cols='25' id='message'></textarea><br /></div><div class='heading'><input class='action_bt' id='confirm_send' value='Send message' /></div>";
 	},
 	/**
 	 * It enables the functionality for the message
 	 */
-	enable: function(id) {
-		var message = $("#message").val();
+	enable: function() {
 		$(".action_bt").button();
+		
 		$("#confirm_send").click(function() {
-			RealTimeEngine.sendMessage(message, id);
+			game.performTask("sendMessage", {
+				message : $("#message").val(),
+				to		: $("#message_to").val()
+			});
 		});
 	},
 	/**
@@ -1954,6 +1955,39 @@ HTML_Engine.seeMessage = {
 	 * @return {string} The HTML content for displaying the message
 	 */
 	content: function(args) {
-		return "This is the message nr <b>" + args.id + "<b>:<br/ ><i>" + args.content + '</i>. ';
+		return "This is the message from <b>" + game.worldMap.getCityById(args.from) + "<b>:<br/ ><i>" + args.content + '</i>. ';
+	}
+};
+
+/**
+ * @namespace The HTML_Engine object for displaying all the messages
+ * @memberOf HTML_Engine
+ */
+HTML_Engine.messages = {
+	/**
+	 * It displays the content of the message
+	 * @return {string} The HTML content for displaying the message
+	 */
+	content: function() {
+		var html = "";
+		for(var i = 0; i < game.player.messages.length; i++) {
+			var msg = game.player.messages[i];
+			html += "<div class='heading'><span class='bold'>From: " + game.worldMap.getCityById(game.msg.from) + "</span><input msg='" + msg.id + "' class='confirm_see' value='See message' /></div>";
+		}
+		return (html === ''?"You have no message :(":html);
+	},
+	/**
+	 * It creates and enables the listeners
+	 */
+	enable: function() {
+		$(".confirm_see").button().click(function(){
+			game.performAction('seeMessage', game.player.messages[$(this).attr("msg")]);
+		});
+	},
+	/**
+	 * It disables the listeners
+	 */
+	disable: function() {
+		$(".confirm_see").off();
 	}
 };

@@ -361,5 +361,14 @@ game.tasks = {
 				game.player.city.buildings.administration.people = parseInt(game.player.city.buildings.administration.people) + task.data.peopleBack;
 			},
 			"/static/img/game/buildings/" + data.building + ".png");
-	}
+	},
+	"sendMessage": function(data) {
+		return new Task(data,
+			'Sending message to <span class="bold">' + game.world.getCityById(data.to) + "</span>", {
+				// TODO change this
+				"url": '/me/send/',
+				"data": data,
+				"type": 'POST'
+			}, undefined, undefined, undefined);
+	},
 };

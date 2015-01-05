@@ -17,9 +17,6 @@ meClass       = 'handler.me_handler.MeHandler'
 militaryClass = 'handler.military_handler.MilitaryHandler'
 tradeClass    = 'handler.trade_handler.TradeHandler'
 
-# REMOVE IN MAIN RELEASE
-from handler.debug_handler import DebugHandler
-
 # Setup routes
 app = w.WSGIApplication([
     w.Route('/game/cron',        gameClass + ':cron'),
@@ -65,13 +62,4 @@ app = w.WSGIApplication([
         tradeClass + ':perform',
         methods=['POST']
     ),
-
-    # REMOVE IN MAIN RELEASE 
-    w.Route('/debug/me',            handler=DebugHandler, handler_method='me'),
-    w.Route('/debug/purge/<table>', handler=DebugHandler, handler_method='purge'),
-    w.Route('/debug/purge/',        handler=DebugHandler, handler_method='purgeAll'),
-    w.Route('/debug/purge',         handler=DebugHandler, handler_method='purgeAll'),
-    w.Route('/debug/login',         handler=DebugHandler, handler_method='login'),
-    w.Route('/debug/test',         handler=DebugHandler, handler_method='test')
-
-], debug=True) #REMOVE IN MAIN RELEASE
+], debug=False) #REMOVE IN MAIN RELEASE

@@ -50,7 +50,7 @@ game.unit = {
 			});
 		}
 	},
-	"mil": {
+	"mill": {
 		"create": function(number) {
 			return new Resources({
 				resources: {

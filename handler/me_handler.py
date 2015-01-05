@@ -40,7 +40,8 @@ class MeHandler(DefaultHandler):
             # You need to pay for what you build!
             if         self.user.gold  < cost['cost']['gold']    \
                     or self.user.wood  < cost['cost']['wood']    \
-                    or self.user.stone < cost['cost']['stone']:
+                    or self.user.stone < cost['cost']['stone']   \
+                    or self.user.food  < cost['cost']['food']:
                 self.stderr('Not enough resources!')
             # All checks successful, take the resources from the user
             # and put this into the building queue
@@ -66,6 +67,8 @@ class MeHandler(DefaultHandler):
                 self.json['queue']  = queueO.toDict()
 
             self.user.put()
+
+    # def addPeople(self):
 
     # Moves the specified number of people from one location to another
     def movePeople(self):
@@ -103,7 +106,8 @@ class MeHandler(DefaultHandler):
             # You need to pay for what you training!
             if         self.user.gold  < cost['gold']    \
                     or self.user.wood  < cost['wood']    \
-                    or self.user.stone < cost['stone']:
+                    or self.user.stone < cost['stone']   \
+                    or self.user.food < cost['food']:
                 self.stderr('Not enough resources!')
             # All checks successful, take the resources from the user
             # and put this into the building queue
@@ -111,6 +115,7 @@ class MeHandler(DefaultHandler):
                 self.user.gold  -= cost['gold']
                 self.user.wood  -= cost['wood']
                 self.user.stone -= cost['stone']
+                self.user.food  -= cost['food']
 
                 setattr(
                     self.user, fromAttr,
@@ -128,4 +133,24 @@ class MeHandler(DefaultHandler):
                 self.json['queue']  = queue.toDict()
 
             self.user.put()
+
+    # def createPeople(self):
+    #     self.checkLogin()
+    #     self.user.updateValues()
+
+    #     moveTo   = self.request.POST['to']
+    #     number   = int(self.request.POST['number'])
+
+    #     if number <= 0:
+    #         self.stderr('Number should be a positive integer')
+    #     # Check that the from and to locations actually exist
+    #     elif not self.user.hasBuilding(moveTo):
+    #         self.stderr('You don\'t have that kind of building')
+    #     else:
+    #         # The number of people has an impact on resource
+    #         # calcuations, so update this value now before moving the
+    #         # people
+    #         self.user.updateValues()
+            
+    #     self.user.put()    
         

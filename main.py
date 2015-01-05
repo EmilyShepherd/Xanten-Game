@@ -37,6 +37,11 @@ app = w.WSGIApplication([
         '/me/people/move',
         meClass + ':movePeople',
         methods=['POST']
+    ),
+    w.Route(
+        '/me/people/create',
+        meClass + ':createPeople',
+        methods=['POST']
     ),    
     w.Route(
         '/me/building/<bname>/<queue>',

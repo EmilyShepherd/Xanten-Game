@@ -21,7 +21,9 @@ game.constructions.buildings = {
 		 * @return {Resource} A Resources object which describe the capacity of the building
 		 * @inner 
 		 */
+
 		capacity: function(level) { return {} },
+		
 		/**
 		 * It returns the necessary resources in order to level up the building to a given level
 		 * @param {number} level The level of the building
@@ -31,8 +33,8 @@ game.constructions.buildings = {
 		levelUp: function(level) {
 			return new Resources({
 				resources: {
-					'wood': 100 * Math.pow(1.35, level),
-					'stone': 100 * Math.pow(1.35, level),
+					'wood': Math.ceil(100 * Math.pow(1.35, level)),
+					'stone': Math.ceil(100 * Math.pow(1.35, level)),
 					'gold': 10 * level
 				},
 				people: 0.05 * game.player.city.getNumberOfPeople(),
@@ -63,7 +65,7 @@ game.constructions.buildings = {
 		capacity: function(level) {
 			return new Resources({
 				"resources": {
-					"military": Math.pow(4, level)
+					"military": Math.ceil(Math.pow(4, level))
 				}
 			});
 		},
@@ -76,8 +78,8 @@ game.constructions.buildings = {
 		levelUp: function(level) {
 			return new Resources({
 				resources: {
-					'wood': 10 * Math.pow(1.35, level),
-					'stone': 10 * Math.pow(1.35, level)
+					'wood': Math.ceil(10 * Math.pow(1.35, level)),
+					'stone': Math.ceil(10 * Math.pow(1.35, level))
 				},
 				people: 10 * level,
 				time: 10 * level
@@ -123,8 +125,8 @@ game.constructions.buildings = {
 		levelUp: function(level) {
 			return new Resources({
 				resources: {
-					'wood': 5 * Math.pow(1.35, level),
-					'stone': 5 * Math.pow(1.35, level)
+					'wood': Math.ceil(5 * Math.pow(1.35, level)),
+					'stone': Math.ceil(5 * Math.pow(1.35, level))
 				},
 				people: 0.05 * game.player.city.getNumberOfPeople(),
 				time: 10 * level
@@ -150,7 +152,7 @@ game.constructions.buildings = {
 				"resources": {
 					"satisfaction": game.player.city.buildings.mill.people * level,
 				},
-				people: Math.pow(4, level)
+				people: Math.ceil(Math.pow(4, level))
 			});
 		},
 		/**
@@ -162,8 +164,8 @@ game.constructions.buildings = {
 		levelUp: function(level) {
 			return new Resources({
 				resources: {
-					'wood': 8 * Math.pow(1.35, level),
-					'stone': 8 * Math.pow(1.35, level)
+					'wood': Math.ceil(8 * Math.pow(1.35, level)),
+					'stone':Math.ceil( 8 * Math.pow(1.35, level))
 				},
 				people: 10 * level,
 				time: 10 * level
@@ -195,7 +197,7 @@ game.constructions.buildings = {
 				"resources": {
 					"stone": 0.5 * level * game.player.city.buildings.mine.num * game.player.city.buildings.mine.people,
 				},
-				people: Math.pow(4, level)
+				people: Math.ceil(Math.pow(4, level))
 			});
 		},
 		/**
@@ -207,8 +209,8 @@ game.constructions.buildings = {
 		levelUp: function(level) {
 			return new Resources({
 				resources: {
-					'wood': 12 * Math.pow(1.35, level),
-					'stone': 1 * Math.pow(1.35, level)
+					'wood':Math.ceil( 12 * Math.pow(1.35, level)),
+					'stone':Math.ceil( 1 * Math.pow(1.35, level))
 				},
 				people: 10 * level,
 				time: 15 * level
@@ -237,7 +239,7 @@ game.constructions.buildings = {
 		 */
 		capacity: function() {
 			return new Resources({
-				"people": (1000 * Math.pow(1.1, game.player.getLevel()) * game.player.city.buildings.house.num)
+				"people": Math.ceil((1000 * Math.pow(1.1, game.player.getLevel()) * game.player.city.buildings.house.num))
 			});
 		},
 		/**
@@ -249,8 +251,8 @@ game.constructions.buildings = {
 		levelUp: function(level) {
 			return new Resources({
 				resources: {
-					'wood': 2 * Math.pow(1.35, level),
-					'stone': 3 * Math.pow(1.35, level)
+					'wood':Math.ceil( 2 * Math.pow(1.35, level)),
+					'stone':Math.ceil( 3 * Math.pow(1.35, level))
 				},
 				people: 7 * level,
 				time: 7 * level
@@ -274,10 +276,10 @@ game.constructions.buildings = {
 		capacity: function(level) {
 			return new Resources({
 				"resources": {
-					"gold": 3 * Math.pow(5, level),
-					"wood": 7 * Math.pow(5, level),
-					"food": 5 * Math.pow(5, level),
-					"stone": 8 * Math.pow(5, level)
+					"gold": Math.ceil(3 * Math.pow(5, level)),
+					"wood": Math.ceil(7 * Math.pow(5, level)),
+					"food": Math.ceil(5 * Math.pow(5, level)),
+					"stone": Math.ceil(8 * Math.pow(5, level))
 				}
 			});
 		},
@@ -290,8 +292,8 @@ game.constructions.buildings = {
 		levelUp: function(level) {
 			return new Resources({
 				resources: {
-					'wood': 7 * Math.pow(1.35, level),
-					'stone': 7 * Math.pow(1.35, level)
+					'wood': Math.ceil(7 * Math.pow(1.35, level)),
+					'stone': Math.ceil(7 * Math.pow(1.35, level))
 				},
 				people: 10 * level,
 				time: 10 * level
@@ -329,8 +331,8 @@ game.constructions.buildings = {
 		levelUp: function(level) {
 			return new Resources({
 				resources: {
-					'wood': 1 * Math.pow(1.35, level),
-					'stone': 13 * Math.pow(1.35, level)
+					'wood': Math.ceil(1 * Math.pow(1.35, level)),
+					'stone': Math.ceil(13 * Math.pow(1.35, level))
 				},
 				people: 11 * level,
 				time: 5 * level
@@ -362,7 +364,7 @@ game.constructions.buildings = {
 				"resources": {
 					"food": 0.3 * level * game.player.city.buildings.farm.num * game.player.city.buildings.farm.people,
 				},
-				people: Math.pow(4, level)
+				people: Math.ceil(Math.pow(4, level))
 			});
 		},
 		/**
@@ -374,8 +376,8 @@ game.constructions.buildings = {
 		levelUp: function(level) {
 			return new Resources({
 				resources: {
-					'wood': 3 * Math.pow(1.35, level),
-					'stone': 2 * Math.pow(1.35, level)
+					'wood': Math.ceil(3 * Math.pow(1.35, level)),
+					'stone': Math.ceil(2 * Math.pow(1.35, level))
 				},
 				people: 7 * level,
 				time: 7 * level

@@ -16,3 +16,8 @@ class TradeHandler(DefaultHandler):
             "action" : "trade",
             "id"     : tid
         }
+
+    def compPerform(self, tid):
+    	#
+    def userPerform(self, tid, uid):
+    	#    

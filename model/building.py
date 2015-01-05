@@ -1,4 +1,4 @@
-
+import math
 # Static datastore of the cost and build times of each type of building
 class Building:
 
@@ -9,15 +9,17 @@ class Building:
                 "cost" : {
                     "gold" : 10,
                     "wood" : 100,
-                    "stone" : 100
+                    "stone" : 100,
+                    "food"  : 0
                 },
                 "time" : 10
             },
             "train" : {
                 "cost" : {
-                    "gold" : 0,
-                    "wood" : 0,
-                    "stone" : 0
+                    "gold" : 3,
+                    "wood" : 7,
+                    "stone" : 0,
+                    "food"  : 0
                 },
                 "time" : 10
             }
@@ -26,9 +28,10 @@ class Building:
         "trade" : {
             "level" : {
                 "cost" : {
-                    "gold" : 10,
-                    "wood" : 0,
-                    "stone" : 0
+                    "gold" : 0,
+                    "wood" : 7,
+                    "stone" : 7,
+                    "food"  : 0
                 },
                 "time" : 10
             },
@@ -36,7 +39,8 @@ class Building:
                 "cost" : {
                     "gold" : 10,
                     "wood" : 0,
-                    "stone" : 0
+                    "stone" : 0,
+                    "food"  : 0
                 },
                 "time" : 6
             }
@@ -46,9 +50,10 @@ class Building:
         "mill" : {
             "level" : {
                 "cost" : {
-                    "gold" : 8,
+                    "gold" : 0,
                     "wood" : 8,
-                    "stone" : 0
+                    "stone" : 8,
+                    "food"  : 0
                 },
                 "time" : 10
             },
@@ -56,7 +61,8 @@ class Building:
                 "cost" : {
                     "gold" : 10,
                     "wood" : 0,
-                    "stone" : 0
+                    "stone" : 0,
+                    "food"  : 0
                 },
                 "time" : 6
             }
@@ -66,7 +72,8 @@ class Building:
                 "cost" : {
                     "gold" : 0,
                     "wood" : 5,
-                    "stone" : 5
+                    "stone" : 5,
+                    "food"  : 0
                 },
                 "time" : 10
             },
@@ -74,7 +81,8 @@ class Building:
                 "cost" : {
                     "gold" : 10,
                     "wood" : 0,
-                    "stone" : 0
+                    "stone" : 0,
+                    "food"  : 0
                 },
                 "time" : 6
             }
@@ -84,7 +92,8 @@ class Building:
                 "cost" : {
                     "gold" : 0,
                     "wood" : 10,
-                    "stone" : 10
+                    "stone" : 10,
+                    "food"  : 0
                 },
                 "time" : 10
             },
@@ -92,7 +101,8 @@ class Building:
                 "cost" : {
                     "gold" : 10,
                     "wood" : 0,
-                    "stone" : 0
+                    "stone" : 0,
+                    "food"  : 0
                 },
                 "time" : 6
             }
@@ -102,15 +112,17 @@ class Building:
                 "cost" : {
                     "gold" : 0,
                     "wood" : 12,
-                    "stone" : 1
+                    "stone" : 1,
+                    "food"  : 0
                 },
-                "time" : 10
+                "time" : 15
             },
             "train" : {
                 "cost" : {
                     "gold" : 10,
                     "wood" : 0,
-                    "stone" : 0
+                    "stone" : 0,
+                    "food"  : 0
                 },
                 "time" : 6
             },
@@ -119,17 +131,19 @@ class Building:
         "lumberjack" : {
             "level" : {
                 "cost" : {
-                    "gold" : 10,
-                    "wood" : 0,
-                    "stone" : 0
+                    "gold" : 0,
+                    "wood" : 1,
+                    "stone" : 13,
+                    "food" : 0
                 },
-                "time" : 10
+                "time" : 5
             },
             "train" : {
                 "cost" : {
                     "gold" : 10,
                     "wood" : 0,
-                    "stone" : 0
+                    "stone" : 0,
+                    "food"  : 0
                 },
                 "time" : 6
             }
@@ -137,17 +151,19 @@ class Building:
         "farm" : {
             "level" : {
                 "cost" : {
-                    "gold" : 10,
-                    "wood" : 0,
-                    "stone" : 0
+                    "gold" : 0,
+                    "wood" : 3,
+                    "stone" : 2,
+                    "food"  : 0
                 },
-                "time" : 10
+                "time" : 7
             },
             "train" : {
                 "cost" : {
                     "gold" : 10,
                     "wood" : 0,
-                    "stone" : 0
+                    "stone" : 0,
+                    "food"  : 0
                 },
                 "time" : 6
             }
@@ -155,17 +171,19 @@ class Building:
         "house" : {
             "level" : {
                 "cost" : {
-                    "gold" : 1000000000000,
-                    "wood" : 1000000000000,
-                    "stone" : 1000000000000
+                    "gold" : 0,
+                    "wood" : 2,
+                    "stone" : 3,
+                    "food"  : 0
                 },
-                "time" : 10
+                "time" : 7
             },
             "train" : {
                 "cost" : {
                     "gold" : 10,
                     "wood" : 0,
-                    "stone" : 0
+                    "stone" : 0,
+                    "food"  : 0
                 },
                 "time" : 6
             }
@@ -175,12 +193,13 @@ class Building:
     @staticmethod
     def levelUpCost(building, level):
         cost = Building.buildings[building]['level']
-
+        exp=1.35
         return {
             "cost" : {
                 "gold" : cost['cost']["gold"]  * level,
-                "wood" : cost['cost']["wood"]  * (1.35 ** level),
-                "stone" : cost["cost"]["wood"] * (1.35 ** level)
+                "wood" : math.ceil(cost['cost']["wood"]  * math.pow(exp,level)),
+                "stone" : math.ceil(cost["cost"]["stone"] * math.pow(exp,level)),
+                "food" : math.ceil(cost["cost"]["food"] * math.pow(exp,level))
             },
             "time" : cost["time"] * level
         }

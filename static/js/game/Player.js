@@ -12,10 +12,11 @@
  */
 function Player(info) {
 
-	this.id = info.id;
-	this.name = info.name;
+	this.id        = info.id;
+	this.name      = info.name;
 	this.resources = new Resources((info.resources ? info.resources : {}));
-	this.city = (info.buildings) ? (new City(info.buildings)) : {};
+	this.city      = (info.buildings) ? (new City(info.buildings)) : {};
+	this.messages  = [];
 }
 
 /**

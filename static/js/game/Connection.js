@@ -671,20 +671,20 @@ Connection.prototype.generateAbstractGeneralMap = function(size){
 	while (y < 7) {
 		while (x < 7) {
 			if (check(y, x) === "oc-ne") {
-				if (check(y, x-1) === "o-s") imgArray[y][x] = "oa-ne";
-				if (check(y+1, x) === "o-w") imgArray[y][x] = "oa-ne";
+				if (check(y, x-1) === "o-s" || check(y, x-1) === "ob-sw") imgArray[y][x] = "oa-ne";
+				if (check(y+1, x) === "o-w" || check(y+1, x) === "ob-sw") imgArray[y][x] = "oa-ne";
 			}
 			if (check(y, x) === "oc-nw") {
-				if (check(y, x+1) === "o-s") imgArray[y][x] = "oa-nw";
-				if (check(y+1, x) === "o-e") imgArray[y][x] = "oa-nw";
+				if (check(y, x+1) === "o-s" || check(y, x+1) === "ob-se") imgArray[y][x] = "oa-nw";
+				if (check(y+1, x) === "o-e" || check(y+1, x) === "ob-se") imgArray[y][x] = "oa-nw";
 			}
 			if (check(y, x) === "oc-se") {
-				if (check(y, x-1) === "o-n") imgArray[y][x] = "oa-ne";
-				if (check(y-1, x) === "o-e") imgArray[y][x] = "oa-ne";
+				if (check(y, x-1) === "o-n" || check(y, x-1) === "ob-nw") imgArray[y][x] = "oa-ne";
+				if (check(y-1, x) === "o-e" || check(y-1, x) === "ob-nw") imgArray[y][x] = "oa-ne";
 			}
 			if (check(y, x) === "oc-sw") {
-				if (check(y, x+1) === "o-n") imgArray[y][x] = "oa-nw";
-				if (check(y-1, x) === "o-w") imgArray[y][x] = "oa-nw";
+				if (check(y, x+1) === "o-n" || check(y, x+1) === "ob-ne") imgArray[y][x] = "oa-nw";
+				if (check(y-1, x) === "o-w" || check(y-1, x) === "ob-ne") imgArray[y][x] = "oa-nw";
 			}
 			if (check(y, x) === "o") {
 				if (check(y-1, x) === "ob-nw" && check(y, x+1) === "oc-sw") imgArray[y][x] = "ob-sw";

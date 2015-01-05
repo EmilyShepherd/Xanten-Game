@@ -1999,6 +1999,6 @@ HTML_Engine.messages = {
 	 * It disables the listeners
 	 */
 	disable: function() {
-		$(".confirm_see").off();
+		$(".confirm_see, #delete_messages").off();
 	}
 };

@@ -131,7 +131,7 @@ RealTimeEngine.prototype._progress = function() {
 RealTimeEngine.prototype.receiveMessage = function(message) {
 	var msg = {	id: game.player.messages.length, content: message.message, from: message.from };
 	game.player.messages.push(msg);
-	Window.newsBoard.add("<span class='news_done'>New message</span> from " + game.worldMap.getCityById(msg.from) + ": <i>" + msg.content.substring() + "..." + "</i>");
+	Window.newsBoard.add("<span class='news_done'>New message</span> from " + game.worldMap.getCityById(msg.from) + ": <i>" + ((msg.content.length > 20)?(msg.content.substring(0, 20) + "..."):msg.content) + "</i>");
 	Window.updateDetailsCity();
 };
 

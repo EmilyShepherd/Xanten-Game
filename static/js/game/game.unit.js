@@ -40,7 +40,7 @@ game.unit = {
 			});
 		}
 	},
-	"free" : {
+	"administration" : {
 		"create": function(number) {
 			return new Resources({
 				resources: {
@@ -50,7 +50,7 @@ game.unit = {
 			});
 		}
 	},
-	"miller": {
+	"mil": {
 		"create": function(number) {
 			return new Resources({
 				resources: {
@@ -68,7 +68,7 @@ game.unit = {
 			});
 		}
 	},
-	"miner": {
+	"mine": {
 		"create": function(number) {
 			return new Resources({
 				resources: {
@@ -104,7 +104,7 @@ game.unit = {
 			});
 		}
 	},
-	"farmer": {
+	"farm": {
 		"create": function(number) {
 			return new Resources({
 				resources: {

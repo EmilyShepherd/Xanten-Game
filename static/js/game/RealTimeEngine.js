@@ -114,7 +114,6 @@ RealTimeEngine.prototype.freeze = function() {
 RealTimeEngine.prototype._progress = function() {
 	// food 
 	game.player.resources.food += parseInt(game.constructions.buildings.farm.capacity(game.player.city.buildings.farm.level).resources.food);
-	game.player.resources.food += parseInt(game.constructions.buildings.mill.capacity(game.player.city.buildings.mill.level).resources.food);
 	// wood
 	game.player.resources.wood += parseInt(game.constructions.buildings.lumberjack.capacity(game.player.city.buildings.lumberjack.level).resources.wood);
 	// stone

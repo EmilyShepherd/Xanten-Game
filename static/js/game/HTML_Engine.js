@@ -456,7 +456,7 @@ HTML_Engine.inside_administration = {
 	 */
 	content: function() {
 		var nr_of_free_units = game.player.city.buildings.administration.people,
-		capacity = game.constructions.buildings.administration.capacity(game.player.city.buildings.military.level).people;
+		capacity = game.constructions.buildings.house.capacity().people;
 			html = "";
 
 		html += HTML_Engine.getBuilding.info("administration", true);
@@ -470,7 +470,14 @@ HTML_Engine.inside_administration = {
 		html += "<div class='heading'> Daily income from free people: " +
 			HTML_Engine.displayResources.content({
 				resources: {
-					"gold": nr_of_free_units * 0.1,
+					"gold": nr_of_free_units * 0.1
+				}
+			}) + "</div>";
+			
+		html += "<div class='heading'> Satisfaction level: " +
+			HTML_Engine.displayResources.content({
+				resources: {
+					"satisfaction": 0
 				}
 			}) + "</div>";
 
@@ -485,7 +492,7 @@ HTML_Engine.inside_administration = {
 				id: "free_train"
 			});
 		} else {
-			html += "Unfortunately, you have reached the max capacity. You can train more units after you upgrade the building.";
+			html += "Unfortunately, you have reached the max capacity. You can create more free people by building more houses.";
 		}
 		return html;
 	},
@@ -493,7 +500,7 @@ HTML_Engine.inside_administration = {
 		HTML_Engine.upgradeBuilding.enable("administration", (parseInt(game.player.city.buildings.administration.level) + 1));
 		
 		var nr_of_free_units = game.player.city.buildings.administration.people,
-			capacity = game.constructions.buildings.administration.capacity(game.player.city.buildings.military.level).people;
+			capacity = game.constructions.buildings.house.capacity().people;
 
 		/*
 		 * It creates the chooser to let the user to choose how many units to create

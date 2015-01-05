@@ -79,7 +79,8 @@ RealTimeEngine.prototype.run = function() {
 RealTimeEngine.prototype.freeze = function() {
 
 	this.isRunning = false;
-
+	this.socket.close();
+	this.channel = undefined;
 	clearInterval(this.threads.resources);
 };
 
@@ -144,11 +145,21 @@ RealTimeEngine.prototype.receiveDailyStatistics = function(statistics) {
 /**
  * It is called when server tells the status of the game
  * @memberOf RealTimeEngine.prototype
- * @param {string} status It contains the status of the game. If it is lost, it stops the game
+ * @param {string} status It contains the status of the game. If it is lost or win, it stops the game
  */
 RealTimeEngine.prototype.receiveGameStatus = function(status) {
-	if (status === 'lost') {
+	if (status === 'lost' || status === 'win') {
+		var div = $("#modal"),
+			dialog = div.dialog({
+		      modal: true
+		    });
 		game.performAction("game_over");
 		game.freeze();
+		if(status === 'lost') {
+			div.html("You lost the game ! <br /> Do not worry ! You can start a new game !");
+		} else {
+			div.html("You win the game! Congratz. !!!! It is very hard to achieve this !");
+		}
+		$("#modal").dialog( "open" );
 	}
 };

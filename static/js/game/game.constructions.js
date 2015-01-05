@@ -150,7 +150,7 @@ game.constructions.buildings = {
 		capacity: function(level) {
 			return new Resources({
 				"resources": {
-					"satisfaction": game.player.city.buildings.mill.people * level,
+					"satisfaction": game.player.city.buildings.mill.people * level * 10,
 				},
 				people: Math.ceil(Math.pow(4, level))
 			});

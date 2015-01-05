@@ -477,7 +477,8 @@ HTML_Engine.inside_administration = {
 		html += "<div class='heading'> Satisfaction level: " +
 			HTML_Engine.displayResources.content({
 				resources: {
-					"satisfaction": 0
+					"satisfaction": game.constructions.buildings.mill.capacity(game.player.city.buildings.mill.level).resources.satisfaction -
+											(10 * nr_of_free_units) + (game.player.city.buildings.house.num * 200) - nr_of_free_units
 				}
 			}) + "</div>";
 

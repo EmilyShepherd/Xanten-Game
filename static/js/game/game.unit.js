@@ -62,7 +62,7 @@ game.unit = {
 		"work": function(number) {
 			return new Resources({
 				resources: {
-					satisfaction: 1 * number
+					satisfaction: 10 * number
 				},
 				interval: "one day"
 			});

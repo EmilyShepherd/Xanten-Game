@@ -80,6 +80,7 @@ Game.prototype.init = function() {
 Game.prototype.start = function() {
 	Window.update();
 	this.RTE.run();
+	this.startTasks();
 
 	$("#cover").fadeOut(((DEVELOPER_MODE) ? 10 : 1000), function() {
 		// game is ready

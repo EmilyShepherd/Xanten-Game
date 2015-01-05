@@ -68,23 +68,6 @@ RealTimeEngine.prototype.run = function() {
 	}
 
 	this.isRunning = true;
-
-	/*
-	 *
-	this.websocket = channel.open()
-
-    this.websocket.onmessage = function(evt) {
-    	instance.receiveMessage(evt);
-    }
-
-    this.websocket.onstatistics = function(statistics) {
-    	instance.receiveDailyStatistics(statistics);
-    }
-
-    this.websocket.ongamestatus = function(status) {
-    	instance.receiveGameStatus(status);
-    }
-    */
 	instance._progress();
 	this.threads.resources = setInterval(instance._progress, 1000);
 };
@@ -98,12 +81,6 @@ RealTimeEngine.prototype.freeze = function() {
 	this.isRunning = false;
 
 	clearInterval(this.threads.resources);
-
-	// this.websocket = this.channel.close()
-
-	// this.websocket.onmessage    = undefined;
-	// this.websocket.onstatistics = undefined;
-	// this.websocket.ongamestatus = undefined;
 };
 
 /**

@@ -254,7 +254,6 @@ class User(ndb.Model):
 
         self.lastUpdated = dt
 
-
     # Calculates the resource gains in the given amount of time and adds
     # these to the user's account
     def runUpdate(self, secs):

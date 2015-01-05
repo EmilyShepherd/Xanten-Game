@@ -16,10 +16,10 @@ class Building:
             },
             "train" : {
                 "cost" : {
-                    "gold" : 0,
-                    "wood" : 0,
+                    "gold" : 3,
+                    "wood" : 7,
                     "stone" : 0,
-                    "food"  : 15
+                    "food"  : 0
                 },
                 "time" : 10
             }
@@ -37,12 +37,12 @@ class Building:
             },
             "train" : {
                 "cost" : {
-                    "gold" : 0,
+                    "gold" : 10,
                     "wood" : 0,
                     "stone" : 0,
                     "food"  : 0
                 },
-                "time" : 0
+                "time" : 6
             }
         },
         # Mines produce stone, but there's a chance they will be
@@ -59,12 +59,12 @@ class Building:
             },
             "train" : {
                 "cost" : {
-                    "gold" : 0,
+                    "gold" : 10,
                     "wood" : 0,
                     "stone" : 0,
-                    "food"  : 15
+                    "food"  : 0
                 },
-                "time" : 10
+                "time" : 6
             }
         },
         "storage" : {
@@ -99,12 +99,12 @@ class Building:
             },
             "train" : {
                 "cost" : {
-                    "gold" : 0,
-                    "wood" : 80,
+                    "gold" : 10,
+                    "wood" : 0,
                     "stone" : 0,
-                    "food"  : 10
+                    "food"  : 0
                 },
-                "time" : 20
+                "time" : 6
             }
         },
         "mine" : {
@@ -119,12 +119,12 @@ class Building:
             },
             "train" : {
                 "cost" : {
-                    "gold" : 0,
+                    "gold" : 10,
                     "wood" : 0,
                     "stone" : 0,
-                    "food"  : 15
+                    "food"  : 0
                 },
-                "time" : 20
+                "time" : 6
             },
             "goldMineChance" : 10
         },
@@ -140,12 +140,12 @@ class Building:
             },
             "train" : {
                 "cost" : {
-                    "gold" : 0,
+                    "gold" : 10,
                     "wood" : 0,
                     "stone" : 0,
-                    "food"  : 15
+                    "food"  : 0
                 },
-                "time" : 10
+                "time" : 6
             }
         },
         "farm" : {
@@ -163,9 +163,9 @@ class Building:
                     "gold" : 10,
                     "wood" : 0,
                     "stone" : 0,
-                    "food"  : 15
+                    "food"  : 0
                 },
-                "time" : 10
+                "time" : 6
             }
         },
         "house" : {
@@ -180,12 +180,12 @@ class Building:
             },
             "train" : {
                 "cost" : {
-                    "gold" : 0,
+                    "gold" : 10,
                     "wood" : 0,
                     "stone" : 0,
                     "food"  : 0
                 },
-                "time" : 0
+                "time" : 6
             }
         }
     }

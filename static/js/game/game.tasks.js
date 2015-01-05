@@ -220,6 +220,7 @@ game.tasks = {
 			},
 			"static/img/game/resource/people.png");
 	},
+
 	/*
 	 * Training workers
 	 */
@@ -232,6 +233,7 @@ game.tasks = {
 	 * 
 	 */
 	"train_workers": function(data) {
+
 		return new Task(data,
 			'Training <span class="bold">' + data.number + "</span> " + game.constructions.buildings[data.to].worker(parseInt(data.number)), {
 				"url": '/me/people/move',

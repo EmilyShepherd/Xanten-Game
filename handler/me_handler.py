@@ -117,50 +117,6 @@ class MeHandler(DefaultHandler):
                 self.user.stone -= cost['stone']
                 self.user.food  -= cost['food']
 
-                queue           = Queue()
-                queue.queueType = 'people'
-                queue.number    = number
-                queue.name      = administration
-                self.user.addQueue(queue, building['time'] * number)
-                queue.put()
-
-                self.json['status'] = 'moved'
-                self.json['queue']  = queue.toDict()
-
-            self.user.put()
-
-    def createPeople(self):
-        self.checkLogin()
-        self.user.updateValues()
-
-        number = int(self.request.POST['number'])
-
-        if number <= 0:
-            self.stderr('Number should be a positive integer')
-        # Check that the from and to locations actually exist
-        else:
-            # The number of people has an impact on resource
-            # calcuations, so update this value now before moving the
-            # people
-            self.user.updateValues()
-
-            building = Building.buildings['administration']['train']
-            cost     = building['cost']
-
-            # You need to pay for what you training!
-            if         self.user.gold  < cost['gold']    \
-                    or self.user.wood  < cost['wood']    \
-                    or self.user.stone < cost['stone']   \
-                    or self.user.food < cost['food']:
-                self.stderr('Not enough resources!')
-            # All checks successful, take the resources from the user
-            # and put this into the building queue
-            else:
-                self.user.gold  -= cost['gold']
-                self.user.wood  -= cost['wood']
-                self.user.stone -= cost['stone']
-                self.user.food  -= cost['food']
-
                 setattr(
                     self.user, fromAttr,
                     getattr(self.user, fromAttr) - number
@@ -169,12 +125,32 @@ class MeHandler(DefaultHandler):
                 queue           = Queue()
                 queue.queueType = 'people'
                 queue.number    = number
-                queue.name      = 'administration'
+                queue.name      = moveTo
                 self.user.addQueue(queue, building['time'] * number)
                 queue.put()
 
-                self.json['status'] = 'created'
+                self.json['status'] = 'moved'
                 self.json['queue']  = queue.toDict()
 
-            self.user.put()  
+            self.user.put()
+
+    # def createPeople(self):
+    #     self.checkLogin()
+    #     self.user.updateValues()
+
+    #     moveTo   = self.request.POST['to']
+    #     number   = int(self.request.POST['number'])
+
+    #     if number <= 0:
+    #         self.stderr('Number should be a positive integer')
+    #     # Check that the from and to locations actually exist
+    #     elif not self.user.hasBuilding(moveTo):
+    #         self.stderr('You don\'t have that kind of building')
+    #     else:
+    #         # The number of people has an impact on resource
+    #         # calcuations, so update this value now before moving the
+    #         # people
+    #         self.user.updateValues()
+            
+    #     self.user.put()    
         

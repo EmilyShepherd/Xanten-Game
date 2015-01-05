@@ -319,7 +319,7 @@ game.constructions.buildings = {
 				"resources": {
 					"wood": 0.3 * level * game.player.city.buildings.lumberjack.num * game.player.city.buildings.lumberjack.people,
 					},
-				people: Math.ceil(Math.pow(4, level))
+				people: Math.pow(4, level)
 			});
 		},
 		/**

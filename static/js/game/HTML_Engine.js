@@ -1972,7 +1972,7 @@ HTML_Engine.messages = {
 		var html = "";
 		for(var i = 0; i < game.player.messages.length; i++) {
 			var msg = game.player.messages[i];
-			html += "<div class='heading'><span class='bold'>From: " + game.worldMap.getCityById(game.msg.from) + "</span><input msg='" + msg.id + "' class='confirm_see' value='See message' /></div>";
+			html += "<div class='heading'><span class='bold'>From: " + game.worldMap.getCityById(msg.from) + "</span><input msg='" + msg.id + "' class='confirm_see' value='See message' /></div>";
 		}
 		return (html === ''?"You have no message :(":html);
 	},

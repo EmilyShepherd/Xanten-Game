@@ -59,12 +59,8 @@ Game.prototype.init = function() {
 	this.cityMap.init();
 	this.worldMap.init();
 
-	// deleloper
-	if (developer) {
-		this.selectMap(game[developer.settings.defaultMap + "Map"]);
-	} else {
-		this.selectMap(game.cityMap);
-	}
+	this.selectMap(game.cityMap);
+	
 
 	// graphics part
 	Window.init();

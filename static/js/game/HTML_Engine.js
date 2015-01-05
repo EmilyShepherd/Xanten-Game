@@ -828,7 +828,7 @@ HTML_Engine.inside_mill = {
 					}
 				}],
 				performAction: function() {
-					game.performTask("untrain_workers", {
+					game.performTask("untrain_miller", {
 						from: "mill",
 						to: "administration",
 						number: HTML_Engine.chooser.fetch("miller_untrain", "units")
@@ -970,7 +970,7 @@ HTML_Engine.inside_mine = {
 					}
 				}],
 				performAction: function() {
-					game.performTask("untrain_workers", {
+					game.performTask("untrain_miner", {
 						from: "mine",
 						to: "administration",
 						number: HTML_Engine.chooser.fetch("mine_untrain", "units")
@@ -1280,7 +1280,7 @@ HTML_Engine.inside_lumberjack = {
 					}
 				}],
 				performAction: function() {
-					game.performTask("untrain_workers", {
+					game.performTask("untrain_lumberjack", {
 						from: "lumberjack",
 						to: "administration",
 						number: HTML_Engine.chooser.fetch("lumberjack_untrain", "units")
@@ -1422,7 +1422,7 @@ HTML_Engine.inside_farm = {
 					}
 				}],
 				performAction: function() {
-					game.performTask("untrain_workers", {
+					game.performTask("untrain_farmer", {
 						from: "farm",
 						to: "administration",
 						number: HTML_Engine.chooser.fetch("farm_untrain", "units")

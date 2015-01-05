@@ -9,6 +9,12 @@ game.actions = {
 			game.currentMap.deselect();
 		});
 	},
+	"seeMessage": function(args) {
+		return new Action("Message nr. " + args.id, HTML_Engine.seeMessage, function() {});
+	},
+	"messages": function() {
+		return new Action("All messages", HTML_Engine.messages, function() {});
+	},
 	"available_buildings": function() {
 		return new Action("Create a building", HTML_Engine.getAvailableBuildings, function() {
 			game.currentMap.deselect();

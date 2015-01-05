@@ -40,7 +40,10 @@ Window.init = function() {
 	});
 	$("#news_clear").click(function() {
 		Window.newsBoard.clear();
-	});
+	}); 
+	$("#see_messages").click(function(){
+		game.performAction('messages');
+	})
 	Window.update();
 	Window.refresh();
 };
@@ -70,7 +73,7 @@ Window.updateResources = function() {
  * @memberOf Window
  */
 Window.updateStatistics = function() {
-	$("#resources #people").html(HTML_Engine.shortResourceRepresentation(game.player.city.getNumberOfPeople()));
+	$("#resources #people").html("<span class='bold'>" + HTML_Engine.shortResourceRepresentation(game.player.city.getNumberOfPeople()) + "</span>/" + HTML_Engine.shortResourceRepresentation(game.constructions.buildings.house.capacity().people ) );
 	$("#resources #gold").html(HTML_Engine.shortResourceRepresentation(game.player.resources.gold));
 };
 
@@ -79,7 +82,7 @@ Window.updateStatistics = function() {
  * @memberOf Window
  */
 Window.updateDetailsCity = function() {
-	$("#city_details #name").html(game.player.name);
+	$("#city_details #number_of_messages").html(game.player.messages.length);
 	$("#city_details #level").html("Level: " + game.player.getLevel());
 	$("#city_details #type").html(game.organization.getByLevel("name", game.player.getLevel()));
 };
